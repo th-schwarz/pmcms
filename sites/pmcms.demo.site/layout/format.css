@@ -1,0 +1,274 @@
+/*
+ * IMPORTENT: you have to use fix font-size! If not, you have a different view in the fckeditor!
+ *
+ * basic values: 
+ * - inner width of the content area: 610px
+ * - total body width: 800px
+ * - total menu width: 150px
+ */
+ 
+/**** basic formats ****/
+
+* {
+	margin: 0px;
+	padding: 0px;
+	border: 0px;
+}
+
+body {
+	margin:0 auto;  /* main-Box centered in IE > 5  */
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size: 100.1%; 
+}
+
+
+h1, h2, h3 {
+	margin-top: 10px;
+	margin-bottom: 5px;
+	line-height:1.4em;
+}
+
+h1 { 
+	margin-top: 0px;
+	padding: 5px;
+	margin-bottom: 1px;
+	background-color: rgb(229, 229, 229);
+	font-weight: bold;
+	font-size: 16pt;
+}
+
+h2 { 
+	font-weight: bold;
+	font-style: italic;
+	font-size: 12pt; 
+}
+
+h3 { 
+	font-size: 10pt;
+	font-style: italic;
+}
+
+hr {
+	margin-top: 10px;
+}
+
+p { 
+	margin-top: 5px;
+	font-size: 12pt;
+	text-align: justify;
+}
+
+ul {
+	font-size: 10pt;
+	margin-left: 40px;
+}
+
+ol { 
+	font-size: 10pt;
+	margin-left: 40px;
+}
+
+a,a:active,a:focus,a:link,a:visited {
+	display: inline; 
+	color: #003399; 
+}
+
+
+.remark {
+	font-size: 9pt;
+	line-height: 1.0em;
+	margin: 20px;
+	padding-left: 5px;
+	border-left-width: 5px;
+	border-left-style: solid;
+	border-left-color: #FF0000;
+}
+
+
+
+/**** main boxes ****/
+
+#body {
+	width: 800px;
+	margin: 20px auto; 
+	text-align:center; 
+	border:1px solid silver;
+}
+
+
+#header {
+	padding: 10px;
+	border-bottom:1px solid silver;
+	text-align:left;
+	background-color : #FFFFCC;
+}
+
+#nested {
+	text-align: left;
+}
+
+#content {
+	margin-left: 160px;
+	padding: 15px;
+	border-left:1px solid silver;
+}
+
+table.gallery {width:608px;}
+
+.gallery_thumbnail {
+	margin: 0 auto; 
+	padding: 10px 3px;
+	width: 250px;
+	height: auto; 
+	border:1px solid silver;
+	margin-top: 20px; 
+}
+
+
+#footer {
+	clear:both;
+	padding:10px;
+	border-top: 1px solid silver;
+}
+
+#menu_page {
+	background-color: #E6F0FF;
+	margin-bottom: 2px;
+	padding: 5px;
+}
+
+#menu_image {
+	background-color: #E6F0FF;
+	margin-bottom: 2px;
+	padding: 5px;
+}
+
+#download {
+	font-size:75%;
+	margin-top: 30px;  
+}
+
+
+/**** context styles ****/
+
+#header h1 {
+	font-size: 16pt;
+	background-color : #FFFFCC;
+}
+#header p {
+	text-align: right;
+}
+
+#content #breadcrumbs p {
+	font-size: 8pt;
+	margin-bottom: 10px;
+}
+
+#content .gallery_thumbnail {
+	text-align: center; 
+}
+#content .gallery_thumbnail p {
+	text-align: center; 
+	font-size: 10pt;
+}
+
+#menu_page p {
+	font-size: 10pt;
+}
+
+#menu_image p {
+	font-size: 10pt;
+}
+
+#footer p {
+	color: silver;
+   font-size: 8pt;
+}
+#footer a,a:active,a:visited{
+	margin: 0px;
+	font-size: 8pt;
+    color: silver;
+    display: inline;
+    font-style: italic;
+    text-decoration: none;
+}
+
+
+/* main menu */
+
+#menu_main {
+	float: left;
+	margin-top: 10px;
+	width: 150px;
+	padding: 5px;
+	border-right:1px solid silver;
+}
+
+#menu_main a { 
+	text-decoration: none;
+	font-style: normal;
+	padding: 8px;
+	margin-bottom: 4px;
+	display: block;
+	color: #003399;
+	font-size: 10pt; 
+}
+#menu_main ul li ul li a {
+	font-style: normal;
+	width: 116px;
+	margin-left: 15px;
+}
+#menu_main ul {
+	list-style-type: none;
+	margin: 0px;
+	padding: 0px;
+}
+#menu_main ul li {
+	width: 149px;
+}
+#menu_main li a:hover {
+	font-weight:bold;
+}
+#menu_main ul li .selected {
+	border-right-width: 2px;
+	border-right-style: solid;
+	border-right-color: #003399;
+	background-color: #E6F0FF;
+}
+
+/* gallery */
+
+.gallery {
+	border-spacing: 10px; /* not for IE !! */
+	width:80%;
+	margin: 0 auto; 
+}
+
+td.thumbnail {
+	vertical-align: top;
+	padding: 10px;
+	margin: 25px;
+	border: 2px solid #003399;
+	background: #FFFFCC; 
+}
+.thumbnail p {
+	text-align: center;
+	font-size: 8pt; 
+}
+#gallery_image {
+	width: 500px;
+	margin: 0 auto;
+	padding: 5px;
+	text-align: center; 
+	border: 2px solid #003399;
+	background: #FFFFCC; 
+
+}
+#gallery_image p {
+	text-align: center;
+}
+#gallery_image h1 {
+	font-size: 14px;
+	margin: 5px 0; 
+	background: #FFFFCC; 
+}
