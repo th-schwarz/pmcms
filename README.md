@@ -12,14 +12,11 @@ pmcms is distributed under the [GPL](http://www.gnu.org/licenses/gpl.html) and [
 early-state project and isn't runnable at the moment!
 
 ## Changes 
+*   3.0.0-SNAPSHOT
+    
+    *   internal:
+        *   changed to commons-codec for encoding/decoding passwords
 
-* 3.0.0-SNAPSHOT
-
-  * internal:
-
-    * changed to commons-codec for encoding/decoding passwords
-
-  * features and improvements:
-  
-    * each site can have its own properties
-    * changed to ckeditor 4.*
+    *   features and improvements:
+        *   each site can have its own properties
+        *   changed to ckeditor 4.*
