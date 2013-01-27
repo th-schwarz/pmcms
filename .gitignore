@@ -1,6 +1,10 @@
+/.classpath
+/.project
+/.settings.properties
 /poormans.properties
 /xulrunner
-/sites
 /log
 /dev_lib_swt
 /bin
+/.settings
+/.DS_Store
