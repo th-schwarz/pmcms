@@ -1,0 +1,12 @@
+#parse('user_menu.vm')
+<div id="menu_main">
+#mainmenu()
+</div>
+
+<div id="content">
+	<h1>$image.title</h1><br />
+	<p>$imagetagtool.setImage($image).setAlt($image.title).setHeight($image.gallery.imageMaxHeight).setWidth($image.gallery.imageMaxWidth).fitToSize()	</p>
+	<p>$image.description</p>
+#pagemenu()
+#imagemenu()
+</div>

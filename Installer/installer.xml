@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<installation version="1.0">
+	<!--  common infos -->
+	<info>
+		<appname>Poor Man's CMS</appname>
+		<appversion>@{poormans.version}</appversion>
+		<appsubpath>PoorMansCMS</appsubpath>
+		<authors>
+			<author name="Thilo Schwarz" email="th-schwarz@users.sourceforge.net" />
+		</authors>
+		<url>http://poormans.sourceforge.net</url>   
+		<javaversion>1.6</javaversion>    
+		<requiresjdk>no</requiresjdk>
+    	<run-privileged condition="izpack.windowsinstall.vista|izpack.windowsinstall.7"/>
+	</info>
+	
+	<!-- some variables -->
+	<variables>
+		<variable name="backup_dir" value="PoorMansCMS_backup"/> <!-- default -->
+	</variables>
+	
+	<dynamicvariables>
+		<!-- TODO replace condition 'izpack.macinstall.osx' if IZPACK-806 is deployed -->
+		<variable name="jvm_arguments" value="" condition="!installonosx"/>
+		<variable name="jvm_arguments" value="-d32 -XstartOnFirstThread" condition="installonosx"/>
+	</dynamicvariables>
+	
+	<conditions>
+		<condition type="java" id="installonosx">
+			<java>
+				<class>com.izforge.izpack.util.OsVersion</class>
+				<field>IS_OSX</field>
+			</java>
+			<returnvalue type="boolean">true</returnvalue>
+		</condition>
+	</conditions>
+	
+	<!-- gui prefs -->
+	<guiprefs width="640" height="480" resizable="no">  
+		<modifier key="useHeadingPanel" value="yes"/>
+		<modifier key="headingImageOnLeft" value="yes"/>
+		<modifier key="headingLineCount" value="1"/>
+		<modifier key="headingFontSize" value="1.5"/>
+		<modifier key="headingBackgroundColor" value="0x00D1EFD9"/>
+		<modifier key="headingPanelCounter" value="text"/>
+		<modifier key="headingPanelCounterPos" value="inHeading"/>
+	</guiprefs>
+	
+	<!-- locals -->
+	<locale>
+		<langpack iso3="eng"/>
+	</locale>
+	
+	<!-- some resources -->
+	<resources>
+		<res id="HTMLInfoPanel.license" src="LICENSE"/>
+		<res id="HTMLInfoPanel.info" src="Installer/IzPack/info.txt"/>  
+		<res id="userInputSpec.xml" src="Installer/IzPack/input.xml" type="xml" parse="yes"/>
+		<res id="userInputLang.xml_eng" src="Installer/IzPack/inputLang_eng.xml"/>
+		<res id="TargetPanel.dir.macosx" src="Installer/IzPack/target.mac.res"/>
+		<res id="TargetPanel.dir.unix" src="Installer/IzPack/target.unix.res"/>
+		<res id="Heading.image" src="gfx/icon_32x32.gif"/>
+	</resources>
+	
+	<!-- panels -->
+	<panels>
+		<panel classname="HelloPanel"/>
+		<panel classname="HTMLInfoPanel" id="license"/>
+		<panel classname="HTMLInfoPanel" id="info"/>
+		<panel classname="TargetPanel"/> 
+		<panel classname="UserInputPanel"/>
+		<panel classname="PacksPanel"/>
+		<panel classname="InstallPanel"/>
+		<panel classname="SimpleFinishPanel"/>
+	 </panels>
+	 
+	<!-- packs --> 
+	<packs>
+		<pack id="Core" name="Core files" required="yes">
+			<description>The core files</description>
+			<file src="README" targetdir="$INSTALL_PATH"/>
+			<file src="LICENSE" targetdir="$INSTALL_PATH"/>
+			<file src="NOTICE" targetdir="$INSTALL_PATH"/>
+			<file src="changelog" targetdir="$INSTALL_PATH"/>
+			<file src="Installer/dist/start.jar" targetdir="$INSTALL_PATH"/>
+			<file src="defaults/redirector.html" targetdir="$INSTALL_PATH/defaults"/>
+			<file src="defaults/content.vm" targetdir="$INSTALL_PATH/defaults"/>
+			<file src="defaults/dummy.jpg" targetdir="$INSTALL_PATH/defaults"/>
+			<file src="defaults/editor-button.css" targetdir="$INSTALL_PATH/defaults"/>
+			
+			<file src="Installer/IzPack/packs/poormans.properties" targetdir="$USER_HOME/PoorMansCMS"/>
+			<parsable targetfile="$USER_HOME/PoorMansCMS/poormans.properties" type="javaprop"/>
+				
+			<file src="Installer/dist/poormans_classes.jar" targetdir="$INSTALL_PATH/lib"/>
+			<fileset dir="lib" includes="**" targetdir="$INSTALL_PATH/lib"/>
+				
+			<fileset dir="defaults/sites" includes="**" targetdir="$INSTALL_PATH/defaults/sites"/>
+			<fileset dir="" includes="FCK*.zip" targetdir="$INSTALL_PATH"/>
+			<fileset dir="sourceeditor" includes="**" targetdir="$INSTALL_PATH/sourceeditor"/>
+			<fileset dir="help" includes="**" targetdir="$INSTALL_PATH/help"/>
+			<fileset dir="gfx" includes="**" targetdir="$INSTALL_PATH/gfx"/>      		
+		</pack>
+			
+		<pack id="SWT" name="SWT files" required="yes">
+			<description>The SWT files</description>
+			<fileset dir="Installer/IzPack/packs/swt/gtk-linux-x86" targetdir="$INSTALL_PATH/lib/swt">
+				<os name="linux"/>
+			</fileset>
+			<fileset dir="Installer/IzPack/packs/swt/win32-win32-x86" targetdir="$INSTALL_PATH/lib/swt">
+				<os family="windows"/>
+			</fileset>
+			<fileset dir="Installer/IzPack/packs/swt/cocoa-macosx" targetdir="$INSTALL_PATH/lib/swt" 
+				condition="installonosx"/>
+		</pack>
+		
+		<pack id="A simple demo site" required="no" name="Demo Site">
+			<description>A Simple Demo Site! It's stored in the subdirectory demo.</description>
+			<file src="Installer/IzPack/packs/demo_site.poormans_backup" targetdir="$INSTALL_PATH/demo"/>
+		</pack>
+	 </packs>
+</installation>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- 
+	Configuration file for the userInputPanel.
+	
+	@version $Id: inputLang_eng.xml 1878 2009-11-09 13:37:40Z th-schwarz $
+	@author <a href="mailto:th-schwarz@users.sourceforge.net">Thilo Schwarz</a>
+-->
+
+<langpack>
+	<str id="panelprop.title" txt="Some properties for Poor Man's CMS" />
+
+	<str id="panelprop.jetty_port.label" txt="Server port:" />
+
+	<str id="panelprob.imagemagick_command.label" txt="Choose ImageMagick's convert executable:" />
+	<str id="panelprob.imagemagick_dpi.label" txt="Resolution of the web based images (dpi):" />
+
+	<str id="panelprob.backupdir.label" txt="Backup directory:" />
+	<str id="panelprob.jvmarguments.label" txt="JVM arguments (not recommented):" />
+</langpack>

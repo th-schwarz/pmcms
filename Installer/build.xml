@@ -1,0 +1,181 @@
+<!-- ======================================================================          
+
+     ant tasks for PoorMansCMS' Installer  
+     
+     Hint: These targets don't check if poormans' build process was successfull.
+           This have to be checked before!
+     
+     @version $Id: build.xml 2116 2011-06-27 08:39:57Z th-schwarz $
+     @author <a href="mailto:th-schwarz@users.sourceforge.net">Thilo Schwarz</a>
+	                                                       
+     ====================================================================== -->
+
+
+<project name="PoorMansCMS-Installer" basedir="../" default="build">
+
+	<!-- properties -->
+	<property name="project.dir" value="${basedir}/Installer"/>
+	<property name="poormans_home" value="${basedir}"/>
+	
+	<property file="${project.dir}/installer.properties"/>
+	<property file="${poormans_home}/${poormans.dir.src}/de/thischwa/pmcms/configuration/common.properties" />
+
+	<property name="dir.dist" location="${project.dir}/dist"/>
+	<property name="izpack.dir" location="${project.dir}/IzPack"/>
+	<property name="izpack.dir.swt" value="${izpack.dir}/packs/swt"/>
+	
+	<property name="manifest-built-by" value="build.xml:${poormans.name}_${poormans.version}"/>
+
+	<property name="dir.lib" location="${poormans_home}/${poormans.dir.lib}"/>
+
+	<property name="launcher.dir" location="${project.dir}/launcher"/>
+	<property name="launcher.jar" location="${dir.dist}/start.jar"/>
+	<property name="classes.jar" location="${dir.dist}/${poormans.name}_classes.jar"/>
+
+	<property name="swt-version" value="swt-3.6.1"/>
+	<property name="arch.win" value="win32-win32-x86"/>
+	<property name="arch.linux" value="gtk-linux-x86"/>
+	<property name="arch.osx" value="cocoa-macosx"/>
+
+	<property name="tmp.zip.swt.linux-gtk" value="${dir.tmp}/${swt-version}-${arch.linux}.zip"/>
+	<property name="tmp.zip.swt.win32" value="${dir.tmp}/${swt-version}-${arch.win}.zip"/>
+	<property name="tmp.zip.swt.osx" value="${dir.tmp}/${swt-version}-${arch.osx}.zip"/>
+
+
+	<!-- compile the project -->
+	<target name="compile">		
+		<delete dir="${poormans.dir.classes}" />		
+		<mkdir dir="${poormans.dir.classes}"/>
+		<path id="libs">
+			<fileset dir="${poormans.dir.lib}" includes="**/*.jar" />
+			<fileset dir="${poormans.dir.src}" excludes="**/package-info.java"/>
+			<fileset dir="dev_lib_swt" includes="**/*.jar"/>
+		</path>
+		<javac destdir="${poormans.dir.classes}" failonerror="true" classpathref="libs" srcdir="${poormans.dir.src}" includeantruntime="false"/>
+		<copy todir="${poormans.dir.classes}">
+			<fileset dir="${poormans.dir.src}" includes="**/*.properties" />
+		</copy>
+	</target>
+	
+	
+	<!-- build the installer -->
+    <target name="build" depends="compile" description="Build the installer and dependent jars.">
+    	<delete dir="${dir.dist}"/>
+    	<mkdir dir="${dir.dist}"/>
+    	<antcall target="build.classes"/>
+    	<antcall target="build.launcher"/>
+    	<antcall target="build.installer"/>
+    </target>
+	
+	
+	<!-- build the launcher jar -->
+    <target name="build.launcher">
+		<path id="manifestPath">
+			<fileset dir="${poormans.dir.lib}">
+				<include name="ant-*.jar"/>
+				<include name="commons-logging-*.jar"/>
+				<include name="commons-lang-*.jar"/>
+				<include name="commons-cli-*.jar"/>
+				<include name="commons-io-*.jar"/>
+				<include name="log4j-*.jar"/>
+			</fileset>
+		</path>
+    	<pathconvert property="fixedPath" pathsep=" ">
+    		<path refid="manifestPath"/>
+    		<map from="${basedir}/" to=""/>
+    	</pathconvert>
+    	<jar destfile="${launcher.jar}">
+    		<fileset dir="${poormans.dir.classes}">
+			    <include name="net/sf/poormans/tool/launcher/**/*class"/>
+			    <include name="net/sf/poormans/tool/OS/**/*class"/>
+			    <include name="net/sf/poormans/server/Action.class"/>
+			    <include name="net/sf/poormans/Constants.class"/>
+    			<include name="net/sf/poormans/tool/XY.class"/>
+    			<include name="net/sf/poormans/tool/InternalAntTool*.class"/>
+    			<include name="net/sf/poormans/tool/CliParser.class"/>
+    			<include name="net/sf/poormans/configuration/BasicConfigurator.class"/>
+    			<include name="net/sf/poormans/configuration/common.properties"/>
+    			<include name="net/sf/poormans/tool/PropertiesTool.class"/>
+			</fileset>
+    		<manifest>
+    			<attribute name="Main-Class" value="de.thischwa.pmcms.tool.launcher.Launcher"/>
+    		    <attribute name="Built-By" value="${manifest-built-by}"/>
+    			<attribute name="Class-Path" value="${fixedPath}"/>
+    		</manifest>
+    	</jar>
+    </target>
+	
+	
+	<!-- build the poormans classes jar -->
+	<target name="build.classes" description="Build the classes jar.">
+		<jar destfile="${classes.jar}">
+			<fileset dir="${poormans.dir.classes}">
+   				<include name="**/*.*"/>
+    			<exclude name="net/sf/poormans/tool/launcher/**/*.class"/>
+			</fileset>
+			<manifest>
+				<attribute name="Built-By" value="${manifest-built-by}"/>
+				<attribute name="Url" value="http://poormans.sourceforge.net"/>
+				<attribute name="Implementation-Title" value="Poor Man's CMS"/>
+				<attribute name="Implementation-Version" value="${poormans.version}"/>
+    			<attribute name="PreMain-Class" value="de.thischwa.pmcms.Starter"/>
+			</manifest>
+		</jar>
+	</target>
+	
+	<!-- build the installer with 4.3.5
+	<target name="build.installer" description="Build the IzPack installer.">  
+	   	<taskdef name="izpack" 	classpath="${izpack_home}/lib/compiler.jar" classname="com.izforge.izpack.ant.IzPackTask"/>	
+	   	<izpack output="${dir.dist}/${poormans.name}_${poormans.version}.jar" 
+	   		input="installer.xml" installerType="standard" basedir="${basedir}" izPackDir="${izpack_home}/"
+	   		inheritall="true"        
+	   		compression="deflate"
+	        compressionlevel="9"/>
+	</target> -->
+	
+	<!-- build the installer 5.0.0 -->
+	<target name="build.installer" description="Build the IzPack installer.">  
+		<path id="izpackpath">
+			<fileset dir="${izpack_home}/lib">
+			    <include name="*.jar"/>
+			</fileset>
+		</path>
+	   	<taskdef name="izpack" classpathref="izpackpath" classname="com.izforge.izpack.ant.IzPackTask"/>	
+	   	<izpack output="${dir.dist}/${poormans.name}_${poormans.version}.jar" 
+	   		input="installer.xml" installerType="standard" basedir="${basedir}" izPackDir="${izpack_home}/"
+	   		inheritall="true"        
+	   		compression="deflate"
+	        compressionlevel="9"/>
+	</target>
+	
+	
+	<!-- extracts the required swt jar from the arch zips -->
+    <target name="extractswt" description="Extracts the required swt jar from the arch zips.">
+        <antcall target="extractswtjar">
+        	<param name="zip.file" value="${tmp.zip.swt.osx}"/>
+        	<param name="arch.type" value="${arch.osx}"/>
+        </antcall>
+        <antcall target="extractswtjar">
+        	<param name="zip.file" value="${tmp.zip.swt.linux-gtk}"/>
+        	<param name="arch.type" value="${arch.linux}"/>
+        </antcall>
+        <antcall target="extractswtjar">
+        	<param name="zip.file" value="${tmp.zip.swt.win32}"/>
+        	<param name="arch.type" value="${arch.win}"/>
+        </antcall>
+    </target>
+
+    <target name="extractswtjar">
+    	<property name="dir.tmp.swt" value="${dir.tmp}/swt"/>
+    	<delete dir="${dir.tmp.swt}"/>
+    	<mkdir dir="${dir.tmp.swt}"/>
+    	<unzip src="${zip.file}" dest="${dir.tmp.swt}">
+    	    <patternset>
+    	        <include name="swt.jar"/>
+    	    </patternset>
+    	</unzip>
+    	<move file="${dir.tmp.swt}/swt.jar" tofile="${izpack.dir.swt}/${arch.type}/swt.jar"/>
+    	<delete dir="${dir.tmp.swt}"/>
+    </target>
+
+</project>

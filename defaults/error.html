@@ -1,0 +1,63 @@
+## Page to show the stack trace of a fatal exception.
+##
+## @version $Id: error.html 2131 2011-07-06 14:37:04Z th-schwarz $
+## @author <a href="mailto:th-schwarz@users.sourceforge.net">Thilo Schwarz</a>
+
+
+## Print stack traces for an Exception and its causes
+#macro( printException $ex)
+<strong>$!ex.message</strong>
+<strong>$!ex.class.name</strong>
+#foreach($el in $ex.getStackTrace())
+$el<br />
+#end
+#if($ex.cause)
+<br/><em>Caused By:</em>
+#printException($ex.cause)
+#end
+#end
+
+#set( $sr = $servletrequest )
+
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+	<style type="text/css">
+		DIV#error {
+			text-align: left;
+		}
+
+		DIV#error p {
+			font-size: 8pt;
+		}
+
+		DIV#error h1 {
+			color: red;
+		}
+
+		DIV#error DIV#requestinfo {
+			font-weight: bold;
+			background-color: #F4FAFF;
+		}
+	</style>
+</head>
+
+<body>
+<div id="error">
+    <h1>Error Report:</h1>
+	<div id="requestinfo">
+   		<p>RequestedURL: $sr.RequestURL<br />
+   		   PathInfo: $sr.PathInfo<br />
+		   ContextPath: $sr.ContextPath<br />
+   		   #foreach($paramName in $sr.ParameterNames)
+   			  $paramName : $sr.getParameter($paramName) <br />
+   		   #end
+   		</p>
+	</div>
+	<hr />
+   	<p>#printException($exception)</p>
+</div>
+</body>
+</html>

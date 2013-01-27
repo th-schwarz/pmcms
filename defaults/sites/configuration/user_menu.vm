@@ -1,0 +1,60 @@
+#macro(mainmenu)
+<ul>#if( $!sitetool.WelcomePage )
+  #set( $welcomePage = $sitetool.WelcomePage )
+  #set( $currentPage = $sitetool.Page)
+  <li>
+    <a#if($welcomePage.equals($currentPage)) class="selected"#end href="$sitelinktool.getPage($welcomePage)">$utils.escape($welcomePage.title)</a>
+  </li>#end
+#foreach( $level in $sitetool.Site.sublevels )
+  <li>
+    <a#if($sitetool.hierarchyContains($level)) class="selected"#end href="$sitelinktool.getLevel($level)">$utils.escape($level.title)</a>
+    #if($level.hasSublevels())#submenu($level.sublevels)#end
+  </li>
+#end
+</ul>
+#end
+
+#macro(submenu $sublevels)
+        <ul>
+        #foreach( $sublevel in $sublevels)<li class="menu_main"><a#if($sitetool.hierarchyContains($sublevel)) class="selected"#end href="$sitelinktool.getLevel($sublevel)">$utils.escape($sublevel.title)</a></li>#end
+        </ul>
+#end
+
+
+
+#macro(pagemenu)
+#set( $page = $sitetool.Page )
+          #if( $sitetool.getHasPrevious($page) || $sitetool.getHasNext($page) )
+<hr  style="border: 1px dotted silver; margin-bottom: 5px;" />
+<div id="menu_page">
+<p>
+#if($sitetool.getHasPrevious($page))
+  <a href="$sitelinktool.getPreviousPage($page)">previous</a> &nbsp; &nbsp;
+#end
+#if($sitetool.getHasNext($page))
+  <a href="$sitelinktool.getNextPage($page)">next</a>
+#end
+</p>
+</div>
+#end
+#end
+
+
+
+#macro(imagemenu)
+#set( $image = $sitetool.Image )
+#if( $sitetool.getHasPrevious($image) || $sitetool.getHasNext($image) )
+<hr  style="border:1px dotted silver; margin-bottom: 5px;" />
+<div id="menu_image">
+<p>
+#if($sitetool.getHasPrevious($image))
+  <a href="$imagelinktool.getPrevious($image)">previous</a> &nbsp; &nbsp;
+#end
+#if($sitetool.getHasNext($image))
+  <a href="$imagelinktool.getNext($image)">next</a> &nbsp; &nbsp;
+#end
+<a href="$gallerylinktool.get($image)">back to gallery</a>
+</p>
+</div>
+#end
+#end 

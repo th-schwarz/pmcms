@@ -1,0 +1,18 @@
+## Velocity template to redirect to the root page of the root level, if there is no welcome page.
+##
+## @version $Id: redirector.html 2131 2011-07-06 14:37:04Z th-schwarz $
+## @author <a href="mailto:th-schwarz@users.sourceforge.net">Thilo Schwarz</a>
+
+<html>
+<head>
+<script language="javascript">window.location.href="$linktorootpage";</script>
+<meta http-equiv="refresh" content="0; URL=$linktorootpage" />
+</head>
+<body>
+	<h3 >
+		Ihr Browser erlaubt keine Weiterleitung! / Your browser doesn't support forwarding!
+	</h3>
+	<p><a href="$linktorootpage">hier geht's weiter</a></p>
+	<p><a href="$linktorootpage">continue here</a></p>
+</body>
+</html>

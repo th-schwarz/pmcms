@@ -1,0 +1,25 @@
+Important information, read it careful!
+
+Supported OSs: 
+   - OS X
+   - Linux (GTK)
+   - Windows >= XP
+
+OS independent requirements: 
+     Sun Java runtime 6 or newer
+
+Requirements to run on OS X:
+    - Safari 3.0 or newer
+
+Requirements to run on Linux:
+     XULRUNNER, see the hint below
+     
+Requirements to run on Windows:
+     XULRUNNER, InternetExplorer 5.5 or newer
+     
+Hint for using XULRunner:
+    You can use XULRunner in every OS you want (http://releases.mozilla.org/pub/mozilla.org/xulrunner/releases/).
+    Install it and set poormans.xulrunner=true in poormans.properties.
+    WARNING Because of an SWT-XULRUNNER issue just version 3.6.* is working!
+    If you won't install XULRUNNER on your system, you can copy all required files from the sdk-bin directory
+    to the subfolder 'xulrunner' inside the application directory.

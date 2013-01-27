@@ -1,0 +1,8 @@
+
+input.submit_button {
+	font-size: 7pt;
+	padding: 2px 8px;
+	color: black;
+	border: medium outset;
+	background-color: silver;
+}

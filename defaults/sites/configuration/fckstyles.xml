@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Styles>
+	<Style name="Remark" element="p">
+		<Attribute name="class" value="remark" />
+	</Style>
+</Styles>

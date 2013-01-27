@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- 
+	Configuration file for the userInputPanel.
+	
+	@version $Id: input.xml 1878 2009-11-09 13:37:40Z th-schwarz $
+	@author <a href="mailto:th-schwarz@users.sourceforge.net">Thilo Schwarz</a>
+-->
+
+<userInput>
+	<panel order="0">
+		<field type="title" id="panelprop.title"/>
+		
+		<!--field type="rule" variable="jetty_port">
+			<spec id="panelprop.jetty_port.label"
+				set="0:8080:com.izforge.izpack.panels.userinput.processor.PortProcessor" layout="N:5:5" />
+			<validator class="com.izforge.izpack.panels.userinput.validator.PortValidator"
+				txt="Invalid port number!" />
+		</field-->
+		<field type="text" variable="jetty_port">
+			<spec id="panelprop.jetty_port.label" set="8080" size="15"/>
+		</field>
+		<field type="search" variable="imagemagick_command">
+			<spec id="panelprob.imagemagick_command.label" size="15" type="file" result="file"/>
+		</field>
+		<!-- field type="rule" variable="imagemagick_dpi">
+			<spec id="panelprob.imagemagick_dpi.label" layout="N:3:3" set="0:75"/>
+			<validator class="com.izforge.izpack.panels.userinput.validator.NotEmptyValidator"
+				txt="The dpi number is mandatory!" />
+		</field-->
+		<field type="text" variable="imagemagick_dpi">
+			<spec id="panelprob.imagemagick_dpi.label" size="15" set="75"/>
+		</field>
+		<field type="search" variable="backup_dir">
+			<spec id="panelprob.backupdir.label" size="15" type="directory" result="directory"/>
+			<validator class="com.izforge.izpack.panels.userinput.validator.NotEmptyValidator"
+				txt="Backup directory is mandatory!" />
+		</field>
+		
+		<field type="text" variable="jvm_arguments">
+			<spec id="panelprob.jvmarguments.label" size="15" set="${jvm_arguments}"/>
+		</field>
+	</panel>
+</userInput>

@@ -1,0 +1,78 @@
+<!doctype html>
+#set( $cmddir = 'codemirror' )
+<html>
+  <head>
+	<base href="$admintool.Baseurl"/>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="$cmddir/lib/codemirror.css">
+    <script src="$cmddir/lib/codemirror.js"></script>
+    <script src="$cmddir/lib/util/loadmode.js"></script>
+    <style type="text/css">
+		#header {
+			padding: 10px;
+			margin-bottom: 10px;
+			border: 1pt solid black;
+			background-color : #FFFFCC;
+		}
+		#code {
+			with: 100%;
+			height: 550px;
+		}
+      .CodeMirror {border: 1px solid black;}
+      .activeline {background: #e8f2ff !important;}
+    </style>
+  </head>
+<body>
+<div id="header">
+	<h1>#if($admintool.isMacro())Macro: #elseif($admintool.isTemplate())Template: #end$!sr.name</h1>
+</div>
+<p><label for="mode">Mode: </label>
+<select id="mode" size="1" onchange="change()">
+	<option value="velocity">Velocity</option>
+	<option value="htmlmixed">HTML</option>
+</select>
+</p>
+
+<form method="post" action="$link">
+<input type="hidden" name="$contexttool.TypeDescriptor" value="$type" /> 
+<input type="hidden" name="id" value="$!sr.Id" /> 
+<p><label for="name">Name: </label><input type="text" id="name" name="name" value="$!sr.name"/></p>
+#if($admintool.isTemplate())
+<p><label for="type">Type: </label> &nbsp;
+	<input type="radio" id="type" name="type" value="page"#if("$!sr.Type"=='PAGE') checked#end/> Page &nbsp;&nbsp;&nbsp;
+	<input type="radio" id="type" name="type" value="gallery"#if("$!sr.Type"=='GALLERY') checked#end/> Gallery &nbsp;&nbsp;&nbsp;
+	<input type="radio" id="type" name="type" value="image"#if("$!sr.Type"=='IMAGE') checked#end/> Image &nbsp;&nbsp;&nbsp;
+</p>
+#end
+<p><textarea id="code" name="code" rows="0" cols="0">$utils.escape($!sr.text)</textarea></p>
+<input class="submit_button" type="submit" alt="" value="OK" />
+</form>
+
+	<script>      
+		CodeMirror.modeURL = "$cmddir/mode/%N/%N.js";
+		var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
+			tabMode : "indent",
+			matchBrackets : true,
+			lineNumbers : true,
+			lineWrapping : true,
+			indentUnit : 4,
+			indentWithTabs : true,
+			onCursorActivity : function() {
+				editor.setLineClass(hlLine, null, null);
+				hlLine = editor.setLineClass(editor.getCursor().line, null, "activeline");
+			}
+		});
+		var hlLine = editor.setLineClass(0, "activeline");
+		var modeInput = document.getElementById("mode");
+		function change() {
+		   editor.setOption("mode", modeInput.value);
+		   CodeMirror.autoLoadMode(editor, modeInput.value);
+		};
+
+		// set default
+		#if($admintool.isMacro()) modeInput.selectedIndex=0; #elseif($admintool.isTemplate()) modeInput.selectedIndex=1; #end
+		change();
+	</script>
+
+</body>
+</html>

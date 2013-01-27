@@ -1,0 +1,28 @@
+## Velocity marcos to handle content and editor.
+##
+## @version $Id: content.vm 1883 2009-11-16 16:58:36Z th-schwarz $ 
+## @author <a href="mailto:th-schwarz@users.sourceforge.net">Thilo Schwarz</a>
+
+
+#macro(contentview $fieldname $width $height)
+#if($contexttool.isEditView())
+#set( $renderableid = -1 )
+#if( !$utils.isEmpty($!page) )
+	#set( $renderableid = $page.Id )
+#elseif( !$utils.isEmpty($!gallery) )
+	#set( $renderableid = $gallery.Id )
+#end
+#set( $objectHeight = $height + 50 )
+<form method="POST" action="$linktool.setSave()">
+<input type="hidden" name="$contexttool.ED" value="$fieldname" />
+<input type="hidden" name="$contexttool.TypeDescriptor" value="$contexttool.TypePage" /> 
+<input type="hidden" name="id" value="$renderableid" /> 
+
+$editor.get($fieldname, $sitetool.getContent($fieldname), "$width", "$height")
+
+<input class="submit_button" type="submit" alt="" value="OK" />
+</form>
+#else
+$sitetool.getContent($fieldname)
+#end	
+#end

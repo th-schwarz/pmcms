@@ -1,0 +1,15 @@
+#parse('user_menu.vm')
+<div id="menu_main">
+#mainmenu()
+</div>
+
+<div id="content">
+	<h1>$sitetool.level.title</h1>
+	#foreach($image in $gallery.images)
+	<div class="gallery_thumbnail">
+		<p style="text-align: center;"><a href="$imagelinktool.getImage($image)">$imagetagtool.setImage($image).setAlt($image.title).setHeight($gallery.thumbnailMaxWidth).setWidth($gallery.thumbnailMaxHeight).fitToSize()</a></p>
+		<p>$image.title</p>
+	</div>
+	#end
+#pagemenu()
+</div>
