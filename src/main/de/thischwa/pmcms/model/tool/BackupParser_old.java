@@ -84,7 +84,6 @@ public class BackupParser_old implements IBackupParser {
 		Element transfer = (Element) root.selectSingleNode("transfer");
 		site = new Site();
 		site.setUrl(root.attributeValue("url"));
-		site.setIndexPageName(root.attributeValue("indexPage"));
 		site.setTitle(root.selectSingleNode("title").getText());
 		site.setTransferHost(transfer.attributeValue("host"));
 		site.setTransferLoginUser(transfer.attributeValue("user"));

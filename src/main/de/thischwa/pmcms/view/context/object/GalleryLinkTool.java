@@ -91,7 +91,7 @@ public class GalleryLinkTool implements IContextObjectGallery, IContextObjectNee
 			Gallery gallery = image.getParent();
 			if (isExportView) {
 				if (OrderableInfo.isFirst(gallery)) {
-					setGallery(PoInfo.getSite(gallery).getIndexPageName());
+					setGallery(InitializationManager.getSiteProperty("pmcms.site.export.file.welcome"));
 				} else {
 					setGallery(gallery.getName().concat(".")
 					        .concat(InitializationManager.getProperty("pmcms.export.extention")));

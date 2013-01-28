@@ -53,7 +53,6 @@ public class DialogFieldsSiteComp extends Composite implements IDialogFieldsVali
 	private String oldSiteUrl = null;
 	private DialogCreator dialogCreator = null;
 	private Label label = null;
-	private Text textIndexPage = null;
 	private DESCryptor cryptor;
 
 	public DialogFieldsSiteComp(Composite parent, int style, Site site) {
@@ -100,14 +99,6 @@ public class DialogFieldsSiteComp extends Composite implements IDialogFieldsVali
 		textTitle.setTextLimit(256);
 		textTitle.setLayoutData(gridDataText);
 		textTitle.setText(StringUtils.defaultString(site.getTitle()));
-		label = new Label(this, SWT.NONE);
-		label.setText("*  ".concat(LabelHolder.get("dialog.pojo.site.fields.welcomepage"))); //$NON-NLS-1$
-		label.setLayoutData(gridDataLabel);
-		textIndexPage = new Text(this, SWT.BORDER);
-		textIndexPage.setTextLimit(256);
-		textIndexPage.setLayoutData(gridDataText);
-		textIndexPage.setText(StringUtils.defaultIfEmpty(site.getIndexPageName(), "index.html")); //$NON-NLS-1$
-		
 
 		label = new Label(this, SWT.NONE);
 		label.setText(LabelHolder.get("dialog.pojo.site.fields.ftp.host")); //$NON-NLS-1$
@@ -148,12 +139,7 @@ public class DialogFieldsSiteComp extends Composite implements IDialogFieldsVali
 			dialogCreator.setErrorMessage(LabelHolder.get("dialog.pojo.site.error.url")); //$NON-NLS-1$
 			return false;
 		}
-		if (StringUtils.isBlank(textIndexPage.getText())) {
-			dialogCreator.setErrorMessage(LabelHolder.get("dialog.pojo.site.error.welcomepage")); //$NON-NLS-1$
-			return false;
-		}
 		site.setUrl(url);
-		site.setIndexPageName(textIndexPage.getText());
 		if (StringUtils.isNotEmpty(textTitle.getText()))
 			site.setTitle(textTitle.getText());
 		site.setTransferHost(textHost.getText());

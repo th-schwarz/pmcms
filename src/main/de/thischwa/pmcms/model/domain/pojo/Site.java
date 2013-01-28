@@ -35,7 +35,6 @@ import de.thischwa.pmcms.model.InstanceUtil;
  */
 public class Site extends Level {
 	private String url;
-	private String indexPageName;
 	private List<Template> templates = new ArrayList<Template>();
 	private List<Macro> macros = new ArrayList<Macro>();
 	private Template layoutTemplate;
@@ -52,14 +51,6 @@ public class Site extends Level {
 
 	public void setUrl(String url) {
 		this.url = url;
-	}
-
-	public String getIndexPageName() {
-		return indexPageName;
-	}
-
-	public void setIndexPageName(String indexPageName) {
-		this.indexPageName = indexPageName;
 	}
 
 	public List<Template> getTemplates() {

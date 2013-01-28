@@ -4,9 +4,6 @@
   <void property="id"> 
    <int>8</int> 
   </void> 
-  <void property="indexPageName"> 
-   <string>index.html</string> 
-  </void> 
   <void property="layoutTemplate"> 
    <object class="de.thischwa.pmcms.model.domain.pojo.Template"> 
     <void property="id"> 

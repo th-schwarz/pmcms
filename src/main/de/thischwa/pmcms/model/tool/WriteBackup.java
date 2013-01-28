@@ -105,8 +105,7 @@ public class WriteBackup implements IProgressViewer {
 
 		Element siteEl = dom.addElement("site")
 				.addAttribute("version", IBackupParser.DBXML_1)
-				.addAttribute("url", site.getUrl())
-				.addAttribute("indexPage", site.getIndexPageName());
+				.addAttribute("url", site.getUrl());
 		siteEl.addElement("title").addCDATA(site.getTitle());
 		
 		Element elementTransfer = siteEl.addElement("transfer");

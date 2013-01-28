@@ -258,8 +258,9 @@ public class ExportRenderer implements IProgressViewer {
 		File redFile = new File(InitializationManager.getDefaultResourcesPath(), "redirector.html");
 		if (!redFile.exists())
 			throw new RuntimeException("Default redirector not found: " + redFile);
-		File outputFile = new File(this.exportDir, this.site.getIndexPageName());
-		String linkToRootPage = PoInfo.getRootLevel(this.site).getName().concat("/").concat(this.site.getIndexPageName());
+		String welcomeFileName = InitializationManager.getSiteProperty("pmcms.site.export.file.welcome");
+		File outputFile = new File(this.exportDir, welcomeFileName);
+		String linkToRootPage = PoInfo.getRootLevel(this.site).getName().concat("/").concat(welcomeFileName);
 
 		try {
 			Map<String, Object> ctxObjs = new HashMap<String, Object>(1);

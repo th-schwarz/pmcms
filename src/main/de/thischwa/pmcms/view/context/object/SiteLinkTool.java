@@ -61,12 +61,14 @@ public class SiteLinkTool implements IContextObjectNeedPojoHelper, IContextObjec
     private PojoHelper pojoHelper; 
 	private RenderData renderData = InitializationManager.getBean(RenderData.class);
 	private File siteDir;
+	private String welcomePageName;
 
 	@Override
 	public void setPojoHelper(final PojoHelper pojoHelper) {
 		this.pojoHelper = pojoHelper;
 		this.currentLevel = pojoHelper.getLevel();
 		siteDir = PoPathInfo.getSiteDirectory(pojoHelper.getSite());
+		welcomePageName = InitializationManager.getSiteProperty("pmcms.site.export.file.welcome");
 	}
 
 	@Override
@@ -125,7 +127,7 @@ public class SiteLinkTool implements IContextObjectNeedPojoHelper, IContextObjec
 			throw new FatalException("Link to level shouldn't be null!");
 		if (isExportView) {
 			setResource(PathTool.getURLRelativePathToLevel(currentLevel, levelLinkTo)
-						.concat(StringUtils.defaultIfEmpty(PoInfo.getSite(levelLinkTo).getIndexPageName(), "PAGE_NOT_EXISTS")));
+						.concat(StringUtils.defaultIfEmpty(welcomePageName, "PAGE_NOT_EXISTS")));
 		} else {
 			if (PoInfo.getRootPage(levelLinkTo) != null)
 				setPageForPreview(PoInfo.getRootPage(levelLinkTo));
@@ -154,9 +156,9 @@ public class SiteLinkTool implements IContextObjectNeedPojoHelper, IContextObjec
 		if (isExportView) {
 			String pageName;
 			if (PoInfo.isWelcomePage(pageTo) || OrderableInfo.isFirst(pageTo))
-				pageName = PoInfo.getSite(pageTo).getIndexPageName();
+				pageName = welcomePageName;
 			else
-				pageName = pageTo.getName().concat(".").concat(InitializationManager.getSiteProperty("pmcms.site.export.extention"));
+				pageName = pageTo.getName().concat(".").concat(InitializationManager.getSiteProperty("pmcms.site.export.file.extension"));
 			String levelName = PathTool.getURLRelativePathToLevel(this.currentLevel, pageTo.getParent());
 			if (StringUtils.isNotBlank(levelName) && !levelName.endsWith("/"))
 				levelName = levelName.concat("/");

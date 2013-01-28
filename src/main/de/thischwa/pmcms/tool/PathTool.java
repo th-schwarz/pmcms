@@ -31,6 +31,7 @@ import java.net.URLDecoder;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.StringUtils;
 
+import de.thischwa.pmcms.configuration.InitializationManager;
 import de.thischwa.pmcms.model.IRenderable;
 import de.thischwa.pmcms.model.InstanceUtil;
 import de.thischwa.pmcms.model.domain.OrderableInfo;
@@ -108,7 +109,7 @@ public class PathTool {
     	if (InstanceUtil.isPage(renderable)) {
     		Page page = (Page) renderable;
             if (OrderableInfo.isFirst(page))
-            	name.append(PoInfo.getSite(page).getIndexPageName());
+            	name.append(InitializationManager.getSiteProperty("pmcms.site.export.file.welcome"));
             else {
                 name.append(page.getName());
             	name.append('.');
