@@ -34,7 +34,6 @@ import de.thischwa.pmcms.tool.CliParser;
 import de.thischwa.pmcms.tool.InternalAntTool;
 import de.thischwa.pmcms.tool.PropertiesTool;
 import de.thischwa.pmcms.tool.OS.OSDetector;
-import de.thischwa.pmcms.tool.OS.OSType;
 
 
 /**
@@ -46,7 +45,7 @@ import de.thischwa.pmcms.tool.OS.OSType;
 public class Launcher {
 
 	public static void main(String[] args) throws FileNotFoundException {
-		OSType osType = OSDetector.getType(); // Throws a RuntimeException, if os isn't supported!
+		OSDetector.Type osType = OSDetector.getType(); // Throws a RuntimeException, if os isn't supported!
 		CliParser cliParser = null;
 		try {
 			cliParser = new CliParser(args);

@@ -23,7 +23,6 @@ package de.thischwa.pmcms;
 
 import java.io.File;
 
-
 import org.apache.log4j.Logger;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.SWTException;
@@ -36,7 +35,6 @@ import de.thischwa.pmcms.configuration.resource.LabelHolder;
 import de.thischwa.pmcms.gui.MainWindow;
 import de.thischwa.pmcms.tool.CliParser;
 import de.thischwa.pmcms.tool.OS.OSDetector;
-import de.thischwa.pmcms.tool.OS.OSType;
 import de.thischwa.pmcms.tool.launcher.Launcher;
 
 /**
@@ -98,7 +96,7 @@ public class Starter {
 				System.out.println("Error while initialization: " + e.getMessage());
 				e.printStackTrace();
 			} else {
-				if ((e instanceof SWTException) && (OSDetector.getType().equals(OSType.MAC))) {
+				if ((e instanceof SWTException) && (OSDetector.getType() == OSDetector.Type.MAC)) {
 					logger.warn("Known SWT exception on OS X!", e);
 				} else {
 					logger.error("While configuration: " + e.getMessage(), e);
@@ -113,7 +111,7 @@ public class Starter {
 		} finally {
 			InitializationManager.end();
 			// because of an osx swt issue we must exit here
-			if(OSDetector.getType().equals(OSType.MAC))
+			if(OSDetector.getType() == OSDetector.Type.MAC)
 				System.exit(0);
 		}
 	}

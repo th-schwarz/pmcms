@@ -28,7 +28,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.tools.ant.DefaultLogger;
 import org.apache.tools.ant.DemuxOutputStream;
@@ -41,7 +40,7 @@ import org.apache.tools.ant.types.FileSet;
 import org.apache.tools.ant.types.Path;
 
 import de.thischwa.pmcms.Constants;
-import de.thischwa.pmcms.tool.OS.OSType;
+import de.thischwa.pmcms.tool.OS.OSDetector;
 
 /**
  * Internal ant tool. Implemented functions:
@@ -66,7 +65,7 @@ public class InternalAntTool {
 	 * @param printDebug if true additional logging informations will be print out at stdio.
 	 * @param additionalArgs Additional poormans commandline arguments. Can be <tt>null</tt> or empty.
 	 */
-	public static void start(final OSType os, final File dataDir, final Properties props, final String starterClass, boolean printDebug, final String[] additionalArgs) {
+	public static void start(final OSDetector.Type os, final File dataDir, final Properties props, final String starterClass, boolean printDebug, final String[] additionalArgs) {
 		Project project = buildProject();	
 		List<String> jvmArgs = new ArrayList<String>();
 		if(props.getProperty("jvm.arguments") != null) {

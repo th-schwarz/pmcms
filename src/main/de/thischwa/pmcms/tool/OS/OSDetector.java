@@ -31,14 +31,32 @@ package de.thischwa.pmcms.tool.OS;
 public class OSDetector {
 	private static final String osName = System.getProperty("os.name"); 
 	private static final String osVersion = System.getProperty("os.version");
+	private static final String jvmArch = System.getProperty("os.arch").toLowerCase();
 	
-	public final static OSType getType() {
+	public enum Type {
+		WIN, LINUX, MAC;
+		
+		private boolean is64Bit = false;
+		
+		public boolean is64Bit() {
+			return is64Bit;
+		}
+	}
+
+	public final static Type getType() {
+		Type type = detect();
+		if(jvmArch.contains("64"))
+			type.is64Bit = true;
+		return type;
+	}
+	
+	private final static Type detect() {
 		if (osName.startsWith("Linux"))
-			return OSType.LINUX;
+			return Type.LINUX;
 		if (osName.startsWith("Windows"))
-			return OSType.WIN;
+			return Type.WIN;
 		if (osName.startsWith("Mac") && osVersion.startsWith("10.")) // don't run with Mac OS classic
-			return OSType.MAC;
+			return Type.MAC;
 		throw new RuntimeException("Your OS isn't support by poormans: " + osName + " " + osVersion);
 	}
 	
