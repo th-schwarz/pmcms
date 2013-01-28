@@ -51,6 +51,7 @@ public class Starter {
 		CliParser cliParser = null;
 		File dataDir = null;
 		try {
+			// analyze the command-line-params 
 			cliParser = new CliParser(args);
 			if(!cliParser.hasOption("datadir")) {
 				System.out.println("Parameter '-datadir' is missing!");
