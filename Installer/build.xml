@@ -4,10 +4,7 @@
      
      Hint: These targets don't check if poormans' build process was successfull.
            This have to be checked before!
-     
-     @version $Id: build.xml 2116 2011-06-27 08:39:57Z th-schwarz $
-     @author <a href="mailto:th-schwarz@users.sourceforge.net">Thilo Schwarz</a>
-	                                                       
+           
      ====================================================================== -->
 
 
@@ -18,21 +15,21 @@
 	<property name="poormans_home" value="${basedir}"/>
 	
 	<property file="${project.dir}/installer.properties"/>
-	<property file="${poormans_home}/${poormans.dir.src}/de/thischwa/pmcms/configuration/common.properties" />
+	<property file="${poormans_home}/${pmcms.dir.src}/de/thischwa/pmcms/configuration/common.properties" />
 
 	<property name="dir.dist" location="${project.dir}/dist"/>
 	<property name="izpack.dir" location="${project.dir}/IzPack"/>
 	<property name="izpack.dir.swt" value="${izpack.dir}/packs/swt"/>
 	
-	<property name="manifest-built-by" value="build.xml:${poormans.name}_${poormans.version}"/>
+	<property name="manifest-built-by" value="build.xml:${pmcms.name}_${pmcms.version}"/>
 
-	<property name="dir.lib" location="${poormans_home}/${poormans.dir.lib}"/>
+	<property name="dir.lib" location="${poormans_home}/${pmcms.dir.lib}"/>
 
 	<property name="launcher.dir" location="${project.dir}/launcher"/>
 	<property name="launcher.jar" location="${dir.dist}/start.jar"/>
-	<property name="classes.jar" location="${dir.dist}/${poormans.name}_classes.jar"/>
+	<property name="classes.jar" location="${dir.dist}/${pmcms.name}_classes.jar"/>
 
-	<property name="swt-version" value="swt-3.6.1"/>
+	<property name="swt-version" value="swt-4.2.1"/>
 	<property name="arch.win" value="win32-win32-x86"/>
 	<property name="arch.linux" value="gtk-linux-x86"/>
 	<property name="arch.osx" value="cocoa-macosx"/>
@@ -44,16 +41,16 @@
 
 	<!-- compile the project -->
 	<target name="compile">		
-		<delete dir="${poormans.dir.classes}" />		
-		<mkdir dir="${poormans.dir.classes}"/>
+		<delete dir="${pmcms.dir.classes}" />		
+		<mkdir dir="${pmcms.dir.classes}"/>
 		<path id="libs">
-			<fileset dir="${poormans.dir.lib}" includes="**/*.jar" />
-			<fileset dir="${poormans.dir.src}" excludes="**/package-info.java"/>
+			<fileset dir="${pmcms.dir.lib}" includes="**/*.jar" />
+			<fileset dir="${pmcms.dir.src}" excludes="**/package-info.java"/>
 			<fileset dir="dev_lib_swt" includes="**/*.jar"/>
 		</path>
-		<javac destdir="${poormans.dir.classes}" failonerror="true" classpathref="libs" srcdir="${poormans.dir.src}" includeantruntime="false"/>
-		<copy todir="${poormans.dir.classes}">
-			<fileset dir="${poormans.dir.src}" includes="**/*.properties" />
+		<javac destdir="${pmcms.dir.classes}" failonerror="true" classpathref="libs" srcdir="${pmcms.dir.src}" includeantruntime="false"/>
+		<copy todir="${pmcms.dir.classes}">
+			<fileset dir="${pmcms.dir.src}" includes="**/*.properties" />
 		</copy>
 	</target>
 	
@@ -71,7 +68,7 @@
 	<!-- build the launcher jar -->
     <target name="build.launcher">
 		<path id="manifestPath">
-			<fileset dir="${poormans.dir.lib}">
+			<fileset dir="${pmcms.dir.lib}">
 				<include name="ant-*.jar"/>
 				<include name="commons-logging-*.jar"/>
 				<include name="commons-lang-*.jar"/>
@@ -85,17 +82,17 @@
     		<map from="${basedir}/" to=""/>
     	</pathconvert>
     	<jar destfile="${launcher.jar}">
-    		<fileset dir="${poormans.dir.classes}">
-			    <include name="net/sf/poormans/tool/launcher/**/*class"/>
-			    <include name="net/sf/poormans/tool/OS/**/*class"/>
-			    <include name="net/sf/poormans/server/Action.class"/>
-			    <include name="net/sf/poormans/Constants.class"/>
-    			<include name="net/sf/poormans/tool/XY.class"/>
-    			<include name="net/sf/poormans/tool/InternalAntTool*.class"/>
-    			<include name="net/sf/poormans/tool/CliParser.class"/>
-    			<include name="net/sf/poormans/configuration/BasicConfigurator.class"/>
-    			<include name="net/sf/poormans/configuration/common.properties"/>
-    			<include name="net/sf/poormans/tool/PropertiesTool.class"/>
+    		<fileset dir="${pmcms.dir.classes}">
+			    <include name="de/thischwa/pncms/tool/launcher/**/*class"/>
+			    <include name="de/thischwa/pncms/tool/OS/**/*class"/>
+			    <include name="de/thischwa/pncms/server/Action.class"/>
+			    <include name="de/thischwa/pncms/Constants.class"/>
+    			<include name="de/thischwa/pncms/tool/XY.class"/>
+    			<include name="de/thischwa/pncms/tool/InternalAntTool*.class"/>
+    			<include name="de/thischwa/pncms/tool/CliParser.class"/>
+    			<include name="de/thischwa/pncms/configuration/BasicConfigurator.class"/>
+    			<include name="de/thischwa/pncms/configuration/common.properties"/>
+    			<include name="de/thischwa/pncms/tool/PropertiesTool.class"/>
 			</fileset>
     		<manifest>
     			<attribute name="Main-Class" value="de.thischwa.pmcms.tool.launcher.Launcher"/>
@@ -109,15 +106,15 @@
 	<!-- build the poormans classes jar -->
 	<target name="build.classes" description="Build the classes jar.">
 		<jar destfile="${classes.jar}">
-			<fileset dir="${poormans.dir.classes}">
+			<fileset dir="${pmcms.dir.classes}">
    				<include name="**/*.*"/>
-    			<exclude name="net/sf/poormans/tool/launcher/**/*.class"/>
+    			<exclude name="de/thischwa/pmcms/tool/launcher/**/*.class"/>
 			</fileset>
 			<manifest>
 				<attribute name="Built-By" value="${manifest-built-by}"/>
 				<attribute name="Url" value="http://poormans.sourceforge.net"/>
 				<attribute name="Implementation-Title" value="Poor Man's CMS"/>
-				<attribute name="Implementation-Version" value="${poormans.version}"/>
+				<attribute name="Implementation-Version" value="${pmcms.version}"/>
     			<attribute name="PreMain-Class" value="de.thischwa.pmcms.Starter"/>
 			</manifest>
 		</jar>
@@ -126,7 +123,7 @@
 	<!-- build the installer with 4.3.5
 	<target name="build.installer" description="Build the IzPack installer.">  
 	   	<taskdef name="izpack" 	classpath="${izpack_home}/lib/compiler.jar" classname="com.izforge.izpack.ant.IzPackTask"/>	
-	   	<izpack output="${dir.dist}/${poormans.name}_${poormans.version}.jar" 
+	   	<izpack output="${dir.dist}/${pmcms.name}_${pmcms.version}.jar" 
 	   		input="installer.xml" installerType="standard" basedir="${basedir}" izPackDir="${izpack_home}/"
 	   		inheritall="true"        
 	   		compression="deflate"
@@ -141,7 +138,7 @@
 			</fileset>
 		</path>
 	   	<taskdef name="izpack" classpathref="izpackpath" classname="com.izforge.izpack.ant.IzPackTask"/>	
-	   	<izpack output="${dir.dist}/${poormans.name}_${poormans.version}.jar" 
+	   	<izpack output="${dir.dist}/${pmcms.name}_${pmcms.version}.jar" 
 	   		input="installer.xml" installerType="standard" basedir="${basedir}" izPackDir="${izpack_home}/"
 	   		inheritall="true"        
 	   		compression="deflate"
@@ -174,7 +171,7 @@
     	        <include name="swt.jar"/>
     	    </patternset>
     	</unzip>
-    	<move file="${dir.tmp.swt}/swt.jar" tofile="${izpack.dir.swt}/${arch.type}/swt.jar"/>
+    	<move file="${dir.tmp.swt}/swt.jar" tofile="${pmcms.dir.lib}/swt/swt-${arch.type}.jar"/>
     	<delete dir="${dir.tmp.swt}"/>
     </target>
 

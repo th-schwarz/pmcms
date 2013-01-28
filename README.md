@@ -16,4 +16,7 @@ early-state project and isn't runnable at the moment!
 * 3.0.0-SNAPSHOT   
   * changed to commons-codec for encoding/decoding passwords
   * each site can have its own properties
-  * changed to ckeditor 4.*
+  * updated to ckeditor 4.*
+  * updated to swt 4.2.1
+  * updated basic eclipse libs
+  * new swt jar loading behavior

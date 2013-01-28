@@ -97,7 +97,21 @@ public class InternalAntTool {
 			classPath.setPath(new File(Constants.APPLICATION_DIR, propLib).getPath());
 			FileSet fileSet = new FileSet();
 			fileSet.setDir(new File(Constants.APPLICATION_DIR, propLib));
-			fileSet.setIncludes("**/*.jar");
+			fileSet.setIncludes("*.jar");
+			// add correct swt jar  
+			// TODO add 64bit jars
+			String swtJar;
+			switch (os) {
+			case MAC:
+				swtJar = "swt-cocoa-macosx.jar";
+				break;
+			case LINUX:
+				swtJar = "swt-gtk-linux-x86.jar";
+				break;
+			default:
+				swtJar = "swt-win32-win32-x86.jar";
+			}
+			fileSet.setIncludes(String.format("swt/%s", swtJar));
 			classPath.addFileset(fileSet);
 			javaTask.setClasspath(classPath);
 			if(printDebug)
