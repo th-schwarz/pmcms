@@ -1,6 +1,6 @@
 /*******************************************************************************
  * Poor Man's CMS (pmcms) - A very basic CMS generating static html pages.
- * http://poormans.sourceforge.net
+ * http://pmcms.sourceforge.net
  * Copyright (C) 2004-2013 by Thilo Schwarz
  * 
  * == BEGIN LICENSE ==
@@ -42,7 +42,7 @@ import de.thischwa.pmcms.exception.FatalException;
 public class ImageInfo {
 	private static Logger logger = Logger.getLogger(ImageInfo.class);
 
-	@Value("${poormans.jii.dimension.class}")
+	@Value("${pmcms.jii.dimension.class}")
 	private String infoClass;
 	
 	private IDimensionProvider dp = null;

@@ -1,6 +1,6 @@
 /*******************************************************************************
  * Poor Man's CMS (pmcms) - A very basic CMS generating static html pages.
- * http://poormans.sourceforge.net
+ * http://pmcms.sourceforge.net
  * Copyright (C) 2004-2013 by Thilo Schwarz
  * 
  * == BEGIN LICENSE ==
@@ -22,7 +22,7 @@
 package de.thischwa.pmcms.tool.OS;
 
 /**
- * OS types respected by poormans.
+ * OS types respected by pmcms.
  *
  * @version $Id: OSType.java 2210 2012-06-17 13:01:49Z th-schwarz $
  * @author <a href="mailto:th-schwarz@users.sourceforge.net">Thilo Schwarz</a>

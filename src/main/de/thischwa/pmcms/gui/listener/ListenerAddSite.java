@@ -1,6 +1,6 @@
 /*******************************************************************************
  * Poor Man's CMS (pmcms) - A very basic CMS generating static html pages.
- * http://poormans.sourceforge.net
+ * http://pmcms.sourceforge.net
  * Copyright (C) 2004-2013 by Thilo Schwarz
  * 
  * == BEGIN LICENSE ==
@@ -68,7 +68,7 @@ public class ListenerAddSite implements SelectionListener {
 		logger.debug("SEL add site");
 		Site site = new Site();
 		if (DialogManager.startDialogPersitentPojo(e.display.getActiveShell(), site)) {
-			File defaultResourceDir = new File(InitializationManager.getProperty("poormans.dir.defaultresources"));
+			File defaultResourceDir = new File(InitializationManager.getProperty("pmcms.dir.defaultresources"));
 			File srcDir = new File(defaultResourceDir.getAbsoluteFile(), "sites");
 			File srcConfigDir = new File(srcDir, "configuration");
 			File destDir = PoPathInfo.getSiteDirectory(site);

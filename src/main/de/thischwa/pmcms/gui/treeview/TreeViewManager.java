@@ -1,6 +1,6 @@
 /*******************************************************************************
  * Poor Man's CMS (pmcms) - A very basic CMS generating static html pages.
- * http://poormans.sourceforge.net
+ * http://pmcms.sourceforge.net
  * Copyright (C) 2004-2013 by Thilo Schwarz
  * 
  * == BEGIN LICENSE ==

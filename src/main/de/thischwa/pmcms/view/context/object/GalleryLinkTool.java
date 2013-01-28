@@ -1,6 +1,6 @@
 /*******************************************************************************
  * Poor Man's CMS (pmcms) - A very basic CMS generating static html pages.
- * http://poormans.sourceforge.net
+ * http://pmcms.sourceforge.net
  * Copyright (C) 2004-2013 by Thilo Schwarz
  * 
  * == BEGIN LICENSE ==
@@ -94,7 +94,7 @@ public class GalleryLinkTool implements IContextObjectGallery, IContextObjectNee
 					setGallery(PoInfo.getSite(gallery).getIndexPageName());
 				} else {
 					setGallery(gallery.getName().concat(".")
-					        .concat(InitializationManager.getProperty("poormans.export.extention")));
+					        .concat(InitializationManager.getProperty("pmcms.export.extention")));
 				}
 			} else
 				setGalleryForPreview(gallery);

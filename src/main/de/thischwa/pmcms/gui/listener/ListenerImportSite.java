@@ -1,6 +1,6 @@
 /*******************************************************************************
  * Poor Man's CMS (pmcms) - A very basic CMS generating static html pages.
- * http://poormans.sourceforge.net
+ * http://pmcms.sourceforge.net
  * Copyright (C) 2004-2013 by Thilo Schwarz
  * 
  * == BEGIN LICENSE ==
@@ -65,7 +65,7 @@ public class ListenerImportSite implements SelectionListener {
 		final Shell shell = event.display.getActiveShell();
 		FileDialog fileDialog = new FileDialog(shell, SWT.OPEN);
 		fileDialog.setText(LabelHolder.get("task.import.openfile")); //$NON-NLS-1$
-		fileDialog.setFilterPath(new File(InitializationManager.getProperty("poormans.dir.backup")).getAbsolutePath());
+		fileDialog.setFilterPath(new File(InitializationManager.getProperty("pmcms.dir.backup")).getAbsolutePath());
 		fileDialog.setFilterExtensions(new String[]{ "*.".concat(Constants.BACKUP_EXTENSION).concat(";*.zip"),
 				"*.".concat(Constants.BACKUP_EXTENSION), 
 				"*.zip" });
@@ -101,7 +101,7 @@ public class ListenerImportSite implements SelectionListener {
 				
 				// check if login password is encrypted
 				try {
-					DESCryptor cryptor = InitializationManager.getBean(DESCryptor.class);
+					DESCryptor cryptor = new DESCryptor(InitializationManager.getSiteProperty("pmcms.site.crypt.key"));
 					cryptor.decrypt(site.getTransferLoginPassword());
 				} catch (DESCryptor.CryptorException e) {
 					logger.warn("A non encrypted password found, delete it!");

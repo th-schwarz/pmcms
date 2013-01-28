@@ -1,6 +1,6 @@
 /*******************************************************************************
  * Poor Man's CMS (pmcms) - A very basic CMS generating static html pages.
- * http://poormans.sourceforge.net
+ * http://pmcms.sourceforge.net
  * Copyright (C) 2004-2013 by Thilo Schwarz
  * 
  * == BEGIN LICENSE ==
@@ -40,7 +40,7 @@ public class UserPathBuilderImpl implements UserPathBuilder {
 
 	@Override
 	public String getServerPath(String urlPath, Context ctx, ServletContext servletContext) {
-		String userfilesPath = InitializationManager.getProperty("poormans.filemanager.userfiles");
+		String userfilesPath = InitializationManager.getProperty("pmcms.filemanager.userfiles");
 		String cleanedUrlPath = urlPath.equals(userfilesPath) ? "" : urlPath.substring(userfilesPath.length()-1);
 		Site site = getSite();
 		String path = (site != null) 

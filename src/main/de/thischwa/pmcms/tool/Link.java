@@ -1,6 +1,6 @@
 /*******************************************************************************
  * Poor Man's CMS (pmcms) - A very basic CMS generating static html pages.
- * http://poormans.sourceforge.net
+ * http://pmcms.sourceforge.net
  * Copyright (C) 2004-2013 by Thilo Schwarz
  * 
  * == BEGIN LICENSE ==
@@ -57,7 +57,7 @@ public class Link {
 	private String path = null;
 	private Map<String, String> parameters = new HashMap<String, String>();
 
-	@Value("${poormans.jetty.host}")
+	@Value("${pmcms.jetty.host}")
 	private String host;
 
 	public void init(final String link) {

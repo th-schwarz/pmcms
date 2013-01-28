@@ -1,6 +1,6 @@
 /*******************************************************************************
  * Poor Man's CMS (pmcms) - A very basic CMS generating static html pages.
- * http://poormans.sourceforge.net
+ * http://pmcms.sourceforge.net
  * Copyright (C) 2004-2013 by Thilo Schwarz
  * 
  * == BEGIN LICENSE ==
@@ -101,10 +101,10 @@ public class ExportRenderer implements IProgressViewer {
 	@Autowired private RenderData renderData;
 	@Autowired private VelocityRenderer renderer;
 
-	@Value("${poormans.export.maxthreadspercore}")
+	@Value("${pmcms.export.maxthreadspercore}")
 	private int maxThreadsPerCount;
 	
-	@Value("${poormans.filename.checksums}")
+	@Value("${pmcms.filename.checksums}")
 	private String checksumFilename;
 	
 	private String poExtension;
@@ -112,7 +112,7 @@ public class ExportRenderer implements IProgressViewer {
 	public void setSite(final Site site) {
 		this.site = site;
 		this.exportDir = PoPathInfo.getSiteExportDirectory(this.site);
-		this.poExtension = InitializationManager.getSiteProperty("poormans.site.export.extention");
+		this.poExtension = InitializationManager.getSiteProperty("pmcms.site.export.extention");
 	}
 
 	public void setMessages(final StringBuilder messages) {

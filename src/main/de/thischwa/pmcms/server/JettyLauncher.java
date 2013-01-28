@@ -1,6 +1,6 @@
 /*******************************************************************************
  * Poor Man's CMS (pmcms) - A very basic CMS generating static html pages.
- * http://poormans.sourceforge.net
+ * http://pmcms.sourceforge.net
  * Copyright (C) 2004-2013 by Thilo Schwarz
  * 
  * == BEGIN LICENSE ==
@@ -53,10 +53,10 @@ public class JettyLauncher extends AInitializingTask implements IApplicationLive
 	@Value("${data.dir}")
 	private String dataDirStr;
 	
-	@Value("${poormans.jetty.host}")
+	@Value("${pmcms.jetty.host}")
 	private String host;
 
-	@Value("${poormans.jetty.port}")
+	@Value("${pmcms.jetty.port}")
 	private String port;
 	
 	@Override

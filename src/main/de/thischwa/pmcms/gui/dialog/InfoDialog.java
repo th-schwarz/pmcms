@@ -1,6 +1,6 @@
 /*******************************************************************************
  * Poor Man's CMS (pmcms) - A very basic CMS generating static html pages.
- * http://poormans.sourceforge.net
+ * http://pmcms.sourceforge.net
  * Copyright (C) 2004-2013 by Thilo Schwarz
  * 
  * == BEGIN LICENSE ==
@@ -79,9 +79,9 @@ public class InfoDialog extends SimpleDialog {
 			addProperty("Directory", Constants.APPLICATION_DIR.getAbsolutePath());
 			addProperty("Data Directory", InitializationManager.getDataDir().getAbsolutePath());
 			addProperty("Temp Directory", Constants.TEMP_DIR.getAbsolutePath());
-			addProperty("Backup Directory", InitializationManager.getProperty("poormans.dir.backup"));
-			addProperty("Host", InitializationManager.getProperty("poormans.jetty.host"));
-			addProperty("Port", InitializationManager.getProperty("poormans.jetty.port"));
+			addProperty("Backup Directory", InitializationManager.getProperty("pmcms.dir.backup"));
+			addProperty("Host", InitializationManager.getProperty("pmcms.jetty.host"));
+			addProperty("Port", InitializationManager.getProperty("pmcms.jetty.port"));
 			addProperty("ImageMagick", StringUtils.defaultString(InitializationManager.getProperty("imagemagick.convert.command"), "not set"));
 			addProperty("Browser", BrowserManager.getBrowserType());
 		}
@@ -110,7 +110,7 @@ public class InfoDialog extends SimpleDialog {
 			compositeHeader.setLayout(fillLayoutHeader);
 			
 			Label labelHeaderTitle = new Label(compositeHeader, SWT.CENTER);
-			labelHeaderTitle.setText(InitializationManager.getProperty("poormans.title") + " - Version " + InitializationManager.getProperty("poormans.version"));
+			labelHeaderTitle.setText(InitializationManager.getProperty("pmcms.title") + " - Version " + InitializationManager.getProperty("pmcms.version"));
 			SWTUtils.changeFontStyle(labelHeaderTitle, SWT.BOLD);
 			SWTUtils.changeFontSizeRelativ(labelHeaderTitle, 2);
 			Label labelHeaderSubTitle = new Label(compositeHeader, SWT.CENTER);

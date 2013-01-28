@@ -1,6 +1,6 @@
 /*******************************************************************************
  * Poor Man's CMS (pmcms) - A very basic CMS generating static html pages.
- * http://poormans.sourceforge.net
+ * http://pmcms.sourceforge.net
  * Copyright (C) 2004-2013 by Thilo Schwarz
  * 
  * == BEGIN LICENSE ==
@@ -89,7 +89,7 @@ public class BrowserManager {
 	
 	private Shell parentShell;
 	
-	@Value("${poormans.xulrunner}")
+	@Value("${pmcms.xulrunner}")
 	private String xulRunnerProp;
 	
 	@Value("${baseurl}")
@@ -284,7 +284,7 @@ public class BrowserManager {
 	}
 
 	/**
-	 * Simple factory method to initialize the browser with respect of the property 'poormans.xulrunner'. If this property is
+	 * Simple factory method to initialize the browser with respect of the property 'pmcms.xulrunner'. If this property is
 	 * <code>true</code> a mozilla browser will be initialized. (Depending on the existence of the directory 'xulrunner' inside the 
 	 * application directory, the required system property is set.) Otherwise the swt standard browser of the underlying OS.
 	 * 

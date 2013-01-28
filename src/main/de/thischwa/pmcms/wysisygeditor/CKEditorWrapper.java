@@ -1,6 +1,6 @@
 /*******************************************************************************
  * Poor Man's CMS (pmcms) - A very basic CMS generating static html pages.
- * http://poormans.sourceforge.net
+ * http://pmcms.sourceforge.net
  * Copyright (C) 2004-2013 by Thilo Schwarz
  * 
  * == BEGIN LICENSE ==
@@ -79,7 +79,7 @@ public class CKEditorWrapper {
 			editor.setToolbarName(toolbarName);
 		editor.setProperty("customConfig", buildUrlFolder(urlConfigFolder, "ckconfig.js"));
 		editor.setProperty("contentsCss", buildUrlFolder(Constants.LINK_IDENTICATOR_SITE_RESOURCE, "/format.css"));
-		editor.setProperty("filebrowserBrowseUrl", InitializationManager.getProperty("poormans.filemanager.url"));
+		editor.setProperty("filebrowserBrowseUrl", InitializationManager.getProperty("pmcms.filemanager.url"));
 		editor.setValue(value);
 		return editor.createHtml();
 	}

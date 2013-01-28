@@ -1,6 +1,6 @@
 /*******************************************************************************
  * Poor Man's CMS (pmcms) - A very basic CMS generating static html pages.
- * http://poormans.sourceforge.net
+ * http://pmcms.sourceforge.net
  * Copyright (C) 2004-2013 by Thilo Schwarz
  * 
  * == BEGIN LICENSE ==
@@ -70,7 +70,7 @@ public class InitializationManager {
 	private static Logger logger = Logger.getLogger(InitializationManager.class);
 
 	/** Locker to check if another instance of poormans is running. */
-	private static Locker locker = new Locker(new File(Constants.TEMP_DIR, "poormans.lck"));
+	private static Locker locker = new Locker(new File(Constants.TEMP_DIR, "pmcms.lck"));
 
 	/** Properties from the properties file. */
 	private static Properties properties;
@@ -81,7 +81,7 @@ public class InitializationManager {
 	/** Directory, which contains the data. */
 	private static File dataDir;
 
-	/** List of image file name extensions using in poormans. */
+	/** List of image file name extensions using in pmcms. */
 	private static List<String> allowedImageExtensions;
 
 	/** True, if we are in the admin mode. */
@@ -139,13 +139,13 @@ public class InitializationManager {
 		logger.info("Application dir: " + Constants.APPLICATION_DIR);
 		logger.info("Data dir: " + dataDir.getAbsolutePath());
 
-		sitesBackupDir = new File(properties.getProperty("poormans.dir.backup"));
+		sitesBackupDir = new File(properties.getProperty("pmcms.dir.backup"));
 		siteHolder = (SiteHolder) context.getBean("siteHolder");
 
 		// check some directories
 		if (!Constants.TEMP_DIR.exists())
 			Constants.TEMP_DIR.mkdirs();
-		File tempDir = new File(dataDir, getProperty("poormans.dir.sites"));
+		File tempDir = new File(dataDir, getProperty("pmcms.dir.sites"));
 		if (!tempDir.exists())
 			tempDir.mkdirs();
 		tempDir = new File(getProperty("log4j.appender.FILE.file"));
@@ -301,11 +301,11 @@ public class InitializationManager {
 	}
 
 	public static String getDefaultResourcesPath() {
-		return properties.getProperty("poormans.dir.defaultresources").concat(File.separator);
+		return properties.getProperty("pmcms.dir.defaultresources").concat(File.separator);
 	}
 
 	public static String getSourceEditorPath() {
-		return properties.getProperty("poormans.dir.sourceeditor").concat(File.separator);
+		return properties.getProperty("pmcms.dir.sourceeditor").concat(File.separator);
 	}
 
 	/**
@@ -332,7 +332,7 @@ public class InitializationManager {
 	}
 
 	public static File getSitesDir() {
-		return new File(getDataDir(), getProperty("poormans.dir.sites"));
+		return new File(getDataDir(), getProperty("pmcms.dir.sites"));
 	}
 
 	public static boolean isRenderingAvailable() {

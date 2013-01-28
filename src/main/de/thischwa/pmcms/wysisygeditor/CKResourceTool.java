@@ -1,6 +1,6 @@
 /*******************************************************************************
  * Poor Man's CMS (pmcms) - A very basic CMS generating static html pages.
- * http://poormans.sourceforge.net
+ * http://pmcms.sourceforge.net
  * Copyright (C) 2004-2013 by Thilo Schwarz
  * 
  * == BEGIN LICENSE ==
@@ -42,8 +42,8 @@ public class CKResourceTool {
 	private static Map<Extension, String> folders = new HashMap<Extension, String>(4);	
 	
 	static {
-		String folderOther = InitializationManager.getProperty("poormans.site.dir.resources.other");
-		folders.put(Extension.IMAGE, InitializationManager.getProperty("poormans.site.dir.resources.image"));
+		String folderOther = InitializationManager.getProperty("pmcms.site.dir.resources.other");
+		folders.put(Extension.IMAGE, InitializationManager.getProperty("pmcms.site.dir.resources.image"));
 		folders.put(Extension.ARCHIVE, folderOther);
 		folders.put(Extension.DOC, folderOther);
 		folders.put(Extension.OTHER, folderOther);

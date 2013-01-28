@@ -1,6 +1,6 @@
 /*******************************************************************************
  * Poor Man's CMS (pmcms) - A very basic CMS generating static html pages.
- * http://poormans.sourceforge.net
+ * http://pmcms.sourceforge.net
  * Copyright (C) 2004-2013 by Thilo Schwarz
  * 
  * == BEGIN LICENSE ==
@@ -28,8 +28,6 @@ import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 
 import org.apache.commons.codec.binary.Base64;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
 
 /**
  * Simple utility object to encrypt and decrypt text using the DES algorithm. Encoding is UTF8.
@@ -37,15 +35,17 @@ import org.springframework.stereotype.Service;
  * @version $Id: DESCryptor.java 2210 2012-06-17 13:01:49Z th-schwarz $
  * @author <a href="mailto:th-schwarz@users.sourceforge.net">Thilo Schwarz</a>
  */
-@Service
 public class DESCryptor {
 	private static final String encoding = "UTF8";
 	private String algorithm = "DES";
 
-	@Value("${poormans.crypt.key}")
 	private String secretKeyPlain;
 	
 	private Key key;
+
+	public DESCryptor(String secretKeyPlain) {
+		this.secretKeyPlain = secretKeyPlain;
+	}
 
 	public String encrypt(String plainTxt) throws CryptorException {
 		if(plainTxt == null || plainTxt.trim().length() == 0)

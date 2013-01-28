@@ -1,6 +1,6 @@
 /*******************************************************************************
  * Poor Man's CMS (pmcms) - A very basic CMS generating static html pages.
- * http://poormans.sourceforge.net
+ * http://pmcms.sourceforge.net
  * Copyright (C) 2004-2013 by Thilo Schwarz
  * 
  * == BEGIN LICENSE ==
@@ -47,7 +47,7 @@ import de.thischwa.pmcms.view.renderer.RenderData;
 
 /**
  * Context objects for building links to user relevant resources. The resources must be inside the site folder
- * definded in the property 'poormans.site.dir.layoutresources'.
+ * definded in the property 'pmcms.site.dir.layoutresources'.
  * 
  * @version $Id: SiteLinkTool.java 2210 2012-06-17 13:01:49Z th-schwarz $
  * @author <a href="mailto:th-schwarz@users.sourceforge.net">Thilo Schwarz</a>
@@ -82,7 +82,7 @@ public class SiteLinkTool implements IContextObjectNeedPojoHelper, IContextObjec
 	 * @return SiteLinkTool
 	 */
 	public SiteLinkTool getResource(final String resource) {
-		String res = String.format("%s/%s", InitializationManager.getProperty("poormans.site.dir.layoutresources"), resource);
+		String res = String.format("%s/%s", InitializationManager.getProperty("pmcms.site.dir.layoutresources"), resource);
 		if (isExportView) {
 			setResource(PathTool.getURLRelativePathToRoot(this.currentLevel).concat(res));
 			addResource(res);
@@ -156,7 +156,7 @@ public class SiteLinkTool implements IContextObjectNeedPojoHelper, IContextObjec
 			if (PoInfo.isWelcomePage(pageTo) || OrderableInfo.isFirst(pageTo))
 				pageName = PoInfo.getSite(pageTo).getIndexPageName();
 			else
-				pageName = pageTo.getName().concat(".").concat(InitializationManager.getSiteProperty("poormans.site.export.extention"));
+				pageName = pageTo.getName().concat(".").concat(InitializationManager.getSiteProperty("pmcms.site.export.extention"));
 			String levelName = PathTool.getURLRelativePathToLevel(this.currentLevel, pageTo.getParent());
 			if (StringUtils.isNotBlank(levelName) && !levelName.endsWith("/"))
 				levelName = levelName.concat("/");

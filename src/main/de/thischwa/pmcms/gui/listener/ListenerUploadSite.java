@@ -1,6 +1,6 @@
 /*******************************************************************************
  * Poor Man's CMS (pmcms) - A very basic CMS generating static html pages.
- * http://poormans.sourceforge.net
+ * http://pmcms.sourceforge.net
  * Copyright (C) 2004-2013 by Thilo Schwarz
  * 
  * == BEGIN LICENSE ==
@@ -87,11 +87,11 @@ public class ListenerUploadSite implements SelectionListener {
 		
 		// transfer
 		try {
-			DESCryptor cryptor = InitializationManager.getBean(DESCryptor.class);
+			DESCryptor cryptor = new DESCryptor(InitializationManager.getSiteProperty("pmcms.site.crypt.key"));
 			String plainPwd = cryptor.decrypt(site.getTransferLoginPassword());
 			IConnection transfer = ConnectionFactory.getFtp(site.getTransferHost(), site.getTransferLoginUser(), 
 					plainPwd, site.getTransferStartDirectory());
-			String checkumsFileBasename = InitializationManager.getProperty("poormans.filename.checksums");
+			String checkumsFileBasename = InitializationManager.getProperty("pmcms.filename.checksums");
 			DialogManager.startProgressDialog(shell, new Upload(site, transfer, checkumsFileBasename));
 			MessageBox mb = new MessageBox(shell, SWT.ICON_INFORMATION | SWT.OK);
 			mb.setText(LabelHolder.get("popup.info")); //$NON-NLS-1$

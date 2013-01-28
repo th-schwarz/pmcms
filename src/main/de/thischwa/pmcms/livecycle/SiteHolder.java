@@ -1,6 +1,6 @@
 /*******************************************************************************
  * Poor Man's CMS (pmcms) - A very basic CMS generating static html pages.
- * http://poormans.sourceforge.net
+ * http://pmcms.sourceforge.net
  * Copyright (C) 2004-2013 by Thilo Schwarz
  * 
  * == BEGIN LICENSE ==
@@ -73,7 +73,7 @@ public class SiteHolder {
 		container.clear();
 		lastID = new AtomicInteger(0);
 		siteProperties.clear();
-		siteProperties = PropertiesTool.getProperties(InitializationManager.getProperties(), "poormans.site");
+		siteProperties = PropertiesTool.getProperties(InitializationManager.getProperties(), "pmcms.site");
 	}
 	
 	public void mark(Level level) {

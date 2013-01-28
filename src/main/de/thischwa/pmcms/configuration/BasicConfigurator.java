@@ -1,6 +1,6 @@
 /*******************************************************************************
  * Poor Man's CMS (pmcms) - A very basic CMS generating static html pages.
- * http://poormans.sourceforge.net
+ * http://pmcms.sourceforge.net
  * Copyright (C) 2004-2013 by Thilo Schwarz
  * 
  * == BEGIN LICENSE ==
@@ -48,7 +48,7 @@ import de.thischwa.pmcms.tool.PropertiesTool;
  * @author <a href="mailto:th-schwarz@users.sourceforge.net">Thilo Schwarz</a>
  */
 public class BasicConfigurator {
-	public static final String PROPERTIES_NAME = "poormans.properties";
+	public static final String PROPERTIES_NAME = "pmcms.properties";
 	private File dataDir;
 	private AbstractApplicationContext context;
 	private Properties props;
@@ -78,7 +78,7 @@ public class BasicConfigurator {
 				&& StringUtils.isNotEmpty(props.getProperty("imagemagick.resolution.export"))
 				&& new File(props.getProperty("imagemagick.convert.command")).exists();
 		props.setProperty("rendering.available", renderingAvailable ? "true" : "false");
-		String baseUrl = String.format("http://%s:%s/", props.get("poormans.jetty.host"), props.get("poormans.jetty.port"));
+		String baseUrl = String.format("http://%s:%s/", props.get("pmcms.jetty.host"), props.get("pmcms.jetty.port"));
 		props.setProperty("baseurl", baseUrl);
 		props.setProperty("data.dir", dataDir.getAbsolutePath());
 		System.setProperty("content.types.user.table", new File(Constants.APPLICATION_DIR, "lib/content-types.properties").getAbsolutePath());
@@ -140,7 +140,7 @@ public class BasicConfigurator {
 			}
 		} catch (Exception e) {
 			props.clear();
-			throw new RuntimeException("Can't read common.properties or poormans.properties!", e);
+			throw new RuntimeException("Can't read common.properties or pmcms.properties!", e);
 		}
 	}
 }

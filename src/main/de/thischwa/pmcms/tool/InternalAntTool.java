@@ -1,6 +1,6 @@
 /*******************************************************************************
  * Poor Man's CMS (pmcms) - A very basic CMS generating static html pages.
- * http://poormans.sourceforge.net
+ * http://pmcms.sourceforge.net
  * Copyright (C) 2004-2013 by Thilo Schwarz
  * 
  * == BEGIN LICENSE ==
@@ -46,7 +46,7 @@ import de.thischwa.pmcms.tool.OS.OSType;
 /**
  * Internal ant tool. Implemented functions:
  * <ul>
- * <li>Start of poormans. OS specific (JVM) arguments are respected.
+ * <li>Start of pmcms. OS specific (JVM) arguments are respected.
  * <li>Cleanup: Deletes all settings and data.
  * </ul>
  *
@@ -76,7 +76,7 @@ public class InternalAntTool {
 			jvmArgs = new ArrayList<String>(Arrays.asList(StringUtils.split(args)));
 		}
 		Throwable caught = null;
-		String propLib = props.getProperty("poormans.dir.lib");
+		String propLib = props.getProperty("pmcms.dir.lib");
 		if(printDebug) {
 			project.log("OS: " + os);
 			project.log("Starter class: " + starterClass);
@@ -111,7 +111,7 @@ public class InternalAntTool {
 						jvmArgs.add("-XstartOnFirstThread");
 					break;
 				case WIN:
-					jvmArgs.add("-Djava.library.path=${poormans.dir.lib}/swt");
+					jvmArgs.add("-Djava.library.path=${pmcms.dir.lib}/swt");
 					break;
 				case LINUX:
 					// no special properties required, setting be done by jvm args 
@@ -132,7 +132,7 @@ public class InternalAntTool {
 				jvmArgs.clear();
 				jvmArgs.addAll(tmpArgs);
 				// build the args line and replace inline-variables
-				String jvmArgsLine = StringUtils.join(jvmArgs, ' ').replace("${poormans.dir.lib}", propLib);
+				String jvmArgsLine = StringUtils.join(jvmArgs, ' ').replace("${pmcms.dir.lib}", propLib);
 				Argument argument = javaTask.createJvmarg();
 				argument.setLine(jvmArgsLine);
 				if(printDebug)
@@ -174,7 +174,7 @@ public class InternalAntTool {
 		Project project = buildProject();
 		Throwable caught = null;
 		try {			
-			File sitesDir = new File(dataDir, props.getProperty("poormans.dir.sites"));
+			File sitesDir = new File(dataDir, props.getProperty("pmcms.dir.sites"));
 			
 			// delete the files
 			deleteFile(project, new File(dataDir, ".settings.properties"));

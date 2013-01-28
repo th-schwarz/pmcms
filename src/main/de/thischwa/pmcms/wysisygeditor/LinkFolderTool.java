@@ -1,6 +1,6 @@
 /*******************************************************************************
  * Poor Man's CMS (pmcms) - A very basic CMS generating static html pages.
- * http://poormans.sourceforge.net
+ * http://pmcms.sourceforge.net
  * Copyright (C) 2004-2013 by Thilo Schwarz
  * 
  * == BEGIN LICENSE ==
@@ -39,7 +39,7 @@ public class LinkFolderTool {
 	public static final String SEPARATOR = String.valueOf(SEPARATOR_CHAR);
 	
 	public static String getSitesFolder() {
-		return Utils.join(InitializationManager.getProperty("poormans.dir.sites"), SEPARATOR);
+		return Utils.join(InitializationManager.getProperty("pmcms.dir.sites"), SEPARATOR);
 	}
 	
 	public static String getSiteFolder(Site site) {
@@ -49,15 +49,15 @@ public class LinkFolderTool {
 	public static String getResourceFolderForExport(Extension ext) {
 		if(ext == Extension.IMAGE)
 			return Utils.join(CKResourceTool.getDir(ext), SEPARATOR);
-		return Utils.join(InitializationManager.getProperty("poormans.site.dir.export.resources"), SEPARATOR, CKResourceTool.getDir(ext), SEPARATOR);
+		return Utils.join(InitializationManager.getProperty("pmcms.site.dir.export.resources"), SEPARATOR, CKResourceTool.getDir(ext), SEPARATOR);
 	}
 	
 	public static String getImageFolder() {
-		return Utils.join(InitializationManager.getProperty("poormans.site.dir.resources.image"), SEPARATOR);		
+		return Utils.join(InitializationManager.getProperty("pmcms.site.dir.resources.image"), SEPARATOR);		
 	}
 	
 	public static String getImageCasheFolder() {
-		return Utils.join(InitializationManager.getProperty("poormans.site.dir.imagecache"), SEPARATOR);
+		return Utils.join(InitializationManager.getProperty("pmcms.site.dir.imagecache"), SEPARATOR);
 	}
 
 	public static String stripUrlSiteFolder(String srcTag) {

@@ -1,6 +1,6 @@
 /*******************************************************************************
  * Poor Man's CMS (pmcms) - A very basic CMS generating static html pages.
- * http://poormans.sourceforge.net
+ * http://pmcms.sourceforge.net
  * Copyright (C) 2004-2013 by Thilo Schwarz
  * 
  * == BEGIN LICENSE ==
@@ -124,7 +124,7 @@ public class ListenerAddLevelOrPageOrGalleryOrImage implements SelectionListener
 		Page page = new Page();
 		page.setParent(parentLevel);
 		if (CollectionUtils.isEmpty(parentLevel.getPages()))
-			page.setName(InitializationManager.getProperty("poormans.pojo.page.name"));
+			page.setName(InitializationManager.getProperty("pmcms.pojo.page.name"));
 		if (DialogManager.startDialogPersitentPojo(shell, page)) {
 			logger.debug("A new page will be constructed!");
 			parentLevel.add(page);

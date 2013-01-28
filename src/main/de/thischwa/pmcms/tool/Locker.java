@@ -1,6 +1,6 @@
 /*******************************************************************************
  * Poor Man's CMS (pmcms) - A very basic CMS generating static html pages.
- * http://poormans.sourceforge.net
+ * http://pmcms.sourceforge.net
  * Copyright (C) 2004-2013 by Thilo Schwarz
  * 
  * == BEGIN LICENSE ==
@@ -41,7 +41,7 @@ import de.thischwa.pmcms.Constants;
 public class Locker {
 
 	/** File to lock for testing, if another instance is running. */
-	private File lockFile = new File(Constants.TEMP_DIR, "poormans.lck");
+	private File lockFile = new File(Constants.TEMP_DIR, "pmcms.lck");
 
 	/** Need for file locking. */
 	private static FileChannel fileChannel = null;

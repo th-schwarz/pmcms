@@ -1,6 +1,6 @@
 /*******************************************************************************
  * Poor Man's CMS (pmcms) - A very basic CMS generating static html pages.
- * http://poormans.sourceforge.net
+ * http://pmcms.sourceforge.net
  * Copyright (C) 2004-2013 by Thilo Schwarz
  * 
  * == BEGIN LICENSE ==
@@ -45,14 +45,14 @@ public class PoPathInfo {
 	 * @return The path to the export directory of the given site.
 	 */
 	public static File getSiteExportDirectory(final Site site) {
-		return new File(getSiteDirectory(site), InitializationManager.getProperty("poormans.site.dir.export"));
+		return new File(getSiteDirectory(site), InitializationManager.getProperty("pmcms.site.dir.export"));
 	}
 
 	/**
 	 * @return The base path for common resources inside the export directory of a site (file, media, flash).
 	 */
 	public static File getSiteExportResourceDirectory(final Site site) {
-		return new File(getSiteExportDirectory(site), InitializationManager.getProperty("poormans.site.dir.export.resources"));
+		return new File(getSiteExportDirectory(site), InitializationManager.getProperty("pmcms.site.dir.export.resources"));
 	}
 	
 	/**
@@ -69,14 +69,14 @@ public class PoPathInfo {
 	 * @return The folder for the image cache path inside the site directory.
 	 */
 	public static File getSiteImageCacheDirectory(Site site) {
-		return new File(getSiteDirectory(site), InitializationManager.getProperty("poormans.site.dir.imagecache"));
+		return new File(getSiteDirectory(site), InitializationManager.getProperty("pmcms.site.dir.imagecache"));
 	}
  	
 	/**
 	 * @return The folder to the configuration directory of the given site.
 	 */
 	public static File getSiteConfigurationDirectory(Site site) {
-		return new File(getSiteDirectory(site), InitializationManager.getProperty("poormans.site.dir.configuration"));
+		return new File(getSiteDirectory(site), InitializationManager.getProperty("pmcms.site.dir.configuration"));
 	}
 
 	/**
