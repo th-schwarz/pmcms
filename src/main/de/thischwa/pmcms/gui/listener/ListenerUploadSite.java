@@ -87,7 +87,7 @@ public class ListenerUploadSite implements SelectionListener {
 		
 		// transfer
 		try {
-			DESCryptor cryptor = new DESCryptor(InitializationManager.getSiteProperty("pmcms.site.crypt.key"));
+			DESCryptor cryptor = new DESCryptor(InitializationManager.getProperty("pmcms.crypt.key"));
 			String plainPwd = cryptor.decrypt(site.getTransferLoginPassword());
 			IConnection transfer = ConnectionFactory.getFtp(site.getTransferHost(), site.getTransferLoginUser(), 
 					plainPwd, site.getTransferStartDirectory());

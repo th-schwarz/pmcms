@@ -68,7 +68,7 @@ public class ListenerUploadSiteWithoutExport implements SelectionListener {
 		final Shell shell = event.display.getActiveShell();
 		String checkumsFileBasename = InitializationManager.getProperty("pmcms.filename.checksums");
 
-		DESCryptor cryptor = new DESCryptor(InitializationManager.getSiteProperty("pmcms.site.crypt.key"));
+		DESCryptor cryptor = new DESCryptor(InitializationManager.getProperty("pmcms.crypt.key"));
 		String plainPwd = cryptor.decrypt(site.getTransferLoginPassword());
 		Upload transferer = new Upload(site, ConnectionFactory.getFtp(site.getTransferHost(), site.getTransferLoginUser(), plainPwd,
 				site.getTransferStartDirectory()), checkumsFileBasename);
@@ -101,5 +101,4 @@ public class ListenerUploadSiteWithoutExport implements SelectionListener {
 			
 		}
 	}
-
 }

@@ -60,7 +60,7 @@ public class DialogFieldsSiteComp extends Composite implements IDialogFieldsVali
 		dialogCreator = (DialogCreator) parent;
 		this.site = site;
 		oldSiteUrl = site.getUrl();
-		cryptor = new DESCryptor(InitializationManager.getSiteProperty("pmcms.site.crypt.key"));
+		cryptor = new DESCryptor(InitializationManager.getProperty("pmcms.crypt.key"));
 		initialize();
 	}
 

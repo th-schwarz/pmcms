@@ -101,7 +101,7 @@ public class ListenerImportSite implements SelectionListener {
 				
 				// check if login password is encrypted
 				try {
-					DESCryptor cryptor = new DESCryptor(InitializationManager.getSiteProperty("pmcms.site.crypt.key"));
+					DESCryptor cryptor = new DESCryptor(InitializationManager.getProperty("pmcms.crypt.key"));
 					cryptor.decrypt(site.getTransferLoginPassword());
 				} catch (DESCryptor.CryptorException e) {
 					logger.warn("A non encrypted password found, delete it!");
