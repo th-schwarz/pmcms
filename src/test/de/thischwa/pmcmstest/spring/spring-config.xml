@@ -6,5 +6,5 @@
            http://www.springframework.org/schema/context
            http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 	
-	<bean id="alone" class="de.thischwa.pmcms.spring.StandAloneBean"/>
+	<bean id="alone" class="de.thischwa.pmcmstest.spring.StandAloneBean"/>
 </beans>

@@ -60,6 +60,8 @@ public class TestSpringInit {
 		TestBean b = ctx.getBean(TestBean.class);
 		assertEquals("hello", b.getText());
 		assertEquals(propsFile.getAbsolutePath(), b.getFilename());
+		
+		ctx.close();
 	}
 	
 }

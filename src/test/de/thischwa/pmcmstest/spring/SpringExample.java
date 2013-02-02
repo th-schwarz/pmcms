@@ -17,7 +17,7 @@ public class SpringExample {
 		// init spring;
 		try {
 			InputStream in = SpringExample.class.getResourceAsStream("spring-config.xml");
-			AnnotationConfigApplicationContext annoCtx = new AnnotationConfigApplicationContext("de.thischwa.pmcms.spring");
+			AnnotationConfigApplicationContext annoCtx = new AnnotationConfigApplicationContext("de.thischwa.pmcmstest.spring");
 			XmlBeanFactory ctx = new XmlBeanFactory(new ByteArrayResource(IOUtils.toByteArray(in)));
 			ctx.setParentBeanFactory(annoCtx);
 			
