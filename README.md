@@ -20,3 +20,4 @@ early-state project and isn't runnable at the moment!
   * updated to swt 4.2.1
   * updated basic eclipse libs
   * new swt jar loading behavior
+  * updated to spring 3.2.1
