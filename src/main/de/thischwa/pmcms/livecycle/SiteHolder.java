@@ -21,25 +21,19 @@
  ******************************************************************************/
 package de.thischwa.pmcms.livecycle;
 
-import java.io.BufferedInputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.Properties;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import org.apache.log4j.Logger;
 import org.apache.velocity.app.VelocityEngine;
 import org.springframework.stereotype.Component;
 
 import de.thischwa.pmcms.configuration.InitializationManager;
 import de.thischwa.pmcms.model.InstanceUtil;
-import de.thischwa.pmcms.model.domain.PoPathInfo;
 import de.thischwa.pmcms.model.domain.pojo.APoormansObject;
 import de.thischwa.pmcms.model.domain.pojo.ASiteResource;
 import de.thischwa.pmcms.model.domain.pojo.Gallery;
@@ -48,7 +42,6 @@ import de.thischwa.pmcms.model.domain.pojo.Level;
 import de.thischwa.pmcms.model.domain.pojo.Page;
 import de.thischwa.pmcms.model.domain.pojo.Site;
 import de.thischwa.pmcms.model.domain.pojo.Template;
-import de.thischwa.pmcms.tool.PropertiesTool;
 import de.thischwa.pmcms.view.renderer.VelocityUtils;
 
 /**
@@ -59,11 +52,9 @@ import de.thischwa.pmcms.view.renderer.VelocityUtils;
  */
 @Component
 public class SiteHolder {
-	private static Logger logger = Logger.getLogger(SiteHolder.class);
 	private static Site site;
 	private static String siteUrl;
 	private static VelocityEngine velocityEngine;
-	private static Properties siteProperties = new Properties();
 	private static Set<File> justRendering = Collections.synchronizedSet(new HashSet<File>());
 
 	private static AtomicInteger lastID = new AtomicInteger(0);
@@ -72,8 +63,6 @@ public class SiteHolder {
 	public void clear() {
 		container.clear();
 		lastID = new AtomicInteger(0);
-		siteProperties.clear();
-		siteProperties = PropertiesTool.getProperties(InitializationManager.getProperties(), "pmcms.site");
 	}
 	
 	public void mark(Level level) {
@@ -108,7 +97,6 @@ public class SiteHolder {
 		if(po.getId() == APoormansObject.UNSET_VALUE)
 			po.setId(lastID.getAndIncrement());
 		container.put(po.getId(), po);
-		//System.out.println(String.format("%3d#%s", lastID.get(), po.toString()));
 	}
 
 	public APoormansObject<?> get(int id) {
@@ -124,10 +112,6 @@ public class SiteHolder {
 		return site;
 	}
 	
-	public String getProperty(final String key) {
-		return siteProperties.getProperty(key);
-	}
-
 	public void setSite(Site site) {
 		clear();
 		SiteHolder.lastID = new AtomicInteger(0);
@@ -145,26 +129,11 @@ public class SiteHolder {
 			mark(site);
 		}
 		
-		loadSiteProperties(site);
+		InitializationManager.loadSiteProperties(site);
 		reconfigVelocityEngine();
 		justRendering.clear();
 	}
 	
-	private void loadSiteProperties(final Site site) {
-		File configDir = PoPathInfo.getSiteConfigurationDirectory(site); 
-		File propertiesFile = new File(configDir, "site.properties");
-		if(!propertiesFile.exists()) {
-			logger.debug(String.format("no properties found for [%s]", site.getUrl()));
-			return;
-		}
-		try {
-			siteProperties.putAll(PropertiesTool.loadProperties(new BufferedInputStream(new FileInputStream(propertiesFile))));
-			logger.info(String.format("Properties for [%s] successful loaded.", site.getUrl()));
-		} catch (FileNotFoundException e) {
-		}
-	}
-	
-
 	/**
 	 * Same as <code>setSite(null)</code>.
 	 */

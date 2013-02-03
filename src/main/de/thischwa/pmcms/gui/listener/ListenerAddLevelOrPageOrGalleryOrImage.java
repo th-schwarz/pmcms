@@ -124,7 +124,7 @@ public class ListenerAddLevelOrPageOrGalleryOrImage implements SelectionListener
 		Page page = new Page();
 		page.setParent(parentLevel);
 		if (CollectionUtils.isEmpty(parentLevel.getPages()))
-			page.setName(InitializationManager.getSiteProperty("pmcms.site.pojo.page.name"));
+			page.setName(InitializationManager.getProperty("pmcms.site.pojo.page.name"));
 		if (DialogManager.startDialogPersitentPojo(shell, page)) {
 			logger.debug("A new page will be constructed!");
 			parentLevel.add(page);

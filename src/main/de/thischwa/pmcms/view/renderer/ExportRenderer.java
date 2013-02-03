@@ -107,12 +107,12 @@ public class ExportRenderer implements IProgressViewer {
 	@Value("${pmcms.filename.checksums}")
 	private String checksumFilename;
 	
+	@Value("${pmcms.site.export.file.extension}")
 	private String poExtension;
 		
 	public void setSite(final Site site) {
 		this.site = site;
 		this.exportDir = PoPathInfo.getSiteExportDirectory(this.site);
-		this.poExtension = InitializationManager.getSiteProperty("pmcms.site.export.extention");
 	}
 
 	public void setMessages(final StringBuilder messages) {
@@ -258,7 +258,7 @@ public class ExportRenderer implements IProgressViewer {
 		File redFile = new File(InitializationManager.getDefaultResourcesPath(), "redirector.html");
 		if (!redFile.exists())
 			throw new RuntimeException("Default redirector not found: " + redFile);
-		String welcomeFileName = InitializationManager.getSiteProperty("pmcms.site.export.file.welcome");
+		String welcomeFileName = InitializationManager.getProperty("pmcms.site.export.file.welcome");
 		File outputFile = new File(this.exportDir, welcomeFileName);
 		String linkToRootPage = PoInfo.getRootLevel(this.site).getName().concat("/").concat(welcomeFileName);
 

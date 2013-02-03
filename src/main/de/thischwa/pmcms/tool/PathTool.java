@@ -109,7 +109,7 @@ public class PathTool {
     	if (InstanceUtil.isPage(renderable)) {
     		Page page = (Page) renderable;
             if (OrderableInfo.isFirst(page))
-            	name.append(InitializationManager.getSiteProperty("pmcms.site.export.file.welcome"));
+            	name.append(InitializationManager.getProperty("pmcms.site.export.file.welcome"));
             else {
                 name.append(page.getName());
             	name.append('.');

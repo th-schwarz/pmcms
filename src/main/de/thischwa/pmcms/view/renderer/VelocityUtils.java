@@ -31,7 +31,6 @@ import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.velocity.app.VelocityEngine;
@@ -53,7 +52,6 @@ import de.thischwa.pmcms.livecycle.SiteHolder;
 import de.thischwa.pmcms.model.domain.pojo.Macro;
 import de.thischwa.pmcms.model.domain.pojo.Site;
 import de.thischwa.pmcms.tool.Link;
-import de.thischwa.pmcms.tool.PropertiesTool;
 import de.thischwa.pmcms.tool.file.FileTool;
 import de.thischwa.pmcms.tool.image.Dimension;
 import de.thischwa.pmcms.wysisygeditor.CKFileResource;
@@ -91,7 +89,7 @@ public class VelocityUtils {
 	 */
 	public static VelocityEngine getSiteEngine(final Site site) {
 		logger.debug("Entered initEngine.");
-		Properties commonProperties = PropertiesTool.getProperties(InitializationManager.getProperties(), "velocity", true);
+		Properties commonProperties = InitializationManager.getVelocityProperties();
 		VelocityEngine velocityEngine = new VelocityEngine();
 	
 		try {
