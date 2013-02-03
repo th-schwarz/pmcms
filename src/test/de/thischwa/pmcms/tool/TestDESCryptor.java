@@ -28,7 +28,7 @@ public class TestDESCryptor {
 	@BeforeClass
 	public static void init() {
 		InitializationManager.start(new BasicConfigurator(Constants.APPLICATION_DIR), false);
-		cryptor = new DESCryptor(InitializationManager.getProperty("pmcms.site.crypt.key"));
+		cryptor = new DESCryptor(InitializationManager.getProperty("pmcms.crypt.key"));
 	}
 	
 	@AfterClass
