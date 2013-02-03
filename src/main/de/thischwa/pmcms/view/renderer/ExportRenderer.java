@@ -32,7 +32,6 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
@@ -107,12 +106,12 @@ public class ExportRenderer implements IProgressViewer {
 	@Value("${pmcms.filename.checksums}")
 	private String checksumFilename;
 	
-	@Value("${pmcms.site.export.file.extension}")
 	private String poExtension;
 		
 	public void setSite(final Site site) {
 		this.site = site;
 		this.exportDir = PoPathInfo.getSiteExportDirectory(this.site);
+		this.poExtension = InitializationManager.getSiteProperty("pmcms.site.export.file.extension");
 	}
 
 	public void setMessages(final StringBuilder messages) {

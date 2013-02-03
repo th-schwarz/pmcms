@@ -27,14 +27,13 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.Properties;
 
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
-import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 
 import de.thischwa.pmcms.Constants;
 import de.thischwa.pmcms.tool.PropertiesTool;
@@ -93,7 +92,7 @@ public class BasicConfigurator {
 		try {
 			AnnotationConfigApplicationContext ctx =  new AnnotationConfigApplicationContext();
 			ctx.scan("de.thischwa.pmcms");
-			PropertyPlaceholderConfigurer config = new PropertyPlaceholderConfigurer();
+			PropertySourcesPlaceholderConfigurer config = new PropertySourcesPlaceholderConfigurer();
 			config.setProperties(props);
 			config.postProcessBeanFactory(ctx.getDefaultListableBeanFactory());
 			ctx.refresh();

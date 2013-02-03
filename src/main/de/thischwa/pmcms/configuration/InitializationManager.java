@@ -21,10 +21,7 @@
  ******************************************************************************/
 package de.thischwa.pmcms.configuration;
 
-import java.io.BufferedInputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -47,7 +44,6 @@ import de.thischwa.pmcms.Constants;
 import de.thischwa.pmcms.configuration.resource.LabelHolder;
 import de.thischwa.pmcms.livecycle.SiteHolder;
 import de.thischwa.pmcms.livecycle.UserPathBuilderImpl;
-import de.thischwa.pmcms.model.domain.PoPathInfo;
 import de.thischwa.pmcms.model.domain.pojo.Site;
 import de.thischwa.pmcms.model.thread.ThreadController;
 import de.thischwa.pmcms.model.tool.SitePersister;
@@ -77,9 +73,6 @@ public class InitializationManager {
 	/** Locker to check if another instance of poormans is running. */
 	private static Locker locker = new Locker(new File(Constants.TEMP_DIR, "pmcms.lck"));
 
-	/** The 'global' manager of the properties. */
-	private static PropertiesManager pm;
-
 	/** Directory, which contains the backups of the sites. */
 	private static File sitesBackupDir;
 
@@ -97,9 +90,11 @@ public class InitializationManager {
 
 	/** The spring context. */
 	private static AbstractApplicationContext context;
+	
+	private static Properties properties;
 
 	private static SiteHolder siteHolder;
-	
+
 	private static boolean imageRenderingEnabled;
 
 	private static boolean enableTasksStart = true;
@@ -138,14 +133,15 @@ public class InitializationManager {
 			throw new RuntimeException("No context found.");
 		dataDir = configurator.getDataDir();
 		context = configurator.getContext();
-		pm = new PropertiesManager(configurator.getProps());
-		siteHolder = getBean(SiteHolder.class);
+		properties = configurator.getProps();
 
 		logger.info("Language: ".concat(LabelHolder.getLocale().getLanguage()));
 		logger.info("Application dir: " + Constants.APPLICATION_DIR);
 		logger.info("Data dir: " + dataDir.getAbsolutePath());
 
-		sitesBackupDir = new File(pm.getProperty("pmcms.dir.backup"));
+		sitesBackupDir = new File(properties.getProperty("pmcms.dir.backup"));
+		siteHolder = (SiteHolder) context.getBean("siteHolder");
+		siteHolder.setDefaultSiteProperties(PropertiesTool.getProperties(properties, "pmcms.site"));
 
 		// check some directories
 		if (!Constants.TEMP_DIR.exists())
@@ -162,7 +158,7 @@ public class InitializationManager {
 		// check if we have to trigger a cleanup
 		if (hasToCleanup)
 			try {
-				InternalAntTool.cleanup(dataDir, configurator.getProps());
+				InternalAntTool.cleanup(dataDir, properties);
 			} catch (Exception e) {
 				throw new RuntimeException(e);
 			}
@@ -244,8 +240,6 @@ public class InitializationManager {
 				logger.error("Error while deleting poormans' temp dir: " + e.getMessage(), e);
 			}
 		}
-		
-		context.close();
 	}
 
 	/**
@@ -289,34 +283,26 @@ public class InitializationManager {
 	 * Wrapper for {@link Properties#getProperty(String)}.
 	 */
 	public static String getProperty(final String key) {
-		return pm.getProperty(key);
+		return properties.getProperty(key);
 	}
 	
-	public static void loadSiteProperties(final Site site) {
-		File configDir = PoPathInfo.getSiteConfigurationDirectory(site); 
-		File propertiesFile = new File(configDir, "site.properties");
-		
-		if(!propertiesFile.exists()) {
-			logger.debug(String.format("no properties found for [%s]", site.getUrl()));
-			return;
-		}
-		try {
-			pm.setSiteProperties(PropertiesTool.loadProperties(new BufferedInputStream(new FileInputStream(propertiesFile))));
-			logger.info(String.format("Properties for [%s] successful loaded.", site.getUrl()));
-		} catch (FileNotFoundException e) {
-		}
+	public static SiteHolder getSiteHolder() {
+		return siteHolder;
 	}
-
-	public static Properties getVelocityProperties() {
-		return pm.getVelocityProperties();
+	
+	/**
+	 * Wrapper for {@link SiteHolder#getProperty(String)}.
+	 */
+	public static String getSiteProperty(final String key) {
+		return siteHolder.getProperty(key);
 	}
 
 	public static String getDefaultResourcesPath() {
-		return pm.getProperty("pmcms.dir.defaultresources").concat(File.separator);
+		return properties.getProperty("pmcms.dir.defaultresources").concat(File.separator);
 	}
 
 	public static String getSourceEditorPath() {
-		return pm.getProperty("pmcms.dir.sourceeditor").concat(File.separator);
+		return properties.getProperty("pmcms.dir.sourceeditor").concat(File.separator);
 	}
 
 	/**
@@ -348,5 +334,10 @@ public class InitializationManager {
 
 	public static boolean isImageRenderingEnabled() {
 		return imageRenderingEnabled;
+	}
+
+	public static Properties getVelocityProperties() {
+		// TODO Auto-generated method stub
+		return PropertiesTool.getProperties(properties, "velocity", true);
 	}
 }

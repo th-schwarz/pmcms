@@ -158,7 +158,7 @@ public class SiteLinkTool implements IContextObjectNeedPojoHelper, IContextObjec
 			if (PoInfo.isWelcomePage(pageTo) || OrderableInfo.isFirst(pageTo))
 				pageName = welcomePageName;
 			else
-				pageName = pageTo.getName().concat(".").concat(InitializationManager.getProperty("pmcms.site.export.file.extension"));
+				pageName = pageTo.getName().concat(".").concat(InitializationManager.getSiteProperty("pmcms.site.export.file.extension"));
 			String levelName = PathTool.getURLRelativePathToLevel(this.currentLevel, pageTo.getParent());
 			if (StringUtils.isNotBlank(levelName) && !levelName.endsWith("/"))
 				levelName = levelName.concat("/");
