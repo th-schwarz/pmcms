@@ -100,6 +100,8 @@ public class BasicConfigurator {
 			ctx.refresh();
 			context = ctx;
 			logger.info("*** Spring initialized!");
+			PropertiesManager pm = context.getBean(PropertiesManager.class);
+			pm.setProperties(props);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}

@@ -25,12 +25,14 @@ import java.io.File;
 
 
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import de.thischwa.pmcms.Constants;
 import de.thischwa.pmcms.configuration.InitializationManager;
+import de.thischwa.pmcms.configuration.PropertiesManager;
 import de.thischwa.pmcms.exception.FatalException;
 import de.thischwa.pmcms.livecycle.PojoHelper;
 import de.thischwa.pmcms.model.InstanceUtil;
@@ -47,7 +49,7 @@ import de.thischwa.pmcms.view.renderer.RenderData;
 
 /**
  * Context objects for building links to user relevant resources. The resources must be inside the site folder
- * definded in the property 'pmcms.site.dir.layoutresources'.
+ * defined in the property 'pmcms.site.dir.layoutresources'. They will be exported to 'pmcms.site.export.dir.layoutresources'.
  * 
  * @version $Id: SiteLinkTool.java 2210 2012-06-17 13:01:49Z th-schwarz $
  * @author <a href="mailto:th-schwarz@users.sourceforge.net">Thilo Schwarz</a>
@@ -62,13 +64,15 @@ public class SiteLinkTool implements IContextObjectNeedPojoHelper, IContextObjec
 	private RenderData renderData = InitializationManager.getBean(RenderData.class);
 	private File siteDir;
 	private String welcomePageName;
+	
+	@Autowired private PropertiesManager propertiesManager;
 
 	@Override
 	public void setPojoHelper(final PojoHelper pojoHelper) {
 		this.pojoHelper = pojoHelper;
 		this.currentLevel = pojoHelper.getLevel();
 		siteDir = PoPathInfo.getSiteDirectory(pojoHelper.getSite());
-		welcomePageName = InitializationManager.getProperty("pmcms.site.export.file.welcome");
+		welcomePageName = propertiesManager.getSiteProperty("pmcms.site.export.file.welcome");
 	}
 
 	@Override
@@ -84,11 +88,13 @@ public class SiteLinkTool implements IContextObjectNeedPojoHelper, IContextObjec
 	 * @return SiteLinkTool
 	 */
 	public SiteLinkTool getResource(final String resource) {
-		String res = String.format("%s/%s", InitializationManager.getProperty("pmcms.site.dir.layoutresources"), resource);
+		String res = String.format("%s/%s", propertiesManager.getSiteProperty("pmcms.site.dir.layoutresources"), resource);
 		if (isExportView) {
+			//String res = String.format("%s/%s", propertiesManager.getSiteProperty("pmcms.site.export.dir.layoutresources"), resource);
 			setResource(PathTool.getURLRelativePathToRoot(this.currentLevel).concat(res));
 			addResource(res);
 		} else {
+			//String res = String.format("%s/%s", InitializationManager.getSiteProperty("pmcms.site.dir.layoutresources"), resource);
 			setResource(Constants.LINK_IDENTICATOR_SITE_RESOURCE + PathTool.getURLFromFile(res));
 		}
 		return this;
@@ -158,7 +164,7 @@ public class SiteLinkTool implements IContextObjectNeedPojoHelper, IContextObjec
 			if (PoInfo.isWelcomePage(pageTo) || OrderableInfo.isFirst(pageTo))
 				pageName = welcomePageName;
 			else
-				pageName = pageTo.getName().concat(".").concat(InitializationManager.getSiteProperty("pmcms.site.export.file.extension"));
+				pageName = pageTo.getName().concat(".").concat(propertiesManager.getSiteProperty("pmcms.site.export.file.extension"));
 			String levelName = PathTool.getURLRelativePathToLevel(this.currentLevel, pageTo.getParent());
 			if (StringUtils.isNotBlank(levelName) && !levelName.endsWith("/"))
 				levelName = levelName.concat("/");

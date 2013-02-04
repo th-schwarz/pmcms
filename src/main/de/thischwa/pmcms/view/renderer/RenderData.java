@@ -42,18 +42,15 @@ public class RenderData {
 	private Set<File> ckResources;
 	
 	private Set<File> files;
-	private Set<File> dirs;
 	
 	public RenderData() {
 		ckResources = Collections.synchronizedSet(new HashSet<File>());
 		files = Collections.synchronizedSet(new HashSet<File>());
-		dirs = Collections.synchronizedSet(new HashSet<File>());
 	}
 	
 	public void clear() {
 		ckResources.clear();
 		files.clear();
-		dirs.clear();
 	}
 	
 	public synchronized void addCKResource(final File file) {
@@ -70,23 +67,11 @@ public class RenderData {
 	}
 	
 	public void addFile(final File file) {
-		if(file.isDirectory())
-			dirs.add(file.getAbsoluteFile());
-		else
+		if(!file.isDirectory())
 			files.add(file.getAbsoluteFile());
 	}
 	
 	public Set<File> getFilesToCopy() {
-		// we just need files whose parent folder wasn't added
-		Set<File> cleanedFiles = new HashSet<File>(dirs);
-		for(File tmpFile : files) {
-			if(tmpFile.isFile()) {
-				File parent = tmpFile.getParentFile().getAbsoluteFile();
-				if(!cleanedFiles.contains(parent))
-					cleanedFiles.add(tmpFile.getAbsoluteFile());
-			}
-		}
-
-		return cleanedFiles;
+		return files;
 	}
 }

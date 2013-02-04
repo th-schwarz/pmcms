@@ -36,9 +36,6 @@ import de.thischwa.pmcms.tool.file.FileTool;
 
 /**
  * Implementation of the {@link ACKEditorResource} for the resource TYPE file.
- *
- * @version $Id: CKFileResource.java 2210 2012-06-17 13:01:49Z th-schwarz $
- * @author <a href="mailto:th-schwarz@users.sourceforge.net">Thilo Schwarz</a>
  */
 public class CKFileResource extends ACKEditorResource implements ICKResource {
 

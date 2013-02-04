@@ -62,7 +62,7 @@ public class SiteResourceServlet extends AServlet {
 	 */
 	@Override
 	protected void doRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		File siteDir = new File(baseFile, siteHolder.getSiteUrl());
+		File siteDir = new File(baseFile, siteHolder.getSite().getUrl());
 		logger.debug(String.format("Site dir: %s", siteDir.getAbsolutePath()));
 		String reqPath = req.getPathInfo();
 		if(reqPath.startsWith(sitePathPart))

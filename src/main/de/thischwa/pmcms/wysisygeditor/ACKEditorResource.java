@@ -33,11 +33,8 @@ import de.thischwa.pmcms.view.context.object.tagtool.CommonXhtmlTagTool;
 
 /**
  * Basic (abstract) class for handling the different file resources of the FCKeditor.
- *
- * @version $Id: ACKEditorResource.java 2210 2012-06-17 13:01:49Z th-schwarz $
- * @author <a href="mailto:th-schwarz@users.sourceforge.net">Thilo Schwarz</a>
  * 
- * TODO make null-save for use with fckeditor templates. (Img-tags are empty skeletons!!)
+ * TODO make null-save for use with fckeditor templates. (Img-tags are empty skeletons!!)  Must be checked for the ckeditor!!
  */
 abstract class ACKEditorResource {
 	protected File file = null;

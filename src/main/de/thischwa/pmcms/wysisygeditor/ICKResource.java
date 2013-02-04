@@ -25,12 +25,8 @@ import java.io.File;
 
 import de.thischwa.pmcms.model.domain.pojo.Level;
 
-
 /**
- * Interface for all resources of the FCKeditor.
- *
- * @version $Id: ICKResource.java 2210 2012-06-17 13:01:49Z th-schwarz $
- * @author <a href="mailto:th-schwarz@users.sourceforge.net">Thilo Schwarz</a>
+ * Interface for all resources of the CKeditor.
  */
 public interface ICKResource {
 
@@ -42,9 +38,9 @@ public interface ICKResource {
 	public File getExportFile();
 
 	/**
-	 * Constructs the src-tag for export. {@link Level} is needed to construct relative links.
+	 * Constructs the src-tag for export. 
 	 * 
-	 * @param level
+	 * @param level {@link Level} is needed to construct relative links.
 	 * @return Src-tag for export.
 	 */
 	public String getTagSrcForExport(final Level level);	

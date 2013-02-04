@@ -141,7 +141,6 @@ public class InitializationManager {
 
 		sitesBackupDir = new File(properties.getProperty("pmcms.dir.backup"));
 		siteHolder = (SiteHolder) context.getBean("siteHolder");
-		siteHolder.setDefaultSiteProperties(PropertiesTool.getProperties(properties, "pmcms.site"));
 
 		// check some directories
 		if (!Constants.TEMP_DIR.exists())
@@ -266,7 +265,7 @@ public class InitializationManager {
 	}
 
 	/**
-	 * @return Allowed image extentions.
+	 * @return Allowed image extensions.
 	 */
 	public static final List<String> getAllowedImageExtensions() {
 		return allowedImageExtensions;
@@ -290,13 +289,6 @@ public class InitializationManager {
 		return siteHolder;
 	}
 	
-	/**
-	 * Wrapper for {@link SiteHolder#getProperty(String)}.
-	 */
-	public static String getSiteProperty(final String key) {
-		return siteHolder.getProperty(key);
-	}
-
 	public static String getDefaultResourcesPath() {
 		return properties.getProperty("pmcms.dir.defaultresources").concat(File.separator);
 	}
@@ -337,7 +329,6 @@ public class InitializationManager {
 	}
 
 	public static Properties getVelocityProperties() {
-		// TODO Auto-generated method stub
 		return PropertiesTool.getProperties(properties, "velocity", true);
 	}
 }

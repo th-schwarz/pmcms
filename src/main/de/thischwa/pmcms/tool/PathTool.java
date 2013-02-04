@@ -32,6 +32,7 @@ import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.StringUtils;
 
 import de.thischwa.pmcms.configuration.InitializationManager;
+import de.thischwa.pmcms.configuration.PropertiesManager;
 import de.thischwa.pmcms.model.IRenderable;
 import de.thischwa.pmcms.model.InstanceUtil;
 import de.thischwa.pmcms.model.domain.OrderableInfo;
@@ -47,9 +48,6 @@ import de.thischwa.pmcms.model.domain.pojo.Page;
 /**
  * Helper for constructing, converting paths and urls.<br>
  * All methods are null-safe and return an empty string if one or more arguments are null.
- * 
- * @version $Id: PathTool.java 2210 2012-06-17 13:01:49Z th-schwarz $
- * @author <a href="mailto:th-schwarz@users.sourceforge.net">Thilo Schwarz</a>
  */
 public class PathTool {
 	
@@ -109,7 +107,7 @@ public class PathTool {
     	if (InstanceUtil.isPage(renderable)) {
     		Page page = (Page) renderable;
             if (OrderableInfo.isFirst(page))
-            	name.append(InitializationManager.getProperty("pmcms.site.export.file.welcome"));
+            	name.append(InitializationManager.getBean(PropertiesManager.class).getSiteProperty("pmcms.site.export.file.welcome"));
             else {
                 name.append(page.getName());
             	name.append('.');

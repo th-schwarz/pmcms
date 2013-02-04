@@ -47,6 +47,7 @@ import org.springframework.stereotype.Service;
 
 import de.thischwa.pmcms.Constants;
 import de.thischwa.pmcms.configuration.InitializationManager;
+import de.thischwa.pmcms.configuration.PropertiesManager;
 import de.thischwa.pmcms.configuration.resource.LabelHolder;
 import de.thischwa.pmcms.exception.FatalException;
 import de.thischwa.pmcms.exception.RenderingException;
@@ -99,6 +100,7 @@ public class ExportRenderer implements IProgressViewer {
 	
 	@Autowired private RenderData renderData;
 	@Autowired private VelocityRenderer renderer;
+	@Autowired private PropertiesManager propertiesManager;
 
 	@Value("${pmcms.export.maxthreadspercore}")
 	private int maxThreadsPerCount;
@@ -111,7 +113,7 @@ public class ExportRenderer implements IProgressViewer {
 	public void setSite(final Site site) {
 		this.site = site;
 		this.exportDir = PoPathInfo.getSiteExportDirectory(this.site);
-		this.poExtension = InitializationManager.getSiteProperty("pmcms.site.export.file.extension");
+		this.poExtension = propertiesManager.getSiteProperty("pmcms.site.export.file.extension");
 	}
 
 	public void setMessages(final StringBuilder messages) {
@@ -180,8 +182,6 @@ public class ExportRenderer implements IProgressViewer {
 					File destFile = new File(exportDir, exportPathPart);
 					if(srcFile.isFile())
 						FileUtils.copyFile(srcFile, destFile);
-					else
-						FileUtils.copyDirectoryToDirectory(srcFile, destFile.getParentFile());
 				}			
 				logger.debug("Extra files successful copied!");
 				
