@@ -31,6 +31,7 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 
 import de.thischwa.pmcms.configuration.InitializationManager;
+import de.thischwa.pmcms.configuration.PropertiesManager;
 import de.thischwa.pmcms.exception.FatalException;
 import de.thischwa.pmcms.gui.BrowserManager;
 import de.thischwa.pmcms.gui.WorkspaceToolBarManager;
@@ -68,7 +69,7 @@ public class ListenerAddSite implements SelectionListener {
 		logger.debug("SEL add site");
 		Site site = new Site();
 		if (DialogManager.startDialogPersitentPojo(e.display.getActiveShell(), site)) {
-			File defaultResourceDir = new File(InitializationManager.getProperty("pmcms.dir.defaultresources"));
+			File defaultResourceDir = new File(InitializationManager.getBean(PropertiesManager.class).getProperty("pmcms.dir.defaultresources"));
 			File srcDir = new File(defaultResourceDir.getAbsoluteFile(), "sites");
 			File srcConfigDir = new File(srcDir, "configuration");
 			File destDir = PoPathInfo.getSiteDirectory(site);

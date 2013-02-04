@@ -26,12 +26,8 @@ import java.io.File;
 import de.thischwa.pmcms.server.Action;
 import de.thischwa.pmcms.tool.XY;
 
-
 /**
  * Some global constants.
- *
- * @version $Id: Constants.java 2210 2012-06-17 13:01:49Z th-schwarz $
- * @author <a href="mailto:th-schwarz@users.sourceforge.net">Thilo Schwarz</a>
  */
 public interface Constants {
 	
@@ -92,9 +88,6 @@ public interface Constants {
 	/** Extension of the backup file name. */
 	public static final String BACKUP_EXTENSION = "poormans_backup";
 
-	/** File extension for generated files. */
-    public static final String RENDERED_EXT = "html";  // TODO Change it to a property of a site!?
-
 	/** Allowed chars to build names for the file system. */
 	public static final String ALLOWED_CHARS_FOR_FILES = ".abcdefghijklmnopqrstuvwxyz_-0123456789";
 
@@ -115,4 +108,8 @@ public interface Constants {
 	
 	/** Default encoding. */
 	public static final String STANDARD_ENCODING = "UTF-8";
+
+	public static final char SEPARATOR_CHAR = '/';
+
+	public static final String SEPARATOR = String.valueOf(SEPARATOR_CHAR);
 }

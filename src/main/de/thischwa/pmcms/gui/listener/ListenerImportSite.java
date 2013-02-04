@@ -35,6 +35,7 @@ import org.eclipse.swt.widgets.Shell;
 
 import de.thischwa.pmcms.Constants;
 import de.thischwa.pmcms.configuration.InitializationManager;
+import de.thischwa.pmcms.configuration.PropertiesManager;
 import de.thischwa.pmcms.configuration.resource.LabelHolder;
 import de.thischwa.pmcms.gui.BrowserManager;
 import de.thischwa.pmcms.gui.WorkspaceToolBarManager;
@@ -62,10 +63,11 @@ public class ListenerImportSite implements SelectionListener {
 	
 	@Override
 	public void widgetSelected(SelectionEvent event) {
+		PropertiesManager pm = InitializationManager.getBean(PropertiesManager.class);
 		final Shell shell = event.display.getActiveShell();
 		FileDialog fileDialog = new FileDialog(shell, SWT.OPEN);
 		fileDialog.setText(LabelHolder.get("task.import.openfile")); //$NON-NLS-1$
-		fileDialog.setFilterPath(new File(InitializationManager.getProperty("pmcms.dir.backup")).getAbsolutePath());
+		fileDialog.setFilterPath(new File(pm.getProperty("pmcms.dir.backup")).getAbsolutePath());
 		fileDialog.setFilterExtensions(new String[]{ "*.".concat(Constants.BACKUP_EXTENSION).concat(";*.zip"),
 				"*.".concat(Constants.BACKUP_EXTENSION), 
 				"*.zip" });
@@ -101,7 +103,7 @@ public class ListenerImportSite implements SelectionListener {
 				
 				// check if login password is encrypted
 				try {
-					DESCryptor cryptor = new DESCryptor(InitializationManager.getProperty("pmcms.crypt.key"));
+					DESCryptor cryptor = new DESCryptor(pm.getProperty("pmcms.crypt.key"));
 					cryptor.decrypt(site.getTransferLoginPassword());
 				} catch (DESCryptor.CryptorException e) {
 					logger.warn("A non encrypted password found, delete it!");

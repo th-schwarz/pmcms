@@ -65,8 +65,8 @@ abstract class ACKEditorResource {
 	 * site/file/test.zip or site/image/sflogo.png
 	 */
 	public String getPreviewTagSrcForTagTool() {
-		String path = this.file.getAbsolutePath().replace(File.separator, LinkFolderTool.SEPARATOR);
-		String resourcePath = PoPathInfo.getSiteResourceDirectory(this.site, this.ext).getAbsolutePath().replace(File.separator, LinkFolderTool.SEPARATOR);
+		String path = this.file.getAbsolutePath().replace(File.separator, Constants.SEPARATOR);
+		String resourcePath = PoPathInfo.getSiteResourceDirectory(this.site, this.ext).getAbsolutePath().replace(File.separator, Constants.SEPARATOR);
 		if (path.startsWith(resourcePath))
 			 path = path.substring(resourcePath.length()+1);
 		path = String.format("/%s/%s/%s", Constants.LINK_IDENTICATOR_SITE_RESOURCE, CKResourceTool.getDir(ext), path);

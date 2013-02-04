@@ -43,9 +43,6 @@ import de.thischwa.pmcms.view.context.IContextObjectNeedViewMode;
 /**
  * Context object to retrieve the view mode of an {@link IRenderable} and to provide required constants for building links and forms. 
  * It's mainly used for build internal forms, e.g. content.vm.
- * 
- * @version $Id: ContextTool.java 2210 2012-06-17 13:01:49Z th-schwarz $
- * @author <a href="mailto:th-schwarz@users.sourceforge.net">Thilo Schwarz</a>
  */
 @Component("contexttool")
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)

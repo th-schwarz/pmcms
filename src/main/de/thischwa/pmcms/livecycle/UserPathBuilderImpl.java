@@ -26,6 +26,7 @@ import javax.servlet.ServletContext;
 import de.thischwa.c5c.requestcycle.Context;
 import de.thischwa.c5c.requestcycle.UserPathBuilder;
 import de.thischwa.pmcms.configuration.InitializationManager;
+import de.thischwa.pmcms.configuration.PropertiesManager;
 import de.thischwa.pmcms.model.domain.PoPathInfo;
 import de.thischwa.pmcms.model.domain.pojo.Site;
 import de.thischwa.pmcms.tool.PathTool;
@@ -40,7 +41,7 @@ public class UserPathBuilderImpl implements UserPathBuilder {
 
 	@Override
 	public String getServerPath(String urlPath, Context ctx, ServletContext servletContext) {
-		String userfilesPath = InitializationManager.getProperty("pmcms.filemanager.userfiles");
+		String userfilesPath = InitializationManager.getBean(PropertiesManager.class).getProperty("pmcms.filemanager.userfiles");
 		String cleanedUrlPath = urlPath.equals(userfilesPath) ? "" : urlPath.substring(userfilesPath.length()-1);
 		Site site = getSite();
 		String path = (site != null) 

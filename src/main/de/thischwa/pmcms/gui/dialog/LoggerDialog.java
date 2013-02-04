@@ -28,6 +28,7 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 
 import de.thischwa.pmcms.configuration.InitializationManager;
+import de.thischwa.pmcms.configuration.PropertiesManager;
 import de.thischwa.pmcms.gui.GuiPropertiesManager;
 import de.thischwa.pmcms.gui.composite.LoggerComp;
 import de.thischwa.pmcms.model.thread.LogGrabber;
@@ -53,7 +54,7 @@ public class LoggerDialog extends SimpleDialog {
 	@Override
 	public void init() {
 		LoggerComp loggerComp = new LoggerComp(shell, SWT.NONE);
-		final Thread logGrabberThread = new LogGrabber(InitializationManager.getProperty("log4j.appender.FILE.file"), loggerComp);
+		final Thread logGrabberThread = new LogGrabber(InitializationManager.getBean(PropertiesManager.class).getProperty("log4j.appender.FILE.file"), loggerComp);
 		
 		shell.setText("Logger");
 		shell.setMinimumSize(300, 400);

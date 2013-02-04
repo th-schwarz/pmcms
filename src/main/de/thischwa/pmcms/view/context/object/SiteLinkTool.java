@@ -50,9 +50,6 @@ import de.thischwa.pmcms.view.renderer.RenderData;
 /**
  * Context objects for building links to user relevant resources. The resources must be inside the site folder
  * defined in the property 'pmcms.site.dir.layoutresources'. They will be exported to 'pmcms.site.export.dir.layoutresources'.
- * 
- * @version $Id: SiteLinkTool.java 2210 2012-06-17 13:01:49Z th-schwarz $
- * @author <a href="mailto:th-schwarz@users.sourceforge.net">Thilo Schwarz</a>
  */
 @Component("sitelinktool")
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
@@ -61,11 +58,11 @@ public class SiteLinkTool implements IContextObjectNeedPojoHelper, IContextObjec
 	private Level currentLevel = null;
 	private boolean isExportView;
     private PojoHelper pojoHelper; 
-	private RenderData renderData = InitializationManager.getBean(RenderData.class);
 	private File siteDir;
 	private String welcomePageName;
 	
 	@Autowired private PropertiesManager propertiesManager;
+	@Autowired private RenderData renderData;
 
 	@Override
 	public void setPojoHelper(final PojoHelper pojoHelper) {
@@ -87,7 +84,7 @@ public class SiteLinkTool implements IContextObjectNeedPojoHelper, IContextObjec
 	 * @param resource The name of the resource file, e.g. 'format.css', 'js/jquery.js'
 	 * @return SiteLinkTool
 	 */
-	public SiteLinkTool getResource(final String resource) {
+	public SiteLinkTool getResource(final String resource) {  // TODO respect different export dir!
 		String res = String.format("%s/%s", propertiesManager.getSiteProperty("pmcms.site.dir.layoutresources"), resource);
 		if (isExportView) {
 			//String res = String.format("%s/%s", propertiesManager.getSiteProperty("pmcms.site.export.dir.layoutresources"), resource);

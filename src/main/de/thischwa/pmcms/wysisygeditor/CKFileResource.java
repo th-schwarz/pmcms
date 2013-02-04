@@ -73,7 +73,7 @@ public class CKFileResource extends ACKEditorResource implements ICKResource {
 		String temp = file.getAbsolutePath();
 		if (temp.startsWith(resourceDirectory.getAbsolutePath()))
 			temp = temp.substring(resourceDirectory.getAbsolutePath().length()+1);
-		temp = temp.replace(File.separatorChar, LinkFolderTool.SEPARATOR_CHAR);
+		temp = temp.replace(File.separatorChar, Constants.SEPARATOR_CHAR);
 		String siteFolder = LinkFolderTool.getSiteFolder(site);
 		if(temp.startsWith(siteFolder))
 			temp = temp.substring(siteFolder.length());

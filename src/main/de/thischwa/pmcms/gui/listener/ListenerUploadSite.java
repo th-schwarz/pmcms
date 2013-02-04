@@ -33,6 +33,7 @@ import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 
 import de.thischwa.pmcms.configuration.InitializationManager;
+import de.thischwa.pmcms.configuration.PropertiesManager;
 import de.thischwa.pmcms.configuration.resource.LabelHolder;
 import de.thischwa.pmcms.exception.ProgressException;
 import de.thischwa.pmcms.gui.dialog.DialogManager;
@@ -59,6 +60,7 @@ public class ListenerUploadSite implements SelectionListener {
 	public void widgetSelected(SelectionEvent event) {
 		final Shell shell = event.display.getActiveShell();
 		SiteHolder siteHolder = InitializationManager.getBean(SiteHolder.class);
+		PropertiesManager pm = InitializationManager.getBean(PropertiesManager.class);
 		Site site = siteHolder.getSite();
 		if (!PoInfo.hasFileTranferInfo(site)) {
 			MessageBox msg = new MessageBox(shell, SWT.ICON_WARNING | SWT.OK);
@@ -87,11 +89,11 @@ public class ListenerUploadSite implements SelectionListener {
 		
 		// transfer
 		try {
-			DESCryptor cryptor = new DESCryptor(InitializationManager.getProperty("pmcms.crypt.key"));
+			DESCryptor cryptor = new DESCryptor(pm.getProperty("pmcms.crypt.key"));
 			String plainPwd = cryptor.decrypt(site.getTransferLoginPassword());
 			IConnection transfer = ConnectionFactory.getFtp(site.getTransferHost(), site.getTransferLoginUser(), 
 					plainPwd, site.getTransferStartDirectory());
-			String checkumsFileBasename = InitializationManager.getProperty("pmcms.filename.checksums");
+			String checkumsFileBasename = pm.getProperty("pmcms.filename.checksums");
 			DialogManager.startProgressDialog(shell, new Upload(site, transfer, checkumsFileBasename));
 			MessageBox mb = new MessageBox(shell, SWT.ICON_INFORMATION | SWT.OK);
 			mb.setText(LabelHolder.get("popup.info")); //$NON-NLS-1$

@@ -22,6 +22,7 @@
 package de.thischwa.pmcms.view.context.object.admin;
 
 import de.thischwa.pmcms.configuration.InitializationManager;
+import de.thischwa.pmcms.configuration.PropertiesManager;
 import de.thischwa.pmcms.model.InstanceUtil;
 import de.thischwa.pmcms.model.domain.pojo.ASiteResource;
 
@@ -47,6 +48,6 @@ public class AdminTool {
 	}
 	
 	public String getBaseurl() {
-		return InitializationManager.getProperty("baseurl");
+		return InitializationManager.getBean(PropertiesManager.class).getProperty("baseurl");
 	}
 }

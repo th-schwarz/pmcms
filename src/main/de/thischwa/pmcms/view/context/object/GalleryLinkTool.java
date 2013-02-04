@@ -26,15 +26,15 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.io.FilenameUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import de.thischwa.pmcms.Constants;
-import de.thischwa.pmcms.configuration.InitializationManager;
+import de.thischwa.pmcms.configuration.PropertiesManager;
 import de.thischwa.pmcms.exception.RenderingException;
 import de.thischwa.pmcms.model.domain.OrderableInfo;
 import de.thischwa.pmcms.model.domain.PoInfo;
@@ -51,28 +51,19 @@ import de.thischwa.pmcms.wysisygeditor.CKImageResource;
 /**
  * Context object to build a link to a desired {@link Image} and to build a
  * zip file with all images of a gallery and it's link. It is only for {@link Gallery galleries} and {@link Image images}.
- * 
- * @version $Id: GalleryLinkTool.java 2210 2012-06-17 13:01:49Z th-schwarz $
- * @author <a href="mailto:th-schwarz@users.sourceforge.net">Thilo Schwarz</a>
  */
 @Component("gallerylinktool")
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 public class GalleryLinkTool implements IContextObjectGallery, IContextObjectNeedViewMode {
 	private String linkToString = null;
 	private boolean isExportView;
+	
+	@Autowired private PropertiesManager pm;
 
-	/*
-	 * For internal use only.
-	 * @see de.thischwa.pmcms.view.renderer.IContextObjectNeedExportInfo#setExportView(boolean)
-	 */
 	public void setExportView(boolean isExportView) {
 		this.isExportView = isExportView;
 	}
 	
-	/* 
-	 * For internal use only.
-	 * @see de.thischwa.pmcms.view.context.IContextObjectNeedViewMode#setViewMode(de.thischwa.pmcms.view.ViewMode)
-	 */
 	@Override
 	public void setViewMode(final ViewMode viewMode) {
 		isExportView = viewMode.equals(ViewMode.EXPORT);
@@ -91,10 +82,10 @@ public class GalleryLinkTool implements IContextObjectGallery, IContextObjectNee
 			Gallery gallery = image.getParent();
 			if (isExportView) {
 				if (OrderableInfo.isFirst(gallery)) {
-					setGallery(InitializationManager.getProperty("pmcms.site.export.file.welcome"));
+					setGallery(pm.getSiteProperty("pmcms.site.export.file.welcome"));
 				} else {
 					setGallery(gallery.getName().concat(".")
-					        .concat(InitializationManager.getProperty("pmcms.export.extention")));
+					        .concat(pm.getSiteProperty("pmcms.site.export.extension")));
 				}
 			} else
 				setGalleryForPreview(gallery);

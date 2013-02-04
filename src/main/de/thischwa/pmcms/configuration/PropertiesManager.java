@@ -35,4 +35,7 @@ public class PropertiesManager {
 		return PropertiesTool.getProperties(props, "velocity", true);
 	}
 	
+	Properties getAllProperties() {
+		return props;
+	}
 }

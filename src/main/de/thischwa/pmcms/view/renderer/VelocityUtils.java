@@ -46,6 +46,7 @@ import org.dom4j.io.XMLWriter;
 
 import de.thischwa.pmcms.Constants;
 import de.thischwa.pmcms.configuration.InitializationManager;
+import de.thischwa.pmcms.configuration.PropertiesManager;
 import de.thischwa.pmcms.exception.FatalException;
 import de.thischwa.pmcms.exception.RenderingException;
 import de.thischwa.pmcms.livecycle.SiteHolder;
@@ -78,6 +79,7 @@ public class VelocityUtils {
 		sourceFormat.setNewlines(false);
 	}
 	
+	private VelocityUtils() {}
 	
 	/**
 	 * Initialization of a VelocityEngine for a {@link Site}. <i>It is necessary to have different {@link VelocityEngine}s because we need different
@@ -89,7 +91,7 @@ public class VelocityUtils {
 	 */
 	public static VelocityEngine getSiteEngine(final Site site) {
 		logger.debug("Entered initEngine.");
-		Properties commonProperties = InitializationManager.getVelocityProperties();
+		Properties commonProperties = InitializationManager.getBean(PropertiesManager.class).getVelocityProperties();
 		VelocityEngine velocityEngine = new VelocityEngine();
 	
 		try {

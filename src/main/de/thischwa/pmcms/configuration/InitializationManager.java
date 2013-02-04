@@ -27,7 +27,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
@@ -49,7 +48,6 @@ import de.thischwa.pmcms.model.thread.ThreadController;
 import de.thischwa.pmcms.model.tool.SitePersister;
 import de.thischwa.pmcms.tool.InternalAntTool;
 import de.thischwa.pmcms.tool.Locker;
-import de.thischwa.pmcms.tool.PropertiesTool;
 import de.thischwa.pmcms.tool.image.ImageInfo;
 import de.thischwa.pmcms.tool.image.ImageTool;
 
@@ -91,7 +89,7 @@ public class InitializationManager {
 	/** The spring context. */
 	private static AbstractApplicationContext context;
 	
-	private static Properties properties;
+	private static PropertiesManager pm = null;
 
 	private static SiteHolder siteHolder;
 
@@ -133,22 +131,23 @@ public class InitializationManager {
 			throw new RuntimeException("No context found.");
 		dataDir = configurator.getDataDir();
 		context = configurator.getContext();
-		properties = configurator.getProps();
+		
+		pm = getBean(PropertiesManager.class);
 
 		logger.info("Language: ".concat(LabelHolder.getLocale().getLanguage()));
 		logger.info("Application dir: " + Constants.APPLICATION_DIR);
 		logger.info("Data dir: " + dataDir.getAbsolutePath());
 
-		sitesBackupDir = new File(properties.getProperty("pmcms.dir.backup"));
+		sitesBackupDir = new File(pm.getProperty("pmcms.dir.backup"));
 		siteHolder = (SiteHolder) context.getBean("siteHolder");
 
 		// check some directories
 		if (!Constants.TEMP_DIR.exists())
 			Constants.TEMP_DIR.mkdirs();
-		File tempDir = new File(dataDir, getProperty("pmcms.dir.sites"));
+		File tempDir = new File(dataDir, pm.getProperty("pmcms.dir.sites"));
 		if (!tempDir.exists())
 			tempDir.mkdirs();
-		tempDir = new File(getProperty("log4j.appender.FILE.file"));
+		tempDir = new File(pm.getProperty("log4j.appender.FILE.file"));
 		if (!tempDir.exists())
 			tempDir.mkdirs();
 		if (!sitesBackupDir.exists())
@@ -157,7 +156,7 @@ public class InitializationManager {
 		// check if we have to trigger a cleanup
 		if (hasToCleanup)
 			try {
-				InternalAntTool.cleanup(dataDir, properties);
+				InternalAntTool.cleanup(dataDir, pm.getAllProperties());
 			} catch (Exception e) {
 				throw new RuntimeException(e);
 			}
@@ -278,23 +277,16 @@ public class InitializationManager {
 		return sitesBackupDir;
 	}
 
-	/**
-	 * Wrapper for {@link Properties#getProperty(String)}.
-	 */
-	public static String getProperty(final String key) {
-		return properties.getProperty(key);
-	}
-	
 	public static SiteHolder getSiteHolder() {
 		return siteHolder;
 	}
 	
 	public static String getDefaultResourcesPath() {
-		return properties.getProperty("pmcms.dir.defaultresources").concat(File.separator);
+		return pm.getProperty("pmcms.dir.defaultresources").concat(File.separator);
 	}
 
 	public static String getSourceEditorPath() {
-		return properties.getProperty("pmcms.dir.sourceeditor").concat(File.separator);
+		return pm.getProperty("pmcms.dir.sourceeditor").concat(File.separator);
 	}
 
 	/**
@@ -321,14 +313,10 @@ public class InitializationManager {
 	}
 
 	public static File getSitesDir() {
-		return new File(getDataDir(), getProperty("pmcms.dir.sites"));
+		return new File(getDataDir(), pm.getProperty("pmcms.dir.sites"));
 	}
 
 	public static boolean isImageRenderingEnabled() {
 		return imageRenderingEnabled;
-	}
-
-	public static Properties getVelocityProperties() {
-		return PropertiesTool.getProperties(properties, "velocity", true);
 	}
 }

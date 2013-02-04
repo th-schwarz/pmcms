@@ -23,11 +23,13 @@ package de.thischwa.pmcms.view.context.object;
 
 
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import de.thischwa.pmcms.Constants;
+import de.thischwa.pmcms.configuration.PropertiesManager;
 import de.thischwa.pmcms.livecycle.PojoHelper;
 import de.thischwa.pmcms.model.domain.OrderableInfo;
 import de.thischwa.pmcms.model.domain.pojo.Image;
@@ -52,6 +54,8 @@ public class ImageLinkTool implements IContextObjectGallery, IContextObjectNeedP
 	private boolean isExportView;
 	private PojoHelper pojoHelper;
 	
+	@Autowired private PropertiesManager pm;
+	
 	@Override
 	public void setPojoHelper(final PojoHelper pojoHelper) {
 		this.pojoHelper = pojoHelper;
@@ -73,7 +77,7 @@ public class ImageLinkTool implements IContextObjectGallery, IContextObjectNeedP
 			Level currentLevel = pojoHelper.getLevel();
 			Level levelLinkTo = imageToLink.getParent().getParent();
 			String path = PathTool.getURLRelativePathToLevel(currentLevel, levelLinkTo)
-					.concat(StringUtils.defaultIfEmpty(PathTool.getExportBaseFilename(imageToLink, Constants.RENDERED_EXT), "IMAGE_NOT_EXISTS"));
+					.concat(StringUtils.defaultIfEmpty(PathTool.getExportBaseFilename(imageToLink, pm.getSiteProperty("pmcms.site.export.file.extension")), "IMAGE_NOT_EXISTS"));
 			path = PathTool.encodePath(path);
 			setImage(path);
 		} else

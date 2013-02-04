@@ -25,6 +25,7 @@ import java.io.File;
 
 import de.thischwa.c5c.resource.Extension;
 import de.thischwa.pmcms.configuration.InitializationManager;
+import de.thischwa.pmcms.configuration.PropertiesManager;
 import de.thischwa.pmcms.model.domain.pojo.APoormansObject;
 import de.thischwa.pmcms.model.domain.pojo.Gallery;
 import de.thischwa.pmcms.model.domain.pojo.Site;
@@ -33,9 +34,6 @@ import de.thischwa.pmcms.wysisygeditor.CKResourceTool;
 
 /**
  * Static helper methods to provide path based infos of {@link APoormansObject}.
- *
- * @version $Id: PoPathInfo.java 2210 2012-06-17 13:01:49Z th-schwarz $
- * @author <a href="mailto:th-schwarz@users.sourceforge.net">Thilo Schwarz</a>
  */
 public class PoPathInfo {
 	
@@ -45,14 +43,16 @@ public class PoPathInfo {
 	 * @return The path to the export directory of the given site.
 	 */
 	public static File getSiteExportDirectory(final Site site) {
-		return new File(getSiteDirectory(site), InitializationManager.getProperty("pmcms.site.dir.export"));
+		return new File(getSiteDirectory(site), 
+				InitializationManager.getBean(PropertiesManager.class).getSiteProperty("pmcms.site.dir.export"));
 	}
 
 	/**
 	 * @return The base path for common resources inside the export directory of a site (file, media, flash).
 	 */
 	public static File getSiteExportResourceDirectory(final Site site) {
-		return new File(getSiteExportDirectory(site), InitializationManager.getProperty("pmcms.site.dir.export.resources"));
+		return new File(getSiteExportDirectory(site), 
+				InitializationManager.getBean(PropertiesManager.class).getSiteProperty("pmcms.site.dir.export.resources"));
 	}
 	
 	/**
@@ -69,14 +69,16 @@ public class PoPathInfo {
 	 * @return The folder for the image cache path inside the site directory.
 	 */
 	public static File getSiteImageCacheDirectory(Site site) {
-		return new File(getSiteDirectory(site), InitializationManager.getProperty("pmcms.site.dir.imagecache"));
+		return new File(getSiteDirectory(site), 
+				InitializationManager.getBean(PropertiesManager.class).getSiteProperty("pmcms.site.dir.imagecache"));
 	}
  	
 	/**
 	 * @return The folder to the configuration directory of the given site.
 	 */
 	public static File getSiteConfigurationDirectory(Site site) {
-		return new File(getSiteDirectory(site), InitializationManager.getProperty("pmcms.site.dir.configuration"));
+		return new File(getSiteDirectory(site), 
+				InitializationManager.getBean(PropertiesManager.class).getProperty("pmcms.site.dir.configuration"));
 	}
 
 	/**
@@ -87,7 +89,7 @@ public class PoPathInfo {
 	}
 	
 	/**
-	 * @return The directory to the desired site.
+	 * @return The directory to the desired site-url.
 	 */	
 	public static File getSiteDirectory(final String url) {
 		return new File(InitializationManager.getSitesDir(), url);

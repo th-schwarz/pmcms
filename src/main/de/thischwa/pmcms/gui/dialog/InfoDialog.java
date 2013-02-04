@@ -35,6 +35,7 @@ import org.eclipse.swt.widgets.Shell;
 
 import de.thischwa.pmcms.Constants;
 import de.thischwa.pmcms.configuration.InitializationManager;
+import de.thischwa.pmcms.configuration.PropertiesManager;
 import de.thischwa.pmcms.gui.BrowserManager;
 import de.thischwa.pmcms.tool.ToolVersionInfo;
 import de.thischwa.pmcms.tool.swt.SWTUtils;
@@ -46,9 +47,11 @@ import de.thischwa.pmcms.tool.swt.SWTUtils;
  * @author <a href="mailto:th-schwarz@users.sourceforge.net">Thilo Schwarz</a>
  */
 public class InfoDialog extends SimpleDialog {
+	private PropertiesManager pm;
 
 	public InfoDialog(Shell parentShell) {
 		super(parentShell, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
+		pm = InitializationManager.getBean(PropertiesManager.class);
 	}
 
 	@Override
@@ -79,10 +82,10 @@ public class InfoDialog extends SimpleDialog {
 			addProperty("Directory", Constants.APPLICATION_DIR.getAbsolutePath());
 			addProperty("Data Directory", InitializationManager.getDataDir().getAbsolutePath());
 			addProperty("Temp Directory", Constants.TEMP_DIR.getAbsolutePath());
-			addProperty("Backup Directory", InitializationManager.getProperty("pmcms.dir.backup"));
-			addProperty("Host", InitializationManager.getProperty("pmcms.jetty.host"));
-			addProperty("Port", InitializationManager.getProperty("pmcms.jetty.port"));
-			addProperty("ImageMagick", StringUtils.defaultString(InitializationManager.getProperty("imagemagick.convert.command"), "not set"));
+			addProperty("Backup Directory", pm.getProperty("pmcms.dir.backup"));
+			addProperty("Host", pm.getProperty("pmcms.jetty.host"));
+			addProperty("Port", pm.getProperty("pmcms.jetty.port"));
+			addProperty("ImageMagick", StringUtils.defaultString(pm.getProperty("imagemagick.convert.command"), "not set"));
 			addProperty("Browser", BrowserManager.getBrowserType());
 		}
 
@@ -110,7 +113,7 @@ public class InfoDialog extends SimpleDialog {
 			compositeHeader.setLayout(fillLayoutHeader);
 			
 			Label labelHeaderTitle = new Label(compositeHeader, SWT.CENTER);
-			labelHeaderTitle.setText(InitializationManager.getProperty("pmcms.title") + " - Version " + InitializationManager.getProperty("pmcms.version"));
+			labelHeaderTitle.setText(pm.getProperty("pmcms.title") + " - Version " + pm.getProperty("pmcms.version"));
 			SWTUtils.changeFontStyle(labelHeaderTitle, SWT.BOLD);
 			SWTUtils.changeFontSizeRelativ(labelHeaderTitle, 2);
 			Label labelHeaderSubTitle = new Label(compositeHeader, SWT.CENTER);

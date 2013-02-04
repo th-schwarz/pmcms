@@ -31,6 +31,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
 import de.thischwa.pmcms.configuration.InitializationManager;
+import de.thischwa.pmcms.configuration.PropertiesManager;
 import de.thischwa.pmcms.configuration.resource.LabelHolder;
 import de.thischwa.pmcms.model.domain.PoStructurTools;
 import de.thischwa.pmcms.model.domain.pojo.Site;
@@ -60,7 +61,7 @@ public class DialogFieldsSiteComp extends Composite implements IDialogFieldsVali
 		dialogCreator = (DialogCreator) parent;
 		this.site = site;
 		oldSiteUrl = site.getUrl();
-		cryptor = new DESCryptor(InitializationManager.getProperty("pmcms.crypt.key"));
+		cryptor = new DESCryptor(InitializationManager.getBean(PropertiesManager.class).getProperty("pmcms.crypt.key"));
 		initialize();
 	}
 

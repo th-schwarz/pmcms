@@ -112,10 +112,6 @@ public class BasicConfigurator {
 		return dataDir;
 	}
 
-	public Properties getProps() {
-		return props;
-	}
-
 	public AbstractApplicationContext getContext() {
 		return context;
 	}

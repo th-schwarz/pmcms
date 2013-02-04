@@ -29,6 +29,7 @@ import org.apache.commons.lang.StringUtils;
 
 import de.thischwa.c5c.resource.Extension;
 import de.thischwa.pmcms.configuration.InitializationManager;
+import de.thischwa.pmcms.configuration.PropertiesManager;
 import de.thischwa.pmcms.model.domain.pojo.Site;
 import de.thischwa.pmcms.tool.file.FileTool;
 
@@ -42,8 +43,9 @@ public class CKResourceTool {
 	private static Map<Extension, String> folders = new HashMap<Extension, String>(4);	
 	
 	static {
-		String folderOther = InitializationManager.getProperty("pmcms.site.dir.resources.other");
-		folders.put(Extension.IMAGE, InitializationManager.getProperty("pmcms.site.dir.resources.image"));
+		PropertiesManager pm = InitializationManager.getBean(PropertiesManager.class);
+		String folderOther = pm.getSiteProperty("pmcms.site.dir.resources.other");
+		folders.put(Extension.IMAGE, pm.getSiteProperty("pmcms.site.dir.resources.image"));
 		folders.put(Extension.ARCHIVE, folderOther);
 		folders.put(Extension.DOC, folderOther);
 		folders.put(Extension.OTHER, folderOther);

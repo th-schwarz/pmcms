@@ -36,9 +36,6 @@ import de.thischwa.pmcms.view.ViewMode;
 
 /**
  * Thread to render one {@link IRenderable}.
- * 
- * @version $Id: ExportRenderThread.java 2210 2012-06-17 13:01:49Z th-schwarz $
- * @author <a href="mailto:th-schwarz@users.sourceforge.net">Thilo Schwarz</a>
  */
 public class ExportRenderThread extends Thread {
 	private static Logger logger = Logger.getLogger(ExportRenderThread.class);

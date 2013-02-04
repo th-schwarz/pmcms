@@ -139,7 +139,7 @@ public class CKImageResource extends ACKEditorResource implements ICKResource {
 	public String getTagSrcForExport(final Level level) {
 		String relativLevelPath = PathTool.getURLRelativePathToRoot(level);
 		String imageFolder = LinkFolderTool.getResourceFolderForExport(ext);
-		String cachePath = getCacheFilename().substring(cacheFolder.length()).replace(File.separatorChar, LinkFolderTool.SEPARATOR_CHAR);
+		String cachePath = getCacheFilename().substring(cacheFolder.length()).replace(File.separatorChar, Constants.SEPARATOR_CHAR);
 		int maxFilenameLength = relativLevelPath.length() + imageFolder.length() + cachePath.length() + 1;
 		StringBuilder filename = new StringBuilder(maxFilenameLength);
 		filename.append(relativLevelPath);
@@ -232,11 +232,11 @@ public class CKImageResource extends ACKEditorResource implements ICKResource {
 	 */
 	@Override
 	public String getTagSrcForPreview() {
-		String cashedFilename = getCacheFilename().replace(File.separator, LinkFolderTool.SEPARATOR);
+		String cashedFilename = getCacheFilename().replace(File.separator, Constants.SEPARATOR);
 		String siteFolder = LinkFolderTool.getSiteFolder(site);
 		if(cashedFilename.startsWith(siteFolder))
 			cashedFilename = cashedFilename.substring(siteFolder.length());
-		cashedFilename = Utils.join(LinkFolderTool.SEPARATOR, Constants.LINK_IDENTICATOR_SITE_RESOURCE, LinkFolderTool.SEPARATOR, cashedFilename);
+		cashedFilename = Utils.join(Constants.SEPARATOR, Constants.LINK_IDENTICATOR_SITE_RESOURCE, Constants.SEPARATOR, cashedFilename);
 		return cashedFilename;
 	}
 

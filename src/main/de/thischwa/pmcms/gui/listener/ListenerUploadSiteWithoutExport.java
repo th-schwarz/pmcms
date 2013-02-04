@@ -21,7 +21,6 @@
  ******************************************************************************/
 package de.thischwa.pmcms.gui.listener;
 
-
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
@@ -29,6 +28,7 @@ import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 
 import de.thischwa.pmcms.configuration.InitializationManager;
+import de.thischwa.pmcms.configuration.PropertiesManager;
 import de.thischwa.pmcms.configuration.resource.LabelHolder;
 import de.thischwa.pmcms.exception.ProgressException;
 import de.thischwa.pmcms.gui.dialog.DialogManager;
@@ -41,9 +41,6 @@ import de.thischwa.pmcms.tool.connection.ConnectionFactory;
 
 /**
  * Listener that triggers a site transfer without triggering an export.
- *
- * @version $Id: ListenerUploadSiteWithoutExport.java 2210 2012-06-17 13:01:49Z th-schwarz $
- * @author <a href="mailto:th-schwarz@users.sourceforge.net">Thilo Schwarz</a>
  */
 public class ListenerUploadSiteWithoutExport implements SelectionListener {
 	private Site site;
@@ -53,22 +50,17 @@ public class ListenerUploadSiteWithoutExport implements SelectionListener {
 	    this.site = site;
     }
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.swt.events.SelectionListener#widgetDefaultSelected(org.eclipse.swt.events.SelectionEvent)
-	 */
 	@Override
 	public void widgetDefaultSelected(SelectionEvent arg0) {
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.swt.events.SelectionListener#widgetSelected(org.eclipse.swt.events.SelectionEvent)
-	 */
 	@Override
 	public void widgetSelected(SelectionEvent event) {
 		final Shell shell = event.display.getActiveShell();
-		String checkumsFileBasename = InitializationManager.getProperty("pmcms.filename.checksums");
+		PropertiesManager pm = InitializationManager.getBean(PropertiesManager.class);
+		String checkumsFileBasename = pm.getProperty("pmcms.filename.checksums");
 
-		DESCryptor cryptor = new DESCryptor(InitializationManager.getProperty("pmcms.crypt.key"));
+		DESCryptor cryptor = new DESCryptor(pm.getProperty("pmcms.crypt.key"));
 		String plainPwd = cryptor.decrypt(site.getTransferLoginPassword());
 		Upload transferer = new Upload(site, ConnectionFactory.getFtp(site.getTransferHost(), site.getTransferLoginUser(), plainPwd,
 				site.getTransferStartDirectory()), checkumsFileBasename);

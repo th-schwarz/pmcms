@@ -48,9 +48,6 @@ import de.thischwa.pmcms.wysisygeditor.CKImageResource;
 
 /**
  * Construct an img-tag and initiate the image rendering. 
- * 
- * @version $Id: ImageTagTool.java 2234 2013-01-13 19:49:32Z th-schwarz $
- * @author <a href="mailto:th-schwarz@users.sourceforge.net">Thilo Schwarz</a>
  */
 @Component(value="imagetagtool")
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
@@ -166,9 +163,9 @@ public class ImageTagTool extends CommonXhtmlTagTool implements IContextObjectCo
 					FileTool.copyFile(srcFile, dstFile);
 				renderData.addCKResource(imageFile);
 			} catch (IOException e) {
-				logger.error("While copying chashed file [" + imageFile.getCacheFile().getPath() + "] to export dir: " + e.getMessage(), e);
-				throw new FatalException("While copying chashed file [" + imageFile.getCacheFile().getPath() + "] to export dir: "
-						+ e.getMessage(), e);
+				String msg = String.format("Error while copying cashed file [%s] to the export dir: %s", imageFile.getCacheFile().getPath(), e.getMessage());
+				logger.error(msg, e);
+				throw new FatalException(msg, e);
 			}
 			this.setSrc(imageFile.getTagSrcForExport(this.pojoHelper.getLevel()));
 			logger.debug("ImageTagTool: build src-link for: ".concat(imageFile.getFile().getAbsolutePath()));

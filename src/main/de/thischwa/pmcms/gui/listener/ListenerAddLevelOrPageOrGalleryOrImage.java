@@ -32,6 +32,7 @@ import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.widgets.Shell;
 
 import de.thischwa.pmcms.configuration.InitializationManager;
+import de.thischwa.pmcms.configuration.PropertiesManager;
 import de.thischwa.pmcms.exception.FatalException;
 import de.thischwa.pmcms.gui.BrowserManager;
 import de.thischwa.pmcms.gui.dialog.DialogManager;
@@ -124,7 +125,7 @@ public class ListenerAddLevelOrPageOrGalleryOrImage implements SelectionListener
 		Page page = new Page();
 		page.setParent(parentLevel);
 		if (CollectionUtils.isEmpty(parentLevel.getPages()))
-			page.setName(InitializationManager.getProperty("pmcms.site.pojo.page.name"));
+			page.setName(InitializationManager.getBean(PropertiesManager.class).getSiteProperty("pmcms.site.pojo.page.name"));
 		if (DialogManager.startDialogPersitentPojo(shell, page)) {
 			logger.debug("A new page will be constructed!");
 			parentLevel.add(page);

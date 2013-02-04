@@ -31,22 +31,19 @@ import org.apache.log4j.Logger;
 import de.thischwa.ckeditor.CKEditor;
 import de.thischwa.pmcms.Constants;
 import de.thischwa.pmcms.configuration.InitializationManager;
+import de.thischwa.pmcms.configuration.PropertiesManager;
 import de.thischwa.pmcms.model.domain.PoPathInfo;
 import de.thischwa.pmcms.model.domain.pojo.Site;
 import de.thischwa.pmcms.tool.PathTool;
 import de.thischwa.pmcms.tool.Utils;
 
 /**
- * Construct the FCKeditor.<br />
+ * Construct the CKeditor.<br />
  * Following files are loading automatically:
  * <ul>
- * <li>configurationpath/fckconfig.js</li>
- * <li>configurationpath/fckstyles.xml (optional)</li>
+ * <li>configurationpath/ckconfig.js</li>
  * <li>format.css (= setting the EditorAreaCSS - css using inside the editor)</li>
  * </ul>
- * 
- * @version $Id: CKEditorWrapper.java 2210 2012-06-17 13:01:49Z th-schwarz $
- * @author <a href="mailto:th-schwarz@users.sourceforge.net">Thilo Schwarz</a>
  */
 public class CKEditorWrapper {
 	private static Logger logger = Logger.getLogger(CKEditorWrapper.class);
@@ -78,8 +75,8 @@ public class CKEditorWrapper {
 		if (StringUtils.isNotBlank(toolbarName))
 			editor.setToolbarName(toolbarName);
 		editor.setProperty("customConfig", buildUrlFolder(urlConfigFolder, "ckconfig.js"));
-		editor.setProperty("contentsCss", buildUrlFolder(Constants.LINK_IDENTICATOR_SITE_RESOURCE, "/format.css"));
-		editor.setProperty("filebrowserBrowseUrl", InitializationManager.getProperty("pmcms.filemanager.url"));
+		editor.setProperty("contentsCss", buildUrlFolder(Constants.LINK_IDENTICATOR_SITE_RESOURCE, "/format.css")); // TODO respect new layout dir!
+		editor.setProperty("filebrowserBrowseUrl", InitializationManager.getBean(PropertiesManager.class).getProperty("pmcms.filemanager.url"));
 		editor.setValue(value);
 		return editor.createHtml();
 	}

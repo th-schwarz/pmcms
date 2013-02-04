@@ -24,40 +24,37 @@ package de.thischwa.pmcms.wysisygeditor;
 import de.thischwa.c5c.resource.Extension;
 import de.thischwa.pmcms.Constants;
 import de.thischwa.pmcms.configuration.InitializationManager;
+import de.thischwa.pmcms.configuration.PropertiesManager;
 import de.thischwa.pmcms.model.domain.pojo.Site;
 import de.thischwa.pmcms.tool.Utils;
 
 /**
  * Helper tool to get special folders for building links in html. Folders are always ends with an separator char.
- *
- * @version $Id: LinkFolderTool.java 2210 2012-06-17 13:01:49Z th-schwarz $
- * @author <a href="mailto:th-schwarz@users.sourceforge.net">Thilo Schwarz</a>
  */
 public class LinkFolderTool {
 
-	public static final char SEPARATOR_CHAR = '/';
-	public static final String SEPARATOR = String.valueOf(SEPARATOR_CHAR);
-	
+	private static PropertiesManager pm = InitializationManager.getBean(PropertiesManager.class);
+
 	public static String getSitesFolder() {
-		return Utils.join(InitializationManager.getProperty("pmcms.dir.sites"), SEPARATOR);
+		return Utils.join(pm.getProperty("pmcms.dir.sites"), Constants.SEPARATOR);
 	}
 	
 	public static String getSiteFolder(Site site) {
-		return Utils.join(getSitesFolder(), site.getUrl(), SEPARATOR);
+		return Utils.join(getSitesFolder(), site.getUrl(), Constants.SEPARATOR);
 	}
 	
 	public static String getResourceFolderForExport(Extension ext) {
 		if(ext == Extension.IMAGE)
-			return Utils.join(CKResourceTool.getDir(ext), SEPARATOR);
-		return Utils.join(InitializationManager.getProperty("pmcms.site.dir.export.resources"), SEPARATOR, CKResourceTool.getDir(ext), SEPARATOR);
+			return Utils.join(CKResourceTool.getDir(ext), Constants.SEPARATOR);
+		return Utils.join(pm.getSiteProperty("pmcms.site.dir.export.resources"), Constants.SEPARATOR, CKResourceTool.getDir(ext), Constants.SEPARATOR);
 	}
 	
 	public static String getImageFolder() {
-		return Utils.join(InitializationManager.getProperty("pmcms.site.dir.resources.image"), SEPARATOR);		
+		return Utils.join(pm.getSiteProperty("pmcms.site.dir.resources.image"), Constants.SEPARATOR);		
 	}
 	
 	public static String getImageCasheFolder() {
-		return Utils.join(InitializationManager.getProperty("pmcms.site.dir.imagecache"), SEPARATOR);
+		return Utils.join(pm.getSiteProperty("pmcms.site.dir.imagecache"), Constants.SEPARATOR);
 	}
 
 	public static String stripUrlSiteFolder(String srcTag) {

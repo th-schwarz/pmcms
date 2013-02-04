@@ -100,7 +100,7 @@ public class ExportRenderer implements IProgressViewer {
 	
 	@Autowired private RenderData renderData;
 	@Autowired private VelocityRenderer renderer;
-	@Autowired private PropertiesManager propertiesManager;
+	@Autowired private PropertiesManager pm;
 
 	@Value("${pmcms.export.maxthreadspercore}")
 	private int maxThreadsPerCount;
@@ -113,7 +113,7 @@ public class ExportRenderer implements IProgressViewer {
 	public void setSite(final Site site) {
 		this.site = site;
 		this.exportDir = PoPathInfo.getSiteExportDirectory(this.site);
-		this.poExtension = propertiesManager.getSiteProperty("pmcms.site.export.file.extension");
+		this.poExtension = pm.getSiteProperty("pmcms.site.export.file.extension");
 	}
 
 	public void setMessages(final StringBuilder messages) {
@@ -257,7 +257,7 @@ public class ExportRenderer implements IProgressViewer {
 		File redFile = new File(InitializationManager.getDefaultResourcesPath(), "redirector.html");
 		if (!redFile.exists())
 			throw new RuntimeException("Default redirector not found: " + redFile);
-		String welcomeFileName = InitializationManager.getProperty("pmcms.site.export.file.welcome");
+		String welcomeFileName = pm.getSiteProperty("pmcms.site.export.file.welcome");
 		File outputFile = new File(this.exportDir, welcomeFileName);
 		String linkToRootPage = PoInfo.getRootLevel(this.site).getName().concat("/").concat(welcomeFileName);
 
