@@ -11,7 +11,8 @@ public class SpringExampleAnnotationsOnly {
 		
 		// init spring;
 		try {
-			BeanFactory beanFactory = new AnnotationConfigApplicationContext("de.thischwa.pmcms.spring");
+			@SuppressWarnings("resource")
+			BeanFactory beanFactory = new AnnotationConfigApplicationContext("de.thischwa.pmcmstest.spring");
 			
 			Masterbean mb = (Masterbean) beanFactory.getBean("master");
 			System.out.println(mb.getInnerMessage());

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.xml.XmlBeanFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.core.io.ByteArrayResource;
 
+@SuppressWarnings("deprecation")
 public class SpringExample {
 
 	public static void main(String[] args) {

@@ -17,6 +17,7 @@ import org.junit.Test;
 import de.thischwa.pmcms.Constants;
 import de.thischwa.pmcms.configuration.BasicConfigurator;
 import de.thischwa.pmcms.configuration.InitializationManager;
+import de.thischwa.pmcms.configuration.PropertiesManager;
 import de.thischwa.pmcms.tool.DESCryptor;
 
 import static org.junit.Assert.*;
@@ -28,7 +29,7 @@ public class TestDESCryptor {
 	@BeforeClass
 	public static void init() {
 		InitializationManager.start(new BasicConfigurator(Constants.APPLICATION_DIR), false);
-		cryptor = new DESCryptor(InitializationManager.getProperty("pmcms.crypt.key"));
+		cryptor = new DESCryptor(InitializationManager.getBean(PropertiesManager.class).getProperty("pmcms.crypt.key"));
 	}
 	
 	@AfterClass
