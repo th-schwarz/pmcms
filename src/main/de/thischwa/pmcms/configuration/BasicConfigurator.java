@@ -40,11 +40,13 @@ import de.thischwa.pmcms.tool.PropertiesTool;
 
 
 /**
- * Adopt the basic configuration task. 1) Reads the common and user's properties and copy it into the {@link MyStringProperties}
- * which will be inject in all objects which requires these these properties. 2) Initializing spring. 
- * 
- * @version $Id: BasicConfigurator.java 2210 2012-06-17 13:01:49Z th-schwarz $
- * @author <a href="mailto:th-schwarz@users.sourceforge.net">Thilo Schwarz</a>
+ * Adopt the basic configuration task.
+ * <ol>
+ * <li>Reads the common and user's properties.</li>
+ * <li>Set special properties and environment variables.</li>
+ * <li>Initializes the logger.</li>
+ * <li>Initializes spring.</li>
+ * </ol>
  */
 public class BasicConfigurator {
 	public static final String PROPERTIES_NAME = "pmcms.properties";
