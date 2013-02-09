@@ -28,7 +28,7 @@ import de.thischwa.pmcms.Constants;
 import de.thischwa.pmcms.model.domain.PoPathInfo;
 import de.thischwa.pmcms.model.domain.pojo.Site;
 import de.thischwa.pmcms.server.SiteResourceServlet;
-import de.thischwa.pmcms.view.context.object.tagtool.CommonXhtmlTagTool;
+import de.thischwa.pmcms.view.context.object.tagtool.GenericXhtmlTagTool;
 
 
 /**
@@ -59,7 +59,7 @@ abstract class ACKEditorResource {
 	}
 	
 	/**
-	 * @return The tag-src-tag for using in the {@link CommonXhtmlTagTool}s needed for preview. This method is called 
+	 * @return The tag-src-tag for using in the {@link GenericXhtmlTagTool}s needed for preview. This method is called 
 	 * if the editor's content contains links. <br/>
 	 * The tag should have the following pattern to trigger the {@link SiteResourceServlet}:
 	 * site/file/test.zip or site/image/sflogo.png

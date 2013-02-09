@@ -21,8 +21,6 @@
  ******************************************************************************/
 package de.thischwa.pmcms.wysisygeditor;
 
-import java.io.File;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
@@ -32,10 +30,7 @@ import de.thischwa.ckeditor.CKEditor;
 import de.thischwa.pmcms.Constants;
 import de.thischwa.pmcms.configuration.InitializationManager;
 import de.thischwa.pmcms.configuration.PropertiesManager;
-import de.thischwa.pmcms.model.domain.PoPathInfo;
 import de.thischwa.pmcms.model.domain.pojo.Site;
-import de.thischwa.pmcms.tool.PathTool;
-import de.thischwa.pmcms.tool.Utils;
 
 /**
  * Construct the CKeditor.<br />
@@ -47,15 +42,16 @@ import de.thischwa.pmcms.tool.Utils;
  */
 public class CKEditorWrapper {
 	private static Logger logger = Logger.getLogger(CKEditorWrapper.class);
-	private File configDir;
-	private String urlConfigFolder;
+	private String urlCustomConfig;
+	private String urlDefaultCss;
 	private HttpServletRequest httpServletRequest;
+	private PropertiesManager pm = InitializationManager.getBean(PropertiesManager.class);
 
 	public CKEditorWrapper(final Site site, final HttpServletRequest httpServletRequest) {
 		if (site == null ||  httpServletRequest == null)
-			throw new IllegalArgumentException("One or more arguments are null!");
-		configDir = PoPathInfo.getSiteConfigurationDirectory(site);
-		urlConfigFolder = Utils.join(Constants.LINK_IDENTICATOR_SITE_RESOURCE, "/", configDir.getName(), "/");
+			throw new IllegalArgumentException("Base params are incomplete!");
+		urlDefaultCss = String.format("%s/%s/format.css", Constants.LINK_IDENTICATOR_SITE_RESOURCE, pm.getSiteProperty("pmcms.site.dir.layoutresources"));
+		urlCustomConfig = String.format("/%s/%s/ckconfig.js", Constants.LINK_IDENTICATOR_SITE_RESOURCE, pm.getSiteProperty("pmcms.site.dir.configuration"));
 		this.httpServletRequest = httpServletRequest;
 	}
 
@@ -74,15 +70,10 @@ public class CKEditorWrapper {
 			editor.setSize(width, height);
 		if (StringUtils.isNotBlank(toolbarName))
 			editor.setToolbarName(toolbarName);
-		editor.setProperty("customConfig", buildUrlFolder(urlConfigFolder, "ckconfig.js"));
-		editor.setProperty("contentsCss", buildUrlFolder(Constants.LINK_IDENTICATOR_SITE_RESOURCE, "/format.css")); // TODO respect new layout dir!
-		editor.setProperty("filebrowserBrowseUrl", InitializationManager.getBean(PropertiesManager.class).getProperty("pmcms.filemanager.url"));
+		editor.setProperty("customConfig", urlCustomConfig);
+		editor.setProperty("contentsCss", urlDefaultCss); 
+		editor.setProperty("filebrowserBrowseUrl", pm.getProperty("pmcms.filemanager.url"));
 		editor.setValue(value);
 		return editor.createHtml();
-	}
-	
-	private String buildUrlFolder(String path, String file) {
-		String tmpPath = PathTool.getURLFromFile(path + file);
-		return tmpPath;
 	}
 }

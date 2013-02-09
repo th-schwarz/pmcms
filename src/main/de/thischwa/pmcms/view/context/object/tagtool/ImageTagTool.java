@@ -51,7 +51,7 @@ import de.thischwa.pmcms.wysisygeditor.CKImageResource;
  */
 @Component(value="imagetagtool")
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
-public class ImageTagTool extends CommonXhtmlTagTool implements IContextObjectCommon, IContextObjectNeedViewMode, IContextObjectNeedPojoHelper {
+public class ImageTagTool extends GenericXhtmlTagTool implements IContextObjectCommon, IContextObjectNeedViewMode, IContextObjectNeedPojoHelper {
 	public static Logger logger = Logger.getLogger(ImageTagTool.class);
 	private boolean fitToSize = false;
 	private boolean pathOnly = false;
@@ -83,7 +83,7 @@ public class ImageTagTool extends CommonXhtmlTagTool implements IContextObjectCo
 	}
 
 	public ImageTagTool setHeight(final String height) {
-		return setAttribute("height", height);
+		return putAttribute("height", height);
 	}
 
 	public ImageTagTool setWidth(int width) {
@@ -91,19 +91,19 @@ public class ImageTagTool extends CommonXhtmlTagTool implements IContextObjectCo
 	}
 
 	public ImageTagTool setWidth(final String width) {
-		return setAttribute("width", width);
+		return putAttribute("width", width);
 	}
 
 	public ImageTagTool setAlign(final String align) {
-		return setAttribute("align", align);
+		return putAttribute("align", align);
 	}
 
 	public ImageTagTool setSrc(final String src) {
-		return setAttribute("src", PathTool.encodePath(src));
+		return putAttribute("src", PathTool.encodePath(src));
 	}
 
 	public ImageTagTool setAlt(final String alt) {
-		return setAttribute("alt", alt);
+		return putAttribute("alt", alt);
 	}
 	
 	public ImageTagTool setImage(final Image image) {
@@ -120,15 +120,26 @@ public class ImageTagTool extends CommonXhtmlTagTool implements IContextObjectCo
 		return this;
 	}
 
-	public ImageTagTool setAttribute(final String name, final String value) {
-		setAttr(name, value);
+	public ImageTagTool putAttribute(final String name, final String value) {
+		putAttr(name, value);
+		return this;
+	}
+
+	/**
+	 * Signal that the inherited tag-tool was used inside the wysiwyg-editor. 
+	 * For internal use only! 
+	 * 
+	 * @return
+	 */
+	public ImageTagTool usedFromEditor() {
+		super.setUsedFromEditor(true);
 		return this;
 	}
 
 	/**
 	 * Construct the img-tag and tricker the image rendering.
 	 * 
-	 * @see CommonXhtmlTagTool#contructTag()
+	 * @see GenericXhtmlTagTool#contructTag()
 	 */
 	@Override
 	public String toString() {

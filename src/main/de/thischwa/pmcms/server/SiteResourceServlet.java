@@ -38,9 +38,6 @@ import de.thischwa.pmcms.livecycle.SiteHolder;
 
 /**
  * Renders the requested site resources like images, css files and so on.
- *
- * @version $Id: SiteResourceServlet.java 2210 2012-06-17 13:01:49Z th-schwarz $
- * @author <a href="mailto:th-schwarz@users.sourceforge.net">Thilo Schwarz</a>
  */
 public class SiteResourceServlet extends AServlet {
 	private static Logger logger = Logger.getLogger(SiteResourceServlet.class);
@@ -57,9 +54,6 @@ public class SiteResourceServlet extends AServlet {
 		logger.info("SiteResourceServlet initialized with: " + baseFile.getAbsolutePath());
 	}
 
-	/* (non-Javadoc)
-	 * @see de.thischwa.pmcms.server.AServlet#doRequest(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
-	 */
 	@Override
 	protected void doRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		File siteDir = new File(baseFile, siteHolder.getSite().getUrl());

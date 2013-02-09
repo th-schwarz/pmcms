@@ -7,4 +7,6 @@
 /dev_lib_swt
 /bin
 /.settings
-/.DS_Store
+.DS_Store
+/gitignore
+/pmcms.properties

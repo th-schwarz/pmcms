@@ -28,47 +28,57 @@ import org.apache.commons.lang.StringUtils;
 
 /**
  * Helper to construct a common xhtml-tag.
- *
- * @version $Id: CommonXhtmlTagTool.java 2210 2012-06-17 13:01:49Z th-schwarz $
- * @author <a href="mailto:th-schwarz@users.sourceforge.net">Thilo Schwarz</a>
  */
-public class CommonXhtmlTagTool {
+public class GenericXhtmlTagTool {
 	protected Map<String, String> attributes = new HashMap<String, String>();
 	private String name = null;
 	private String value = null;
 	
-	protected CommonXhtmlTagTool(final String tagName) {
-		this.name = tagName;
-	}
+	private boolean usedFromEditor = false;
 	
-	protected void setName(final String name) {
+	protected GenericXhtmlTagTool(final String name) {
+		if(StringUtils.isBlank(name))
+			throw new IllegalArgumentException("The name of the tag must be set!");
 		this.name = name;
 	}
 	
-	protected void value(final String value) {
+	protected void setValue(final String value) {
 		this.value = value;
 	}
 	
-	protected void setAttr(final String key, final String value) {
+	protected void putAttr(final String key, final String value) {
 		attributes.put(key, value);
 	}
 	
 	protected String getAttr(final String key) {
 		return attributes.get(key);
 	}
+	
+	protected boolean isUsedFromEditor() {
+		return usedFromEditor;
+	}
+	
+	/**
+	 * Setter to signal that the inherited tag-tool was used inside the wysiwyg-editor. 
+	 * For internal use only! 
+	 * 
+	 * @param usedFromEditor
+	 */
+	protected void setUsedFromEditor(boolean usedFromEditor) {
+		this.usedFromEditor = usedFromEditor;
+	}
 		
 	/**
 	 * Does the basic construction of the tag.
 	 */
 	protected String contructTag() {
-		if (StringUtils.isBlank(name) || attributes.isEmpty())
-			throw new IllegalArgumentException("Basic props are missing!");
+		if (attributes.isEmpty())
+			throw new IllegalArgumentException("Attributes are missing!");
 		StringBuilder tag = new StringBuilder();
 		tag.append("<");
 		tag.append(name);
 		for (String key : attributes.keySet()) {
-			tag.append(' ').append(key).append("=")
-				.append('\"').append(StringUtils.defaultString(attributes.get(key))).append('\"');
+			tag.append(String.format(" %s=\"%s\"", key, StringUtils.defaultString(attributes.get(key))));
 		}
 		if (StringUtils.isBlank(value))
 			tag.append(" />");

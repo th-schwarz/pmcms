@@ -224,11 +224,11 @@ public class VelocityUtils {
 		imageResource.consructFromTagFromView(attr.get("src"));
 		imageResource.setDimension(dim);
 		veloMacro.append(".setSrc(\"").append(imageResource.getPreviewTagSrcForTagTool()).append("\")");
-	
+		veloMacro.append(".usedFromEditor()");
 		
 		for (String key : attr.keySet()) {
 			if (!key.equals("src"))
-				veloMacro.append(".setAttribute(\"").append(key).append("\", \"").append(attr.get(key)).append("\")");
+				veloMacro.append(".putAttribute(\"").append(key).append("\", \"").append(attr.get(key)).append("\")");
 		}
 		return veloMacro.toString();
 	}

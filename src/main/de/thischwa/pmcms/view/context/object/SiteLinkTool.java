@@ -49,7 +49,7 @@ import de.thischwa.pmcms.view.renderer.RenderData;
 
 /**
  * Context objects for building links to user relevant resources. The resources must be inside the site folder
- * defined in the property 'pmcms.site.dir.layoutresources'.
+ * defined in the property 'pmcms.site.dir.layoutresources', except it's defined with #{@link SiteLinkTool#addResource(String)}.
  */
 @Component("sitelinktool")
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
@@ -98,9 +98,9 @@ public class SiteLinkTool implements IContextObjectNeedPojoHelper, IContextObjec
 	/**
 	 * Added a resource that has to copy while export.
 	 * 
-	 * @param resource The name of the resource file, e.g. 'robot.txt', 'js/jquery.js'
+	 * @param resource The name of the resource file, e.g. 'robot.txt'.
 	 */
-	private void addResource(final String resource) {
+	public void addResource(final String resource) {
 		if(isExportView) {
 			File file = new File(siteDir, resource).getAbsoluteFile();
 			renderData.addFile(file);		

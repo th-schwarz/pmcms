@@ -52,7 +52,7 @@ import de.thischwa.pmcms.wysisygeditor.CKFileResource;
  */
 @Component(value="linktagtool")
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
-public class LinkTagTool extends CommonXhtmlTagTool implements IContextObjectCommon, IContextObjectNeedPojoHelper, IContextObjectNeedViewMode {
+public class LinkTagTool extends GenericXhtmlTagTool implements IContextObjectCommon, IContextObjectNeedPojoHelper, IContextObjectNeedViewMode {
 	private static Logger logger = Logger.getLogger(LinkTagTool.class);
 	private PojoHelper pojoHelper;
 	private boolean isExportView = false;
@@ -90,12 +90,12 @@ public class LinkTagTool extends CommonXhtmlTagTool implements IContextObjectCom
 	}
 
 	public LinkTagTool setAttribute(final String name, final String value) {
-		super.setAttr(name, value);
+		super.putAttr(name, value);
 		return this;
 	}
 
 	public LinkTagTool setTagValue(final String tagValue) {
-		super.value(tagValue);
+		super.setValue(tagValue);
 		return this;
 	}
 

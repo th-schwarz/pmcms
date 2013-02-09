@@ -43,9 +43,8 @@ import de.thischwa.pmcms.view.context.IContextObjectNeedViewMode;
 /**
  * Context object for {@link Image images} to provide methods for typical image related links to the previous, 
  * to the next and to the image itself.
- *
- * @version $Id: ImageLinkTool.java 2210 2012-06-17 13:01:49Z th-schwarz $
- * @author <a href="mailto:th-schwarz@users.sourceforge.net">Thilo Schwarz</a>
+ * 
+ * TODO merge it with {@link GalleryLinkTool}.
  */
 @Component("imagelinktool")
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
