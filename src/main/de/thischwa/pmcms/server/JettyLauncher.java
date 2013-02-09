@@ -98,8 +98,8 @@ public class JettyLauncher extends AInitializingTask implements IApplicationLive
 			context.addServlet(new ServletHolder(ConnectorServlet.class), "/filemanager/connectors/java/*");
 
 			ServletHolder holderCodeMirror = new ServletHolder(ZipProxyServlet.class);
-			holderCodeMirror.setInitParameter("file", "sourceeditor/codemirror.zip");
-			holderCodeMirror.setInitParameter("zipPathToSkip", "codemirror-2.34");
+			holderCodeMirror.setInitParameter("file", "sourceeditor/CodeMirror-2013-02-09.zip");
+			holderCodeMirror.setInitParameter("zipPathToSkip", "CodeMirror-master");
 			context.addServlet(holderCodeMirror, "/codemirror/*");
 
 			ServletHolder holderSiteResource = new ServletHolder(SiteResourceServlet.class);

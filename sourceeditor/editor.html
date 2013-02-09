@@ -6,7 +6,8 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="$cmddir/lib/codemirror.css">
     <script src="$cmddir/lib/codemirror.js"></script>
-    <script src="$cmddir/lib/util/loadmode.js"></script>
+    <script src="$cmddir/addon/mode/loadmode.js"></script>
+    <script src="$cmddir/addon/selection/active-line.js"></script>
     <style type="text/css">
 		#header {
 			padding: 10px;
@@ -16,10 +17,10 @@
 		}
 		#code {
 			with: 100%;
-			height: 550px;
+			height: 650px;
 		}
       .CodeMirror {border: 1px solid black;}
-      .activeline {background: #e8f2ff !important;}
+      .CodeMirror-activeline-background {background: #e8f2ff !important;}
     </style>
   </head>
 <body>
@@ -57,12 +58,8 @@
 			lineWrapping : true,
 			indentUnit : 4,
 			indentWithTabs : true,
-			onCursorActivity : function() {
-				editor.setLineClass(hlLine, null, null);
-				hlLine = editor.setLineClass(editor.getCursor().line, null, "activeline");
-			}
+			styleActiveLine: true
 		});
-		var hlLine = editor.setLineClass(0, "activeline");
 		var modeInput = document.getElementById("mode");
 		function change() {
 		   editor.setOption("mode", modeInput.value);

@@ -21,3 +21,4 @@ early-state project and isn't runnable at the moment!
   * new swt jar loading behavior
   * updated to spring 3.2.1
   * new property handling. there is now a strict difference between common, user and site properties
+  * updated CodeMirror to 3.*
