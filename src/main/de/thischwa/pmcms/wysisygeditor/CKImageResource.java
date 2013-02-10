@@ -47,25 +47,28 @@ import de.thischwa.pmcms.tool.image.Dimension;
 /**
  * Encapsulates the image path generation for different usage like export, caching ...<br>
  * The internal representation of the image file is {@link File}. There are different setters. So, e.g. it's possible to build the complete
- * image file for exporting from the src-attribute of an img-tag.<br>
- * 
- * @version $Id: CKImageResource.java 2210 2012-06-17 13:01:49Z th-schwarz $
- * @author <a href="mailto:th-schwarz@users.sourceforge.net">Thilo Schwarz</a>
+ * image file for exporting from the src-attribute of an img-tag.
  */
 public class CKImageResource extends ACKEditorResource implements ICKResource {
 	private static Logger logger = Logger.getLogger(CKImageResource.class);
 	private static final Pattern cachedPattern = Pattern.compile("(.*)[_]([\\d]+)[x]([\\d]+)[.](.*)");
 	private String cacheFolder;
 	private Dimension imageDimension;
+	private boolean fromGallery = false;
 
 	public CKImageResource(final Site site) {
 		super(site, Extension.IMAGE);
 		cacheFolder = PoPathInfo.getSiteImageCacheDirectory(site).getAbsolutePath().substring(InitializationManager.getDataDir().getAbsolutePath().length()+1) + File.separator;
 	}
 
+	public CKImageResource(final Site site, boolean fromGallery) {
+		this(site);
+		this.fromGallery = fromGallery;
+	}
+	
 	/**
-	 * Cached versions are respected! E.g. [datadir]/sites/test.org/cache/gallery/floating-leaves_320x240.jpg
-	 * 
+	 * Cached versions are respected!
+	 * E.g. [datadir]/sites/test.org/cache/galleryname/floating-leaves_320x240.jpg
 	 */
 	public void analyse(final File imgFile) {
 		if (imgFile == null) 
@@ -110,15 +113,16 @@ public class CKImageResource extends ACKEditorResource implements ICKResource {
 	 */
 	@Override
 	public void consructFromTagFromView(final String srcString) {
-		String temp = LinkFolderTool.stripUrlSiteFolder(srcString);
-		if(temp.startsWith(LinkFolderTool.getImageCasheFolder())) {
-			temp = temp.substring(LinkFolderTool.getImageCasheFolder().length());
-			analyseCashedPath(temp);
+		String path = LinkFolderTool.stripUrlSiteFolder(srcString);
+		if(path.startsWith(LinkFolderTool.getImageCasheFolder())) {
+			path = path.substring(LinkFolderTool.getImageCasheFolder().length());
+			analyseCashedPath(path);
 		} else {
-			if(temp.startsWith(LinkFolderTool.getImageFolder()))
-				temp = temp.substring(LinkFolderTool.getImageFolder().length());
-			temp = temp.replace("/", File.separator);
-			file = new File(PoPathInfo.getSiteResourceDirectory(site, ext), temp);
+			if(path.startsWith(LinkFolderTool.getImageFolder()))
+				path = path.substring(LinkFolderTool.getImageFolder().length());
+			path = path.replace("/", File.separator);
+			File parent = (fromGallery) ? PoPathInfo.getSiteGalleryDirectory(site) : PoPathInfo.getSiteResourceDirectory(site, ext);
+			file = new File(parent, path);
 		}
 	}
 

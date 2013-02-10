@@ -52,9 +52,6 @@ import de.thischwa.pmcms.wysisygeditor.CKImageResource;
 
 /**
  * Composite is part of {@link DialogCreator} and contains input fields and their validation method for {@link Image}. 
- *
- * @version $Id: DialogFieldsImageComp.java 2210 2012-06-17 13:01:49Z th-schwarz $
- * @author <a href="mailto:th-schwarz@users.sourceforge.net">Thilo Schwarz</a>
  */
 public class DialogFieldsImageComp extends Composite implements IDialogFieldsValidator {
 	private static Logger logger = Logger.getLogger(DialogFieldsImageComp.class);
@@ -214,9 +211,6 @@ public class DialogFieldsImageComp extends Composite implements IDialogFieldsVal
 		});
 	}
 	
-	/* (non-Javadoc)
-	 * @see de.thischwa.pmcms.gui.workspace.dialog.IDialogFieldsValidator#isValid()
-	 */
 	@Override
 	public boolean isValid() {
 		if (StringUtils.isBlank(textFilename.getText())) {

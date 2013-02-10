@@ -61,9 +61,6 @@ import de.thischwa.pmcms.tool.image.ImageTool;
  * <li>start and stop tasks which implements {@link IApplicationLiveCycleListener}</li>
  * <li>stop all threads managed by {@link ThreadController}</li>
  * </ul>
- * 
- * @version $Id: InitializationManager.java 2210 2012-06-17 13:01:49Z th-schwarz $
- * @author <a href="mailto:th-schwarz@users.sourceforge.net">Thilo Schwarz</a>
  */
 public class InitializationManager {
 	private static Logger logger = Logger.getLogger(InitializationManager.class);

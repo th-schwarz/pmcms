@@ -57,12 +57,11 @@ public class ImageTagTool extends GenericXhtmlTagTool implements IContextObjectC
 	private boolean pathOnly = false;
 	private boolean isExportView;
 	private PojoHelper pojoHelper;
+	private boolean fromGallery = false;
 	
-	@Autowired
-	private RenderData renderData;
+	@Autowired private RenderData renderData;
 
-	@Autowired
-	private ImageTool imageTool;
+	@Autowired private ImageTool imageTool;
 	
 	public ImageTagTool() {
 		super("img");
@@ -107,6 +106,7 @@ public class ImageTagTool extends GenericXhtmlTagTool implements IContextObjectC
 	}
 	
 	public ImageTagTool setImage(final Image image) {
+		fromGallery = true;
 		return setSrc(image.getParent().getName().concat("/").concat(image.getFileName()));
 	}
 	
@@ -154,7 +154,7 @@ public class ImageTagTool extends GenericXhtmlTagTool implements IContextObjectC
 		
 		
 		// 2. image rendering
-		CKImageResource imageFile = new CKImageResource(this.pojoHelper.getSite());
+		CKImageResource imageFile = new CKImageResource(this.pojoHelper.getSite(), fromGallery);
 		imageFile.consructFromTagFromView(srcString);
 		int width = Integer.parseInt(widthString);
 		int height = Integer.parseInt(heightString);

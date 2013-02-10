@@ -109,7 +109,7 @@ public class GalleryLinkTool implements IContextObjectGallery, IContextObjectNee
 			setGallery(urlPathToZip);
 			Map<File, String> zipEntries = new HashMap<File, String>();
 			for (Image image : gallery.getImages()) { // TODO check it: order the images, if not, the hash of the zip is always different
-				CKImageResource imageFile = new CKImageResource(PoInfo.getSite(gallery));
+				CKImageResource imageFile = new CKImageResource(PoInfo.getSite(gallery), true);
 				imageFile.constructFromImage(image);
 				zipEntries.put(imageFile.getFile(), "/".concat(FilenameUtils.getName(imageFile.getFile().getAbsolutePath())));
 			}

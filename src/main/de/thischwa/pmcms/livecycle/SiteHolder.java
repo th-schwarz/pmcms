@@ -62,12 +62,12 @@ public class SiteHolder {
 	private Set<File> justRendering = Collections.synchronizedSet(new HashSet<File>());
 
 	private AtomicInteger lastID = new AtomicInteger(0);
-	private ConcurrentMap<Integer, APoormansObject<?>> container = new ConcurrentHashMap<Integer, APoormansObject<?>>();
+	private ConcurrentMap<Integer, APoormansObject<?>> poPerID = new ConcurrentHashMap<Integer, APoormansObject<?>>();
 	
 	@Autowired private PropertiesManager pm;
 	
 	public void clear() {
-		container.clear();
+		poPerID.clear();
 		lastID = new AtomicInteger(0);
 	}
 	
@@ -102,12 +102,11 @@ public class SiteHolder {
 	public void mark(APoormansObject<?> po) {
 		if(po.getId() == APoormansObject.UNSET_VALUE)
 			po.setId(lastID.getAndIncrement());
-		container.put(po.getId(), po);
-		//System.out.println(String.format("%3d#%s", lastID.get(), po.toString()));
+		poPerID.put(po.getId(), po);
 	}
 
 	public APoormansObject<?> get(int id) {
-		return container.get(id);
+		return poPerID.get(id);
 	}
 
 	/**
@@ -119,7 +118,7 @@ public class SiteHolder {
 		return site;
 	}
 
-	public void setSite(Site site) {
+	public void setSite(final Site site) {
 		clear();
 		lastID = new AtomicInteger(0);
 		this.site = site;
@@ -143,7 +142,7 @@ public class SiteHolder {
 		File configDir = PoPathInfo.getSiteConfigurationDirectory(site); 
 		File propertiesFile = new File(configDir, "site.properties");
 		if(!propertiesFile.exists()) {
-			logger.debug(String.format("no properties found for [%s]", site.getUrl()));
+			logger.debug(String.format("No properties found for [%s].", site.getUrl()));
 			return;
 		}
 		try {

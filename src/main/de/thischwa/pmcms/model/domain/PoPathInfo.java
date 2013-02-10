@@ -37,22 +37,21 @@ import de.thischwa.pmcms.wysisygeditor.CKResourceTool;
  */
 public class PoPathInfo {
 	
-	private PoPathInfo() {}
+	private PoPathInfo() {
+	}
 
 	/**
 	 * @return The path to the export directory of the given site.
 	 */
 	public static File getSiteExportDirectory(final Site site) {
-		return new File(getSiteDirectory(site), 
-				InitializationManager.getBean(PropertiesManager.class).getSiteProperty("pmcms.site.dir.export"));
+		return new File(getSiteDirectory(site), getProperty("pmcms.dir.site.export"));
 	}
 
 	/**
 	 * @return The base path for common resources inside the export directory of a site (file, media, flash).
 	 */
 	public static File getSiteExportResourceDirectory(final Site site) {
-		return new File(getSiteExportDirectory(site), 
-				InitializationManager.getBean(PropertiesManager.class).getSiteProperty("pmcms.site.dir.export.resources"));
+		return new File(getSiteExportDirectory(site), getSiteProperty("pmcms.site.dir.export.resources"));
 	}
 	
 	/**
@@ -69,16 +68,14 @@ public class PoPathInfo {
 	 * @return The folder for the image cache path inside the site directory.
 	 */
 	public static File getSiteImageCacheDirectory(Site site) {
-		return new File(getSiteDirectory(site), 
-				InitializationManager.getBean(PropertiesManager.class).getSiteProperty("pmcms.site.dir.imagecache"));
+		return new File(getSiteDirectory(site), getProperty("pmcms.dir.site.imagecache"));
 	}
  	
 	/**
 	 * @return The folder to the configuration directory of the given site.
 	 */
 	public static File getSiteConfigurationDirectory(Site site) {
-		return new File(getSiteDirectory(site), 
-				InitializationManager.getBean(PropertiesManager.class).getProperty("pmcms.site.dir.configuration"));
+		return new File(getSiteDirectory(site), getProperty("pmcms.dir.site.configuration"));
 	}
 
 	/**
@@ -102,10 +99,21 @@ public class PoPathInfo {
 		return new File(getSiteDirectory(site), CKResourceTool.getDir(ext));
 	}
 	
+	public static File getSiteGalleryDirectory(final Site site) {
+		return new File(getSiteDirectory(site), getSiteProperty("pmcms.site.dir.resources.gallery"));
+	}
+	
 	/**
 	 * @return The directory to the desired {@link Gallery}.
 	 */
 	public static File getSiteGalleryDirectory(Gallery gallery) {
-		return new File(getSiteResourceDirectory(PoInfo.getSite(gallery), Extension.IMAGE), gallery.getName());
+		return new File(getSiteGalleryDirectory(PoInfo.getSite(gallery)), gallery.getName());
+	}
+	
+	private static String getProperty(final String key) {
+		return InitializationManager.getBean(PropertiesManager.class).getProperty(key);
+	}
+	private static String getSiteProperty(final String key) {
+		return InitializationManager.getBean(PropertiesManager.class).getSiteProperty(key);
 	}
 }
