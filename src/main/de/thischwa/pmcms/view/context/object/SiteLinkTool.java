@@ -204,7 +204,7 @@ public class SiteLinkTool implements IContextObjectNeedPojoHelper, IContextObjec
 	
 	/**
 	 * Set the link to the css for the editor's commit button.<br>
-	 * <b>Should only used internally. It's needed for the default button style in the fckeditor form.</b>
+	 * <b>Should only used internally. It's needed for the default button style in the all forms.</b>
 	 * 
 	 * @return SiteLinkTool
 	 */
@@ -228,7 +228,7 @@ public class SiteLinkTool implements IContextObjectNeedPojoHelper, IContextObjec
 			pojoDescriptor = Constants.LINK_TYPE_GALLERY;
 		StringBuilder link = new StringBuilder();
 		link.append("/").append(Constants.LINK_IDENTICATOR_PREVIEW).append("?id=").append(pageForPreview.getId()).append("&amp;");
-		link.append(Constants.LINK_TYPE_DESCRIPTOR).append("=").append(pojoDescriptor).append("&amp;");
+		link.append(Constants.LINK_TYPE_DESCRIPTOR).append("=").append(pojoDescriptor);
 		setResource(link.toString());
 	}
 }
