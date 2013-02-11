@@ -46,9 +46,6 @@ import de.thischwa.pmcms.wysisygeditor.CKFileResource;
 
 /**
  * Construct an a-tag. Mainly used by other context objects.
- * 
- * @version $Id: LinkTagTool.java 2227 2012-11-12 12:44:53Z th-schwarz $
- * @author <a href="mailto:th-schwarz@users.sourceforge.net">Thilo Schwarz</a>
  */
 @Component(value="linktagtool")
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)

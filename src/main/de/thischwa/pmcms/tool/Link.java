@@ -42,10 +42,8 @@ import de.thischwa.pmcms.server.Action;
 import de.thischwa.pmcms.server.ContextUtil;
 
 /**
- * Wrapper object for {@link URI} to find out, if a link is an internal or an external one. The parameters are decoded (utf-8).
- * 
- * @version $Id: Link.java 2210 2012-06-17 13:01:49Z th-schwarz $
- * @author <a href="mailto:th-schwarz@users.sourceforge.net">Thilo Schwarz</a>
+ * Wrapper object for {@link URI} to find out, if a link is an internal or an external one. 
+ * The parameters are decoded with {@link Constants#STANDARD_ENCODING}.
  */
 @Component()
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
@@ -142,7 +140,7 @@ public class Link {
 
 	private String decodeQuietly(String str) {
 		try {
-			return URLDecoder.decode(str, "utf-8");
+			return URLDecoder.decode(str, Constants.STANDARD_ENCODING);
 		} catch (UnsupportedEncodingException e) {
 			return "Couldn't decode! Charset not found!";
 		}

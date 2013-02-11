@@ -91,7 +91,7 @@ public interface Constants {
 	/** Allowed chars to build names for the file system. */
 	public static final String ALLOWED_CHARS_FOR_FILES = ".abcdefghijklmnopqrstuvwxyz_-0123456789";
 
-	/** Count of CPUs */
+	/** Count of CPU cores */
 	public static final int CPU_COUNT = Runtime.getRuntime().availableProcessors();
 	
 	/** Default size of the main window. */

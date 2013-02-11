@@ -36,7 +36,8 @@
 &lt;div id=&quot;body&quot;&gt;&#13;
 &lt;div id=&quot;nested&quot;&gt;&#13;
 &lt;div id=&quot;header&quot;&gt; &#13;
-	##$imagetagtool.setSrc(&quot;p.png&quot;).setAlt(&quot;P&quot;).setHeight(100).setWidth(100).setAttribute(&quot;class&quot;, &quot;leftheaderimage&quot;).fitToSize()&#13;
+	&lt;img src=&quot;$sitelinktool.getResource(&apos;p.png&apos;)&quot; class=&quot;imageonleft&quot; alt=&quot;P&quot; width=&quot;50&quot; height=&quot;50&quot; /&gt;&#13;
+	##$imagetagtool.setSrc(&quot;p.png&quot;).setAlt(&quot;P&quot;).setHeight(100).setWidth(100).putAttribute(&quot;class&quot;, &quot;leftheaderimage&quot;).fitToSize()&#13;
   &lt;h1&gt;This is the header.&lt;/h1&gt;&#13;
   &lt;p&gt;It is an uneditable text and is hard-coded in the layout.html.&lt;/p&gt;&#13;
 &lt;/div&gt;&#13;
@@ -75,65 +76,65 @@ $content&#13;
       <object idref="Site0"/> 
      </void> 
      <void property="text"> 
-      <string>#macro(mainmenu)
-&lt;ul&gt;#if( $!sitetool.WelcomePage )
-  #set( $welcomePage = $sitetool.WelcomePage )
-  #set( $currentPage = $sitetool.Page)
-  &lt;li&gt;
-    &lt;a#if($welcomePage.equals($currentPage)) class=&quot;selected&quot;#end href=&quot;$sitelinktool.getPage($welcomePage)&quot;&gt;$utils.escape($welcomePage.title)&lt;/a&gt;
-  &lt;/li&gt;#end
-#foreach( $level in $sitetool.Site.sublevels )
-  &lt;li&gt;
-    &lt;a#if($sitetool.hierarchyContains($level)) class=&quot;selected&quot;#end href=&quot;$sitelinktool.getLevel($level)&quot;&gt;$utils.escape($level.title)&lt;/a&gt;
-    #if($level.hasSublevels())#submenu($level.sublevels)#end
-  &lt;/li&gt;
-#end
-&lt;/ul&gt;
-#end
-
-#macro(submenu $sublevels)
-        &lt;ul&gt;
-        #foreach( $sublevel in $sublevels)&lt;li class=&quot;menu_main&quot;&gt;&lt;a#if($sitetool.hierarchyContains($sublevel)) class=&quot;selected&quot;#end href=&quot;$sitelinktool.getLevel($sublevel)&quot;&gt;$utils.escape($sublevel.title)&lt;/a&gt;&lt;/li&gt;#end
-        &lt;/ul&gt;
-#end
-
-
-
-#macro(pagemenu)
-#set( $page = $sitetool.Page )
-#if( $sitetool.getHasPrevious($page) || $sitetool.getHasNext($page) )
-&lt;hr style=&quot;border: 1px dotted silver; margin-bottom: 5px;&quot; /&gt;
-&lt;div id=&quot;menu_page&quot;&gt;
-&lt;p&gt;
-#if($sitetool.getHasPrevious($page))
-  &lt;a href=&quot;$sitelinktool.getPreviousPage($page)&quot;&gt;previous&lt;/a&gt; &amp;nbsp; &amp;nbsp;
-#end
-#if($sitetool.getHasNext($page))
-  &lt;a href=&quot;$sitelinktool.getNextPage($page)&quot;&gt;next&lt;/a&gt;
-#end
-&lt;/p&gt;
-&lt;/div&gt;
-#end
-#end
-
-
-
-#macro(imagemenu)
-#set( $image = $sitetool.Image )
-#if( $sitetool.getHasPrevious($image) || $sitetool.getHasNext($image) )
-&lt;hr  style=&quot;border:1px dotted silver; margin-bottom: 5px;&quot; /&gt;
-&lt;div id=&quot;menu_image&quot;&gt;
-&lt;p&gt;
-#if($sitetool.getHasPrevious($image))
-  &lt;a href=&quot;$imagelinktool.getPrevious($image)&quot;&gt;previous&lt;/a&gt; &amp;nbsp; &amp;nbsp;
-#end
-#if($sitetool.getHasNext($image))
-  &lt;a href=&quot;$imagelinktool.getNext($image)&quot;&gt;next&lt;/a&gt; &amp;nbsp; &amp;nbsp;
-#end
-&lt;a href=&quot;$gallerylinktool.get($image)&quot;&gt;back to gallery&lt;/a&gt;
-&lt;/p&gt;
-&lt;/div&gt;
-#end
+      <string>#macro(mainmenu)&#13;
+&lt;ul&gt;#if( $!sitetool.WelcomePage )&#13;
+  #set( $welcomePage = $sitetool.WelcomePage )&#13;
+  #set( $currentPage = $sitetool.Page)&#13;
+  &lt;li&gt;&#13;
+    &lt;a#if($welcomePage.equals($currentPage)) class=&quot;selected&quot;#end href=&quot;$sitelinktool.getPage($welcomePage)&quot;&gt;$utils.escape($welcomePage.Title)&lt;/a&gt;&#13;
+  &lt;/li&gt;#end&#13;
+#foreach( $level in $sitetool.Site.Sublevels )&#13;
+  &lt;li&gt;&#13;
+    &lt;a#if($sitetool.hierarchyContains($level)) class=&quot;selected&quot;#end href=&quot;$sitelinktool.getLevel($level)&quot;&gt;$utils.escape($level.Title)&lt;/a&gt;&#13;
+    #if($level.hasSublevels())#submenu($level.Sublevels)#end&#13;
+  &lt;/li&gt;&#13;
+#end&#13;
+&lt;/ul&gt;&#13;
+#end&#13;
+&#13;
+#macro(submenu $sublevels)&#13;
+        &lt;ul&gt;&#13;
+        #foreach( $sublevel in $sublevels)&lt;li class=&quot;menu_main&quot;&gt;&lt;a#if($sitetool.hierarchyContains($sublevel)) class=&quot;selected&quot;#end href=&quot;$sitelinktool.getLevel($sublevel)&quot;&gt;$utils.escape($sublevel.Title)&lt;/a&gt;&lt;/li&gt;#end&#13;
+        &lt;/ul&gt;&#13;
+#end&#13;
+&#13;
+&#13;
+&#13;
+#macro(pagemenu)&#13;
+#set( $page = $sitetool.Page )&#13;
+#if( $sitetool.getHasPrevious($page) || $sitetool.getHasNext($page) )&#13;
+&lt;hr style=&quot;border: 1px dotted silver; margin-bottom: 5px;&quot; /&gt;&#13;
+&lt;div id=&quot;menu_page&quot;&gt;&#13;
+&lt;p&gt;&#13;
+#if($sitetool.getHasPrevious($page))&#13;
+  &lt;a href=&quot;$sitelinktool.getPreviousPage($page)&quot;&gt;previous&lt;/a&gt; &amp;nbsp; &amp;nbsp;&#13;
+#end&#13;
+#if($sitetool.getHasNext($page))&#13;
+  &lt;a href=&quot;$sitelinktool.getNextPage($page)&quot;&gt;next&lt;/a&gt;&#13;
+#end&#13;
+&lt;/p&gt;&#13;
+&lt;/div&gt;&#13;
+#end&#13;
+#end&#13;
+&#13;
+&#13;
+&#13;
+#macro(imagemenu)&#13;
+#set( $image = $sitetool.Image )&#13;
+#if( $sitetool.getHasPrevious($image) || $sitetool.getHasNext($image) )&#13;
+&lt;hr  style=&quot;border:1px dotted silver; margin-bottom: 5px;&quot; /&gt;&#13;
+&lt;div id=&quot;menu_image&quot;&gt;&#13;
+&lt;p&gt;&#13;
+#if($sitetool.getHasPrevious($image))&#13;
+  &lt;a href=&quot;$gallerylinktool.getPrevious($image)&quot;&gt;previous&lt;/a&gt; &amp;nbsp; &amp;nbsp;&#13;
+#end&#13;
+#if($sitetool.getHasNext($image))&#13;
+  &lt;a href=&quot;$gallerylinktool.getNext($image)&quot;&gt;next&lt;/a&gt; &amp;nbsp; &amp;nbsp;&#13;
+#end&#13;
+&lt;a href=&quot;$gallerylinktool.getGallery($image)&quot;&gt;back to gallery&lt;/a&gt;&#13;
+&lt;/p&gt;&#13;
+&lt;/div&gt;&#13;
+#end&#13;
 #end</string> 
      </void> 
     </object> 
@@ -677,16 +678,16 @@ $content&#13;
            <object idref="Site0"/> 
           </void> 
           <void property="text"> 
-           <string>#parse(&apos;user_menu.vm&apos;)
-
-&lt;div id=&quot;content&quot;&gt; #set( $gallery = $image.Gallery)##
-  &lt;div id=&quot;gallery_image&quot;&gt;
-    &lt;h1&gt;$image.Title&lt;/h1&gt;&lt;br /&gt;
-    &lt;p&gt;$imagetagtool.setImage($image).setAlt($image.Title).setHeight($gallery.ImageMaxHeight).setWidth($gallery.ImageMaxWidth).fitToSize()  &lt;/p&gt;
-    &lt;p&gt;$image.description&lt;/p&gt;
-  &lt;/div&gt;
-#pagemenu()
-#imagemenu()
+           <string>#parse(&apos;user_menu.vm&apos;)&#13;
+&#13;
+&lt;div id=&quot;content&quot;&gt; #set( $gallery = $image.Gallery)##&#13;
+  &lt;div id=&quot;gallery_image&quot;&gt;&#13;
+    &lt;h1&gt;$image.Title&lt;/h1&gt;&lt;br /&gt;&#13;
+    &lt;p&gt;$imagetagtool.setImage($image).setAlt($image.Title).setHeight($gallery.ImageMaxHeight).setWidth($gallery.ImageMaxWidth).fitToSize()  &lt;/p&gt;&#13;
+    &lt;p&gt;$image.Description&lt;/p&gt;&#13;
+  &lt;/div&gt;&#13;
+#pagemenu()&#13;
+#imagemenu()&#13;
 &lt;/div&gt;</string> 
           </void> 
           <void property="type"> 
@@ -760,7 +761,7 @@ $content&#13;
   &lt;h1&gt;$utils.escape($gallery.Title)&lt;/h1&gt;&#13;
   #foreach($image in $gallery.Images)&#13;
   &lt;div class=&quot;gallery_thumbnail&quot;&gt;&#13;
-    &lt;p style=&quot;text-align: center;&quot;&gt;&lt;a href=&quot;$imagelinktool.getImage($image)&quot;&gt;$imagetagtool.setImage($image).setAlt($imge.Title).setHeight($gallery.ThumbnailMaxWidth).setWidth($gallery.ThumbnailMaxHeight).fitToSize()&lt;/a&gt;&lt;/p&gt;&#13;
+    &lt;p style=&quot;text-align: center;&quot;&gt;&lt;a href=&quot;$gallerylinktool.getImage($image)&quot;&gt;$imagetagtool.setImage($image).setAlt($imge.Title).setHeight($gallery.ThumbnailMaxWidth).setWidth($gallery.ThumbnailMaxHeight).fitToSize()&lt;/a&gt;&lt;/p&gt;&#13;
     &lt;p&gt;$utils.escape($image.Title)&lt;/p&gt;&#13;
   &lt;/div&gt;&#13;
   #end&#13;
@@ -969,35 +970,35 @@ $content&#13;
            <object idref="Site0"/> 
           </void> 
           <void property="text"> 
-           <string>#parse(&apos;user_menu.vm&apos;)
-#parse(&apos;content.vm&apos;)
-&lt;div id=&quot;content&quot;&gt;
-  &lt;h1&gt;$utils.escape($gallery.Title)&lt;/h1&gt;
-  #contentview(&quot;field1&quot; 605 520)
-  
-&lt;!-- BEGIN THUMBNAIL MATRIX --&gt;
-  #set( $maxCols = 3 )
-  #set( $matrix = $gallerytool.getThumbnailMatrix($gallery, $maxCols) )
-  &lt;table class=&quot;gallery&quot; cellspacing=&quot;15&quot;&gt;
-    &lt;colgroup&gt;
-      &lt;col width=&quot;33%&quot;/&gt;
-      &lt;col width=&quot;34%&quot;/&gt;
-      &lt;col width=&quot;33%&quot;/&gt;
-    &lt;/colgroup&gt;
-    #foreach($col in $matrix)
-       &lt;tr&gt; &lt;!-- begin thumbnail row --&gt;
-       #foreach($image in $col)
-         &lt;td class=&quot;thumbnail&quot;&gt;
-           #if($!image)&lt;p&gt;$utils.escape($image.title)&lt;/p&gt;
-           &lt;p&gt;&lt;a href=&quot;$imagelinktool.getImage($image)&quot;&gt;$imagetagtool.setImage($image).setAlt($utils.escape($image.title)).setHeight($gallery.thumbnailMaxWidth).setWidth($gallery.thumbnailMaxHeight).fitToSize()&lt;/a&gt;&lt;/p&gt;#end
-         &lt;/td&gt;
-       #end
-    &lt;/tr&gt;&lt;!-- end thumbnail row --&gt;
-    #end
-  &lt;/table&gt;
-&lt;!-- END THUMBNAIL MATRIX --&gt;
-
-  #pagemenu()
+           <string>#parse(&apos;user_menu.vm&apos;)&#13;
+#parse(&apos;content.vm&apos;)&#13;
+&lt;div id=&quot;content&quot;&gt;&#13;
+  &lt;h1&gt;$utils.escape($gallery.Title)&lt;/h1&gt;&#13;
+  #contentview(&quot;field1&quot; 605 520)&#13;
+  &#13;
+&lt;!-- BEGIN THUMBNAIL MATRIX --&gt;&#13;
+  #set( $maxCols = 3 )&#13;
+  #set( $matrix = $gallerytool.getThumbnailMatrix($gallery, $maxCols) )&#13;
+  &lt;table class=&quot;gallery&quot; cellspacing=&quot;15&quot;&gt;&#13;
+    &lt;colgroup&gt;&#13;
+      &lt;col width=&quot;33%&quot;/&gt;&#13;
+      &lt;col width=&quot;34%&quot;/&gt;&#13;
+      &lt;col width=&quot;33%&quot;/&gt;&#13;
+    &lt;/colgroup&gt;&#13;
+    #foreach($col in $matrix)&#13;
+       &lt;tr&gt; &lt;!-- begin thumbnail row --&gt;&#13;
+       #foreach($image in $col)&#13;
+         &lt;td class=&quot;thumbnail&quot;&gt;&#13;
+           #if($!image)&lt;p&gt;$utils.escape($image.title)&lt;/p&gt;&#13;
+           &lt;p&gt;&lt;a href=&quot;$gallerylinktool.getImage($image)&quot;&gt;$imagetagtool.setImage($image).setAlt($utils.escape($image.title)).setHeight($gallery.thumbnailMaxWidth).setWidth($gallery.thumbnailMaxHeight).fitToSize()&lt;/a&gt;&lt;/p&gt;#end&#13;
+         &lt;/td&gt;&#13;
+       #end&#13;
+    &lt;/tr&gt;&lt;!-- end thumbnail row --&gt;&#13;
+    #end&#13;
+  &lt;/table&gt;&#13;
+&lt;!-- END THUMBNAIL MATRIX --&gt;&#13;
+&#13;
+  #pagemenu()&#13;
 &lt;/div&gt;</string> 
           </void> 
           <void property="type"> 

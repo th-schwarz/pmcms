@@ -28,6 +28,7 @@ import java.util.Map;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
@@ -36,15 +37,18 @@ import org.springframework.stereotype.Component;
 import de.thischwa.pmcms.Constants;
 import de.thischwa.pmcms.configuration.PropertiesManager;
 import de.thischwa.pmcms.exception.RenderingException;
+import de.thischwa.pmcms.livecycle.PojoHelper;
 import de.thischwa.pmcms.model.domain.OrderableInfo;
 import de.thischwa.pmcms.model.domain.PoInfo;
 import de.thischwa.pmcms.model.domain.PoPathInfo;
 import de.thischwa.pmcms.model.domain.pojo.Gallery;
 import de.thischwa.pmcms.model.domain.pojo.Image;
+import de.thischwa.pmcms.model.domain.pojo.Level;
 import de.thischwa.pmcms.tool.PathTool;
 import de.thischwa.pmcms.tool.compression.Zip;
 import de.thischwa.pmcms.view.ViewMode;
 import de.thischwa.pmcms.view.context.IContextObjectGallery;
+import de.thischwa.pmcms.view.context.IContextObjectNeedPojoHelper;
 import de.thischwa.pmcms.view.context.IContextObjectNeedViewMode;
 import de.thischwa.pmcms.wysisygeditor.CKImageResource;
 
@@ -54,15 +58,22 @@ import de.thischwa.pmcms.wysisygeditor.CKImageResource;
  */
 @Component("gallerylinktool")
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
-public class GalleryLinkTool implements IContextObjectGallery, IContextObjectNeedViewMode {
+public class GalleryLinkTool implements IContextObjectGallery, IContextObjectNeedPojoHelper, IContextObjectNeedViewMode {
 	private String linkToString = null;
 	private boolean isExportView;
+	private PojoHelper pojoHelper;
 	
 	@Autowired private PropertiesManager pm;
 
 	public void setExportView(boolean isExportView) {
 		this.isExportView = isExportView;
 	}
+
+	@Override
+	public void setPojoHelper(final PojoHelper pojoHelper) {
+		this.pojoHelper = pojoHelper;
+	}
+
 	
 	@Override
 	public void setViewMode(final ViewMode viewMode) {
@@ -75,16 +86,16 @@ public class GalleryLinkTool implements IContextObjectGallery, IContextObjectNee
 	 * @param image Desired {@link Image} to get the link tool for.
 	 * @return Link tool for the desired {@link Image}. If the {@link Image} is null, the link contains 'NO_IMAGE'.
 	 */
-	public GalleryLinkTool get(final Image image) {
+	public GalleryLinkTool getGallery(final Image image) {
 		if (image == null)
-			setGallery("NO_IMAGE");
+			setLink("NO_IMAGE");
 		else {
 			Gallery gallery = image.getParent();
 			if (isExportView) {
 				if (OrderableInfo.isFirst(gallery)) {
-					setGallery(pm.getSiteProperty("pmcms.site.export.file.welcome"));
+					setLink(pm.getSiteProperty("pmcms.site.export.file.welcome"));
 				} else {
-					setGallery(gallery.getName().concat(".")
+					setLink(gallery.getName().concat(".")
 					        .concat(pm.getSiteProperty("pmcms.site.export.extension")));
 				}
 			} else
@@ -106,7 +117,7 @@ public class GalleryLinkTool implements IContextObjectGallery, IContextObjectNee
 		if (isExportView && CollectionUtils.isNotEmpty(gallery.getImages())) {
 			String urlPathToZip = PathTool.getURLRelativePathToRoot(gallery.getParent()).concat(siteRelativePath)
 			        .concat("/").concat(gallery.getName()).concat(".zip");
-			setGallery(urlPathToZip);
+			setLink(urlPathToZip);
 			Map<File, String> zipEntries = new HashMap<File, String>();
 			for (Image image : gallery.getImages()) { // TODO check it: order the images, if not, the hash of the zip is always different
 				CKImageResource imageFile = new CKImageResource(PoInfo.getSite(gallery), true);
@@ -122,24 +133,74 @@ public class GalleryLinkTool implements IContextObjectGallery, IContextObjectNee
 				throw new RenderingException("While creating image zip file: ".concat(e.getMessage()), e);
 			}
 		} else {
-			setGallery("javascript:alert('Zip will be constructed not until export!');");
+			setLink("javascript:alert('Zip will be constructed not until export!');");
 		}
 		return this;
 	}
 
+	/**
+	 * Set link to the desired {@link Image}.
+	 */
+	public GalleryLinkTool getImage(final Image imageToLink) {
+		if (imageToLink == null)
+			setLink("NO_IMAGE_FOUND");
+		else if (isExportView) {
+			Level currentLevel = pojoHelper.getLevel();
+			Level levelLinkTo = imageToLink.getParent().getParent();
+			String path = PathTool.getURLRelativePathToLevel(currentLevel, levelLinkTo)
+					.concat(StringUtils.defaultIfEmpty(PathTool.getExportBaseFilename(imageToLink, pm.getSiteProperty("pmcms.site.export.file.extension")), "IMAGE_NOT_EXISTS"));
+			path = PathTool.encodePath(path);
+			setLink(path);
+		} else
+			setImageForPreview(imageToLink);
+		return this;
+	}
+
+	/**
+	 * Set link to the previous of the desired {@link Image}.
+	 */
+	public GalleryLinkTool getPrevious(final Image imageToLink) {
+		if (imageToLink == null)
+			setLink("NO_IMAGE_FOUND");
+		else if (OrderableInfo.hasPrevious(imageToLink)) 
+			return getImage((Image) OrderableInfo.getPrevious(imageToLink));
+		else
+			setLink("NO_IMAGE_FOUND");
+		return this;
+	}
+
+	/**
+	 * Set link to the next of the desired {@link Image}.
+	 */
+	public GalleryLinkTool getNext(final Image imageToLink) {
+		if (imageToLink == null)
+			setLink("NO_IMAGE_FOUND");
+		else if (OrderableInfo.hasNext(imageToLink)) 
+			return getImage((Image) OrderableInfo.getNext(imageToLink));
+		else
+			setLink("NO_IMAGE_FOUND");
+		return this;
+	}
+	
 	@Override
 	public String toString() {
 		return linkToString;
 	}
 
-	private void setGallery(String gallery) {
-		linkToString = gallery;
+	private void setLink(String link) {
+		linkToString = link;
 	}
-
 	private void setGalleryForPreview(Gallery gallery) {
 		StringBuilder link = new StringBuilder();
 		link.append("/").append(Constants.LINK_IDENTICATOR_PREVIEW).append("?id=").append(gallery.getId()).append("&amp;");
 		link.append(Constants.LINK_TYPE_DESCRIPTOR).append("=").append(Constants.LINK_TYPE_GALLERY).append("&amp;");
-		setGallery(link.toString());
+		setLink(link.toString());
+	}
+	
+	private void setImageForPreview(final Image image) {
+		StringBuilder link = new StringBuilder();
+		link.append("/").append(Constants.LINK_IDENTICATOR_PREVIEW).append("?id=").append(image.getId()).append("&amp;");
+		link.append(Constants.LINK_TYPE_DESCRIPTOR).append("=").append(Constants.LINK_TYPE_IMAGE).append("&amp;");
+		setLink(link.toString());
 	}
 }

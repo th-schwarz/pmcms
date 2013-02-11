@@ -55,10 +55,7 @@ import de.thischwa.pmcms.wysisygeditor.CKResourceTool;
  * Context object for building query strings for links. <br>
  * <pre>$linktool.addParameter('id', '1').addParameter('name', 'foo')</pre> generates: id=1&name=foo <br>
  * <br>
- * There is an additional method to get a link to a picture without the image rendering.
- * 
- * @version $Id: LinkTool.java 2210 2012-06-17 13:01:49Z th-schwarz $
- * @author <a href="mailto:th-schwarz@users.sourceforge.net">Thilo Schwarz</a>
+ * There is an additional method to get a link to a picture without the image rendering {@link LinkTool#getPicture(String)}).
  */
 @Component("linktool")
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
@@ -106,9 +103,10 @@ public class LinkTool implements IContextObjectCommon, IContextObjectNeedPojoHel
 	}
 
 	/**
-	 * Using pictures without the normal image procedere.
+	 * Using pictures without the normal image rendering.
+	 * TODO: rewrite path-building, the picture should be inside the layout dir 
 	 */
-	public LinkTool getPicture(String pictureRelativeToImageDirectory) {
+	public LinkTool getPicture(String pictureRelativeToLayoutDir) {
 		clear();
 		Level level;
 		if(InstanceUtil.isImage(po))
@@ -117,14 +115,14 @@ public class LinkTool implements IContextObjectCommon, IContextObjectNeedPojoHel
 			level = (Level) po.getParent();
 		if (isExportView) {
 			String link = PathTool.getURLRelativePathToRoot(level).concat(CKResourceTool.getDir(Extension.IMAGE)).concat("/").concat(
-			        pictureRelativeToImageDirectory);
+			        pictureRelativeToLayoutDir);
 			setLinkTo(link);
 
 			File srcDir = PoPathInfo.getSiteResourceDirectory(pojoHelper.getSite(), Extension.IMAGE);
-			File srcFile = new File(srcDir, pictureRelativeToImageDirectory);
+			File srcFile = new File(srcDir, pictureRelativeToLayoutDir);
 			renderData.addCKResource(srcFile);
 			File dstDir = PoPathInfo.getSiteExportResourceDirectory(pojoHelper.getSite(), Extension.IMAGE);
-			File dstFile = new File(dstDir, pictureRelativeToImageDirectory);
+			File dstFile = new File(dstDir, pictureRelativeToLayoutDir);
 			if(!dstFile.getParentFile().getAbsoluteFile().exists())
 				dstFile.getParentFile().getAbsoluteFile().mkdirs();
 			try {
@@ -133,7 +131,7 @@ public class LinkTool implements IContextObjectCommon, IContextObjectNeedPojoHel
 				throw new FatalException("While copying: " + e.getMessage(), e);
 			}
 		} else {
-			String link = PathTool.getURLFromFile(String.format("%s/%s/%s", Constants.LINK_IDENTICATOR_SITE_RESOURCE, CKResourceTool.getDir(Extension.IMAGE), pictureRelativeToImageDirectory));
+			String link = PathTool.getURLFromFile(String.format("%s/%s/%s", Constants.LINK_IDENTICATOR_SITE_RESOURCE, CKResourceTool.getDir(Extension.IMAGE), pictureRelativeToLayoutDir));
 			setLinkTo(link);
 		}
 		return this;

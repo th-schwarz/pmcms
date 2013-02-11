@@ -54,9 +54,6 @@ import de.thischwa.pmcms.view.renderer.VelocityUtils;
 
 /**
  * Static helper using in the viewing context.
- *
- * @version $Id: ContextUtil.java 2233 2013-01-13 19:08:36Z th-schwarz $
- * @author <a href="mailto:th-schwarz@users.sourceforge.net">Thilo Schwarz</a>
  */
 public class ContextUtil {
 	private static Logger logger = Logger.getLogger(ContextUtil.class);
@@ -121,6 +118,7 @@ public class ContextUtil {
 	public static APoormansObject<?> updatepo(final Link link) throws FatalException {
 		return updatepo(link.getParameters());
 	}
+	
 	public static APoormansObject<?> updatepo(final Map<String, String> params) {
 		String idString = params.get("id");
 		String pojoType = params.get(Constants.LINK_TYPE_DESCRIPTOR);

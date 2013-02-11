@@ -47,7 +47,8 @@ import de.thischwa.pmcms.view.renderer.RenderData;
 import de.thischwa.pmcms.wysisygeditor.CKImageResource;
 
 /**
- * Construct an img-tag and initiate the image rendering. 
+ * Construct an img-tag and initiate the image rendering for galleries and content built by the editor.<br />
+ * <b>Important:</b> It should be used conjunction with galleries only!
  */
 @Component(value="imagetagtool")
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)

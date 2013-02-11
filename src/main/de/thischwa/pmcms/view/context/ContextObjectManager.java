@@ -47,9 +47,6 @@ import de.thischwa.pmcms.view.ViewMode;
  * {@link IContextObjectNeedPojoHelper}.<br>
  * Objects which implements {@link IContextObjectCommon} will initialized automatically. All others have to 
  * initialized by calling {@link #configureContextObject(Object)}.
- * 
- * @version $Id: ContextObjectManager.java 2213 2012-06-30 12:01:07Z th-schwarz $
- * @author <a href="mailto:th-schwarz@users.sourceforge.net">Thilo Schwarz</a>
  */
 public class ContextObjectManager {
 	private static Logger logger = Logger.getLogger(ContextObjectManager.class);
@@ -138,7 +135,7 @@ public class ContextObjectManager {
 	}
 
 	/**
-	 * Static getter to provide the required context objects depending on an {@link APoorMansObject}, 
+	 * Static factory method to provide the required context objects depending on an {@link APoorMansObject}, 
 	 * shipping with the {@link PojoHelper}, and the {@link ViewMode}.
 	 * 
 	 * @param pojoHelper
@@ -157,16 +154,16 @@ public class ContextObjectManager {
 			logger.debug("Gallery to render: ".concat(gallery.toString()));
 			contextObjectManager.initializeContextObject(IContextObjectGallery.class);
 			contextObjectManager.putContextObjectsForGallery(contextObjectManager, gallery);
-		} else if (InstanceUtil.isPage(renderable)) {
-			Page page = (Page) renderable;			
-			logger.debug("Page to render: ".concat(page.toString()));
-			contextObjectManager.putContextObjectsForPage(contextObjectManager, page);
 		} else if (InstanceUtil.isImage(renderable)) {
 			Image image = (Image) renderable;
 			logger.debug("Image to render: ".concat(image.toString()));
 			contextObjectManager.initializeContextObject(IContextObjectGallery.class);
 			contextObjectManager.put("image", image);
 			contextObjectManager.putContextObjectsForPage(contextObjectManager, image.getParent());
+		} else if (InstanceUtil.isPage(renderable)) {
+			Page page = (Page) renderable;			
+			logger.debug("Page to render: ".concat(page.toString()));
+			contextObjectManager.putContextObjectsForPage(contextObjectManager, page);
 		} else 
 			throw new IllegalArgumentException("Unknown type of PersitentPojo: " + renderable.getClass().getName());
 	
