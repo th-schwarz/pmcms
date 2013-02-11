@@ -23,3 +23,4 @@ early-state project and isn't runnable at the moment!
   * new property handling. there is now a strict difference between common, user and site properties
   * updated CodeMirror to 3.*
   * new handling of images of a gallery, they are now separated from the other file resources
+  * merged the ImageLinkTool with the GalleryLinkTool
