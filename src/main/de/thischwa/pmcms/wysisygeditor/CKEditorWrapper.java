@@ -51,7 +51,7 @@ public class CKEditorWrapper {
 		if (site == null ||  httpServletRequest == null)
 			throw new IllegalArgumentException("Base params are incomplete!");
 		urlDefaultCss = String.format("%s/%s/format.css", Constants.LINK_IDENTICATOR_SITE_RESOURCE, pm.getSiteProperty("pmcms.site.dir.layoutresources"));
-		urlCustomConfig = String.format("/%s/%s/ckconfig.js", Constants.LINK_IDENTICATOR_SITE_RESOURCE, pm.getSiteProperty("pmcms.site.dir.configuration"));
+		urlCustomConfig = String.format("/%s/%s/ckconfig.js", Constants.LINK_IDENTICATOR_SITE_RESOURCE, pm.getProperty("pmcms.dir.site.configuration"));
 		this.httpServletRequest = httpServletRequest;
 	}
 
