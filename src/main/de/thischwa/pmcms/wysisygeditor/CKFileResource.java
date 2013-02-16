@@ -49,7 +49,7 @@ public class CKFileResource extends ACKEditorResource implements ICKResource {
 		
 	@Override
 	public void consructFromTagFromView(final String srcString) {
-		String temp = LinkFolderTool.stripUrlSiteFolder(srcString);
+		String temp = UrlFolderTool.stripUrlSiteFolder(srcString);
 		super.setResourceFileType(CKResourceTool.getResourceType(FileTool.getExtension(srcString)));
 		file = getFSPathOfResource(site, temp);
 	}
@@ -57,7 +57,7 @@ public class CKFileResource extends ACKEditorResource implements ICKResource {
 	@Override
 	public String getTagSrcForExport(final Level level) {
 		StringBuilder tag = new StringBuilder(PathTool.getURLRelativePathToRoot(level));
-		tag.append(LinkFolderTool.getResourceFolderForExport(ext));
+		tag.append(UrlFolderTool.getResourceFolderForExport(ext));
 		tag.append(file.getName());
 		return tag.toString();
 	}
@@ -74,7 +74,7 @@ public class CKFileResource extends ACKEditorResource implements ICKResource {
 		if (temp.startsWith(resourceDirectory.getAbsolutePath()))
 			temp = temp.substring(resourceDirectory.getAbsolutePath().length()+1);
 		temp = temp.replace(File.separatorChar, Constants.SEPARATOR_CHAR);
-		String siteFolder = LinkFolderTool.getSiteFolder(site);
+		String siteFolder = UrlFolderTool.getSiteFolder(site);
 		if(temp.startsWith(siteFolder))
 			temp = temp.substring(siteFolder.length());
 		temp = String.format("/%s/%s/%s", Constants.LINK_IDENTICATOR_SITE_RESOURCE, CKResourceTool.getDir(ext), temp);

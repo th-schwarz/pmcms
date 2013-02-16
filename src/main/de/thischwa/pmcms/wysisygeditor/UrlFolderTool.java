@@ -31,33 +31,33 @@ import de.thischwa.pmcms.tool.Utils;
 /**
  * Helper tool to get special folders for building links in html. Folders are always ends with an separator char.
  */
-public class LinkFolderTool {
+public class UrlFolderTool {
 
 	private static PropertiesManager pm = InitializationManager.getBean(PropertiesManager.class);
 
-	public static String getSitesFolder() {
+	static String getSitesFolder() {
 		return Utils.join(pm.getProperty("pmcms.dir.sites"), Constants.SEPARATOR);
 	}
 	
-	public static String getSiteFolder(Site site) {
+	static String getSiteFolder(Site site) {
 		return Utils.join(getSitesFolder(), site.getUrl(), Constants.SEPARATOR);
 	}
 	
-	public static String getResourceFolderForExport(Extension ext) {
+	static String getResourceFolderForExport(Extension ext) {
 		if(ext == Extension.IMAGE)
 			return Utils.join(CKResourceTool.getDir(ext), Constants.SEPARATOR);
 		return Utils.join(pm.getSiteProperty("pmcms.site.dir.export.resources"), Constants.SEPARATOR, CKResourceTool.getDir(ext), Constants.SEPARATOR);
 	}
 	
-	public static String getImageFolder() {
+	static String getImageFolder() {
 		return Utils.join(pm.getSiteProperty("pmcms.site.dir.resources.image"), Constants.SEPARATOR);		
 	}
 	
-	public static String getImageCasheFolder() {
+	static String getImageCasheFolder() {
 		return Utils.join(pm.getSiteProperty("pmcms.site.dir.imagecache"), Constants.SEPARATOR);
 	}
 
-	public static String stripUrlSiteFolder(String srcTag) {
+	static String stripUrlSiteFolder(String srcTag) {
 		String temp = new String(srcTag);
 		if(temp.startsWith("/"))
 			temp = temp.substring(1);

@@ -113,13 +113,13 @@ public class CKImageResource extends ACKEditorResource implements ICKResource {
 	 */
 	@Override
 	public void consructFromTagFromView(final String srcString) {
-		String path = LinkFolderTool.stripUrlSiteFolder(srcString);
-		if(path.startsWith(LinkFolderTool.getImageCasheFolder())) {
-			path = path.substring(LinkFolderTool.getImageCasheFolder().length());
+		String path = UrlFolderTool.stripUrlSiteFolder(srcString);
+		if(path.startsWith(UrlFolderTool.getImageCasheFolder())) {
+			path = path.substring(UrlFolderTool.getImageCasheFolder().length());
 			analyseCashedPath(path);
 		} else {
-			if(path.startsWith(LinkFolderTool.getImageFolder()))
-				path = path.substring(LinkFolderTool.getImageFolder().length());
+			if(path.startsWith(UrlFolderTool.getImageFolder()))
+				path = path.substring(UrlFolderTool.getImageFolder().length());
 			path = path.replace("/", File.separator);
 			File parent = (fromGallery) ? PoPathInfo.getSiteGalleryDirectory(site) : PoPathInfo.getSiteResourceDirectory(site, ext);
 			file = new File(parent, path);
@@ -142,7 +142,7 @@ public class CKImageResource extends ACKEditorResource implements ICKResource {
 	@Override
 	public String getTagSrcForExport(final Level level) {
 		String relativLevelPath = PathTool.getURLRelativePathToRoot(level);
-		String imageFolder = LinkFolderTool.getResourceFolderForExport(ext);
+		String imageFolder = UrlFolderTool.getResourceFolderForExport(ext);
 		String cachePath = getCacheFilename().substring(cacheFolder.length()).replace(File.separatorChar, Constants.SEPARATOR_CHAR);
 		int maxFilenameLength = relativLevelPath.length() + imageFolder.length() + cachePath.length() + 1;
 		StringBuilder filename = new StringBuilder(maxFilenameLength);
@@ -237,7 +237,7 @@ public class CKImageResource extends ACKEditorResource implements ICKResource {
 	@Override
 	public String getTagSrcForPreview() {
 		String cashedFilename = getCacheFilename().replace(File.separator, Constants.SEPARATOR);
-		String siteFolder = LinkFolderTool.getSiteFolder(site);
+		String siteFolder = UrlFolderTool.getSiteFolder(site);
 		if(cashedFilename.startsWith(siteFolder))
 			cashedFilename = cashedFilename.substring(siteFolder.length());
 		cashedFilename = Utils.join(Constants.SEPARATOR, Constants.LINK_IDENTICATOR_SITE_RESOURCE, Constants.SEPARATOR, cashedFilename);
