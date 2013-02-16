@@ -48,8 +48,10 @@ import de.thischwa.pmcms.view.context.IContextObjectNeedViewMode;
 import de.thischwa.pmcms.view.renderer.RenderData;
 
 /**
- * Context objects for building links to user relevant resources. The resources must be inside the site folder
- * defined in the property 'pmcms.site.dir.layoutresources', except it's defined with #{@link SiteLinkTool#addResource(String)}.
+ * Context objects for building links {@link Level}s, {@link Page}s or to resources which are relevant for the layout. 
+ * The resources for the layout must be inside the site folder defined in the property 'pmcms.site.dir.layoutresources'.<br />
+ * Exceptions are resources which are defined by {@link SiteLinkTool#addResource(String)}. Theirs paths are interpreted as
+ * relative to the directory of the site. 
  */
 @Component("sitelinktool")
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
@@ -96,7 +98,7 @@ public class SiteLinkTool implements IContextObjectNeedPojoHelper, IContextObjec
 	}
 	
 	/**
-	 * Added a resource that has to copy while export.
+	 * Added a resource that has to copy while export without building a link.
 	 * 
 	 * @param resource The name of the resource file, e.g. 'robot.txt'.
 	 */

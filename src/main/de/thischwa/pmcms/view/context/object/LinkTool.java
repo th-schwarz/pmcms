@@ -21,65 +21,28 @@
  ******************************************************************************/
 package de.thischwa.pmcms.view.context.object;
 
-import java.io.File;
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import de.thischwa.c5c.resource.Extension;
 import de.thischwa.pmcms.Constants;
-import de.thischwa.pmcms.exception.FatalException;
-import de.thischwa.pmcms.livecycle.PojoHelper;
-import de.thischwa.pmcms.model.InstanceUtil;
-import de.thischwa.pmcms.model.domain.PoPathInfo;
-import de.thischwa.pmcms.model.domain.pojo.APoormansObject;
-import de.thischwa.pmcms.model.domain.pojo.Image;
-import de.thischwa.pmcms.model.domain.pojo.Level;
-import de.thischwa.pmcms.tool.PathTool;
-import de.thischwa.pmcms.tool.file.FileTool;
-import de.thischwa.pmcms.view.ViewMode;
 import de.thischwa.pmcms.view.context.IContextObjectCommon;
-import de.thischwa.pmcms.view.context.IContextObjectNeedPojoHelper;
-import de.thischwa.pmcms.view.context.IContextObjectNeedViewMode;
-import de.thischwa.pmcms.view.renderer.RenderData;
-import de.thischwa.pmcms.wysisygeditor.CKResourceTool;
 
 /**
  * Context object for building query strings for links. <br>
- * <pre>$linktool.addParameter('id', '1').addParameter('name', 'foo')</pre> generates: id=1&name=foo <br>
- * <br>
- * There is an additional method to get a link to a picture without the image rendering {@link LinkTool#getPicture(String)}).
+ * <pre>$linktool.addParameter('id', '1').addParameter('name', 'foo')</pre> generates: id=1&name=foo 
  */
 @Component("linktool")
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
-public class LinkTool implements IContextObjectCommon, IContextObjectNeedPojoHelper, IContextObjectNeedViewMode {
+public class LinkTool implements IContextObjectCommon {
 	private String linkTo = null;
 	private Map<String, String> params = new HashMap<String, String>();
-	private boolean isExportView;
-	private PojoHelper pojoHelper;
-	private APoormansObject<?> po;
 	
-	@Autowired
-	private RenderData renderData;
-
-	@Override
-	public void setPojoHelper(final PojoHelper pojoHelper) {
-		this.pojoHelper = pojoHelper;
-		this.po = (APoormansObject<?>) this.pojoHelper.getRenderable();
-	}
-
-	@Override
-	public void setViewMode(final ViewMode viewMode) {
-		isExportView = viewMode.equals(ViewMode.EXPORT);
-	}
-
 	public LinkTool addParameter(String key, String value) {
 		this.params.put(key, value);
 		return this;
@@ -99,41 +62,6 @@ public class LinkTool implements IContextObjectCommon, IContextObjectNeedPojoHel
 	public LinkTool setSave() {
 		clear();
 		setLinkTo("/".concat(Constants.LINK_IDENTICATOR_SAVE));
-		return this;
-	}
-
-	/**
-	 * Using pictures without the normal image rendering.
-	 * TODO: rewrite path-building, the picture should be inside the layout dir 
-	 */
-	public LinkTool getPicture(String pictureRelativeToLayoutDir) {
-		clear();
-		Level level;
-		if(InstanceUtil.isImage(po))
-			level = ((Image)po).getParent().getParent();
-		else
-			level = (Level) po.getParent();
-		if (isExportView) {
-			String link = PathTool.getURLRelativePathToRoot(level).concat(CKResourceTool.getDir(Extension.IMAGE)).concat("/").concat(
-			        pictureRelativeToLayoutDir);
-			setLinkTo(link);
-
-			File srcDir = PoPathInfo.getSiteResourceDirectory(pojoHelper.getSite(), Extension.IMAGE);
-			File srcFile = new File(srcDir, pictureRelativeToLayoutDir);
-			renderData.addCKResource(srcFile);
-			File dstDir = PoPathInfo.getSiteExportResourceDirectory(pojoHelper.getSite(), Extension.IMAGE);
-			File dstFile = new File(dstDir, pictureRelativeToLayoutDir);
-			if(!dstFile.getParentFile().getAbsoluteFile().exists())
-				dstFile.getParentFile().getAbsoluteFile().mkdirs();
-			try {
-				FileTool.copyFile(srcFile, dstFile);
-			} catch (IOException e) {
-				throw new FatalException("While copying: " + e.getMessage(), e);
-			}
-		} else {
-			String link = PathTool.getURLFromFile(String.format("%s/%s/%s", Constants.LINK_IDENTICATOR_SITE_RESOURCE, CKResourceTool.getDir(Extension.IMAGE), pictureRelativeToLayoutDir));
-			setLinkTo(link);
-		}
 		return this;
 	}
 
