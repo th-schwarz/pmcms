@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<site version="1" url="pmcms.demo.site">
+  <title><![CDATA[A very simple demo site!]]></title>
+  <page name="home" templateID="6">
+    <title><![CDATA[Home]]></title>
+  </page>
+  <level name="lev1">
+    <title><![CDATA[Level with 1 page]]></title>
+    <page name="frontpage" templateID="6">
+      <title><![CDATA[]]></title>
+    </page>
+  </level>
+  <level name="lev2">
+    <title><![CDATA[Level with pages]]></title>
+    <page name="page1" templateID="6">
+      <title><![CDATA[]]></title>
+    </page>
+    <page name="page2" templateID="6">
+      <title><![CDATA[]]></title>
+    </page>
+    <page name="page3" templateID="6">
+      <title><![CDATA[]]></title>
+    </page>
+  </level>
+  <level name="lev3">
+    <title><![CDATA[Level with levels]]></title>
+    <page name="frontpage" templateID="6">
+      <title><![CDATA[]]></title>
+    </page>
+    <level name="sub1">
+      <title><![CDATA[Sublevel 1]]></title>
+      <page name="frontpage" templateID="7">
+        <title><![CDATA[]]></title>
+      </page>
+    </level>
+    <level name="sub2">
+      <title><![CDATA[Sublevel 2]]></title>
+      <page name="frontpage" templateID="7">
+        <title><![CDATA[]]></title>
+      </page>
+    </level>
+  </level>
+  <level name="simple-gallery">
+    <title><![CDATA[Simple gallery]]></title>
+    <gallery name="simple-gallery" templateID="3" thumbnailMaxWidth="200" thumbnailMaxHeight="100" imageMaxWidth="480" imageMaxHeight="700" imageTemplateID="5">
+      <title><![CDATA[Simple gallery example]]></title>
+      <image fileName="gallery_properties.jpg">
+        <title><![CDATA[Gallery properties]]></title>
+      </image>
+      <image fileName="image_properties.jpg">
+        <title><![CDATA[Image properties]]></title>
+      </image>
+    </gallery>
+  </level>
+  <level name="gallery">
+    <title><![CDATA[Gallery]]></title>
+    <gallery name="gallery" templateID="4" thumbnailMaxWidth="100" thumbnailMaxHeight="120" imageMaxWidth="480" imageMaxHeight="450" imageTemplateID="5">
+      <title><![CDATA[Common table gallery]]></title>
+      <image fileName="building1.jpg">
+        <title><![CDATA[Building 1]]></title>
+      </image>
+      <image fileName="building2.jpg">
+        <title><![CDATA[Building 2]]></title>
+      </image>
+      <image fileName="building3.jpg">
+        <title><![CDATA[building 3]]></title>
+      </image>
+      <image fileName="smoke_air_polution.jpg">
+        <title><![CDATA[Air polution]]></title>
+      </image>
+      <image fileName="skyline1.jpg">
+        <title><![CDATA[SkyLine 1]]></title>
+      </image>
+      <image fileName="skyline2.jpg">
+        <title><![CDATA[Skyline 2]]></title>
+      </image>
+    </gallery>
+  </level>
+</site>

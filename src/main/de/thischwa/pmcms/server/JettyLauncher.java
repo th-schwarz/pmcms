@@ -116,6 +116,14 @@ public class JettyLauncher extends AInitializingTask implements IApplicationLive
 			holderFilemanager.setInitParameter("zipPathToSkip", "Filemanager-master");
 			context.addServlet(holderFilemanager, "/filemanager/*");*/
 			
+			ServletHolder holderTest = new ServletHolder(TestServlet.class);
+			context.addServlet(holderTest, "/webgui/*");
+
+			ServletHolder holderResourceWebgui = new ServletHolder(DefaultServlet.class);
+			holderResourceWebgui.setInitParameter("basePath", Constants.APPLICATION_DIR.getAbsolutePath() + "/webgui/resources");
+			holderResourceWebgui.setInitParameter("aliases", "false");
+			context.addServlet(holderResourceWebgui, "/resc/*");
+			
 			server.start();
 		} catch (Exception e) {
 			throw new RuntimeException("Start of jetty failed: " + e.getMessage(), e);
