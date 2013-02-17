@@ -131,9 +131,9 @@ public class SiteHolder {
 			if(id > -1)
 				lastID = new AtomicInteger(id + 1);
 			mark(site);
+			loadSiteProperties(site);
 		}
 		
-		loadSiteProperties(site);
 		reconfigVelocityEngine();
 		justRendering.clear();
 	}
