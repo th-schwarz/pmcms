@@ -38,7 +38,6 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
-import de.thischwa.c5c.resource.Extension;
 import de.thischwa.pmcms.configuration.resource.ImageHolder;
 import de.thischwa.pmcms.exception.FatalException;
 import de.thischwa.pmcms.exception.ProgressException;
@@ -95,10 +94,13 @@ public class DialogManager {
 	 *            Unused images of the last export.
 	 */
 	public static void startDialogUnusedImages(final Shell parentShell, final Site site, Collection<File> usedCkResources) {
-		File imageDir = PoPathInfo.getSiteResourceDirectory(site, Extension.IMAGE);
-		File otherDir = PoPathInfo.getSiteResourceDirectory(site, Extension.OTHER);
+		File galleryDir = PoPathInfo.getSiteResourceGalleryDirectory(site);
+		File imageDir = PoPathInfo.getSiteResourceImageDirectory(site);
+		File otherDir = PoPathInfo.getSiteResourceOtherDirectory(site);
 		
 		Collection<File> unusedCkResources = new HashSet<File>();
+		if(galleryDir.exists())
+			unusedCkResources.addAll(FileTool.collectFiles(galleryDir, usedCkResources));
 		if(imageDir.exists())
 			unusedCkResources.addAll(FileTool.collectFiles(imageDir, usedCkResources));
 		if(otherDir.exists())

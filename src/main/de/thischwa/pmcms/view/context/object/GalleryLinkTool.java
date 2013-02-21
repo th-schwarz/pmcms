@@ -50,7 +50,7 @@ import de.thischwa.pmcms.view.ViewMode;
 import de.thischwa.pmcms.view.context.IContextObjectGallery;
 import de.thischwa.pmcms.view.context.IContextObjectNeedPojoHelper;
 import de.thischwa.pmcms.view.context.IContextObjectNeedViewMode;
-import de.thischwa.pmcms.wysisygeditor.CKImageResource;
+import de.thischwa.pmcms.view.renderer.resource.VirtualImage;
 
 /**
  * Context object to build a link to a desired {@link Image} and to build a
@@ -120,9 +120,9 @@ public class GalleryLinkTool implements IContextObjectGallery, IContextObjectNee
 			setLink(urlPathToZip);
 			Map<File, String> zipEntries = new HashMap<File, String>();
 			for (Image image : gallery.getImages()) { // TODO check it: order the images, if not, the hash of the zip is always different
-				CKImageResource imageFile = new CKImageResource(PoInfo.getSite(gallery), true);
+				VirtualImage imageFile = new VirtualImage(PoInfo.getSite(gallery), false, true);
 				imageFile.constructFromImage(image);
-				zipEntries.put(imageFile.getFile(), "/".concat(FilenameUtils.getName(imageFile.getFile().getAbsolutePath())));
+				zipEntries.put(imageFile.getBaseFile(), "/".concat(FilenameUtils.getName(imageFile.getBaseFile().getAbsolutePath())));
 			}
 			try {
 				String zipName = siteRelativePath.concat(File.separator).concat(gallery.getName()).concat(".zip");

@@ -23,13 +23,11 @@ package de.thischwa.pmcms.model.domain;
 
 import java.io.File;
 
-import de.thischwa.c5c.resource.Extension;
 import de.thischwa.pmcms.configuration.InitializationManager;
 import de.thischwa.pmcms.configuration.PropertiesManager;
 import de.thischwa.pmcms.model.domain.pojo.APoormansObject;
 import de.thischwa.pmcms.model.domain.pojo.Gallery;
 import de.thischwa.pmcms.model.domain.pojo.Site;
-import de.thischwa.pmcms.wysisygeditor.CKResourceTool;
 
 
 /**
@@ -48,33 +46,16 @@ public class PoPathInfo {
 	}
 
 	/**
-	 * @return The base path for common resources inside the export directory of a site (file, media, flash).
-	 */
-	public static File getSiteExportResourceDirectory(final Site site) {
-		return new File(getSiteExportDirectory(site), getSiteProperty("pmcms.site.dir.export.resources"));
-	}
-	
-	/**
-	 * @return The export path of a resource TYPE. Special path for the TYPE image is respected.
-	 */
-	public static File getSiteExportResourceDirectory(final Site site, final Extension ext) {
-		 if (ext == Extension.IMAGE)
-			 return new File(getSiteExportDirectory(site), CKResourceTool.getDir(ext));
-		 else
-			 return new File(getSiteExportResourceDirectory(site), CKResourceTool.getDir(ext));
-	}
-
-	/**
 	 * @return The folder for the image cache path inside the site directory.
 	 */
-	public static File getSiteImageCacheDirectory(Site site) {
+	public static File getSiteImageCacheDirectory(final Site site) {
 		return new File(getSiteDirectory(site), getProperty("pmcms.dir.site.imagecache"));
 	}
  	
 	/**
 	 * @return The folder to the configuration directory of the given site.
 	 */
-	public static File getSiteConfigurationDirectory(Site site) {
+	public static File getSiteConfigurationDirectory(final Site site) {
 		return new File(getSiteDirectory(site), getProperty("pmcms.dir.site.configuration"));
 	}
 
@@ -91,23 +72,32 @@ public class PoPathInfo {
 	public static File getSiteDirectory(final String url) {
 		return new File(InitializationManager.getSitesDir(), url);
 	}
+	
+	public static File getSiteResourceGalleryDirectory(final Site site) {
+		return new File(getSiteDirectory(site), getSiteProperty("pmcms.site.dir.resources.gallery"));
+	}
 
-	/**
-	 * @return The directory to the resource directory of the type {@link Extension}.
-	 */	
-	public static File getSiteResourceDirectory(final Site site, final Extension ext) {
-		return new File(getSiteDirectory(site), CKResourceTool.getDir(ext));
+	public static File getSiteResourceImageDirectory(final Site site) {
+		return new File(getSiteDirectory(site), getSiteProperty("pmcms.site.dir.resources.image"));
 	}
 	
-	public static File getSiteGalleryDirectory(final Site site) {
-		return new File(getSiteDirectory(site), getSiteProperty("pmcms.site.dir.resources.gallery"));
+	public static File getSiteResourceOtherDirectory(final Site site) {
+		return new File(getSiteDirectory(site), getSiteProperty("pmcms.site.dir.resources.other"));
+	}
+
+	public static File getSiteResourceLayoutDirectory(final Site site) {
+		return new File(getSiteDirectory(site), getSiteProperty("pmcms.site.dir.resources.layout"));
+	}
+
+	public static File getSiteResourceGalleryExportDirectory(final Site site) {
+		return new File(getSiteExportDirectory(site), getSiteProperty("pmcms.site.dir.resources.gallery"));
 	}
 	
 	/**
 	 * @return The directory to the desired {@link Gallery}.
 	 */
 	public static File getSiteGalleryDirectory(Gallery gallery) {
-		return new File(getSiteGalleryDirectory(PoInfo.getSite(gallery)), gallery.getName());
+		return new File(getSiteResourceGalleryDirectory(PoInfo.getSite(gallery)), gallery.getName());
 	}
 	
 	private static String getProperty(final String key) {

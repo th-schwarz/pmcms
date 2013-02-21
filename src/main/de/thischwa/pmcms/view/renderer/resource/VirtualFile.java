@@ -43,7 +43,8 @@ public class VirtualFile implements IVirtualFile {
 	@Override
 	public String getTagSrcForPreview() {
 		String path = PathTool.getURLFromFile(baseFile.getAbsolutePath().substring(PoPathInfo.getSiteDirectory(site).getAbsolutePath().length()));
-		return String.format("/%s%s", Constants.LINK_IDENTICATOR_SITE_RESOURCE, path);
+		String link = String.format("/%s%s", Constants.LINK_IDENTICATOR_SITE_RESOURCE, path);
+		return link;
 	}
 
 	@Override
@@ -59,7 +60,7 @@ public class VirtualFile implements IVirtualFile {
 		String path = PathTool.decodePath(src.substring(Constants.LINK_IDENTICATOR_SITE_RESOURCE.length()+2, src.length()));
 		baseFile = new File(PoPathInfo.getSiteDirectory(site), path);
 	}
-
+	
 	@Override
 	public boolean isForLayout() {
 		return forLayout;

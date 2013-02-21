@@ -29,7 +29,6 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
 import org.apache.log4j.Logger;
 
 import de.thischwa.pmcms.configuration.InitializationManager;
@@ -42,7 +41,7 @@ import de.thischwa.pmcms.model.domain.pojo.Image;
 import de.thischwa.pmcms.model.domain.pojo.Level;
 import de.thischwa.pmcms.model.domain.pojo.Page;
 import de.thischwa.pmcms.tool.file.FileTool;
-import de.thischwa.pmcms.wysisygeditor.CKImageResource;
+import de.thischwa.pmcms.view.renderer.resource.VirtualImage;
 
 /**
  * Structural helper methods for {@link APoormansObject}s.
@@ -88,17 +87,17 @@ public class PoStructurTools {
 		} else if (InstanceUtil.isGallery(newParent) && InstanceUtil.isImage(po)) {
 			Gallery newParentGallery = (Gallery) newParent;
 			Image image = (Image) po;
-			CKImageResource tempImageResource = new CKImageResource(PoInfo.getSite(image));
+			VirtualImage tempImageResource = new VirtualImage(PoInfo.getSite(image), false, true);
 			tempImageResource.constructFromImage(image);
-			File srcFile = tempImageResource.getFile();
+			File srcFile = tempImageResource.getBaseFile();
 			Gallery oldParentGallery = image.getParent();
 			oldParentGallery.remove(image);
 			newParentGallery.add(image);
 			image.setParent(newParentGallery);
 			// copy files
-			tempImageResource = new CKImageResource(PoInfo.getSite(image));
+			tempImageResource = new VirtualImage(PoInfo.getSite(image), false, true);
 			tempImageResource.constructFromImage(image);
-			File destFile = tempImageResource.getFile();
+			File destFile = tempImageResource.getBaseFile();
 			File destDir = destFile.getParentFile();
 			try {
 				if (!destDir.exists())
@@ -106,7 +105,7 @@ public class PoStructurTools {
 				File reallyDestFile = FileTool.copyToDirectoryUnique(srcFile, destDir);
 				if (!reallyDestFile.equals(destFile)) { // set new file name
 					tempImageResource.analyse(reallyDestFile);
-					image.setFileName(tempImageResource.getFile().getName());
+					image.setFileName(tempImageResource.getBaseFile().getName());
 				}
 				srcFile.delete();
 				logger.debug("Copied image file [" + srcFile.getPath() + "] to [" + destFile.getPath() + "]!");

@@ -10,6 +10,7 @@ import de.thischwa.pmcms.Constants;
 import de.thischwa.pmcms.configuration.InitializationManager;
 import de.thischwa.pmcms.exception.FatalException;
 import de.thischwa.pmcms.model.domain.PoPathInfo;
+import de.thischwa.pmcms.model.domain.pojo.Image;
 import de.thischwa.pmcms.model.domain.pojo.Site;
 import de.thischwa.pmcms.tool.Utils;
 import de.thischwa.pmcms.tool.file.FileTool;
@@ -84,6 +85,13 @@ public class VirtualImage extends VirtualFile implements IVirtualImage {
 	}
 	
 	@Override
+	public void constructFromImage(Image image) {
+		String link = String.format("/%s/%s/%s/%s", Constants.LINK_IDENTICATOR_SITE_RESOURCE, 
+				pm.getSiteProperty("pmcms.site.dir.resources.gallery"), image.getParent().getName(), image.getFileName());
+		consructFromTagFromView(link);
+	}
+	
+	@Override
 	public File getExportFile() {
 		String cacheFileName = getCacheFilename();
 		File cacheFile = new File(PoPathInfo.getSiteDirectory(site), cacheFileName);
@@ -105,6 +113,13 @@ public class VirtualImage extends VirtualFile implements IVirtualImage {
 		filePath = Utils.join(cacheFolder, "/", pathWithoutExt, "_", imageDimension.toString(), ".", ext);
 
 		return filePath;
+	}
+	
+	@Override
+	public File getCacheFile() {
+		String cacheFileName = getCacheFilename();
+		File cacheFile = new File(PoPathInfo.getSiteDirectory(site), cacheFileName);
+		return cacheFile;
 	}
 	
 	/**

@@ -51,7 +51,7 @@ public interface IVirtualFile {
 	 * @return Source attribute for the preview.
 	 */
 	public String getTagSrcForPreview();
-
+	
 	/**
 	 * Getter for the base file.
 	 */

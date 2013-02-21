@@ -28,14 +28,11 @@ import java.util.Set;
 
 import org.springframework.stereotype.Component;
 
-import de.thischwa.pmcms.wysisygeditor.ICKResource;
+import de.thischwa.pmcms.view.renderer.resource.IVirtualFile;
 
 
 /**
  * Data collector for rendering.
- *
- * @version $Id: RenderData.java 2210 2012-06-17 13:01:49Z th-schwarz $
- * @author <a href="mailto:th-schwarz@users.sourceforge.net">Thilo Schwarz</a>
  */
 @Component
 public class RenderData {
@@ -58,8 +55,8 @@ public class RenderData {
 			ckResources.add(file.getAbsoluteFile());
 	}
 	
-	public void addCKResource(final ICKResource resource) {
-		addCKResource(resource.getFile().getAbsoluteFile());
+	public void addCKResource(final IVirtualFile vf) {
+		addCKResource(vf.getBaseFile());
 	}
 	
 	public Set<File> getCkResources() {
@@ -72,6 +69,8 @@ public class RenderData {
 	}
 	
 	public Set<File> getFilesToCopy() {
-		return files;
+		Set<File> all = new HashSet<File>(files);
+		all.addAll(ckResources);
+		return all;
 	}
 }

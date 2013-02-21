@@ -55,8 +55,8 @@ import de.thischwa.pmcms.model.domain.pojo.Site;
 import de.thischwa.pmcms.tool.Link;
 import de.thischwa.pmcms.tool.file.FileTool;
 import de.thischwa.pmcms.tool.image.Dimension;
-import de.thischwa.pmcms.wysisygeditor.CKFileResource;
-import de.thischwa.pmcms.wysisygeditor.CKImageResource;
+import de.thischwa.pmcms.view.renderer.resource.VirtualFile;
+import de.thischwa.pmcms.view.renderer.resource.VirtualImage;
 
 /**
  * Place for static helper methods with respect to velocity.
@@ -185,9 +185,9 @@ public class VelocityUtils {
 		if (link.isExternal()) {
 			veloMacro.append(".setHref(\"").append(href).append("\")");
 		} else {
-			CKFileResource fileResource = new CKFileResource(site);
+			VirtualFile fileResource = new VirtualFile(site, false);
 			fileResource.consructFromTagFromView(href);
-			veloMacro.append(".setHref(\"").append(fileResource.getPreviewTagSrcForTagTool()).append("\")");
+			veloMacro.append(".setHref(\"").append(fileResource.getTagSrcForPreview()).append("\")");
 		}
 	
 		String value;
@@ -220,10 +220,10 @@ public class VelocityUtils {
 		}
 	
 		Dimension dim = Dimension.getDimensionFromAttr(attr);
-		CKImageResource imageResource = new CKImageResource(site);
+		VirtualImage imageResource = new VirtualImage(site, false, false);
 		imageResource.consructFromTagFromView(attr.get("src"));
 		imageResource.setDimension(dim);
-		veloMacro.append(".setSrc(\"").append(imageResource.getPreviewTagSrcForTagTool()).append("\")");
+		veloMacro.append(".setSrc(\"").append(imageResource.getTagSrcForPreview()).append("\")");
 		veloMacro.append(".usedFromEditor()");
 		
 		for (String key : attr.keySet()) {

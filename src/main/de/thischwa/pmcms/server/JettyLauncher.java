@@ -53,6 +53,9 @@ public class JettyLauncher extends AInitializingTask implements IApplicationLive
 	@Value("${data.dir}")
 	private String dataDirStr;
 	
+	@Value("${pmcms.dir.sites}")
+	private String sitesDir;
+	
 	@Value("${pmcms.jetty.host}")
 	private String host;
 
@@ -103,7 +106,7 @@ public class JettyLauncher extends AInitializingTask implements IApplicationLive
 			context.addServlet(holderCodeMirror, "/codemirror/*");
 
 			ServletHolder holderSiteResource = new ServletHolder(SiteResourceServlet.class);
-			holderSiteResource.setInitParameter("basePath", new File(dataDir, "sites").getAbsolutePath());
+			holderSiteResource.setInitParameter("basePath", new File(dataDir, sitesDir).getAbsolutePath());
 			context.addServlet(holderSiteResource, String.format("/%s/*", Constants.LINK_IDENTICATOR_SITE_RESOURCE));
 
 			ServletHolder holderCKEditor = new ServletHolder(ZipProxyServlet.class);

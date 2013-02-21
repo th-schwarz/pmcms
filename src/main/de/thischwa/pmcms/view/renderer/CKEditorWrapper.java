@@ -19,7 +19,7 @@
  * 
  * == END LICENSE ==
  ******************************************************************************/
-package de.thischwa.pmcms.wysisygeditor;
+package de.thischwa.pmcms.view.renderer;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -50,7 +50,7 @@ public class CKEditorWrapper {
 	public CKEditorWrapper(final Site site, final HttpServletRequest httpServletRequest) {
 		if (site == null ||  httpServletRequest == null)
 			throw new IllegalArgumentException("Base params are incomplete!");
-		urlDefaultCss = String.format("%s/%s/format.css", Constants.LINK_IDENTICATOR_SITE_RESOURCE, pm.getSiteProperty("pmcms.site.dir.layoutresources"));
+		urlDefaultCss = String.format("%s/%s/format.css", Constants.LINK_IDENTICATOR_SITE_RESOURCE, pm.getSiteProperty("pmcms.site.dir.resources.layout"));
 		urlCustomConfig = String.format("/%s/%s/ckconfig.js", Constants.LINK_IDENTICATOR_SITE_RESOURCE, pm.getProperty("pmcms.dir.site.configuration"));
 		this.httpServletRequest = httpServletRequest;
 	}

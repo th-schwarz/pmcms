@@ -26,7 +26,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -48,7 +47,7 @@ import de.thischwa.pmcms.model.domain.PoInfo;
 import de.thischwa.pmcms.model.domain.PoPathInfo;
 import de.thischwa.pmcms.model.domain.pojo.Image;
 import de.thischwa.pmcms.tool.file.FileTool;
-import de.thischwa.pmcms.wysisygeditor.CKImageResource;
+import de.thischwa.pmcms.view.renderer.resource.VirtualImage;
 
 /**
  * Composite is part of {@link DialogCreator} and contains input fields and their validation method for {@link Image}. 
@@ -71,9 +70,9 @@ public class DialogFieldsImageComp extends Composite implements IDialogFieldsVal
 		initialize();
 		pack();
 		if (StringUtils.isNotBlank(this.image.getFileName())) {
-			CKImageResource imageFile = new CKImageResource(PoInfo.getSite(image));
-			imageFile.consructFromTagFromView(image.getParent().getName().concat(File.separator).concat(this.image.getFileName()));
-			previewCanvas.preview(imageFile.getFile().getAbsoluteFile());
+			VirtualImage imageFile = new VirtualImage(PoInfo.getSite(image), false, true);
+			imageFile.constructFromImage(image);
+			previewCanvas.preview(imageFile.getBaseFile().getAbsoluteFile());
 		} else
 			previewCanvas.preview();
 	}

@@ -24,7 +24,6 @@ package de.thischwa.pmcms.view.context.object.tagtool;
 import java.io.File;
 import java.io.IOException;
 
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +31,8 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import de.thischwa.pmcms.Constants;
+import de.thischwa.pmcms.configuration.PropertiesManager;
 import de.thischwa.pmcms.exception.FatalException;
 import de.thischwa.pmcms.livecycle.PojoHelper;
 import de.thischwa.pmcms.model.domain.pojo.Image;
@@ -44,7 +45,7 @@ import de.thischwa.pmcms.view.context.IContextObjectCommon;
 import de.thischwa.pmcms.view.context.IContextObjectNeedPojoHelper;
 import de.thischwa.pmcms.view.context.IContextObjectNeedViewMode;
 import de.thischwa.pmcms.view.renderer.RenderData;
-import de.thischwa.pmcms.wysisygeditor.CKImageResource;
+import de.thischwa.pmcms.view.renderer.resource.VirtualImage;
 
 /**
  * Construct an img-tag and initiate the image rendering for galleries and content built by the editor.<br />
@@ -58,11 +59,13 @@ public class ImageTagTool extends GenericXhtmlTagTool implements IContextObjectC
 	private boolean pathOnly = false;
 	private boolean isExportView;
 	private PojoHelper pojoHelper;
-	private boolean fromGallery = false;
+	private boolean forGallery = false;
 	
 	@Autowired private RenderData renderData;
 
 	@Autowired private ImageTool imageTool;
+	
+	@Autowired private PropertiesManager pm;
 	
 	public ImageTagTool() {
 		super("img");
@@ -107,8 +110,10 @@ public class ImageTagTool extends GenericXhtmlTagTool implements IContextObjectC
 	}
 	
 	public ImageTagTool setImage(final Image image) {
-		fromGallery = true;
-		return setSrc(image.getParent().getName().concat("/").concat(image.getFileName()));
+		forGallery = true;
+		String folder = forGallery ? pm.getSiteProperty("pmcms.site.dir.resources.gallery") : pm.getSiteProperty("pmcms.site.dir.resources.image");
+		String link = String.format("/%s/%s/%s/%s", Constants.LINK_IDENTICATOR_SITE_RESOURCE, folder, image.getGallery().getName(), image.getFileName());
+		return setSrc(link);
 	}
 	
 	public ImageTagTool fitToSize() {
@@ -134,6 +139,7 @@ public class ImageTagTool extends GenericXhtmlTagTool implements IContextObjectC
 	 */
 	public ImageTagTool usedFromEditor() {
 		super.setUsedFromEditor(true);
+		forGallery = false;
 		return this;
 	}
 
@@ -153,14 +159,13 @@ public class ImageTagTool extends GenericXhtmlTagTool implements IContextObjectC
 		if (StringUtils.isBlank(srcString) || StringUtils.isBlank(widthString) || StringUtils.isBlank(heightString))
 			throw new IllegalArgumentException("One or more base attributes are not set !");
 		
-		
 		// 2. image rendering
-		CKImageResource imageFile = new CKImageResource(this.pojoHelper.getSite(), fromGallery);
+		VirtualImage imageFile = new VirtualImage(this.pojoHelper.getSite(), false, forGallery);
 		imageFile.consructFromTagFromView(srcString);
 		int width = Integer.parseInt(widthString);
 		int height = Integer.parseInt(heightString);
 		if (fitToSize) {
-			Dimension realDimension = imageTool.getDimension(imageFile.getFile());
+			Dimension realDimension = imageTool.getDimension(imageFile.getBaseFile());
 			imageFile.setDimension(realDimension.getScaledToFixSize(width, height));
 		} else
 			imageFile.setDimension(width, height);
@@ -173,19 +178,23 @@ public class ImageTagTool extends GenericXhtmlTagTool implements IContextObjectC
 				File dstFile = imageFile.getExportFile();
 				if(!dstFile.exists())
 					FileTool.copyFile(srcFile, dstFile);
-				renderData.addCKResource(imageFile);
+				if(isUsedFromEditor())
+					renderData.addFile(imageFile.getBaseFile());
+				else
+					renderData.addCKResource(imageFile);
 			} catch (IOException e) {
 				String msg = String.format("Error while copying cashed file [%s] to the export dir: %s", imageFile.getCacheFile().getPath(), e.getMessage());
 				logger.error(msg, e);
 				throw new FatalException(msg, e);
 			}
 			this.setSrc(imageFile.getTagSrcForExport(this.pojoHelper.getLevel()));
-			logger.debug("ImageTagTool: build src-link for: ".concat(imageFile.getFile().getAbsolutePath()));
+			logger.debug("ImageTagTool: build src-link for: ".concat(imageFile.getBaseFile().getAbsolutePath()));
 		} else {
 			this.setSrc(imageFile.getTagSrcForPreview());
 		}
-		this.setWidth(String.valueOf(imageFile.getWidth()));
-		this.setHeight(String.valueOf(imageFile.getHeight()));
+		Dimension viDim = imageFile.getDimension();
+		this.setWidth(String.valueOf(viDim.x));
+		this.setHeight(String.valueOf(viDim.y));
 		
 		// clean up
 		boolean tmpPathOnly = pathOnly;

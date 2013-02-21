@@ -45,8 +45,8 @@ import de.thischwa.pmcms.model.domain.pojo.ASiteResource;
 import de.thischwa.pmcms.model.domain.pojo.Page;
 import de.thischwa.pmcms.view.ViewMode;
 import de.thischwa.pmcms.view.context.ContextObjectManager;
+import de.thischwa.pmcms.view.renderer.CKEditorWrapper;
 import de.thischwa.pmcms.view.renderer.VelocityRenderer;
-import de.thischwa.pmcms.wysisygeditor.CKEditorWrapper;
 
 /**
  * Servlet to manage the different web editors.

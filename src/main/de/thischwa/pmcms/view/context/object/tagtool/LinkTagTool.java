@@ -24,7 +24,6 @@ package de.thischwa.pmcms.view.context.object.tagtool;
 import java.io.File;
 import java.io.IOException;
 
-
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -42,7 +41,7 @@ import de.thischwa.pmcms.view.context.IContextObjectCommon;
 import de.thischwa.pmcms.view.context.IContextObjectNeedPojoHelper;
 import de.thischwa.pmcms.view.context.IContextObjectNeedViewMode;
 import de.thischwa.pmcms.view.renderer.RenderData;
-import de.thischwa.pmcms.wysisygeditor.CKFileResource;
+import de.thischwa.pmcms.view.renderer.resource.VirtualFile;
 
 /**
  * Construct an a-tag. Mainly used by other context objects.
@@ -108,21 +107,21 @@ public class LinkTagTool extends GenericXhtmlTagTool implements IContextObjectCo
 
 		// 2. construct the tag for preview or export
 		if (!isExternalLink) {
-			CKFileResource cKFileResource = new CKFileResource(this.pojoHelper.getSite());
-			cKFileResource.consructFromTagFromView(hrefString);
+			VirtualFile vf = new VirtualFile(this.pojoHelper.getSite(), false);
+			vf.consructFromTagFromView(hrefString);
 			if (isExportView) {
 				try {
-					File srcFile = cKFileResource.getFile();
-					File destFile = cKFileResource.getExportFile();
+					File srcFile = vf.getBaseFile();
+					File destFile = vf.getExportFile();
 					FileUtils.copyFile(srcFile, destFile);
-					renderData.addCKResource(cKFileResource);
+					renderData.addCKResource(vf);
 				} catch (IOException e) {
-					logger.error("Error while copy [" + cKFileResource.getFile().getPath() + "] to [" + cKFileResource.getExportFile().getPath() + "]: " + e.getMessage(), e);
-					throw new FatalException("Error while copy [" + cKFileResource.getFile().getPath() + "] to [" + cKFileResource.getExportFile().getPath() + "]: " + e.getMessage(), e);
+					logger.error("Error while copy [" + vf.getBaseFile().getPath() + "] to [" + vf.getExportFile().getPath() + "]: " + e.getMessage(), e);
+					throw new FatalException("Error while copy [" + vf.getBaseFile().getPath() + "] to [" + vf.getExportFile().getPath() + "]: " + e.getMessage(), e);
 				}
-				this.setHref(cKFileResource.getTagSrcForExport(this.pojoHelper.getLevel()));
+				this.setHref(vf.getTagSrcForExport(this.pojoHelper.getLevel()));
 			} else
-				this.setHref(cKFileResource.getTagSrcForPreview());
+				this.setHref(vf.getTagSrcForPreview());
 		}
 		
 		isExternalLink = false;

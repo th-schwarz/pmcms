@@ -23,7 +23,6 @@ package de.thischwa.pmcms.tool.image;
 
 import java.io.File;
 
-
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.log4j.Logger;
@@ -33,7 +32,7 @@ import org.springframework.stereotype.Service;
 
 import de.thischwa.pmcms.Constants;
 import de.thischwa.pmcms.exception.FatalException;
-import de.thischwa.pmcms.wysisygeditor.CKImageResource;
+import de.thischwa.pmcms.view.renderer.resource.VirtualImage;
 
 /**
  * Tool which contains all image processing functions.<br>
@@ -55,9 +54,9 @@ public class ImageTool {
 	@Value("${rendering.available}")
 	private boolean isRenderingAvailable;
 
-	public void createCashedImage(final CKImageResource imageFile) {
+	public void createCashedImage(final VirtualImage imageFile) {
 		File cachedFile = imageFile.getCacheFile();
-		File srcFile = imageFile.getFile();
+		File srcFile = imageFile.getBaseFile();
 
 		if (cachedFile.exists() && srcFile.lastModified() <= cachedFile.lastModified()) {
 			logger.info("Image exists and isn't modified, don't need to render again: ".concat(cachedFile.getAbsolutePath()));

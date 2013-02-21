@@ -32,21 +32,22 @@ import de.thischwa.pmcms.model.domain.pojo.Site;
 import de.thischwa.pmcms.tool.PathTool;
 
 /**
- * Implementation of the CKeditor's UserBathBuilder to build the correct user path for different {@link Site}s.
- *
- * @version $Id: UserPathBuilderImpl.java 2210 2012-06-17 13:01:49Z th-schwarz $
- * @author <a href="mailto:th-schwarz@users.sourceforge.net">Thilo Schwarz</a>
+ * Implementation of the C5Connector's UserBathBuilder to build the correct user path for different {@link Site}s.
  */
 public class UserPathBuilderImpl implements UserPathBuilder {
 
 	@Override
 	public String getServerPath(String urlPath, Context ctx, ServletContext servletContext) {
-		String userfilesPath = InitializationManager.getBean(PropertiesManager.class).getProperty("pmcms.filemanager.userfiles");
-		String cleanedUrlPath = urlPath.equals(userfilesPath) ? "" : urlPath.substring(userfilesPath.length()-1);
 		Site site = getSite();
-		String path = (site != null) 
-				? PathTool.getURLFromFile(PoPathInfo.getSiteDirectory(site).getAbsolutePath(), false) : null;
-		return path.concat(cleanedUrlPath);
+		if(site == null)
+			return null;
+		PropertiesManager pm =  InitializationManager.getBean(PropertiesManager.class);
+		String resourceFolder = pm.getSiteProperty("pmcms.site.dir.resources");
+		//String userfilesPath = pm.getProperty("pmcms.filemanager.userfiles");
+		String cleanedUrlPath = ""; // urlPath.equals(userfilesPath) ? "" : urlPath.substring(userfilesPath.length()-1);
+		String path = String.format("%s/%s/%s", PathTool.getURLFromFile(PoPathInfo.getSiteDirectory(site).getPath(), false), resourceFolder, cleanedUrlPath);
+		
+		return path;
 	}	
 	
 	private Site getSite() {
