@@ -115,7 +115,7 @@ public class TestVirtualFile {
 	}
 
 	@Test
-	public void testCommonPreview() {
+	public void testCommonPreviewTag() {
 		VirtualFile vf = new VirtualFile(site, false);
 		vf.consructFromTagFromView("/site/file/test.zip");
 		String actual = vf.getTagSrcForPreview();
@@ -123,7 +123,7 @@ public class TestVirtualFile {
 	}
 
 	@Test
-	public void testCommonPreviewWithSubFolder() {
+	public void testCommonPreviewTagWithSubFolder() {
 		VirtualFile vf = new VirtualFile(site, false);
 		vf.consructFromTagFromView("/site/file/sub/test.zip");
 		String actual = vf.getTagSrcForPreview();
@@ -131,7 +131,7 @@ public class TestVirtualFile {
 	}
 
 	@Test
-	public void testLayoutPreview() {
+	public void testLayoutPreviewTag() {
 		VirtualFile vf = new VirtualFile(site, true);
 		vf.consructFromTagFromView("/site/layout/test.zip");
 		String actual = vf.getTagSrcForPreview();
@@ -139,7 +139,7 @@ public class TestVirtualFile {
 	}
 	
 	@Test
-	public void testLayoutPreviewWithSubFolder() {
+	public void testLayoutPreviewTagWithSubFolder() {
 		VirtualFile vf = new VirtualFile(site, true);
 		vf.consructFromTagFromView("/site/layout/sub/test.zip");
 		String actual = vf.getTagSrcForPreview();
@@ -147,7 +147,7 @@ public class TestVirtualFile {
 	}
 	
 	@Test
-	public void testLayoutExportTag() {
+	public void testLayoutExportTagTag() {
 		VirtualFile vf = new VirtualFile(site, true);
 		vf.consructFromTagFromView("/site/layout/test.zip");
 		Level level = (Level) siteHolder.get(20);

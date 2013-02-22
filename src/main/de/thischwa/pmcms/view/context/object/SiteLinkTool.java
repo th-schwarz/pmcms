@@ -85,7 +85,10 @@ public class SiteLinkTool implements IContextObjectNeedPojoHelper, IContextObjec
 	 * 
 	 * @param resource The name of the resource file, e.g. 'format.css', 'js/jquery.js'
 	 * @return SiteLinkTool
+	 * 
+	 * TODO should be moved to a 'layout-link-tool' 
 	 */
+	@Deprecated
 	public SiteLinkTool getResource(final String resource) {
 		String res = String.format("%s/%s", propertiesManager.getSiteProperty("pmcms.site.dir.resources.layout"), resource);
 		if (isExportView) {

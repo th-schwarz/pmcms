@@ -36,31 +36,19 @@ import de.thischwa.pmcms.view.renderer.resource.IVirtualFile;
  */
 @Component
 public class RenderData {
-	private Set<File> ckResources;
 	
 	private Set<File> files;
 	
 	public RenderData() {
-		ckResources = Collections.synchronizedSet(new HashSet<File>());
 		files = Collections.synchronizedSet(new HashSet<File>());
 	}
 	
 	public void clear() {
-		ckResources.clear();
 		files.clear();
 	}
 	
-	public synchronized void addCKResource(final File file) {
-		if(!ckResources.contains(file.getAbsoluteFile()))
-			ckResources.add(file.getAbsoluteFile());
-	}
-	
-	public void addCKResource(final IVirtualFile vf) {
-		addCKResource(vf.getBaseFile());
-	}
-	
-	public Set<File> getCkResources() {
-		return ckResources;
+	public void addFile(final IVirtualFile vf) {
+		addFile(vf.getBaseFile());
 	}
 	
 	public void addFile(final File file) {
@@ -69,8 +57,6 @@ public class RenderData {
 	}
 	
 	public Set<File> getFilesToCopy() {
-		Set<File> all = new HashSet<File>(files);
-		all.addAll(ckResources);
-		return all;
+		return files;
 	}
 }

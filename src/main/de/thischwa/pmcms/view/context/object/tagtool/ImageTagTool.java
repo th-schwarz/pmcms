@@ -181,7 +181,7 @@ public class ImageTagTool extends GenericXhtmlTagTool implements IContextObjectC
 				if(isUsedFromEditor())
 					renderData.addFile(imageFile.getBaseFile());
 				else
-					renderData.addCKResource(imageFile);
+					renderData.addFile(imageFile);
 			} catch (IOException e) {
 				String msg = String.format("Error while copying cashed file [%s] to the export dir: %s", imageFile.getCacheFile().getPath(), e.getMessage());
 				logger.error(msg, e);

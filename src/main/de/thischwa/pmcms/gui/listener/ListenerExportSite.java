@@ -112,8 +112,7 @@ public class ListenerExportSite implements SelectionListener {
 			}
 			failed = false;
 			if (!isInterruptByUser) {
-				Collection<File> usedFiles = renderData.getCkResources();
-				usedFiles.addAll(renderData.getFilesToCopy());
+				Collection<File> usedFiles = renderData.getFilesToCopy();
 				if (CollectionUtils.isNotEmpty(usedFiles)) {
 					DialogManager.startDialogUnusedImages(e.display.getActiveShell(), site, usedFiles);
 				}

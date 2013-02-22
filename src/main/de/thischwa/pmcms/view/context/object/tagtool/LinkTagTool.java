@@ -114,7 +114,7 @@ public class LinkTagTool extends GenericXhtmlTagTool implements IContextObjectCo
 					File srcFile = vf.getBaseFile();
 					File destFile = vf.getExportFile();
 					FileUtils.copyFile(srcFile, destFile);
-					renderData.addCKResource(vf);
+					renderData.addFile(vf);
 				} catch (IOException e) {
 					logger.error("Error while copy [" + vf.getBaseFile().getPath() + "] to [" + vf.getExportFile().getPath() + "]: " + e.getMessage(), e);
 					throw new FatalException("Error while copy [" + vf.getBaseFile().getPath() + "] to [" + vf.getExportFile().getPath() + "]: " + e.getMessage(), e);
