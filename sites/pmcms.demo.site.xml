@@ -802,7 +802,7 @@ $content&#13;
       <int>28</int> 
      </void> 
      <void property="name"> 
-      <string>gallery</string> 
+      <string>tbl-gallery</string> 
      </void> 
      <void property="pages"> 
       <void method="add"> 
@@ -953,7 +953,7 @@ $content&#13;
          </void> 
         </void> 
         <void property="name"> 
-         <string>gallery</string> 
+         <string>table-gallery</string> 
         </void> 
         <void property="parent"> 
          <object idref="Level6"/> 
@@ -1022,7 +1022,7 @@ $content&#13;
       <object idref="Site0"/> 
      </void> 
      <void property="title"> 
-      <string>Gallery</string> 
+      <string>Table-Gallery</string> 
      </void> 
     </object> 
    </void> 
