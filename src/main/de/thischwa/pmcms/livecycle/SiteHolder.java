@@ -45,6 +45,7 @@ import de.thischwa.pmcms.model.domain.pojo.ASiteResource;
 import de.thischwa.pmcms.model.domain.pojo.Gallery;
 import de.thischwa.pmcms.model.domain.pojo.Image;
 import de.thischwa.pmcms.model.domain.pojo.Level;
+import de.thischwa.pmcms.model.domain.pojo.Macro;
 import de.thischwa.pmcms.model.domain.pojo.Page;
 import de.thischwa.pmcms.model.domain.pojo.Site;
 import de.thischwa.pmcms.model.domain.pojo.Template;
@@ -72,7 +73,6 @@ public class SiteHolder {
 	}
 	
 	public void mark(Level level) {
-		mark((APoormansObject<?>) level);
 		if(InstanceUtil.isSite(level)) {
 			Site s = (Site)level;
 			for(ASiteResource r : s.getMacros())
@@ -82,6 +82,7 @@ public class SiteHolder {
 			if(s.getLayoutTemplate() != null)
 				mark(s.getLayoutTemplate());
 		}
+		mark((APoormansObject<?>) level);
 		for(Page p : level.getPages())
 			mark(p);
 		if(level.hasSublevels()) {
@@ -102,6 +103,8 @@ public class SiteHolder {
 	public void mark(APoormansObject<?> po) {
 		if(po.getId() == APoormansObject.UNSET_VALUE)
 			po.setId(lastID.getAndIncrement());
+		if(po.getId() >= lastID.get())
+			lastID.set(po.getId()+1);
 		poPerID.put(po.getId(), po);
 	}
 
@@ -120,7 +123,7 @@ public class SiteHolder {
 
 	public void setSite(final Site site) {
 		clear();
-		lastID = new AtomicInteger(0);
+		lastID.set(0);
 		this.site = site;
 		if(site != null) {
 			int id = -1;
@@ -128,8 +131,12 @@ public class SiteHolder {
 				if(t.getId() > id)
 					id = t.getId();
 			}
+			for(Macro m : site.getMacros()) {
+				if(m.getId() > id)
+					id = m.getId();
+			}
 			if(id > -1)
-				lastID = new AtomicInteger(id + 1);
+				lastID.set(id + 1);
 			mark(site);
 			loadSiteProperties(site);
 		}
