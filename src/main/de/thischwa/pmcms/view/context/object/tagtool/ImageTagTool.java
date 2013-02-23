@@ -35,6 +35,7 @@ import de.thischwa.pmcms.Constants;
 import de.thischwa.pmcms.configuration.PropertiesManager;
 import de.thischwa.pmcms.exception.FatalException;
 import de.thischwa.pmcms.livecycle.PojoHelper;
+import de.thischwa.pmcms.model.domain.pojo.Gallery;
 import de.thischwa.pmcms.model.domain.pojo.Image;
 import de.thischwa.pmcms.tool.PathTool;
 import de.thischwa.pmcms.tool.file.FileTool;
@@ -49,7 +50,7 @@ import de.thischwa.pmcms.view.renderer.resource.VirtualImage;
 
 /**
  * Construct an img-tag and initiate the image rendering for galleries and content built by the editor.<br />
- * <b>Important:</b> It should be used conjunction with galleries only!
+ * <b>Important:</b> It should be used in conjunction with galleries only!
  */
 @Component(value="imagetagtool")
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
@@ -109,11 +110,27 @@ public class ImageTagTool extends GenericXhtmlTagTool implements IContextObjectC
 		return putAttribute("alt", alt);
 	}
 	
+	public ImageTagTool setThumbnail(final Image image) {
+		setImage(image, true);
+		return this;
+	}
+	
 	public ImageTagTool setImage(final Image image) {
+		setImage(image, false);
+		return this;
+	}
+	
+	private void setImage(final Image image, boolean isThumbnail) {
 		forGallery = true;
+		fitToSize = true;
 		String folder = forGallery ? pm.getSiteProperty("pmcms.site.dir.resources.gallery") : pm.getSiteProperty("pmcms.site.dir.resources.image");
 		String link = String.format("/%s/%s/%s/%s", Constants.LINK_IDENTICATOR_SITE_RESOURCE, folder, image.getGallery().getName(), image.getFileName());
-		return setSrc(link);
+		setSrc(link);
+		Gallery gallery = image.getGallery();
+		int width = isThumbnail ? gallery.getThumbnailMaxWidth() : gallery.getImageMaxWidth();
+		int height = isThumbnail ? gallery.getThumbnailMaxHeight() : gallery.getImageMaxHeight();
+		setWidth(width);
+		setHeight(height);
 	}
 	
 	public ImageTagTool fitToSize() {
@@ -121,6 +138,11 @@ public class ImageTagTool extends GenericXhtmlTagTool implements IContextObjectC
 		return this;
 	}
 	
+	/**
+	 * If called, the tool will return the path to the image instead an img-tag.
+	 * 
+	 * @return
+	 */
 	public ImageTagTool pathOnly() {
 		pathOnly = true;
 		return this;

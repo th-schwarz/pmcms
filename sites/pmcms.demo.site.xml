@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?> 
-<java version="1.6.0_37" class="java.beans.XMLDecoder"> 
+<java version="1.6.0_41" class="java.beans.XMLDecoder"> 
  <object id="Site0" class="de.thischwa.pmcms.model.domain.pojo.Site"> 
   <void property="id"> 
    <int>8</int> 
@@ -683,7 +683,7 @@ $content&#13;
 &lt;div id=&quot;content&quot;&gt; #set( $gallery = $image.Gallery)##&#13;
   &lt;div id=&quot;gallery_image&quot;&gt;&#13;
     &lt;h1&gt;$image.Title&lt;/h1&gt;&lt;br /&gt;&#13;
-    &lt;p&gt;$imagetagtool.setImage($image).setAlt($image.Title).setHeight($gallery.ImageMaxHeight).setWidth($gallery.ImageMaxWidth).fitToSize()  &lt;/p&gt;&#13;
+    &lt;p&gt;$imagetagtool.setImage($image).setAlt($image.Title).fitToSize()  &lt;/p&gt;&#13;
     &lt;p&gt;$image.Description&lt;/p&gt;&#13;
   &lt;/div&gt;&#13;
 #pagemenu()&#13;
@@ -761,7 +761,7 @@ $content&#13;
   &lt;h1&gt;$utils.escape($gallery.Title)&lt;/h1&gt;&#13;
   #foreach($image in $gallery.Images)&#13;
   &lt;div class=&quot;gallery_thumbnail&quot;&gt;&#13;
-    &lt;p style=&quot;text-align: center;&quot;&gt;&lt;a href=&quot;$gallerylinktool.getImage($image)&quot;&gt;$imagetagtool.setImage($image).setAlt($imge.Title).setHeight($gallery.ThumbnailMaxWidth).setWidth($gallery.ThumbnailMaxHeight).fitToSize()&lt;/a&gt;&lt;/p&gt;&#13;
+    &lt;p style=&quot;text-align: center;&quot;&gt;&lt;a href=&quot;$gallerylinktool.getImage($image)&quot;&gt;$imagetagtool.setThumbnail($image).setAlt($utils.escape($image.Title))&lt;/a&gt;&lt;/p&gt;&#13;
     &lt;p&gt;$utils.escape($image.Title)&lt;/p&gt;&#13;
   &lt;/div&gt;&#13;
   #end&#13;
@@ -990,7 +990,7 @@ $content&#13;
        #foreach($image in $col)&#13;
          &lt;td class=&quot;thumbnail&quot;&gt;&#13;
            #if($!image)&lt;p&gt;$utils.escape($image.title)&lt;/p&gt;&#13;
-           &lt;p&gt;&lt;a href=&quot;$gallerylinktool.getImage($image)&quot;&gt;$imagetagtool.setImage($image).setAlt($utils.escape($image.title)).setHeight($gallery.thumbnailMaxWidth).setWidth($gallery.thumbnailMaxHeight).fitToSize()&lt;/a&gt;&lt;/p&gt;#end&#13;
+           &lt;p&gt;&lt;a href=&quot;$gallerylinktool.getImage($image)&quot;&gt;$imagetagtool.setThumbnail($image).setAlt($utils.escape($image.Title))&lt;/a&gt;&lt;/p&gt;#end&#13;
          &lt;/td&gt;&#13;
        #end&#13;
     &lt;/tr&gt;&lt;!-- end thumbnail row --&gt;&#13;
