@@ -15,6 +15,7 @@ public class PropertiesManager {
 	
 	public void setProperties(final Properties props) {
 		defaultSiteProps = PropertiesTool.getProperties(props, "pmcms.site");
+		siteProps = new Properties(defaultSiteProps);
 		this.props = props;
 	}
 	
