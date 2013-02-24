@@ -110,8 +110,9 @@ public class ImageTagTool extends GenericXhtmlTagTool implements IContextObjectC
 	 * @return
 	 */
 	public ImageTagTool setSrc(final String src) {
-		forLayout = true;
-		return putAttribute("src", PathTool.encodePath(src));
+		forLayout = !isUsedFromEditor();
+		String path = isUsedFromEditor() ? src : String.format("/%s/%s/%s", Constants.LINK_IDENTICATOR_SITE_RESOURCE, pm.getSiteProperty("pmcms.site.dir.resources.layout"), src);
+		return putAttribute("src", PathTool.encodePath(path));
 	}
 
 	public ImageTagTool setAlt(final String alt) {

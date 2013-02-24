@@ -2,9 +2,7 @@ package de.thischwa.pmcms.view.context.object.tagtool;
 
 import static org.junit.Assert.*;
 
-import org.junit.After;
 import org.junit.AfterClass;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -42,7 +40,7 @@ public class TestImageTagTool {
 	public void testLayout() {
 		ImageTagTool itt = InitializationManager.getBean(ImageTagTool.class);
 		itt.setPojoHelper(pojoHelper);
-		itt.setSrc("/site/layout/test.png");
+		itt.setSrc("test.png");
 		itt.setWidth(150);
 		itt.setHeight(100);
 		String actual = itt.contructTag();
@@ -53,7 +51,7 @@ public class TestImageTagTool {
 	public void testUsedFromEditor() {
 		ImageTagTool itt = InitializationManager.getBean(ImageTagTool.class);
 		itt.setPojoHelper(pojoHelper);
-		//itt.isUsedFromEditor();
+		itt.usedFromEditor();
 		itt.setSrc("/site/image/test.png");
 		itt.setWidth(150);
 		itt.setHeight(100);

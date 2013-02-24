@@ -51,7 +51,7 @@ import de.thischwa.pmcms.view.renderer.RenderData;
  * Context objects for building links {@link Level}s, {@link Page}s or to resources which are relevant for the layout. 
  * The resources for the layout must be inside the site folder defined in the property 'pmcms.site.dir.resources.layout'.<br />
  * Exceptions are resources which are defined by {@link SiteLinkTool#addResource(String)}. Theirs paths are interpreted as
- * relative to the directory of the site. 
+ * relative to the site-directory. 
  */
 @Component("sitelinktool")
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
@@ -81,14 +81,11 @@ public class SiteLinkTool implements IContextObjectNeedPojoHelper, IContextObjec
     	
 
 	/**
-	 * Set the link to a resource file of the site.
+	 * Set the link to a layout-resource file of the site.
 	 * 
 	 * @param resource The name of the resource file, e.g. 'format.css', 'js/jquery.js'
 	 * @return SiteLinkTool
-	 * 
-	 * TODO should be moved to a 'layout-link-tool' 
 	 */
-	@Deprecated
 	public SiteLinkTool getResource(final String resource) {
 		String res = String.format("%s/%s", propertiesManager.getSiteProperty("pmcms.site.dir.resources.layout"), resource);
 		if (isExportView) {

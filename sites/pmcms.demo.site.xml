@@ -25,7 +25,7 @@
 &#13;
 &lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot; lang=&quot;en&quot;&gt;&#13;
 &lt;head&gt;&#13;
-  &lt;title&gt;$utils.escape($title)&lt;/title&gt;&#13;
+  &lt;title&gt;$utils.escape($title)&lt;/title&gt;$sitelinktool.addResource(&quot;robots.txt&quot;)&#13;
   $contexttool.AdditionalHeader&#13;
   &lt;meta name=&quot;generator&quot; content=&quot;Poor Man&apos;s CMS&quot; /&gt;&#13;
   &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;$sitelinktool.Css&quot; /&gt;&#13;
@@ -37,7 +37,7 @@
 &lt;div id=&quot;nested&quot;&gt;&#13;
 &lt;div id=&quot;header&quot;&gt; &#13;
 	&lt;img src=&quot;$sitelinktool.getResource(&apos;p.png&apos;)&quot; class=&quot;imageonleft&quot; alt=&quot;P&quot; width=&quot;50&quot; height=&quot;50&quot; /&gt;&#13;
-	##$imagetagtool.setSrc(&quot;p.png&quot;).setAlt(&quot;P&quot;).setHeight(100).setWidth(100).putAttribute(&quot;class&quot;, &quot;leftheaderimage&quot;).fitToSize()&#13;
+	##$imagetagtool.setSrc(&quot;p.png&quot;).setAlt(&quot;P&quot;).setHeight(100).setWidth(100).putAttribute(&quot;class&quot;, &quot;imageonleft&quot;).fitToSize()&#13;
   &lt;h1&gt;This is the header.&lt;/h1&gt;&#13;
   &lt;p&gt;It is an uneditable text and is hard-coded in the layout.html.&lt;/p&gt;&#13;
 &lt;/div&gt;&#13;
@@ -520,7 +520,7 @@ $content&#13;
                <string>
 &lt;h1&gt;Frontpage of Sublevel 1&lt;/h1&gt;
 
-&lt;p&gt;$imagetagtool.setSrc(&quot;/site/image/sflogo.png&quot;).usedFromEditor().putAttribute(&quot;style&quot;, &quot;float: right; width: 88px; height: 31px; &quot;).putAttribute(&quot;alt&quot;, &quot;&quot;)&lt;/p&gt;
+&lt;p&gt;$imagetagtool.usedFromEditor().setSrc(&quot;/site/image/sflogo.png&quot;).putAttribute(&quot;style&quot;, &quot;float: right; width: 88px; height: 31px; &quot;).putAttribute(&quot;alt&quot;, &quot;&quot;)&lt;/p&gt;
 
 &lt;p&gt;Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Vivamus massa neque, mattis et,interdum vel, tincidunt sed, risus. Suspendisse non ante eget nibh nonummy tempor. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Morbi dignissim felis in ipsum. Praesent sem. In ut risus at quam accumsan consectetuer. Nunc vulputate aliquet diam. Ut in sapien non sapien pretium elementum. Cras pulvinar ultrices eros. Aliquam erat volutpat. Morbi hendrerit malesuada lacus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Ut consequat, leo in malesuada congue, urna odio adipiscing ante, sit amet rhoncus enim orci et dui.&lt;/p&gt;
 
