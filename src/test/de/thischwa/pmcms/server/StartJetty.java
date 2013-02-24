@@ -11,7 +11,7 @@ public class StartJetty {
 		InitializationManager.start(new BasicConfigurator(Constants.APPLICATION_DIR), true);
 		
 		while(true)
-			Thread.currentThread().sleep(500);
+			Thread.sleep(500);
 	}
 
 }
