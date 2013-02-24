@@ -81,8 +81,8 @@ public class SiteHolder {
 				mark(r);
 			if(s.getLayoutTemplate() != null)
 				mark(s.getLayoutTemplate());
-		}
-		mark((APoormansObject<?>) level);
+		} else
+			mark((APoormansObject<?>) level);
 		for(Page p : level.getPages())
 			mark(p);
 		if(level.hasSublevels()) {
