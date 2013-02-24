@@ -214,6 +214,7 @@ public class VelocityUtils {
 		StringBuilder veloMacro = new StringBuilder();
 		Map<String, String> attr = new HashMap<String, String>();
 		veloMacro.append("$imagetagtool");
+		veloMacro.append(".usedFromEditor()");
 		for (Iterator<Attribute> iter = attrIter; iter.hasNext();) {
 			Attribute attribute = iter.next();
 			attr.put(attribute.getName(), attribute.getValue());
@@ -224,7 +225,6 @@ public class VelocityUtils {
 		imageResource.consructFromTagFromView(attr.get("src"));
 		imageResource.setDimension(dim);
 		veloMacro.append(".setSrc(\"").append(imageResource.getTagSrcForPreview()).append("\")");
-		veloMacro.append(".usedFromEditor()");
 		
 		for (String key : attr.keySet()) {
 			if (!key.equals("src"))

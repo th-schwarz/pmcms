@@ -21,7 +21,6 @@
  ******************************************************************************/
 package de.thischwa.pmcms.view.context.object;
 
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
@@ -39,10 +38,9 @@ import de.thischwa.pmcms.view.context.IContextObjectCommon;
 import de.thischwa.pmcms.view.context.IContextObjectNeedPojoHelper;
 import de.thischwa.pmcms.view.context.IContextObjectNeedViewMode;
 
-
 /**
  * Context object to retrieve the view mode of an {@link IRenderable} and to provide required constants for building links and forms. 
- * It's mainly used for build internal forms, e.g. content.vm.
+ * It's mainly used for build internal forms and links.
  */
 @Component("contexttool")
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)

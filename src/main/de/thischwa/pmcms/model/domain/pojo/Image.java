@@ -27,6 +27,7 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
+import de.thischwa.pmcms.configuration.InitializationManager;
 import de.thischwa.pmcms.model.IOrderable;
 import de.thischwa.pmcms.model.IRenderable;
 
@@ -65,6 +66,8 @@ public class Image extends APoormansObject<Gallery> implements IRenderable, IOrd
 	@Override
 	public String getDecorationString() {
 		String deco = StringUtils.defaultIfEmpty(title, fileName); 
+		if(InitializationManager.isAdmin())
+			deco = String.format("%s#%d", deco, getId()); 
 		return deco;
 	}
 	

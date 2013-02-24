@@ -93,6 +93,13 @@ public class VirtualImage extends VirtualFile implements IVirtualImage {
 	
 	@Override
 	public File getExportFile() {
+		if (forLayout) {
+			File resourceDirectory = new File(PoPathInfo.getSiteDirectory(site), resourceFolder);
+			String filePath = baseFile.getAbsolutePath().substring(resourceDirectory.getAbsolutePath().length()+1).replace(File.separatorChar, '/');
+			File exportFile = new File(new File(PoPathInfo.getSiteExportDirectory(site), resourceFolder), filePath);
+			return exportFile;
+		}
+		
 		String cacheFileName = getCacheFilename();
 		File cacheFile = new File(PoPathInfo.getSiteDirectory(site), cacheFileName);
 		return cacheFile;

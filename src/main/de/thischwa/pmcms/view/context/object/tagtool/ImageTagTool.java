@@ -50,7 +50,7 @@ import de.thischwa.pmcms.view.renderer.resource.VirtualImage;
 
 /**
  * Construct an img-tag and initiate the image rendering for galleries and content built by the editor.<br />
- * <b>Important:</b> It should be used in conjunction with galleries only!
+ * <b>Important:</b> It should be used in conjunction with galleries and images for layouts only!
  */
 @Component(value="imagetagtool")
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
@@ -61,6 +61,7 @@ public class ImageTagTool extends GenericXhtmlTagTool implements IContextObjectC
 	private boolean isExportView;
 	private PojoHelper pojoHelper;
 	private boolean forGallery = false;
+	private boolean forLayout = false;
 	
 	@Autowired private RenderData renderData;
 
@@ -102,7 +103,14 @@ public class ImageTagTool extends GenericXhtmlTagTool implements IContextObjectC
 		return putAttribute("align", align);
 	}
 
+	/**
+	 * For images used for the layout.
+	 * 
+	 * @param src
+	 * @return
+	 */
 	public ImageTagTool setSrc(final String src) {
+		forLayout = true;
 		return putAttribute("src", PathTool.encodePath(src));
 	}
 
@@ -125,12 +133,16 @@ public class ImageTagTool extends GenericXhtmlTagTool implements IContextObjectC
 		fitToSize = true;
 		String folder = forGallery ? pm.getSiteProperty("pmcms.site.dir.resources.gallery") : pm.getSiteProperty("pmcms.site.dir.resources.image");
 		String link = String.format("/%s/%s/%s/%s", Constants.LINK_IDENTICATOR_SITE_RESOURCE, folder, image.getGallery().getName(), image.getFileName());
-		setSrc(link);
+		setSrcForGallery(link);
 		Gallery gallery = image.getGallery();
 		int width = isThumbnail ? gallery.getThumbnailMaxWidth() : gallery.getImageMaxWidth();
 		int height = isThumbnail ? gallery.getThumbnailMaxHeight() : gallery.getImageMaxHeight();
 		setWidth(width);
 		setHeight(height);
+	}
+
+	private ImageTagTool setSrcForGallery(final String src) {
+		return putAttribute("src", PathTool.encodePath(src));
 	}
 	
 	public ImageTagTool fitToSize() {
@@ -162,6 +174,7 @@ public class ImageTagTool extends GenericXhtmlTagTool implements IContextObjectC
 	public ImageTagTool usedFromEditor() {
 		super.setUsedFromEditor(true);
 		forGallery = false;
+		forLayout = false;
 		return this;
 	}
 
@@ -182,7 +195,7 @@ public class ImageTagTool extends GenericXhtmlTagTool implements IContextObjectC
 			throw new IllegalArgumentException("One or more base attributes are not set !");
 		
 		// 2. image rendering
-		VirtualImage imageFile = new VirtualImage(this.pojoHelper.getSite(), false, forGallery);
+		VirtualImage imageFile = new VirtualImage(this.pojoHelper.getSite(), forLayout, forGallery);
 		imageFile.consructFromTagFromView(srcString);
 		int width = Integer.parseInt(widthString);
 		int height = Integer.parseInt(heightString);
@@ -209,10 +222,10 @@ public class ImageTagTool extends GenericXhtmlTagTool implements IContextObjectC
 				logger.error(msg, e);
 				throw new FatalException(msg, e);
 			}
-			this.setSrc(imageFile.getTagSrcForExport(this.pojoHelper.getLevel()));
+			this.setSrcForGallery(imageFile.getTagSrcForExport(this.pojoHelper.getLevel()));
 			logger.debug("ImageTagTool: build src-link for: ".concat(imageFile.getBaseFile().getAbsolutePath()));
 		} else {
-			this.setSrc(imageFile.getTagSrcForPreview());
+			this.setSrcForGallery(imageFile.getTagSrcForPreview());
 		}
 		Dimension viDim = imageFile.getDimension();
 		this.setWidth(String.valueOf(viDim.x));
@@ -222,6 +235,8 @@ public class ImageTagTool extends GenericXhtmlTagTool implements IContextObjectC
 		boolean tmpPathOnly = pathOnly;
 		fitToSize = false;
 		pathOnly = false;
+		forGallery = false;
+		forLayout = false;
 		
 		if(tmpPathOnly)
 			return super.getAttr("src");

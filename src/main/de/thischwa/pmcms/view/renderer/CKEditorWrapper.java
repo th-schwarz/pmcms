@@ -27,6 +27,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import de.thischwa.ckeditor.CKEditor;
+import de.thischwa.ckeditor.util.XHtmlTagTool;
 import de.thischwa.pmcms.Constants;
 import de.thischwa.pmcms.configuration.InitializationManager;
 import de.thischwa.pmcms.configuration.PropertiesManager;
@@ -73,7 +74,7 @@ public class CKEditorWrapper {
 		editor.setProperty("customConfig", urlCustomConfig);
 		editor.setProperty("contentsCss", urlDefaultCss); 
 		editor.setProperty("filebrowserBrowseUrl", pm.getProperty("pmcms.filemanager.url"));
-		editor.setValue(value);
+		editor.setValue(StringUtils.isBlank(value) ? XHtmlTagTool.SPACE : value); // TODO not needed after the next CKEditor.Java update
 		return editor.createHtml();
 	}
 }
