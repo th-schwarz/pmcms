@@ -42,10 +42,11 @@ public class UserPathBuilderImpl implements UserPathBuilder {
 		if(site == null)
 			return null;
 		PropertiesManager pm =  InitializationManager.getBean(PropertiesManager.class);
-		String resourceFolder = pm.getSiteProperty("pmcms.site.dir.resources");
-		//String userfilesPath = pm.getProperty("pmcms.filemanager.userfiles");
-		String cleanedUrlPath = ""; // urlPath.equals(userfilesPath) ? "" : urlPath.substring(userfilesPath.length()-1);
-		String path = String.format("%s/%s/%s", PathTool.getURLFromFile(PoPathInfo.getSiteDirectory(site).getPath(), false), resourceFolder, cleanedUrlPath);
+		String filesPath = pm.getProperty("pmcms.filemanager.userfiles");
+		String cleanedPath = urlPath.substring(filesPath.length()+1);
+		String resourceFolder = pm.getSiteProperty("pmcms.site.dir.resources.other");
+		String path = String.format("%s/%s/%s", PathTool.getURLFromFile(PoPathInfo.getSiteDirectory(site).getPath(), false),
+				resourceFolder, cleanedPath);
 		
 		return path;
 	}	

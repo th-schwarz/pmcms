@@ -26,3 +26,5 @@ early-state project and isn't runnable at the moment!
   * merged the ImageLinkTool with the GalleryLinkTool
   * rewritten the handling of resource files
   * simplified the ImageTagTool
+  * updated to jetty 8.*
+  * updated to slf4j 1.7.2

@@ -26,7 +26,7 @@ var lang = 'java'; // options: php, jsp, lasso, asp, cfm, ashx, asp, pl // we ar
 var am = document.location.pathname.substring(1, document.location.pathname.lastIndexOf('/') + 1);
 
 // Set this to the directory you wish to manage.
-var fileRoot = '/site/';
+var fileRoot = '/site/file/';
 
 //Path to the manage directory on the HTTP server
 //var relPath = window.location.protocol + '//' + window.location.host;

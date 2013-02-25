@@ -23,12 +23,14 @@ package de.thischwa.pmcms.server;
 
 import java.io.File;
 
-import org.mortbay.jetty.Connector;
-import org.mortbay.jetty.Server;
-import org.mortbay.jetty.nio.SelectChannelConnector;
-import org.mortbay.jetty.servlet.Context;
-import org.mortbay.jetty.servlet.DefaultServlet;
-import org.mortbay.jetty.servlet.ServletHolder;
+import javax.servlet.Servlet;
+
+import org.eclipse.jetty.server.Connector;
+import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.server.nio.SelectChannelConnector;
+import org.eclipse.jetty.servlet.DefaultServlet;
+import org.eclipse.jetty.servlet.ServletContextHandler;
+import org.eclipse.jetty.servlet.ServletHolder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ClassUtils;
@@ -40,9 +42,6 @@ import de.thischwa.pmcms.configuration.IApplicationLiveCycleListener;
 
 /**
  * Configure and start of Jetty.
- * 
- * @version $Id: JettyLauncher.java 2220 2012-09-21 18:39:19Z th-schwarz $
- * @author <a href="mailto:th-schwarz@users.sourceforge.net">Thilo Schwarz</a>
  */
 @Service("jettyLauncher")
 public class JettyLauncher extends AInitializingTask implements IApplicationLiveCycleListener {
@@ -75,7 +74,7 @@ public class JettyLauncher extends AInitializingTask implements IApplicationLive
 			connector.setLowResourceMaxIdleTime(Integer.MAX_VALUE);
 			server.setConnectors(new Connector[] { connector });
 
-			Context context = new Context(server, "/", Context.SESSIONS);
+			ServletContextHandler context = new ServletContextHandler(server, "/", ServletContextHandler.SESSIONS);
 			context.setClassLoader(classLoader);
 			context.setResourceBase(dataDir.getAbsolutePath());
 
@@ -94,11 +93,11 @@ public class JettyLauncher extends AInitializingTask implements IApplicationLive
 			holderFilemanger.setInitParameter("aliases", "false");
 			context.addServlet(holderFilemanger, "/filemanager/*");
 
-			context.addServlet(new ServletHolder(EditorServlet.class), "/" + Constants.LINK_IDENTICATOR_EDIT + "/*");
-			context.addServlet(new ServletHolder(ContentSaverServlet.class), "/" + Constants.LINK_IDENTICATOR_SAVE + "/*");
-			context.addServlet(new ServletHolder(PreviewServlet.class), "/" + Constants.LINK_IDENTICATOR_PREVIEW + "/*");
+			context.addServlet(buildLoadOnStart(EditorServlet.class), "/" + Constants.LINK_IDENTICATOR_EDIT + "/*");
+			context.addServlet(buildLoadOnStart(ContentSaverServlet.class), "/" + Constants.LINK_IDENTICATOR_SAVE + "/*");
+			context.addServlet(buildLoadOnStart(PreviewServlet.class), "/" + Constants.LINK_IDENTICATOR_PREVIEW + "/*");
 
-			context.addServlet(new ServletHolder(ConnectorServlet.class), "/filemanager/connectors/java/*");
+			context.addServlet(buildLoadOnStart(ConnectorServlet.class), "/filemanager/connectors/java/*");
 
 			ServletHolder holderCodeMirror = new ServletHolder(ZipProxyServlet.class);
 			holderCodeMirror.setInitParameter("file", "sourceeditor/CodeMirror-2013-02-09.zip");
@@ -132,6 +131,12 @@ public class JettyLauncher extends AInitializingTask implements IApplicationLive
 			throw new RuntimeException("Start of jetty failed: " + e.getMessage(), e);
 		}
 		super.onApplicationStart();
+	}
+	
+	private ServletHolder buildLoadOnStart(Class<? extends Servlet> servlet) {
+		ServletHolder sh = new ServletHolder(servlet);
+		sh.setInitOrder(1);
+		return sh;
 	}
 
 	@Override
