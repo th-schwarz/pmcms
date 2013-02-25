@@ -520,7 +520,7 @@ $content&#13;
                <string>
 &lt;h1&gt;Frontpage of Sublevel 1&lt;/h1&gt;
 
-&lt;p&gt;$imagetagtool.usedFromEditor().setSrc(&quot;/site/image/sflogo.png&quot;).putAttribute(&quot;style&quot;, &quot;float: right; width: 88px; height: 31px; &quot;).putAttribute(&quot;alt&quot;, &quot;&quot;)&lt;/p&gt;
+&lt;p&gt;$imagetagtool.usedFromEditor().setSrc(&quot;/site/file/sflogo.png&quot;).putAttribute(&quot;style&quot;, &quot;float: right; width: 88px; height: 31px; &quot;).putAttribute(&quot;alt&quot;, &quot;&quot;)&lt;/p&gt;
 
 &lt;p&gt;Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Vivamus massa neque, mattis et,interdum vel, tincidunt sed, risus. Suspendisse non ante eget nibh nonummy tempor. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Morbi dignissim felis in ipsum. Praesent sem. In ut risus at quam accumsan consectetuer. Nunc vulputate aliquet diam. Ut in sapien non sapien pretium elementum. Cras pulvinar ultrices eros. Aliquam erat volutpat. Morbi hendrerit malesuada lacus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Ut consequat, leo in malesuada congue, urna odio adipiscing ante, sit amet rhoncus enim orci et dui.&lt;/p&gt;
 

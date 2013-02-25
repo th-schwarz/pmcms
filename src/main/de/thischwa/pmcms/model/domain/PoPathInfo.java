@@ -78,7 +78,7 @@ public class PoPathInfo {
 	}
 
 	public static File getSiteResourceImageDirectory(final Site site) {
-		return new File(getSiteDirectory(site), getSiteProperty("pmcms.site.dir.resources.image"));
+		return new File(getSiteDirectory(site), getSiteProperty("pmcms.site.dir.resources.other"));
 	}
 	
 	public static File getSiteResourceOtherDirectory(final Site site) {

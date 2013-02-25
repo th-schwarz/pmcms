@@ -132,7 +132,7 @@ public class ImageTagTool extends GenericXhtmlTagTool implements IContextObjectC
 	private void setImage(final Image image, boolean isThumbnail) {
 		forGallery = true;
 		fitToSize = true;
-		String folder = forGallery ? pm.getSiteProperty("pmcms.site.dir.resources.gallery") : pm.getSiteProperty("pmcms.site.dir.resources.image");
+		String folder = forGallery ? pm.getSiteProperty("pmcms.site.dir.resources.gallery") : pm.getSiteProperty("pmcms.site.dir.resources.other");
 		String link = String.format("/%s/%s/%s/%s", Constants.LINK_IDENTICATOR_SITE_RESOURCE, folder, image.getGallery().getName(), image.getFileName());
 		setSrcForGallery(link);
 		Gallery gallery = image.getGallery();

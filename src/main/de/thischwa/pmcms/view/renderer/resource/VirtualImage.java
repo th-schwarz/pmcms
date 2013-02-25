@@ -30,7 +30,7 @@ public class VirtualImage extends VirtualFile implements IVirtualImage {
 		super(site, forLayout);
 		this.forGallery = forGallery;
 		resourceFolder = (forLayout ? pm.getSiteProperty("pmcms.site.dir.resources.layout") 
-				: (forGallery ? pm.getSiteProperty("pmcms.site.dir.resources.gallery") : pm.getSiteProperty("pmcms.site.dir.resources.image"))).concat("/");	
+				: (forGallery ? pm.getSiteProperty("pmcms.site.dir.resources.gallery") : pm.getSiteProperty("pmcms.site.dir.resources.other"))).concat("/");	
 	}
 
 	@Override
@@ -69,7 +69,7 @@ public class VirtualImage extends VirtualFile implements IVirtualImage {
 					throw new IllegalArgumentException(String.format("[%s] isn't well-formed", path));
 				path = path.substring(layoutFolder.length()+1);
 			} else {
-				String folder = forGallery ? pm.getSiteProperty("pmcms.site.dir.resources.gallery") : pm.getSiteProperty("pmcms.site.dir.resources.image");
+				String folder = forGallery ? pm.getSiteProperty("pmcms.site.dir.resources.gallery") : pm.getSiteProperty("pmcms.site.dir.resources.other");
 				if(!path.startsWith(folder))
 					throw new IllegalArgumentException(String.format("[%s] isn't well-formed", path));
 				path = path.substring(folder.length()+1);
