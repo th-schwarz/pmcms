@@ -23,6 +23,7 @@ package de.thischwa.pmcms.server;
 
 import java.io.File;
 
+import javax.servlet.MultipartConfigElement;
 import javax.servlet.Servlet;
 
 import org.eclipse.jetty.server.Connector;
@@ -96,9 +97,13 @@ public class JettyLauncher extends AInitializingTask implements IApplicationLive
 			context.addServlet(buildLoadOnStart(EditorServlet.class), "/" + Constants.LINK_IDENTICATOR_EDIT + "/*");
 			context.addServlet(buildLoadOnStart(ContentSaverServlet.class), "/" + Constants.LINK_IDENTICATOR_SAVE + "/*");
 			context.addServlet(buildLoadOnStart(PreviewServlet.class), "/" + Constants.LINK_IDENTICATOR_PREVIEW + "/*");
-
-			context.addServlet(buildLoadOnStart(ConnectorServlet.class), "/filemanager/connectors/java/*");
-
+			
+			ServletHolder holderConnector = new ServletHolder(ConnectorServlet.class);
+			holderConnector.setInitOrder(1);
+			holderConnector.getRegistration().setMultipartConfig(
+					new MultipartConfigElement(Constants.TEMP_DIR.getAbsolutePath()));
+			context.addServlet(holderConnector, "/filemanager/connectors/java/*");
+			
 			ServletHolder holderCodeMirror = new ServletHolder(ZipProxyServlet.class);
 			holderCodeMirror.setInitParameter("file", "sourceeditor/CodeMirror-2013-02-09.zip");
 			holderCodeMirror.setInitParameter("zipPathToSkip", "CodeMirror-master");
