@@ -172,6 +172,8 @@ public class InitializationManager {
 		PropertiesLoader.setProperty("connector.userActionImpl", EnabledUserAction.class.getName());
 		PropertiesLoader.setProperty("connector.userPathBuilderImpl", UserPathBuilderImpl.class.getName());
 		PropertiesLoader.setProperty("connector.resourceType.image.extensions.allowed", imageExts);
+		String capabilities = (isAdmin) ? "select,delete,rename" : "select";
+		PropertiesLoader.setProperty("connector.capabilities", capabilities);
 		
 		// preparing CKEditor.Java
 		CKPropertiesLoader.setProperty("ckeditor.height", "450px");
