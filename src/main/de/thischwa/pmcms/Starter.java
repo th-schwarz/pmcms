@@ -39,9 +39,6 @@ import de.thischwa.pmcms.tool.launcher.Launcher;
 
 /**
  * Basic starter class. It is called from {@link Launcher}. A possible lock will be checked.
- * 
- * @version $Id: Starter.java 2210 2012-06-17 13:01:49Z th-schwarz $
- * @author <a href="mailto:th-schwarz@users.sourceforge.net">Thilo Schwarz</a>
  */
 public class Starter {
 	private static final Logger logger = Logger.getLogger(Starter.class);
@@ -58,6 +55,7 @@ public class Starter {
 				cliParser.printHelp();
 				System.exit(2);
 			}
+			// TODO add fake datadir CURRENT
 			dataDir = new File(cliParser.getOptionValue("datadir"));
 			configurator = new BasicConfigurator(dataDir);
 			InitializationManager.setAdmin(cliParser.hasOption("admin"));

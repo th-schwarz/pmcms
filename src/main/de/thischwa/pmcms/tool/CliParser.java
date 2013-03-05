@@ -31,9 +31,6 @@ import org.apache.commons.cli.ParseException;
 
 /**
  * Parsing the command line options and generates the corresponding help text.
- * 
- * @version $Id: CliParser.java 2210 2012-06-17 13:01:49Z th-schwarz $
- * @author <a href="mailto:th-schwarz@users.sourceforge.net">Thilo Schwarz</a>
  */
 public class CliParser {
 	private CommandLine line;
@@ -46,7 +43,7 @@ public class CliParser {
 		try {
 			line = parser.parse(options, args);
 		} catch (ParseException exp) {
-			throw new Exception("Argument parsing failed.  Reason: " + exp.getMessage());
+			throw new Exception("Argument parsing failed. Reason: " + exp.getMessage());
 		}
 	}
 
@@ -55,8 +52,8 @@ public class CliParser {
 		Option admin = new Option("admin", "start poormans in the admin mode");
 		Option cleanUp = new Option("cleanup", "clean up the settings and site data, all data will be deleted !!!");
 		Option dataDir = new Option("datadir", true, "full path of the data directory (required)");
-		Option debug = new Option("debug", "print out debug statements on stdout while starting");
 		dataDir.setArgName("path");
+		Option debug = new Option("debug", "print out debug statements on stdout while starting");
 		options = new Options();
 		options.addOption(help);
 		options.addOption(admin);

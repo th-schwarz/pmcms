@@ -104,7 +104,7 @@ public class WriteBackup implements IProgressViewer {
 		dom.setXMLEncoding(Constants.STANDARD_ENCODING);
 
 		Element siteEl = dom.addElement("site")
-				.addAttribute("version", IBackupParser.DBXML_1)
+				.addAttribute("version", IBackupParser.DBXML_2)
 				.addAttribute("url", site.getUrl());
 		siteEl.addElement("title").addCDATA(site.getTitle());
 		

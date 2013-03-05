@@ -26,12 +26,12 @@ import de.thischwa.pmcms.model.domain.pojo.Site;
 
 /**
  * Interface for all backup-parsers, parsing the 'db.xml'.
- *
- * @version $Id: IBackupParser.java 2216 2012-07-14 15:48:49Z th-schwarz $
- * @author <a href="mailto:th-schwarz@users.sourceforge.net">Thilo Schwarz</a>
  */
 interface IBackupParser extends IProgressViewer {
+	
 	public Site getSite();
 	
 	public final String DBXML_1 = "1"; // version > 2.4.2
+
+	public final String DBXML_2 = "2"; // version > 3 no structural info changes, linktool changes
 }

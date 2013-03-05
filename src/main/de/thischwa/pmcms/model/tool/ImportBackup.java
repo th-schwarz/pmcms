@@ -83,7 +83,7 @@ public class ImportBackup implements IProgressViewer {
 			String version = root.attributeValue("version");
 			if(StringUtils.isBlank(version)) {
 				backupParser = new BackupParser_old(root);
-			} else if(version.equals(IBackupParser.DBXML_1)) {
+			} else if(version.equals(IBackupParser.DBXML_1) || version.equals(IBackupParser.DBXML_2)) {
 				backupParser = new BackupParser_1(root);
 			} else {
 				throw new RuntimeException(String.format("No backup parser found for version %s.", version));
