@@ -1,0 +1,14 @@
+$linktool.getPicture('img.jpg')
+  ->  $sitelinktool.getResource('img.jpg')"
+  
+$imagetagtool.setSrc($image.fileName).setImage($image).setAlt($utils.escape($image.title)).setHeight($image.gallery.imageMaxHeight).setWidth($image.gallery.imageMaxWidth).fitToSize()
+  -> $imagetagtool.setImage($image).setAlt($image.Title).fitToSize()
+   
+$imagelinktool.getImage($image)
+  -> $gallerylinktool.getImage($image)
+  
+$imagetagtool.setImage($image).setAlt($utils.escape($image.title)).setHeight($gallery.thumbnailMaxWidth).setWidth($gallery.thumbnailMaxHeight).fitToSize()
+  -> $imagetagtool.setThumbnail($image).setAlt($utils.escape($image.Title))  
+  
+$imagetagtool.setSrc("p.png").setAlt("P").setHeight(100).setWidth(100).setAttribute("class", "imageonleft").fitToSize()
+   -> $imagetagtool.setSrc("p.png").setAlt("P").setHeight(100).setWidth(100).putAttribute("class", "imageonleft").fitToSize()
