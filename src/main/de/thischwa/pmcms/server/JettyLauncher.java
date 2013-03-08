@@ -114,7 +114,7 @@ public class JettyLauncher extends AInitializingTask implements IApplicationLive
 			context.addServlet(holderSiteResource, String.format("/%s/*", Constants.LINK_IDENTICATOR_SITE_RESOURCE));
 
 			ServletHolder holderCKEditor = new ServletHolder(ZipProxyServlet.class);
-			holderCKEditor.setInitParameter("file", "ckeditor_4.0.1_standard.zip");
+			holderCKEditor.setInitParameter("file", "ckeditor_4.0.2_standard.zip");
 			holderCKEditor.setInitParameter("zipPathToSkip", "ckeditor");
 			context.addServlet(holderCKEditor, "/ckeditor/*");
 			
