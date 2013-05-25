@@ -34,8 +34,6 @@ import org.dom4j.DocumentFactory;
 import org.eclipse.swt.SWT;
 import org.springframework.core.SpringVersion;
 
-import de.thischwa.ckeditor.CKEditor;
-
 /**
  * Some static methods to get version infos about the 3rd party tools.
  * 
@@ -59,8 +57,12 @@ public class ToolVersionInfo {
 		return generateInfo(DocumentFactory.class);
 	}
 	
-	public static Map<TYPE, String> getCKeditor()  {
-		return generateInfo(CKEditor.class);
+	public static Map<TYPE, String> getCKEditor()  {
+		return getInfoFromMetaPom("de.thischwa.ckeditor", "ckeditor-java");
+	}
+
+	public static Map<TYPE, String> getC5Connector()  {
+		return getInfoFromMetaPom("de.thischwa.c5c", "c5connector-java");
 	}
 	
 	public static Map<TYPE, String> getVelocity() {

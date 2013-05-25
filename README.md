@@ -28,4 +28,5 @@ early-state project and isn't runnable at the moment!
   * simplified the ImageTagTool
   * updated to jetty 8.*
   * updated to slf4j 1.7.2
-  * updated to C5Connector.Java 0.0.3-SNAPSHOT
+  * added C5Connector.Java 0.1
+  * added CKEditor.Java 1.0

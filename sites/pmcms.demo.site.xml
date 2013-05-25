@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?> 
-<java version="1.6.0_41" class="java.beans.XMLDecoder"> 
+<java version="1.6.0_43" class="java.beans.XMLDecoder"> 
  <object id="Site0" class="de.thischwa.pmcms.model.domain.pojo.Site"> 
   <void property="layoutTemplate"> 
    <object class="de.thischwa.pmcms.model.domain.pojo.Template"> 

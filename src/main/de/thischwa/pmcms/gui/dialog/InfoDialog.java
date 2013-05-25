@@ -47,11 +47,9 @@ import de.thischwa.pmcms.tool.swt.SWTUtils;
  * @author <a href="mailto:th-schwarz@users.sourceforge.net">Thilo Schwarz</a>
  */
 public class InfoDialog extends SimpleDialog {
-	private PropertiesManager pm;
 
 	public InfoDialog(Shell parentShell) {
 		super(parentShell, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
-		pm = InitializationManager.getBean(PropertiesManager.class);
 	}
 
 	@Override
@@ -69,12 +67,14 @@ public class InfoDialog extends SimpleDialog {
 
 		public InfoComp(final Composite parent, int style) {
 			super(parent, style);
+			PropertiesManager pm = InitializationManager.getBean(PropertiesManager.class);
 			initialize();
 			add3rdPartyTool(ToolVersionInfo.getJava());
 			add3rdPartyTool(ToolVersionInfo.getSpring());
 			add3rdPartyTool(ToolVersionInfo.getDom4J());
 			add3rdPartyTool(ToolVersionInfo.getVelocity());
-			add3rdPartyTool(ToolVersionInfo.getCKeditor());
+			add3rdPartyTool(ToolVersionInfo.getCKEditor());
+			add3rdPartyTool(ToolVersionInfo.getC5Connector());
 			add3rdPartyTool(ToolVersionInfo.getJII());
 			add3rdPartyTool(ToolVersionInfo.getSwt());
 			
@@ -112,6 +112,7 @@ public class InfoDialog extends SimpleDialog {
 			fillLayoutHeader.spacing = 10;
 			compositeHeader.setLayout(fillLayoutHeader);
 			
+			PropertiesManager pm = InitializationManager.getBean(PropertiesManager.class);
 			Label labelHeaderTitle = new Label(compositeHeader, SWT.CENTER);
 			labelHeaderTitle.setText(pm.getProperty("pmcms.title") + " - Version " + pm.getProperty("pmcms.version"));
 			SWTUtils.changeFontStyle(labelHeaderTitle, SWT.BOLD);
