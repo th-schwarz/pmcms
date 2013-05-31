@@ -41,6 +41,8 @@ import de.thischwa.ckeditor.CKPropertiesLoader;
 import de.thischwa.jii.ImageType;
 import de.thischwa.pmcms.Constants;
 import de.thischwa.pmcms.configuration.resource.LabelHolder;
+import de.thischwa.pmcms.livecycle.C5IconResolverImpl;
+import de.thischwa.pmcms.livecycle.C5MessageResolverImpl;
 import de.thischwa.pmcms.livecycle.SiteHolder;
 import de.thischwa.pmcms.livecycle.UserPathBuilderImpl;
 import de.thischwa.pmcms.model.domain.pojo.Site;
@@ -95,7 +97,7 @@ public class InitializationManager {
 	private static boolean enableTasksStart = true;
 
 	static {
-		Thread.currentThread().setName("poormans");
+		Thread.currentThread().setName("pmcms");
 	}
 
 	/**
@@ -151,12 +153,13 @@ public class InitializationManager {
 			sitesBackupDir.mkdirs();
 
 		// check if we have to trigger a cleanup
-		if (hasToCleanup)
+		if (hasToCleanup) {
 			try {
 				InternalAntTool.cleanup(dataDir, pm.getAllProperties());
 			} catch (Exception e) {
 				throw new RuntimeException(e);
 			}
+		}
 
 		// preparing the image extensions
 		allowedImageExtensions = new ArrayList<String>();
@@ -168,6 +171,8 @@ public class InitializationManager {
 		imageRenderingEnabled = getBean(ImageTool.class).isRenderingAvailable();
 
 		// preparing C5Connector.Java
+		PropertiesLoader.setProperty("connector.iconResolverImpl", C5IconResolverImpl.class.getName());
+		PropertiesLoader.setProperty("connector.messageResolverImpl", C5MessageResolverImpl.class.getName());
 		PropertiesLoader.setProperty("connector.impl", LocalConnector.class.getName());
 		PropertiesLoader.setProperty("connector.userActionImpl", EnabledUserAction.class.getName());
 		PropertiesLoader.setProperty("connector.userPathBuilderImpl", UserPathBuilderImpl.class.getName());

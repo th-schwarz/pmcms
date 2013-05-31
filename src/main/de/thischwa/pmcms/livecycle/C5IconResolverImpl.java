@@ -1,0 +1,49 @@
+/*******************************************************************************
+ * Poor Man's CMS (pmcms) - A very basic CMS generating static html pages.
+ * http://poormans.sourceforge.net
+ * Copyright (C) 2004-2013 by Thilo Schwarz
+ * 
+ * == BEGIN LICENSE ==
+ * 
+ * Licensed under the terms of any of the following licenses at your
+ * choice:
+ * 
+ *  - GNU General Public License Version 2 or later (the "GPL")
+ *    http://www.gnu.org/licenses/gpl.html
+ * 
+ *  - GNU Lesser General Public License Version 2.1 or later (the "LGPL")
+ *    http://www.gnu.org/licenses/lgpl.html
+ * 
+ *  - Mozilla Public License Version 1.1 or later (the "MPL")
+ *    http://www.mozilla.org/MPL/MPL-1.1.html
+ * 
+ * == END LICENSE ==
+ ******************************************************************************/
+package de.thischwa.pmcms.livecycle;
+
+import java.io.File;
+
+import javax.servlet.ServletContext;
+
+import de.thischwa.c5c.requestcycle.impl.FilemanagerIconResolver;
+import de.thischwa.c5c.resource.PropertiesLoader;
+import de.thischwa.c5c.util.Path;
+import de.thischwa.pmcms.Constants;
+
+/**
+ * It resolves the icons of the filemanager.<br/>
+ * 
+ * The path of the filemanager will be redirected to the directory of the application.
+ * That's necessary because the working directory of the server is the data directory. 
+ */
+public class C5IconResolverImpl extends FilemanagerIconResolver {
+
+	@Override
+	public void setServletContext(ServletContext servletContext) throws RuntimeException {
+		Path fileSystemPath = new Path(PropertiesLoader.getFilemangerPath());
+		fileSystemPath.addFolder(iconPath);
+		
+		File iconFolder = new File(Constants.APPLICATION_DIR, fileSystemPath.toString());
+		collectIcons(iconFolder, fileSystemPath);
+	}
+}

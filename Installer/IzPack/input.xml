@@ -1,13 +1,9 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
-<!-- 
-	Configuration file for the userInputPanel.
+<izpack:userinput version="5.0"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xmlns:izpack="http://izpack.org/schema/userinput"
+                  xsi:schemaLocation="http://izpack.org/schema/userinput http://izpack.org/schema/5.0/izpack-userinput-5.0.xsd">
 	
-	@version $Id: input.xml 1878 2009-11-09 13:37:40Z th-schwarz $
-	@author <a href="mailto:th-schwarz@users.sourceforge.net">Thilo Schwarz</a>
--->
-
-<userInput>
-	<panel order="0">
+	<panel id="panelprop">
 		<field type="title" id="panelprop.title"/>
 		
 		<!--field type="rule" variable="jetty_port">
@@ -40,4 +36,4 @@
 			<spec id="panelprob.jvmarguments.label" size="15" set="${jvm_arguments}"/>
 		</field>
 	</panel>
-</userInput>
+</izpack:userinput>

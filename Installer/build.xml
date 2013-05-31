@@ -83,16 +83,16 @@
     	</pathconvert>
     	<jar destfile="${launcher.jar}">
     		<fileset dir="${pmcms.dir.classes}">
-			    <include name="de/thischwa/pncms/tool/launcher/**/*class"/>
-			    <include name="de/thischwa/pncms/tool/OS/**/*class"/>
-			    <include name="de/thischwa/pncms/server/Action.class"/>
-			    <include name="de/thischwa/pncms/Constants.class"/>
-    			<include name="de/thischwa/pncms/tool/XY.class"/>
-    			<include name="de/thischwa/pncms/tool/InternalAntTool*.class"/>
-    			<include name="de/thischwa/pncms/tool/CliParser.class"/>
-    			<include name="de/thischwa/pncms/configuration/BasicConfigurator.class"/>
-    			<include name="de/thischwa/pncms/configuration/common.properties"/>
-    			<include name="de/thischwa/pncms/tool/PropertiesTool.class"/>
+			    <include name="de/thischwa/pmcms/tool/launcher/**/*class"/>
+			    <include name="de/thischwa/pmcms/tool/OS/**/*class"/>
+			    <include name="de/thischwa/pmcms/server/Action.class"/>
+			    <include name="de/thischwa/pmcms/Constants.class"/>
+    			<include name="de/thischwa/pmcms/tool/XY.class"/>
+    			<include name="de/thischwa/pmcms/tool/InternalAntTool*.class"/>
+    			<include name="de/thischwa/pmcms/tool/CliParser.class"/>
+    			<include name="de/thischwa/pmcms/configuration/BasicConfigurator.class"/>
+    			<include name="de/thischwa/pmcms/configuration/common.properties"/>
+    			<include name="de/thischwa/pmcms/tool/PropertiesTool.class"/>
 			</fileset>
     		<manifest>
     			<attribute name="Main-Class" value="de.thischwa.pmcms.tool.launcher.Launcher"/>

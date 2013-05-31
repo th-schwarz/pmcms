@@ -68,7 +68,7 @@ public class BasicConfigurator {
 			throw new IllegalArgumentException("No data directory set!");
 		dataDir = new File(System.getProperty("data.dir"));
 		if (!dataDir.exists())
-			throw new IllegalArgumentException("No data directory found!");
+			throw new IllegalArgumentException(String.format("Data directory not found: %s", dataDir.getAbsolutePath()));
 		
 		// load and merge the properties 
 		loadProperties();
