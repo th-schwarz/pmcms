@@ -22,15 +22,18 @@
 package de.thischwa.pmcms.livecycle;
 
 import java.io.File;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
 
 import org.apache.commons.io.FilenameUtils;
+import org.apache.log4j.Logger;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import de.thischwa.c5c.FilemanagerMessageResolver;
+import de.thischwa.c5c.exception.FilemanagerException.Key;
 import de.thischwa.c5c.resource.PropertiesLoader;
 import de.thischwa.c5c.util.Path;
 import de.thischwa.pmcms.Constants;
@@ -42,16 +45,21 @@ import de.thischwa.pmcms.Constants;
  * That's necessary because the working directory of the server is the data directory. 
  */
 public class C5MessageResolverImpl extends FilemanagerMessageResolver {
+	private static Logger logger = Logger.getLogger(C5MessageResolverImpl.class);
 
 	@Override
 	public void setServletContext(ServletContext servletContext) throws RuntimeException {
-		File msgFolder = new File(Constants.APPLICATION_DIR, new Path(PropertiesLoader.getFilemangerPath()).addFolder(scriptPath).toString());
+		Path fileSystemPath = new Path(PropertiesLoader.getFilemangerPath());
+		fileSystemPath.addFolder(scriptPath);
+		File msgFolder = new File(Constants.APPLICATION_DIR, fileSystemPath.toString());
 		if(!msgFolder.exists())
 			throw new RuntimeException(String.format("C5 scripts folder couldn't be found: %s", msgFolder.getAbsolutePath()));
+		logger.debug(String.format("try to resolve lang-date from dir: %s", msgFolder.getAbsolutePath()));
 		ObjectMapper mapper = new ObjectMapper();
 		try {
 			for(File file: msgFolder.listFiles(jsFilter)) {
 				String lang = FilenameUtils.getBaseName(file.getName());
+				logger.debug(String.format("  - found: %s", file.getAbsoluteFile()));
 		        @SuppressWarnings("unchecked")
 				Map<String, String> langData = mapper.readValue(file, Map.class);
 				collectLangData(lang, langData);
@@ -59,5 +67,10 @@ public class C5MessageResolverImpl extends FilemanagerMessageResolver {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
+	}
+	
+	@Override
+	public String getMessage(Locale locale, Key key) throws IllegalArgumentException {
+		return super.getMessage(locale, key);
 	}
 }

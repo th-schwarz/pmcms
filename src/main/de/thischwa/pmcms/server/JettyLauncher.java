@@ -29,7 +29,6 @@ import javax.servlet.Servlet;
 import org.eclipse.jetty.server.Connector;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.nio.SelectChannelConnector;
-import org.eclipse.jetty.servlet.DefaultServlet;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.springframework.beans.factory.annotation.Value;
@@ -65,6 +64,9 @@ public class JettyLauncher extends AInitializingTask implements IApplicationLive
 	@Override
 	public void onApplicationStart() {
 		File dataDir = new File(dataDirStr);
+		String applicationPath = Constants.APPLICATION_DIR.getAbsolutePath().replace('\\', '/');
+		if(!applicationPath.endsWith("/"))
+			applicationPath += "/";
 		try {
 			ClassLoader classLoader = ClassUtils.getDefaultClassLoader(); // spring class loader
 			server = new Server();
@@ -75,48 +77,47 @@ public class JettyLauncher extends AInitializingTask implements IApplicationLive
 			connector.setLowResourceMaxIdleTime(Integer.MAX_VALUE);
 			server.setConnectors(new Connector[] { connector });
 
-			ServletContextHandler context = new ServletContextHandler(server, "/", ServletContextHandler.SESSIONS);
-			context.setClassLoader(classLoader);
-			context.setResourceBase(dataDir.getAbsolutePath());
+			ServletContextHandler contextDataDir = new ServletContextHandler(server, "/", ServletContextHandler.NO_SECURITY);
+			contextDataDir.setClassLoader(classLoader);
+			contextDataDir.setResourceBase(dataDir.getAbsolutePath());
 
-			ServletHolder holderDefaults = new ServletHolder(DefaultServlet.class);
-			holderDefaults.setInitParameter("basePath", Constants.APPLICATION_DIR.getAbsolutePath() + "/defaults");
+			ServletHolder holderDefaults = new ServletHolder(ResourceServlet.class);
+			holderDefaults.setInitParameter("basePath", "defaults");
 			holderDefaults.setInitParameter("aliases", "false");
-			context.addServlet(holderDefaults, "/defaults/*");
+			contextDataDir.addServlet(holderDefaults, "/defaults/*");
 
-			ServletHolder holderHelp = new ServletHolder(DefaultServlet.class);
-			holderHelp.setInitParameter("basePath", Constants.APPLICATION_DIR.getAbsolutePath() + "/help");
+			ServletHolder holderHelp = new ServletHolder(ResourceServlet.class);
+			holderHelp.setInitParameter("basePath", "help");
 			holderHelp.setInitParameter("aliases", "false");
-			context.addServlet(holderHelp, "/help/*");
+			contextDataDir.addServlet(holderHelp, "/help/*");
 			
-			ServletHolder holderFilemanger = new ServletHolder(DefaultServlet.class);
-			holderFilemanger.setInitParameter("basePath", Constants.APPLICATION_DIR.getAbsolutePath() + "/filemanager");
-			holderFilemanger.setInitParameter("aliases", "false");
-			context.addServlet(holderFilemanger, "/filemanager/*");
-
-			context.addServlet(buildLoadOnStart(EditorServlet.class), "/" + Constants.LINK_IDENTICATOR_EDIT + "/*");
-			context.addServlet(buildLoadOnStart(ContentSaverServlet.class), "/" + Constants.LINK_IDENTICATOR_SAVE + "/*");
-			context.addServlet(buildLoadOnStart(PreviewServlet.class), "/" + Constants.LINK_IDENTICATOR_PREVIEW + "/*");
+			ServletHolder holderFilemanger = new ServletHolder(ResourceServlet.class);
+			holderFilemanger.setInitParameter("basePath", new File(Constants.APPLICATION_DIR, "filemanager").getAbsolutePath());
+			contextDataDir.addServlet(holderFilemanger, "/filemanager/*");
+			
+			contextDataDir.addServlet(buildLoadOnStart(EditorServlet.class), "/" + Constants.LINK_IDENTICATOR_EDIT + "/*");
+			contextDataDir.addServlet(buildLoadOnStart(ContentSaverServlet.class), "/" + Constants.LINK_IDENTICATOR_SAVE + "/*");
+			contextDataDir.addServlet(buildLoadOnStart(PreviewServlet.class), "/" + Constants.LINK_IDENTICATOR_PREVIEW + "/*");
 			
 			ServletHolder holderConnector = new ServletHolder(ConnectorServlet.class);
 			holderConnector.setInitOrder(1);
 			holderConnector.getRegistration().setMultipartConfig(
 					new MultipartConfigElement(Constants.TEMP_DIR.getAbsolutePath()));
-			context.addServlet(holderConnector, "/filemanager/connectors/java/*");
+			contextDataDir.addServlet(holderConnector, "/filemanager/connectors/java/*");
 			
 			ServletHolder holderCodeMirror = new ServletHolder(ZipProxyServlet.class);
 			holderCodeMirror.setInitParameter("file", "sourceeditor/CodeMirror-2013-02-09.zip");
 			holderCodeMirror.setInitParameter("zipPathToSkip", "CodeMirror-master");
-			context.addServlet(holderCodeMirror, "/codemirror/*");
+			contextDataDir.addServlet(holderCodeMirror, "/codemirror/*");
 
 			ServletHolder holderSiteResource = new ServletHolder(SiteResourceServlet.class);
 			holderSiteResource.setInitParameter("basePath", new File(dataDir, sitesDir).getAbsolutePath());
-			context.addServlet(holderSiteResource, String.format("/%s/*", Constants.LINK_IDENTICATOR_SITE_RESOURCE));
+			contextDataDir.addServlet(holderSiteResource, String.format("/%s/*", Constants.LINK_IDENTICATOR_SITE_RESOURCE));
 
 			ServletHolder holderCKEditor = new ServletHolder(ZipProxyServlet.class);
 			holderCKEditor.setInitParameter("file", "ckeditor_4.0.2_standard.zip");
 			holderCKEditor.setInitParameter("zipPathToSkip", "ckeditor");
-			context.addServlet(holderCKEditor, "/ckeditor/*");
+			contextDataDir.addServlet(holderCKEditor, "/ckeditor/*");
 			
 			/*ServletHolder holderFilemanager = new ServletHolder(ZipProxyServlet.class);
 			holderFilemanager.setInitParameter("file", "Filemanager.zip");
@@ -124,12 +125,11 @@ public class JettyLauncher extends AInitializingTask implements IApplicationLive
 			context.addServlet(holderFilemanager, "/filemanager/*");*/
 			
 			ServletHolder holderTest = new ServletHolder(TestServlet.class);
-			context.addServlet(holderTest, "/webgui/*");
+			contextDataDir.addServlet(holderTest, "/webgui/*");
 
-			ServletHolder holderResourceWebgui = new ServletHolder(DefaultServlet.class);
+			ServletHolder holderResourceWebgui = new ServletHolder(ResourceServlet.class);
 			holderResourceWebgui.setInitParameter("basePath", Constants.APPLICATION_DIR.getAbsolutePath() + "/webgui/resources");
-			holderResourceWebgui.setInitParameter("aliases", "false");
-			context.addServlet(holderResourceWebgui, "/resc/*");
+			contextDataDir.addServlet(holderResourceWebgui, "/resc/*");
 			
 			server.start();
 		} catch (Exception e) {

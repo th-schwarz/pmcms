@@ -20,6 +20,8 @@
 	<!-- some variables -->
 	<variables>
 		<variable name="backup_dir" value="PoorMansCMS_backup"/> <!-- default -->
+		<variable name="TargetPanel.dir.unix" value="${ENV[HOME]}/bin/PoorMansCMS"/>
+		<variable name="TargetPanel.dir.mac_osx" value="${ENV[HOME]}/bin/PoorMansCMS"/>
 	</variables>
 	
 	<dynamicvariables>
@@ -60,8 +62,6 @@
 		<res id="HTMLInfoPanel.info" src="Installer/IzPack/info.txt"/>  
 		<res id="userInputSpec.xml" src="Installer/IzPack/input.xml" type="xml" parse="yes"/>
 		<res id="userInputLang.xml_eng" src="Installer/IzPack/inputLang_eng.xml"/>
-		<res id="TargetPanel.dir.mac_osx" src="Installer/IzPack/target.mac.res"/>
-		<res id="TargetPanel.dir.unix" src="Installer/IzPack/target.unix.res"/>
 		<res id="Heading.image" src="gfx/icon_32x32.gif"/>
 	</resources>
 	
