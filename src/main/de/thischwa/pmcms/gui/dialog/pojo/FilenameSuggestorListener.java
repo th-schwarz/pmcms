@@ -56,13 +56,13 @@ public class FilenameSuggestorListener extends ModifyListenerClearErrorMessages 
 		}
 		for(char c='0'; c<='9'; c++)
 			keyMapping.put(String.valueOf(c), String.valueOf(c));
-		keyMapping.put("€", "ae");
-		keyMapping.put("†", "ue");
-		keyMapping.put("…", "oe");
-		keyMapping.put("Š", "ae");
-		keyMapping.put("Ÿ", "ue");
-		keyMapping.put("š", "oe");
-		keyMapping.put("§", "ss");
+		keyMapping.put("Ã¤", "ae");
+		keyMapping.put("Ã¼", "ue");
+		keyMapping.put("Ã¶", "oe");
+		keyMapping.put("Ã„", "ae");
+		keyMapping.put("Ãœ", "ue");
+		keyMapping.put("Ã–", "oe");
+		keyMapping.put("ÃŸ", "ss");
 		
 		keyMapping.put("-", "-");
 		keyMapping.put("_", "_");
