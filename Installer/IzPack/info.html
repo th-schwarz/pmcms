@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head></head>
+<body>
+<h1>Poor Man's CMS (pmcms)</h1>
+
+<p>... a very basic CMS generating static html pages.</p>
+<p>pmcms is distributed under the <a href="http://www.gnu.org/licenses/gpl.html">GPL</a> and <a href="http://www.mozilla.org/MPL/MPL-1.1.html">MPL</a> 
+Open Source licenses. This <i>dual copyleft licensing model</i> is flexible and allows you to choose the license that is best suited for your needs.</p>
+
+<h2>Important information, read it careful!</h2>
+
+<h3>Supported OSs:</h3>
+<ul>
+<li>OS X</li>
+<li>Linux (GTK)</li>
+<li>Windows &gt;= XP</li>
+</ul>
+
+<h3>OS independent requirements:</h3>
+<ul> 
+<li>Sun Java runtime 6 or newer</li>
+</ul>
+
+<h3>Requirements to run on OS X:</h3>
+<ul>
+<li>Safari 3.0 or newer</li>
+</ul>
+
+<h3>Requirements to run on Linux:</h3>
+<ul>
+<li>XULRUNNER, see the hint below</li>
+</ul> 
+
+<h3>Requirements to run on Windows:</h3>
+<ul>
+<li>XULRUNNER, InternetExplorer 5.5 or newer</li>
+</ul>
+
+<p><i>Hint for using XULRunner:</i><br/>
+    You can use XULRunner in every OS you want (see <a href="http://releases.mozilla.org/pub/mozilla.org/xulrunner/releases/">releases</a>).
+    Install it and set poormans.xulrunner=true in pmcms.properties.
+    WARNING Because of an SWT-XULRUNNER issue just version 3.6.* is working!
+    If you won't install XULRUNNER on your system, you can copy all required files from the sdk-bin directory
+    to the subfolder 'xulrunner' inside the application directory.</p>
+</body>

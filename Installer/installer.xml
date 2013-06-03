@@ -9,12 +9,12 @@
 		<appversion>@{pmcms.version}</appversion>
 		<appsubpath>PoorMansCMS</appsubpath>
 		<authors>
-			<author name="Thilo Schwarz" email="th-schwarz@users.sourceforge.net" />
+			<author name="Thilo Schwarz" email="poormanscms@gmail.com"/>
 		</authors>
-		<url>http://poormans.sourceforge.net</url>   
+		<url>https://github.com/th-schwarz/pmcms</url>   
 		<javaversion>1.6</javaversion>    
 		<requiresjdk>no</requiresjdk>
-    	<run-privileged condition="izpack.windowsinstall.vista|izpack.windowsinstall.7"/>
+    	<run-privileged condition="izpack.windowsinstall.vista|izpack.windowsinstall.7|izpack.windowsinstall.8"/>
 	</info>
 	
 	<!-- some variables -->
@@ -25,20 +25,9 @@
 	</variables>
 	
 	<dynamicvariables>
-		<!-- TODO replace condition 'izpack.macinstall.osx' if IZPACK-806 is deployed -->
-		<variable name="jvm_arguments" value="" condition="!installonosx"/>
-		<variable name="jvm_arguments" value="-d32 -XstartOnFirstThread" condition="installonosx"/>
+		<variable name="jvm_arguments" value="" condition="!izpack.macinstall"/>
+		<variable name="jvm_arguments" value="-d32 -XstartOnFirstThread" condition="izpack.macinstall"/>
 	</dynamicvariables>
-	
-	<conditions>
-		<condition type="java" id="installonosx">
-			<java>
-				<class>com.izforge.izpack.util.OsVersion</class>
-				<field>IS_OSX</field>
-			</java>
-			<returnvalue type="boolean">true</returnvalue>
-		</condition>
-	</conditions>
 	
 	<!-- gui prefs -->
 	<guiprefs width="640" height="480" resizable="no">  
@@ -58,8 +47,7 @@
 	
 	<!-- some resources -->
 	<resources>
-		<!-- res id="HTMLInfoPanel.license" src="LICENSE"/-->
-		<res id="HTMLInfoPanel.info" src="Installer/IzPack/info.txt"/>  
+		<res id="HTMLInfoPanel.info" src="Installer/IzPack/info.html"/>  
 		<res id="userInputSpec.xml" src="Installer/IzPack/input.xml" type="xml" parse="yes"/>
 		<res id="userInputLang.xml_eng" src="Installer/IzPack/inputLang_eng.xml"/>
 		<res id="Heading.image" src="gfx/icon_32x32.gif"/>
@@ -80,15 +68,15 @@
 	<packs>
 		<pack id="Core" name="Core files" required="yes">
 			<description>The core files</description>
-			<file src="README.md" targetdir="$INSTALL_PATH"/>
-			<file src="context-api-changes.txt" targetdir="$INSTALL_PATH"/>
 			<file src="Installer/dist/start.jar" targetdir="$INSTALL_PATH"/>
 			<file src="defaults/redirector.html" targetdir="$INSTALL_PATH/defaults"/>
 			<file src="defaults/content.vm" targetdir="$INSTALL_PATH/defaults"/>
 			<file src="defaults/dummy.jpg" targetdir="$INSTALL_PATH/defaults"/>
 			<file src="defaults/editor-button.css" targetdir="$INSTALL_PATH/defaults"/>
 			
+			<file src="context-api-changes.txt" targetdir="$USER_HOME/PoorMansCMS"/>
 			<file src="Installer/IzPack/packs/pmcms.properties" targetdir="$USER_HOME/PoorMansCMS"/>
+			<fileset dir="sites" includes="**" targetdir="$USER_HOME/PoorMansCMS/sites"/>
 			<parsable targetfile="$USER_HOME/PoorMansCMS/pmcms.properties" type="javaprop"/>
 				
 			<file src="Installer/dist/poormans_classes.jar" targetdir="$INSTALL_PATH/lib"/>
@@ -113,11 +101,6 @@
 			<fileset dir="Installer/IzPack/packs/swt/cocoa-macosx" targetdir="$INSTALL_PATH/lib/swt" >
 				<os family="mac"/>
 			</fileset>
-		</pack>
-		
-		<pack id="A simple demo site" required="no" name="Demo Site">
-			<description>A Simple Demo Site! It's stored in the subdirectory demo.</description>
-			<file src="Installer/IzPack/packs/demo_site.poormans_backup" targetdir="$INSTALL_PATH/demo"/>
 		</pack>
 	 </packs>
 </izpack:installation>
