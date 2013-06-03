@@ -42,9 +42,6 @@ import de.thischwa.pmcms.tool.swt.SWTUtils;
 
 /**
  * Dialog to display basic properties and 3rd-party library info.
- *
- * @version $Id: InfoDialog.java 2218 2012-07-27 09:12:33Z th-schwarz $
- * @author <a href="mailto:th-schwarz@users.sourceforge.net">Thilo Schwarz</a>
  */
 public class InfoDialog extends SimpleDialog {
 
@@ -60,7 +57,6 @@ public class InfoDialog extends SimpleDialog {
 		SWTUtils.center(shell, parentShell.getBounds());
 	}
 
-	
 	private class InfoComp extends Composite {
 		private Composite composite3rdParty = null;
 		private Composite compositeProperties = null;
@@ -120,7 +116,7 @@ public class InfoDialog extends SimpleDialog {
 			Label labelHeaderSubTitle = new Label(compositeHeader, SWT.CENTER);
 			labelHeaderSubTitle.setText("A very basic CMS running as a swt application and generating static html pages.");
 			Label labelHeaderText = new Label(compositeHeader, SWT.NONE);
-			labelHeaderText.setText("Concept and implementation by Thilo Schwarz (th-schwarz@users.sourceforge.net).\n" +
+			labelHeaderText.setText("Concept and implementation by Thilo Schwarz (poormanscms@gmail.com).\n" +
 					"Copyright by Thilo Schwarz");
 		}
 
