@@ -24,7 +24,6 @@ package de.thischwa.pmcms.gui.treeview;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import org.apache.commons.collections.CollectionUtils;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
@@ -44,26 +43,30 @@ import de.thischwa.pmcms.model.domain.pojo.Site;
  */
 public class TreeViewContentProvider implements ITreeContentProvider {
 
-	private TreeViewRoot treeRoot;
+	private TreeViewRootNode treeRoot;
 	
-	public void setTreeViewRoot(final TreeViewRoot treeRoot) {
+	public void setTreeViewRoot(final TreeViewRootNode treeRoot) {
 		this.treeRoot = treeRoot;
 	}
 
 	@Override
 	public Object[] getChildren(Object parentElement) {
-		if (parentElement instanceof TreeViewRoot) {
+		if (parentElement instanceof TreeViewRootNode) {
 			List<APoormansObject<?>> children = new ArrayList<APoormansObject<?>>();
-			TreeViewRoot root = (TreeViewRoot) parentElement;
+			TreeViewRootNode root = (TreeViewRootNode) parentElement;
 			children.add(root.getSite());
 			if(InitializationManager.isAdmin()) {
-				children.add(root.getMacroContainer());
-				children.add(root.getTemplateContainer());
+				children.add(root.getMacroNode());
+				children.add(root.getTemplateNode());
 			}
 			return children.toArray();
 		}
-		if (parentElement instanceof TreeViewSiteRecourceContainer<?>) {
-			TreeViewSiteRecourceContainer<?> recourceContainer = (TreeViewSiteRecourceContainer<?>) parentElement;
+		if (parentElement instanceof TreeViewMacroNode) {
+			TreeViewMacroNode recourceContainer = (TreeViewMacroNode) parentElement;
+			return new ArrayList<Object>(recourceContainer.getSiteResources()).toArray();
+		}
+		if (parentElement instanceof TreeViewTemplateNode) {
+			TreeViewTemplateNode recourceContainer = (TreeViewTemplateNode) parentElement;
 			return new ArrayList<Object>(recourceContainer.getSiteResources()).toArray();
 		}
 		if (InstanceUtil.isSite(parentElement)) {
@@ -93,10 +96,10 @@ public class TreeViewContentProvider implements ITreeContentProvider {
 
 	@Override
 	public Object getParent(Object element) {
-		if (element instanceof TreeViewRoot)
+		if (element instanceof TreeViewRootNode)
 			return null;
 		if (InstanceUtil.isTemplate(element))
-			return treeRoot.getTemplateContainer();
+			return treeRoot.getTemplateNode();
 		if (InstanceUtil.isPoormansObject(element))
 			return ((APoormansObject<?>) element).getParent();
 		throw new IllegalArgumentException("Unknown object TYPE in tree!");

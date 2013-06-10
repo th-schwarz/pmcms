@@ -62,9 +62,7 @@ import de.thischwa.pmcms.view.context.object.admin.AdminTool;
 /**
  * The velocity rendering methods.
  * 
- * @version $Id: VelocityRenderer.java 2216 2012-07-14 15:48:49Z th-schwarz $
- * @author <a href="mailto:th-schwarz@users.sourceforge.net">Thilo Schwarz</a>
- *  TODO rewrite exception handling. all methods should throw just the RenderingException
+ * TODO rewrite exception handling. all methods should throw just the RenderingException
  */
 @Service()
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
@@ -79,7 +77,7 @@ public class VelocityRenderer {
 
 	/**
 	 * The main render method. It renders a string with respect of possible context objects.
-	 0* 
+	 * 
 	 * @param writer
 	 *            Contains the rendered string. It has to be flushed and closed by the caller!
 	 * @param stringToRender
@@ -181,7 +179,10 @@ public class VelocityRenderer {
 		contextObjects.put("sr", siteResource);
 		contextObjects.put("utils", new Utils());
 		contextObjects.put("contexttool", new ContextTool());
-		contextObjects.put("link", baseUrl.concat(Constants.LINK_IDENTICATOR_SAVE));
+		if(siteResource.getId() != 0) {
+			String link = String.format("%s?id=%d", Constants.LINK_IDENTICATOR_SAVE, siteResource.getId());
+			contextObjects.put("link", link);
+		}
 		if (InstanceUtil.isMacro(siteResource)) {
 			contextObjects.put("type", Constants.LINK_TYPE_MACRO);
 		} else if (InstanceUtil.isTemplate(siteResource)) {

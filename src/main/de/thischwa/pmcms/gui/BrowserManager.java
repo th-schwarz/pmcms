@@ -248,10 +248,12 @@ public class BrowserManager {
 	public void view(final APoormansObject<?> po, ViewMode viewMode) {
 		logger.debug(String.format("Show %s(%d), %s", po, po.getId(), viewMode));
 		try {
-			if(viewMode == ViewMode.EDIT) {
+			switch (viewMode) {
+			case EDIT:
 				String url = Link.buildUrl(baseUrl, po, Action.EDIT);
 				mainBrowser.setUrl(url);
-			} else { // PREVIEW
+				break;
+			default: // must be PREVIEW
 				String html;
 				if(InstanceUtil.isRenderable(po))
 					html = velocityRenderer.render((IRenderable)po, viewMode);
@@ -262,7 +264,7 @@ public class BrowserManager {
 					return;
 				}
 				mainBrowser.setText(html);
-				//System.out.println(html);
+				break;
 			}
 		} catch (RenderingException e) {
 			show(e);

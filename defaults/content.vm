@@ -13,7 +13,7 @@
 	#set( $renderableid = $gallery.Id )
 #end
 #set( $objectHeight = $height + 50 )
-<form method="POST" action="$linktool.setSave()">
+<form method="POST" action="$linktool.setSave().addParameter("id", $renderableid)">
 <input type="hidden" name="$contexttool.ED" value="$fieldname" />
 <input type="hidden" name="$contexttool.TypeDescriptor" value="$contexttool.TypePage" /> 
 <input type="hidden" name="id" value="$renderableid" /> 

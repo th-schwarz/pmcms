@@ -24,14 +24,13 @@ package de.thischwa.pmcms.model.domain.pojo;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
+
 import de.thischwa.pmcms.model.InstanceUtil;
 
 
 /**
  * Base object for the site.
- * 
- * @version $Id: Site.java 2216 2012-07-14 15:48:49Z th-schwarz $
- * @author <a href="mailto:th-schwarz@users.sourceforge.net">Thilo Schwarz</a>
  */
 public class Site extends Level {
 	private String url;
@@ -45,6 +44,12 @@ public class Site extends Level {
 	private String transferLoginPassword;
 	private String transferStartDirectory;
 
+	@Override
+	public String getDecorationString() {
+		String deco = StringUtils.defaultIfEmpty(title, name);
+		return deco;
+	}
+	
 	public String getUrl() {
 		return url;
 	}

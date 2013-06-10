@@ -23,7 +23,6 @@ package de.thischwa.pmcms.gui.treeview;
 
 import java.util.List;
 
-
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.swt.SWT;
@@ -69,8 +68,9 @@ public class SiteTreeContextMenuManager {
 	private static Logger logger = Logger.getLogger(SiteTreeContextMenuManager.class);
 	private Menu menu;
 	private PojoHelper pojoHolder = new PojoHelper();
-	private BrowserManager browserManager = InitializationManager.getBean(BrowserManager.class);
+	private final BrowserManager browserManager = InitializationManager.getBean(BrowserManager.class);
 	private static APoormansObject<?> clipboardObject = null;
+	private final TreeViewManager treeViewManager = InitializationManager.getBean(TreeViewManager.class);
 
 	public SiteTreeContextMenuManager(Menu menu) {
 		this.menu = menu;
@@ -145,7 +145,6 @@ public class SiteTreeContextMenuManager {
 
 	private void buildForPo(final APoormansObject<?> po) {
 		logger.debug("Generate context menu for TYPE Ipo."); //$NON-NLS-1$
-		final TreeViewManager treeViewManager = InitializationManager.getBean(TreeViewManager.class);
 		MenuItem menuItemEdit = new MenuItem(menu, SWT.PUSH);
 		menuItemEdit.setText(LabelHolder.get("treecontextmenu.editproperties")); //$NON-NLS-1$
 		menuItemEdit.addSelectionListener(new ListenerEditPersistentPojoProperties(po));
@@ -266,6 +265,7 @@ public class SiteTreeContextMenuManager {
 			public void widgetSelected(SelectionEvent e) {
 				Macro macro = new Macro();
 				macro.setParent(pojoHolder.getSite());
+				treeViewManager.fillAndExpands(macro);
 				browserManager.view(macro, ViewMode.EDIT);
 			}
 
@@ -284,6 +284,7 @@ public class SiteTreeContextMenuManager {
 			public void widgetSelected(SelectionEvent e) {
 				Template template = new Template();
 				template.setParent(pojoHolder.getSite());
+				treeViewManager.fillAndExpands(template);
 				browserManager.view(template, ViewMode.EDIT);
 			}
 

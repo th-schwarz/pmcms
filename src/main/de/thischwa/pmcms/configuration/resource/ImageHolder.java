@@ -28,7 +28,7 @@ import java.net.URL;
 import org.eclipse.swt.graphics.Image;
 
 import de.thischwa.pmcms.Constants;
-import de.thischwa.pmcms.gui.treeview.TreeViewSiteRecourceContainer;
+import de.thischwa.pmcms.gui.treeview.TreeViewSiteRecourceNode;
 import de.thischwa.pmcms.model.InstanceUtil;
 import de.thischwa.pmcms.model.domain.pojo.APoormansObject;
 import de.thischwa.pmcms.tool.swt.SWTUtils;
@@ -102,8 +102,8 @@ public class ImageHolder {
 			return SWTUtils.getImage("page");
 		else if (InstanceUtil.isSiteResource(po))
 			return SWTUtils.getImage("siteresource");
-		else if (po instanceof TreeViewSiteRecourceContainer<?>) {
-			TreeViewSiteRecourceContainer<?> container = (TreeViewSiteRecourceContainer<?>) po;
+		else if (po instanceof TreeViewSiteRecourceNode<?>) {
+			TreeViewSiteRecourceNode<?> container = (TreeViewSiteRecourceNode<?>) po;
 			switch(container.getResourceType()) {
 				case TEMPLATE:
 					return SWTUtils.getImage("template_folder");

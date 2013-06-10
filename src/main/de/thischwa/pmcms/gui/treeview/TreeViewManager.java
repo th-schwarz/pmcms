@@ -58,7 +58,7 @@ import de.thischwa.pmcms.view.ViewMode;
 public class TreeViewManager {
 	private static Logger logger = Logger.getLogger(TreeViewManager.class);
 	private TreeViewer treeViewer = null;
-	private TreeViewRoot treeRoot = null;
+	private TreeViewRootNode treeRoot = null;
 	private final TreeViewContentProvider contentProvider = new TreeViewContentProvider();
 	
 	@Autowired private BrowserManager browserManager;
@@ -81,8 +81,8 @@ public class TreeViewManager {
 						menuManager.buildMenuForSite((Site) po);
 					else if (InstanceUtil.isSiteResource(po)) {
 						menuManager.buildForSiteResource((ASiteResource) po);
-					} else if (po instanceof TreeViewSiteRecourceContainer<?>) {
-						TreeViewSiteRecourceContainer<?> siteRecourceContainer = (TreeViewSiteRecourceContainer<?>) po;
+					} else if (po instanceof TreeViewSiteRecourceNode<?>) {
+						TreeViewSiteRecourceNode<?> siteRecourceContainer = (TreeViewSiteRecourceNode<?>) po;
 						switch (siteRecourceContainer.getResourceType()) {
 						case MACRO:
 							menuManager.buildForMacro();
@@ -138,7 +138,7 @@ public class TreeViewManager {
 		});
 	}
 
-	public TreeViewRoot getTreeRoot() {
+	public TreeViewRootNode getTreeRoot() {
 		return treeRoot;
 	}
 
@@ -153,17 +153,20 @@ public class TreeViewManager {
 			removeAll();
 			return;
 		}
-		treeRoot = new TreeViewRoot(site);
+		treeRoot = new TreeViewRootNode(site);
 		treeViewer.setInput(treeRoot);
 		contentProvider.setTreeViewRoot(treeRoot);
 		treeViewer.collapseAll();
 		if (po != null) {
-			if (InstanceUtil.isSiteResource(po))
-				treeViewer.expandToLevel(treeRoot, 2);
-			else
+			if (InstanceUtil.isSiteResource(po)) {
+				if(InstanceUtil.isMacro(po))
+					treeViewer.expandToLevel(treeRoot.getMacroNode(), 1);
+				else
+					treeViewer.expandToLevel(treeRoot.getTemplateNode(), 1);
+			} else
 				treeViewer.expandToLevel(po, 1);
-		} else
-			treeViewer.expandToLevel(site, 1);
+		} 
+		treeViewer.expandToLevel(site, 1);
 	}
 
 	public void removeAll() {

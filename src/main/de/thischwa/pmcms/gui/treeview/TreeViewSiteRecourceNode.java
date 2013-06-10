@@ -25,7 +25,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-
 import org.apache.commons.lang.builder.EqualsBuilder;
 
 import de.thischwa.pmcms.model.domain.pojo.APoormansObject;
@@ -33,27 +32,24 @@ import de.thischwa.pmcms.model.domain.pojo.ASiteResource;
 import de.thischwa.pmcms.model.domain.pojo.SiteResourceType;
 
 /**
- * 'Fake'-container to show special resources ({@link ASiteResource}s) in an extra section.
- *
- * @version $Id: TreeViewSiteRecourceContainer.java 2215 2012-07-02 18:35:32Z th-schwarz $
- * @author <a href="mailto:th-schwarz@users.sourceforge.net">Thilo Schwarz</a>
+ * Base-'Fake'-container to show special resources ({@link ASiteResource}s) in an extra section.
  */
-public class TreeViewSiteRecourceContainer<T extends ASiteResource> extends APoormansObject<TreeViewRoot> {
+public class TreeViewSiteRecourceNode<T extends ASiteResource> extends APoormansObject<TreeViewRootNode> {
 
 	private SiteResourceType resourceType;
 	private List<T> siteResources;
-	
-	public TreeViewSiteRecourceContainer(final TreeViewRoot treeViewRoot, final SiteResourceType resourceType, final List<T> siteResources) {
+
+	TreeViewSiteRecourceNode(final TreeViewRootNode treeViewRoot, final SiteResourceType resourceType, final List<T> siteResources) {
 		super.setParent(treeViewRoot);
 		this.resourceType = resourceType;
 		this.siteResources = siteResources;
 	}
-	
+
 	public List<T> getSiteResources() {
 		Collections.sort(siteResources, new ResourceComparator());
 		return siteResources;
 	}
-	
+
 	public SiteResourceType getResourceType() {
 		return resourceType;
 	}
@@ -65,14 +61,14 @@ public class TreeViewSiteRecourceContainer<T extends ASiteResource> extends APoo
 
 	@Override
 	public boolean equals(Object obj) {
-        if (obj == null)
-            return false;
-        if (obj == this)
-            return true;
-        if (obj.getClass() != getClass())
-            return false;
-        TreeViewSiteRecourceContainer<?> res = (TreeViewSiteRecourceContainer<?>)obj;
-        return new EqualsBuilder().append(getDecorationString(), res.getDecorationString()).isEquals();
+		if (obj == null)
+			return false;
+		if (obj == this)
+			return true;
+		if (obj.getClass() != getClass())
+			return false;
+		TreeViewSiteRecourceNode<?> res = (TreeViewSiteRecourceNode<?>) obj;
+		return new EqualsBuilder().append(getDecorationString(), res.getDecorationString()).isEquals();
 	}
 
 	@Override
