@@ -1,15 +1,12 @@
 /*******************************************************************************
  * Poor Man's CMS (pmcms) - A very basic CMS generating static html pages.
- * http://pmcms.sourceforge.net
+ * http://poormans.sourceforge.net
  * Copyright (C) 2004-2013 by Thilo Schwarz
  * 
  * == BEGIN LICENSE ==
  * 
  * Licensed under the terms of any of the following licenses at your
  * choice:
- * 
- *  - GNU General Public License Version 2 or later (the "GPL")
- *    http://www.gnu.org/licenses/gpl.html
  * 
  *  - GNU Lesser General Public License Version 2.1 or later (the "LGPL")
  *    http://www.gnu.org/licenses/lgpl.html
@@ -52,8 +49,7 @@ import de.thischwa.pmcms.model.domain.pojo.Site;
  * Composite to show the user the unused images of a rendering pass. The caller is 
  * {@link DialogManager#startDialogUnusedImages(org.eclipse.swt.widgets.Shell, Site, Collection)}.
  *
- * @version $Id: UnusedImageComp.java 2228 2013-01-06 10:50:17Z th-schwarz $
- * @author <a href="mailto:th-schwarz@users.sourceforge.net">Thilo Schwarz</a>
+ * @author Thilo Schwarz
  */
 public class UnusedImageComp extends Composite {
 	private Composite mainComp = null;

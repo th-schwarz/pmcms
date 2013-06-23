@@ -2,7 +2,7 @@
 
 ... a very basic CMS generating static html pages.
 
-pmcms is distributed under the [GPL](http://www.gnu.org/licenses/gpl.html) and [MPL](http://www.mozilla.org/MPL/MPL-1.1.html) Open Source licenses. This **dual copyleft licensing model** is flexible and allows you to choose the license that is best suited for your needs. The Open Source licenses are intended for:
+pmcms is distributed under the [LGPL](http://www.gnu.org/licenses/lgpl-3.0.html) and [MPL](http://www.mozilla.org/MPL/MPL-1.1.html) Open Source licenses. This **dual copyleft licensing model** is flexible and allows you to choose the license that is best suited for your needs. The Open Source licenses are intended for:
 
 * Integrating pmcms into Open Source software.
 * Personal and educational use of pmcms.

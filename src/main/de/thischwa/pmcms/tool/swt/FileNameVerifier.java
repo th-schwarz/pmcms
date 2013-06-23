@@ -1,15 +1,12 @@
 /*******************************************************************************
  * Poor Man's CMS (pmcms) - A very basic CMS generating static html pages.
- * http://pmcms.sourceforge.net
+ * http://poormans.sourceforge.net
  * Copyright (C) 2004-2013 by Thilo Schwarz
  * 
  * == BEGIN LICENSE ==
  * 
  * Licensed under the terms of any of the following licenses at your
  * choice:
- * 
- *  - GNU General Public License Version 2 or later (the "GPL")
- *    http://www.gnu.org/licenses/gpl.html
  * 
  *  - GNU Lesser General Public License Version 2.1 or later (the "LGPL")
  *    http://www.gnu.org/licenses/lgpl.html
@@ -33,8 +30,7 @@ import de.thischwa.pmcms.Constants;
  * Verify listener for swt components like {@link Text} to ensure, that the input of a text control only contains numbers, lower cased chars 'a'...'z', '_' and '-'.
  * Used for file base names.
  * 
- * @version $Id: FileNameVerifier.java 2210 2012-06-17 13:01:49Z th-schwarz $
- * @author <a href="mailto:th-schwarz@users.sourceforge.net">Thilo Schwarz</a>
+ * @author Thilo Schwarz
  */
 public class FileNameVerifier implements VerifyListener {
 

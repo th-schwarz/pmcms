@@ -1,15 +1,12 @@
 /*******************************************************************************
  * Poor Man's CMS (pmcms) - A very basic CMS generating static html pages.
- * http://pmcms.sourceforge.net
+ * http://poormans.sourceforge.net
  * Copyright (C) 2004-2013 by Thilo Schwarz
  * 
  * == BEGIN LICENSE ==
  * 
  * Licensed under the terms of any of the following licenses at your
  * choice:
- * 
- *  - GNU General Public License Version 2 or later (the "GPL")
- *    http://www.gnu.org/licenses/gpl.html
  * 
  *  - GNU Lesser General Public License Version 2.1 or later (the "LGPL")
  *    http://www.gnu.org/licenses/lgpl.html
@@ -41,8 +38,7 @@ import de.thischwa.pmcms.model.domain.pojo.Site;
 /**
  * Helper class to provide infos about the current rendered {@link APoorMansObject}.
  * 
- * @version $Id: PojoHelper.java 2211 2012-06-18 19:08:23Z th-schwarz $
- * @author <a href="mailto:th-schwarz@users.sourceforge.net">Thilo Schwarz</a>
+ * @author Thilo Schwarz
  */
 public class PojoHelper {
 	private static Logger logger = Logger.getLogger(PojoHelper.class);

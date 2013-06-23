@@ -1,15 +1,12 @@
 /*******************************************************************************
  * Poor Man's CMS (pmcms) - A very basic CMS generating static html pages.
- * http://pmcms.sourceforge.net
+ * http://poormans.sourceforge.net
  * Copyright (C) 2004-2013 by Thilo Schwarz
  * 
  * == BEGIN LICENSE ==
  * 
  * Licensed under the terms of any of the following licenses at your
  * choice:
- * 
- *  - GNU General Public License Version 2 or later (the "GPL")
- *    http://www.gnu.org/licenses/gpl.html
  * 
  *  - GNU Lesser General Public License Version 2.1 or later (the "LGPL")
  *    http://www.gnu.org/licenses/lgpl.html
@@ -35,8 +32,7 @@ import de.thischwa.pmcms.model.IRenderable;
  * Base object for a page.
  * {@link Gallery} is inherited from this object. 
  * 
- * @version $Id: Page.java 2216 2012-07-14 15:48:49Z th-schwarz $
- * @author <a href="mailto:th-schwarz@users.sourceforge.net">Thilo Schwarz</a>
+ * @author Thilo Schwarz
  */
 public class Page extends APoormansObject<Level> implements IRenderable, IOrderable<Page> {
 	protected String name;
