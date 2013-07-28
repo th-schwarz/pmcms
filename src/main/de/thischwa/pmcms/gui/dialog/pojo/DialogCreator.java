@@ -19,7 +19,6 @@
 package de.thischwa.pmcms.gui.dialog.pojo;
 
 
-import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.layout.GridData;
@@ -45,8 +44,6 @@ import de.thischwa.pmcms.model.domain.pojo.Site;
  * <li>CompositeDialogFields[Ipo]: contains all input fields and validation method for the {@link IPoorMansObject}.</li>
  * <li>{@link DialogFooterComp}: holds the ok and cancel button.</li>
  * </ul>
- * 
- * TODO switch to swt's {@link Dialog}
  * 
  * @author Thilo Schwarz
  */

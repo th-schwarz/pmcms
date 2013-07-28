@@ -55,14 +55,19 @@ public interface IVirtualFile {
 	public File getBaseFile();
 
 	/**
-	 * Constructs the main file from the src-attribute of an a-tag. Examples:
+	 * Constructs the main file from the src-attribute of an a-tag or an img-tag. Examples:
 	 * <ul>
 	 * <li>/site/[pmcms.site.dir.resources]/test.zip</li>
 	 * <li>/site/[pmcms.site.dir.resources.layout]/test.zip</li>
 	 * </ul>
-	 * @throws IllegalArgumentException TODO
+	 * 
+	 * @param src the src-attribute of an a-tag or an img-tag
+	 * @throws IllegalArgumentException if the src-attribute can't be analyzed.
 	 */
 	public void consructFromTagFromView(final String src) throws IllegalArgumentException;
 	
+	/**
+	 * @return true for galleries and images, false for files which are used inside the wysiwyg-editor (= content, no layout). 
+	 */
 	boolean isForLayout();
 }
