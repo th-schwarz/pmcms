@@ -34,9 +34,13 @@ public class PropertiesTool {
 	};
 
 	/**
-	 * Construct a new property object, which returns the requested properties. <code>filter</code> is the 1st part of a property string. If
-	 * <code>trim</code> is true, this part will be cut. (Useful e.g. for velocity properties.) If <code>exactMatch</code> is true, only one
-	 * property (if found) will be returned.
+	 * Construct a new property object, based on the assigned properties. 
+	 *
+	 * @param properties the base properties to work with.
+	 * @param filter 1st part of a property key
+	 * @param trim if true, 'filter' will be cut from the keys (Useful e.g. for velocity properties.)
+	 * @param exactMatch if true, only one property (the exact one, if found) will be returned
+	 * @return
 	 */
 	public static Properties getProperties(final Properties properties, final String filter, boolean trim, boolean exactMatch) {
 		Properties newProps = new Properties();
