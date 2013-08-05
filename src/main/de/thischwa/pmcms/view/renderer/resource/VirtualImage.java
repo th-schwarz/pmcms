@@ -25,7 +25,7 @@ import java.util.regex.Pattern;
 import org.apache.commons.io.FilenameUtils;
 
 import de.thischwa.pmcms.Constants;
-import de.thischwa.pmcms.configuration.InitializationManager;
+import de.thischwa.pmcms.conf.InitializationManager;
 import de.thischwa.pmcms.exception.FatalException;
 import de.thischwa.pmcms.model.domain.PoPathInfo;
 import de.thischwa.pmcms.model.domain.pojo.Image;

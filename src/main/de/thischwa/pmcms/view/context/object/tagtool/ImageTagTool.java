@@ -29,7 +29,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import de.thischwa.pmcms.Constants;
-import de.thischwa.pmcms.configuration.PropertiesManager;
+import de.thischwa.pmcms.conf.PropertiesManager;
 import de.thischwa.pmcms.exception.FatalException;
 import de.thischwa.pmcms.livecycle.PojoHelper;
 import de.thischwa.pmcms.model.domain.pojo.Gallery;

@@ -28,6 +28,9 @@ import de.thischwa.pmcms.tool.XY;
  */
 public interface Constants {
 	
+	/** Name of the application. */
+	public static final String NAME = "PoorMansCMS"; 
+	
 	/** Name of the parameter for setting the view mode. (See VIEMODE_*) */
 	public static final String LINK_VIEWMODE_DESCRIPTOR = "poormans_vm";
 	
@@ -68,16 +71,13 @@ public interface Constants {
 	public static final String LINK_IDENTICATOR_SITE_RESOURCE = "site";
 	
 	/** Poormans' temp directory. */
-	public static final File TEMP_DIR = new File(System.getProperty("java.io.tmpdir"), "PoorMansCMS");
+	public static final File TEMP_DIR = new File(System.getProperty("java.io.tmpdir"), NAME);
 
 	/** Poormans' application directory. */
 	public static final File APPLICATION_DIR = new File(System.getProperty("user.dir"));
 	
 	/** User's home directory. */ 
 	public static final File HOME_DIR = new File(System.getProperty("user.home"));
-	
-	/** Default data directory. */
-	public static final File DEFAULT_DATA_DIR = new File(HOME_DIR, "PoorMansCMS");
 	
 	/** Standard http port. */
 	public static final int STANDARD_PORT_HTTP = 80;

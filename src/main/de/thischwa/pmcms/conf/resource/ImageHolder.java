@@ -16,21 +16,21 @@
  * 
  * == END LICENSE ==
  ******************************************************************************/
-package de.thischwa.pmcms.configuration.resource;
+package de.thischwa.pmcms.conf.resource;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 
-
 import org.eclipse.swt.graphics.Image;
 
 import de.thischwa.pmcms.Constants;
+import de.thischwa.pmcms.conf.InitializationManager;
+import de.thischwa.pmcms.conf.PropertiesManager;
 import de.thischwa.pmcms.gui.treeview.TreeViewSiteRecourceNode;
 import de.thischwa.pmcms.model.InstanceUtil;
 import de.thischwa.pmcms.model.domain.pojo.APoormansObject;
 import de.thischwa.pmcms.tool.swt.SWTUtils;
 
-// TODO: Auto-generated Javadoc
 /**
  * Hold icons using in the gui.
  *
@@ -46,7 +46,8 @@ public class ImageHolder {
 	 * @throws MalformedURLException the malformed url exception
 	 */
 	private static URL buildUrl(final String srcImg) throws MalformedURLException {
-		String location = String.format("file:%s/gfx/%s", Constants.APPLICATION_DIR.getAbsolutePath(), srcImg);
+		String gfxFolder = InitializationManager.getBean(PropertiesManager.class).getProperty("pmcms.dir.gfx");
+		String location = String.format("file:%s/%s/%s", Constants.APPLICATION_DIR.getAbsolutePath(), gfxFolder, srcImg);
 		return new URL(location);
 	}
 	

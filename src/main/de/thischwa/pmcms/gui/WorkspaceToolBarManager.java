@@ -22,7 +22,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-
 import org.apache.log4j.Logger;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
@@ -36,8 +35,8 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 
-import de.thischwa.pmcms.configuration.InitializationManager;
-import de.thischwa.pmcms.configuration.resource.LabelHolder;
+import de.thischwa.pmcms.conf.InitializationManager;
+import de.thischwa.pmcms.conf.resource.LabelHolder;
 import de.thischwa.pmcms.exception.FatalException;
 import de.thischwa.pmcms.gui.listener.ListenerAddSite;
 import de.thischwa.pmcms.gui.listener.ListenerBackupSite;

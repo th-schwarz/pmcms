@@ -24,12 +24,11 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URLDecoder;
 
-
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.StringUtils;
 
-import de.thischwa.pmcms.configuration.InitializationManager;
-import de.thischwa.pmcms.configuration.PropertiesManager;
+import de.thischwa.pmcms.conf.InitializationManager;
+import de.thischwa.pmcms.conf.PropertiesManager;
 import de.thischwa.pmcms.model.IRenderable;
 import de.thischwa.pmcms.model.InstanceUtil;
 import de.thischwa.pmcms.model.domain.OrderableInfo;

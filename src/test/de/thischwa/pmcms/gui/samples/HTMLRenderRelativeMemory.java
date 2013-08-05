@@ -8,8 +8,8 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
 import de.thischwa.pmcms.Constants;
-import de.thischwa.pmcms.configuration.BasicConfigurator;
-import de.thischwa.pmcms.configuration.InitializationManager;
+import de.thischwa.pmcms.conf.BasicConfigurator;
+import de.thischwa.pmcms.conf.InitializationManager;
 import de.thischwa.pmcms.model.thread.ThreadController;
 
 public class HTMLRenderRelativeMemory {

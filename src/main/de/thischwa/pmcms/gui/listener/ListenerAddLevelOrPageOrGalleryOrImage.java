@@ -21,15 +21,14 @@ package de.thischwa.pmcms.gui.listener;
 import java.io.File;
 import java.io.IOException;
 
-
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.widgets.Shell;
 
-import de.thischwa.pmcms.configuration.InitializationManager;
-import de.thischwa.pmcms.configuration.PropertiesManager;
+import de.thischwa.pmcms.conf.InitializationManager;
+import de.thischwa.pmcms.conf.PropertiesManager;
 import de.thischwa.pmcms.exception.FatalException;
 import de.thischwa.pmcms.gui.BrowserManager;
 import de.thischwa.pmcms.gui.dialog.DialogManager;

@@ -26,9 +26,9 @@ import org.eclipse.swt.SWTException;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 
-import de.thischwa.pmcms.configuration.BasicConfigurator;
-import de.thischwa.pmcms.configuration.InitializationManager;
-import de.thischwa.pmcms.configuration.resource.LabelHolder;
+import de.thischwa.pmcms.conf.BasicConfigurator;
+import de.thischwa.pmcms.conf.InitializationManager;
+import de.thischwa.pmcms.conf.resource.LabelHolder;
 import de.thischwa.pmcms.gui.MainWindow;
 import de.thischwa.pmcms.tool.CliParser;
 import de.thischwa.pmcms.tool.OS.OSDetector;
@@ -47,13 +47,21 @@ public class Starter {
 		try {
 			// analyze the command-line-params 
 			cliParser = new CliParser(args);
-			if(!cliParser.hasOption("datadir")) {
+			if(cliParser.hasOption("help")) {
+				cliParser.printHelp();
+				System.exit(0);
+			}
+			if(!cliParser.hasOption("portable") && !cliParser.hasOption("datadir")) {
 				System.out.println("Parameter '-datadir' is missing!");
 				cliParser.printHelp();
 				System.exit(2);
 			}
-			// TODO add fake datadir CURRENT
-			dataDir = new File(cliParser.getOptionValue("datadir"));
+			if(cliParser.hasOption("portable")) 
+				dataDir = Constants.APPLICATION_DIR;
+			else {
+				dataDir = (cliParser.hasOption("datadir")) 
+						? new File(cliParser.getOptionValue("datadir")) : new File(Constants.HOME_DIR, Constants.NAME);
+			}
 			configurator = new BasicConfigurator(dataDir);
 			InitializationManager.setAdmin(cliParser.hasOption("admin"));
 			InitializationManager.setHasToCleanup(cliParser.hasOption("cleanup"));

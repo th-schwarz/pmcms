@@ -28,7 +28,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 
-import de.thischwa.pmcms.configuration.InitializationManager;
+import de.thischwa.pmcms.conf.InitializationManager;
 import de.thischwa.pmcms.gui.BrowserManager;
 import de.thischwa.pmcms.gui.GuiPropertiesManager;
 import de.thischwa.pmcms.gui.WorkspaceToolBarManager;

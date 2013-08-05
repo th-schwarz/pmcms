@@ -27,7 +27,6 @@ import java.io.Writer;
 import java.util.HashMap;
 import java.util.Map;
 
-
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -39,7 +38,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import de.thischwa.pmcms.Constants;
-import de.thischwa.pmcms.configuration.InitializationManager;
+import de.thischwa.pmcms.conf.InitializationManager;
 import de.thischwa.pmcms.exception.FatalException;
 import de.thischwa.pmcms.exception.RenderingException;
 import de.thischwa.pmcms.livecycle.PojoHelper;

@@ -34,7 +34,7 @@ import org.apache.velocity.app.VelocityEngine;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import de.thischwa.pmcms.configuration.PropertiesManager;
+import de.thischwa.pmcms.conf.PropertiesManager;
 import de.thischwa.pmcms.model.InstanceUtil;
 import de.thischwa.pmcms.model.domain.PoPathInfo;
 import de.thischwa.pmcms.model.domain.pojo.APoormansObject;

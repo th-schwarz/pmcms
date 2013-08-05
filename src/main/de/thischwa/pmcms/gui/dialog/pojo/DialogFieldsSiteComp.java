@@ -27,9 +27,9 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
-import de.thischwa.pmcms.configuration.InitializationManager;
-import de.thischwa.pmcms.configuration.PropertiesManager;
-import de.thischwa.pmcms.configuration.resource.LabelHolder;
+import de.thischwa.pmcms.conf.InitializationManager;
+import de.thischwa.pmcms.conf.PropertiesManager;
+import de.thischwa.pmcms.conf.resource.LabelHolder;
 import de.thischwa.pmcms.model.domain.PoStructurTools;
 import de.thischwa.pmcms.model.domain.pojo.Site;
 import de.thischwa.pmcms.tool.DESCryptor;

@@ -22,7 +22,6 @@ import java.awt.Point;
 import java.util.HashSet;
 import java.util.Set;
 
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.jface.action.Action;
@@ -41,9 +40,9 @@ import org.eclipse.swt.widgets.Shell;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import de.thischwa.pmcms.configuration.InitializationManager;
-import de.thischwa.pmcms.configuration.resource.ImageHolder;
-import de.thischwa.pmcms.configuration.resource.LabelHolder;
+import de.thischwa.pmcms.conf.InitializationManager;
+import de.thischwa.pmcms.conf.resource.ImageHolder;
+import de.thischwa.pmcms.conf.resource.LabelHolder;
 import de.thischwa.pmcms.gui.composite.EditComp;
 import de.thischwa.pmcms.gui.composite.StatusBarComp;
 import de.thischwa.pmcms.gui.dialog.HeapSizeDialog;

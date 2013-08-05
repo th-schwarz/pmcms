@@ -25,7 +25,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 
-import de.thischwa.pmcms.configuration.InitializationManager;
+import de.thischwa.pmcms.conf.InitializationManager;
 import de.thischwa.pmcms.model.InstanceUtil;
 import de.thischwa.pmcms.model.domain.pojo.APoormansObject;
 import de.thischwa.pmcms.model.domain.pojo.Gallery;

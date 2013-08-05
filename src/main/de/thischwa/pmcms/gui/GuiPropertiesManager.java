@@ -25,11 +25,10 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.Properties;
 
-
 import org.apache.log4j.Logger;
 
 import de.thischwa.pmcms.Constants;
-import de.thischwa.pmcms.configuration.InitializationManager;
+import de.thischwa.pmcms.conf.InitializationManager;
 import de.thischwa.pmcms.tool.XY;
 
 /**

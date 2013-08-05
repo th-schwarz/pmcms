@@ -21,7 +21,6 @@ package de.thischwa.pmcms.gui.listener;
 import java.io.File;
 import java.util.Collection;
 
-
 import org.apache.commons.collections.CollectionUtils;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
@@ -29,9 +28,9 @@ import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 
-import de.thischwa.pmcms.configuration.InitializationManager;
-import de.thischwa.pmcms.configuration.PropertiesManager;
-import de.thischwa.pmcms.configuration.resource.LabelHolder;
+import de.thischwa.pmcms.conf.InitializationManager;
+import de.thischwa.pmcms.conf.PropertiesManager;
+import de.thischwa.pmcms.conf.resource.LabelHolder;
 import de.thischwa.pmcms.exception.ProgressException;
 import de.thischwa.pmcms.gui.dialog.DialogManager;
 import de.thischwa.pmcms.livecycle.SiteHolder;

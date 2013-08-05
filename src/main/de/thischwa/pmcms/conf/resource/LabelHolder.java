@@ -16,7 +16,7 @@
  * 
  * == END LICENSE ==
  ******************************************************************************/
-package de.thischwa.pmcms.configuration.resource;
+package de.thischwa.pmcms.conf.resource;
 
 import java.util.Locale;
 import java.util.MissingResourceException;
@@ -42,7 +42,7 @@ public class LabelHolder {
 
     static {
 		// load the ResourceBundle
-		resourceBundle = ResourceBundle.getBundle("de.thischwa.pmcms.configuration.resource/labels");
+		resourceBundle = ResourceBundle.getBundle("de.thischwa.pmcms.conf.resource/labels");
     	
 		// take care of the default language
 		if (StringUtils.isBlank(resourceBundle.getLocale().getLanguage()))

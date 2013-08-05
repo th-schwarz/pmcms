@@ -28,8 +28,8 @@ import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 
-import de.thischwa.pmcms.configuration.InitializationManager;
-import de.thischwa.pmcms.configuration.resource.LabelHolder;
+import de.thischwa.pmcms.conf.InitializationManager;
+import de.thischwa.pmcms.conf.resource.LabelHolder;
 import de.thischwa.pmcms.gui.BrowserManager;
 import de.thischwa.pmcms.gui.listener.ListenerAddLevelOrPageOrGalleryOrImage;
 import de.thischwa.pmcms.gui.listener.ListenerDeletePersitentPojo;

@@ -33,12 +33,17 @@ public class CliParser {
 	private CommandLine line;
 	private Options options = null;
 	
-	
 	public CliParser(String[] args) throws Exception {
 		buildOptions();
 		CommandLineParser parser = new GnuParser();
 		try {
 			line = parser.parse(options, args);
+			if(hasOption("help"))
+				return;
+			
+			// simple validation
+			if(!hasOption("portable") && !hasOption("datadir"))
+				throw new Exception("If -partable isn't used, -datadir must be set!");
 		} catch (ParseException exp) {
 			throw new Exception("Argument parsing failed. Reason: " + exp.getMessage());
 		}
@@ -48,15 +53,17 @@ public class CliParser {
 		Option help = new Option("help", "print this message");
 		Option admin = new Option("admin", "start poormans in the admin mode");
 		Option cleanUp = new Option("cleanup", "clean up the settings and site data, all data will be deleted !!!");
-		Option dataDir = new Option("datadir", true, "full path of the data directory (required)");
+		Option dataDir = new Option("datadir", true, "full path of the data directory (required only if 'portable' isn't set)");
 		dataDir.setArgName("path");
 		Option debug = new Option("debug", "print out debug statements on stdout while starting");
+		Option portable = new Option("portable", "for running on a portable device");
 		options = new Options();
 		options.addOption(help);
 		options.addOption(admin);
 		options.addOption(cleanUp);
 		options.addOption(dataDir);
 		options.addOption(debug);
+		options.addOption(portable);
 	}
 	
 	/**

@@ -20,14 +20,13 @@ package de.thischwa.pmcms.gui.listener;
 
 import java.io.File;
 
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.widgets.Shell;
 
-import de.thischwa.pmcms.configuration.InitializationManager;
+import de.thischwa.pmcms.conf.InitializationManager;
 import de.thischwa.pmcms.gui.BrowserManager;
 import de.thischwa.pmcms.gui.WorkspaceToolBarManager;
 import de.thischwa.pmcms.gui.dialog.DialogManager;

@@ -35,7 +35,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
-import de.thischwa.pmcms.configuration.resource.ImageHolder;
+import de.thischwa.pmcms.conf.resource.ImageHolder;
 import de.thischwa.pmcms.exception.FatalException;
 import de.thischwa.pmcms.exception.ProgressException;
 import de.thischwa.pmcms.gui.IProgressViewer;

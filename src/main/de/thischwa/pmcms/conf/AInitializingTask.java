@@ -16,7 +16,7 @@
  * 
  * == END LICENSE ==
  ******************************************************************************/
-package de.thischwa.pmcms.configuration;
+package de.thischwa.pmcms.conf;
 
 import javax.servlet.http.HttpSession;
 
@@ -36,7 +36,7 @@ public abstract class AInitializingTask implements IApplicationLiveCycleListener
      * Have to be overridden from classes, which extends this one.<br>
      * DON'T FORGET TO CALL SUPER!!!
      * 
-     * @see de.thischwa.pmcms.configuration.IApplicationLiveCycleListener#onApplicationStart()
+     * @see de.thischwa.pmcms.conf.IApplicationLiveCycleListener#onApplicationStart()
      */
     @Override
 	public void onApplicationStart() {
@@ -47,7 +47,7 @@ public abstract class AInitializingTask implements IApplicationLiveCycleListener
      * Have to be overridden from classes, which extends this one.<br>
      * DON'T FORGET TO CALL SUPER!!!
      * 
-     * @see de.thischwa.pmcms.configuration.IApplicationLiveCycleListener#onApplicationEnd()
+     * @see de.thischwa.pmcms.conf.IApplicationLiveCycleListener#onApplicationEnd()
      */
     @Override
 	public void onApplicationEnd() {

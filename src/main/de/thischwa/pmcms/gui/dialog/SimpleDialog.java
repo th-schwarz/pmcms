@@ -32,7 +32,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
-import de.thischwa.pmcms.configuration.resource.ImageHolder;
+import de.thischwa.pmcms.conf.resource.ImageHolder;
 import de.thischwa.pmcms.tool.XY;
 
 

@@ -20,7 +20,6 @@ package de.thischwa.pmcms.gui.dialog;
 
 import java.util.Map;
 
-
 import org.apache.commons.lang.StringUtils;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FillLayout;
@@ -31,8 +30,8 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 
 import de.thischwa.pmcms.Constants;
-import de.thischwa.pmcms.configuration.InitializationManager;
-import de.thischwa.pmcms.configuration.PropertiesManager;
+import de.thischwa.pmcms.conf.InitializationManager;
+import de.thischwa.pmcms.conf.PropertiesManager;
 import de.thischwa.pmcms.gui.BrowserManager;
 import de.thischwa.pmcms.tool.ToolVersionInfo;
 import de.thischwa.pmcms.tool.swt.SWTUtils;

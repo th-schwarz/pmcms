@@ -1,8 +1,8 @@
 package de.thischwa.pmcms.server;
 
 import de.thischwa.pmcms.Constants;
-import de.thischwa.pmcms.configuration.BasicConfigurator;
-import de.thischwa.pmcms.configuration.InitializationManager;
+import de.thischwa.pmcms.conf.BasicConfigurator;
+import de.thischwa.pmcms.conf.InitializationManager;
 
 public class StartJetty {
 

@@ -21,7 +21,6 @@ package de.thischwa.pmcms.model.tool;
 import java.io.File;
 import java.io.IOException;
 
-
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -31,8 +30,8 @@ import org.dom4j.io.SAXReader;
 import org.eclipse.core.runtime.IProgressMonitor;
 
 import de.thischwa.pmcms.Constants;
-import de.thischwa.pmcms.configuration.InitializationManager;
-import de.thischwa.pmcms.configuration.resource.LabelHolder;
+import de.thischwa.pmcms.conf.InitializationManager;
+import de.thischwa.pmcms.conf.resource.LabelHolder;
 import de.thischwa.pmcms.exception.FatalException;
 import de.thischwa.pmcms.gui.IProgressViewer;
 import de.thischwa.pmcms.model.domain.pojo.Site;

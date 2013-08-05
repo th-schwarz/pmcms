@@ -21,10 +21,9 @@ package de.thischwa.pmcms.tool.connection;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-
 import org.eclipse.core.runtime.IProgressMonitor;
 
-import de.thischwa.pmcms.configuration.resource.LabelHolder;
+import de.thischwa.pmcms.conf.resource.LabelHolder;
 import de.thischwa.pmcms.tool.Utils;
 
 

@@ -40,9 +40,9 @@ import de.thischwa.pmcms.Constants;
 import de.thischwa.pmcms.tool.OS.OSDetector;
 
 /**
- * Internal ant tool. Implemented functions:
+ * Internal ant tool. Functions:
  * <ul>
- * <li>Start of pmcms. OS specific (JVM) arguments are respected.
+ * <li>Start of pmcms. OS specific JVM-arguments are respected.
  * <li>Cleanup: Deletes all settings and data.
  * </ul>
  *
@@ -54,14 +54,14 @@ public class InternalAntTool {
 	 * Starts poormans with respect of the current OS. Dependent on that, special JVM settings and environment variables
 	 * are set.
 	 * 
-	 * @param os The current os type.
 	 * @param dataDir Data directory to use for.
 	 * @param props Properties to use for.
 	 * @param starterClass
 	 * @param printDebug if true additional logging informations will be print out at stdio.
 	 * @param additionalArgs Additional poormans commandline arguments. Can be <tt>null</tt> or empty.
 	 */
-	public static void start(final OSDetector.Type os, final File dataDir, final Properties props, final String starterClass, boolean printDebug, final String[] additionalArgs) {
+	public static void start(final File dataDir, final Properties props, final String starterClass, boolean printDebug, final String[] additionalArgs) {
+		OSDetector.Type os = OSDetector.getType(); // Throws a RuntimeException, if os isn't supported!
 		Project project = buildProject();	
 		List<String> jvmArgs = new ArrayList<String>();
 		if(props.getProperty("jvm.arguments") != null) {
@@ -72,10 +72,12 @@ public class InternalAntTool {
 		}
 		Throwable caught = null;
 		String propLib = props.getProperty("pmcms.dir.lib");
+		String propLibSwt  = props.getProperty("pmcms.dir.lib.swt");
 		if(printDebug) {
 			project.log("OS: " + os);
 			project.log("Starter class: " + starterClass);
 			project.log("Lib-folder-property: " + propLib);
+			project.log("Lib-swt-folder-property: " + propLibSwt);
 		}
 		int retVal = -1;
 		try {
@@ -88,28 +90,40 @@ public class InternalAntTool {
 			javaTask.setFailonerror(true);
 			javaTask.setClassname(starterClass);
 			
-			/** set the class path */
+			/** build the class path */
 			Path classPath = new Path(project);
-			classPath.setPath(new File(Constants.APPLICATION_DIR, propLib).getPath());
-			FileSet fileSet = new FileSet();
-			fileSet.setDir(new File(Constants.APPLICATION_DIR, propLib));
-			fileSet.setIncludes("*.jar");
-			// add correct swt jar  
-			// TODO add 64bit jars
-			String swtJar;
+			javaTask.setClasspath(classPath);
+			FileSet libFileSet = new FileSet();
+			libFileSet.setDir(new File(Constants.APPLICATION_DIR, propLib));
+			libFileSet.setIncludes("**/*jar,**/*properties");
+			
+			/** build the requested swt-jar */
+			boolean enable64bit = Boolean.parseBoolean(props.getProperty("pmcms.64bit"));
+			String swt64bitAddOn = (enable64bit) ? "_64" : "";
+			if(printDebug)
+				project.log(String.format("Requested swt-arch: %sbit", (enable64bit) ? "64" : "32"));
+			
+			String swtFolderRaw;
 			switch (os) {
 			case MAC:
-				swtJar = "swt-cocoa-macosx.jar";
+				swtFolderRaw = "cocoa-macosx%s";
 				break;
 			case LINUX:
-				swtJar = "swt-gtk-linux-x86.jar";
+				swtFolderRaw = "gtk-linux-x86%s";
 				break;
 			default:
-				swtJar = "swt-win32-win32-x86.jar";
+				swtFolderRaw = "win32-win32-x86%s";
 			}
-			fileSet.setIncludes(String.format("swt/%s", swtJar));
-			classPath.addFileset(fileSet);
-			javaTask.setClasspath(classPath);
+			swtFolderRaw = String.format("%s/%s", propLibSwt, swtFolderRaw);
+			String swtFolder = String.format(swtFolderRaw, swt64bitAddOn);
+			File swtDir = new File(Constants.APPLICATION_DIR, swtFolder);
+			if(printDebug)
+				project.log(String.format("Swt-directory: %s", swtDir.getPath()));
+			FileSet swtFileSet = new FileSet();
+			swtFileSet.setDir(swtDir);
+			swtFileSet.setIncludes("*jar");
+			classPath.addFileset(swtFileSet);
+			classPath.addFileset(libFileSet);
 			if(printDebug)
 				project.log("Classpath: " + classPath);
 			
@@ -120,19 +134,20 @@ public class InternalAntTool {
 						jvmArgs.add("-XstartOnFirstThread");
 					break;
 				case WIN:
-					jvmArgs.add("-Djava.library.path=${pmcms.dir.lib}/swt");
+					String arg = String.format("-Djava.library.path=%s", swtFolder);
+					jvmArgs.add(arg);
 					break;
 				case LINUX:
 					// no special properties required, setting be done by jvm args 
 					break;
 				default:
-					project.log("Error: Unknown OS.");
+					project.log("Error: Unknown OS: " + OSDetector.getOSString());
 					System.exit(3);
 					break;
 			}
 			// add jvm args if exists
 			if(!jvmArgs.isEmpty()) {
-				// clean-up the jvm-args and ensure that each one starts with '-D'
+				// clean-up the jvm-args and ensure that each one starts with '-D' or '-X'
 				List<String> tmpArgs = new ArrayList<String>();
 				for (String arg : jvmArgs) {
 					if(arg.startsWith("-D") || arg.startsWith("-d") || arg.startsWith("-X") || arg.startsWith("-x"))
@@ -141,7 +156,7 @@ public class InternalAntTool {
 				jvmArgs.clear();
 				jvmArgs.addAll(tmpArgs);
 				// build the args line and replace inline-variables
-				String jvmArgsLine = StringUtils.join(jvmArgs, ' ').replace("${pmcms.dir.lib}", propLib);
+				String jvmArgsLine = StringUtils.join(jvmArgs, ' ');
 				Argument argument = javaTask.createJvmarg();
 				argument.setLine(jvmArgsLine);
 				if(printDebug)

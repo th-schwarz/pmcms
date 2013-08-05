@@ -20,12 +20,11 @@ package de.thischwa.pmcms.gui.listener;
 
 import java.io.IOException;
 
-
 import org.apache.log4j.Logger;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 
-import de.thischwa.pmcms.configuration.InitializationManager;
+import de.thischwa.pmcms.conf.InitializationManager;
 import de.thischwa.pmcms.gui.BrowserManager;
 import de.thischwa.pmcms.gui.treeview.TreeViewManager;
 import de.thischwa.pmcms.livecycle.SiteHolder;

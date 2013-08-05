@@ -20,7 +20,6 @@ package de.thischwa.pmcms.gui.composite;
 
 import java.io.File;
 
-
 import org.apache.log4j.Logger;
 import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
@@ -29,8 +28,8 @@ import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 
-import de.thischwa.pmcms.configuration.InitializationManager;
-import de.thischwa.pmcms.configuration.resource.LabelHolder;
+import de.thischwa.pmcms.conf.InitializationManager;
+import de.thischwa.pmcms.conf.resource.LabelHolder;
 import de.thischwa.pmcms.tool.image.Dimension;
 import de.thischwa.pmcms.tool.image.ImageTool;
 

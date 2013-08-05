@@ -18,7 +18,7 @@
  ******************************************************************************/
 package de.thischwa.pmcms.model.domain.pojo;
 
-import de.thischwa.pmcms.configuration.InitializationManager;
+import de.thischwa.pmcms.conf.InitializationManager;
 
 
 

@@ -26,11 +26,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 
-import de.thischwa.pmcms.configuration.resource.LabelHolder;
+import de.thischwa.pmcms.conf.resource.LabelHolder;
 import de.thischwa.pmcms.exception.FatalException;
 import de.thischwa.pmcms.model.IRenderable;
 import de.thischwa.pmcms.model.InstanceUtil;

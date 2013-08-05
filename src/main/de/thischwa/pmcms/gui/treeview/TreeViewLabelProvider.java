@@ -22,7 +22,7 @@ package de.thischwa.pmcms.gui.treeview;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.graphics.Image;
 
-import de.thischwa.pmcms.configuration.resource.ImageHolder;
+import de.thischwa.pmcms.conf.resource.ImageHolder;
 import de.thischwa.pmcms.model.InstanceUtil;
 import de.thischwa.pmcms.model.domain.pojo.APoormansObject;
 

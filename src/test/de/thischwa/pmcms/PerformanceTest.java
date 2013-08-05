@@ -5,8 +5,8 @@ import org.apache.commons.lang.time.StopWatch;
 import org.apache.log4j.Logger;
 
 import de.thischwa.pmcms.Constants;
-import de.thischwa.pmcms.configuration.BasicConfigurator;
-import de.thischwa.pmcms.configuration.InitializationManager;
+import de.thischwa.pmcms.conf.BasicConfigurator;
+import de.thischwa.pmcms.conf.InitializationManager;
 import de.thischwa.pmcms.livecycle.SiteHolder;
 import de.thischwa.pmcms.model.domain.pojo.Site;
 import de.thischwa.pmcms.model.thread.ThreadController;

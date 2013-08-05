@@ -26,11 +26,10 @@ import java.io.InputStream;
 import java.util.Properties;
 
 import de.thischwa.pmcms.Constants;
-import de.thischwa.pmcms.configuration.BasicConfigurator;
+import de.thischwa.pmcms.conf.BasicConfigurator;
 import de.thischwa.pmcms.tool.CliParser;
 import de.thischwa.pmcms.tool.InternalAntTool;
 import de.thischwa.pmcms.tool.PropertiesTool;
-import de.thischwa.pmcms.tool.OS.OSDetector;
 
 
 /**
@@ -41,7 +40,6 @@ import de.thischwa.pmcms.tool.OS.OSDetector;
 public class Launcher {
 
 	public static void main(String[] args) throws FileNotFoundException {
-		OSDetector.Type osType = OSDetector.getType(); // Throws a RuntimeException, if os isn't supported!
 		CliParser cliParser = null;
 		try {
 			cliParser = new CliParser(args);
@@ -55,16 +53,20 @@ public class Launcher {
 			System.exit(0);
 		}
 		
-		File dataDir = Constants.DEFAULT_DATA_DIR;
-		if(cliParser.hasOption("datadir"))
-			dataDir = new File(cliParser.getOptionValue("datadir"));
+		File dataDir;
+		if(cliParser.hasOption("portable")) 
+			dataDir = Constants.APPLICATION_DIR;
+		else {
+			dataDir = (cliParser.hasOption("datadir")) 
+					? new File(cliParser.getOptionValue("datadir")) : new File(Constants.HOME_DIR, Constants.NAME);
+		}
 		
 		//users props
 		File propertiesFile = new File(dataDir, BasicConfigurator.PROPERTIES_NAME);
 		InputStream userIn = new BufferedInputStream(new FileInputStream(propertiesFile));
 		// the common props
 		InputStream commonIn = new BufferedInputStream(BasicConfigurator.class.getResourceAsStream("common.properties"));
-		Properties props = PropertiesTool.loadProperties(userIn, commonIn);
-		InternalAntTool.start(osType, dataDir, props, "de.thischwa.pmcms.Starter", cliParser.hasOption("debug"), args);
+		Properties props = PropertiesTool.loadProperties(commonIn, userIn);
+		InternalAntTool.start(dataDir, props, "de.thischwa.pmcms.Starter", cliParser.hasOption("debug"), args);
 	}
 }

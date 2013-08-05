@@ -6,14 +6,13 @@ import static org.junit.Assert.assertTrue;
 
 import java.net.URLEncoder;
 
-
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import de.thischwa.pmcms.Constants;
-import de.thischwa.pmcms.configuration.BasicConfigurator;
-import de.thischwa.pmcms.configuration.InitializationManager;
+import de.thischwa.pmcms.conf.BasicConfigurator;
+import de.thischwa.pmcms.conf.InitializationManager;
 import de.thischwa.pmcms.model.domain.pojo.Macro;
 import de.thischwa.pmcms.server.Action;
 import de.thischwa.pmcms.tool.Link;

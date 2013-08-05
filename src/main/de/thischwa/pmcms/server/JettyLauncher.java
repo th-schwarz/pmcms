@@ -34,8 +34,8 @@ import org.springframework.util.ClassUtils;
 
 import de.thischwa.c5c.ConnectorServlet;
 import de.thischwa.pmcms.Constants;
-import de.thischwa.pmcms.configuration.AInitializingTask;
-import de.thischwa.pmcms.configuration.IApplicationLiveCycleListener;
+import de.thischwa.pmcms.conf.AInitializingTask;
+import de.thischwa.pmcms.conf.IApplicationLiveCycleListener;
 
 /**
  * Configure and start of Jetty.

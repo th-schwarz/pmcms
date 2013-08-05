@@ -10,24 +10,30 @@
 
 <project name="PoorMansCMS-Installer" basedir="../" default="build">
 
+	<taskdef resource="net/sf/antcontrib/antlib.xml"/>
+	
 	<!-- properties -->
 	<property name="project.dir" value="${basedir}/Installer"/>
 	<property name="poormans_home" value="${basedir}"/>
 	
 	<property file="${project.dir}/installer.properties"/>
-	<property file="${poormans_home}/${pmcms.dir.src}/de/thischwa/pmcms/configuration/common.properties" />
+	<property file="${pmcms.dir.src}/${pmcms.package.dir}/conf/common.properties" />
 
 	<property name="dir.dist" location="${project.dir}/dist"/>
 	<property name="izpack.dir" location="${project.dir}/IzPack"/>
 	<property name="izpack.dir.swt" value="${izpack.dir}/packs/swt"/>
 	
 	<property name="manifest-built-by" value="build.xml:${pmcms.name}_${pmcms.version}"/>
+	<property name="compile.version" value="1.7"/>
 
 	<property name="dir.lib" location="${poormans_home}/${pmcms.dir.lib}"/>
 
 	<property name="launcher.dir" location="${project.dir}/launcher"/>
-	<property name="launcher.jar" location="${dir.dist}/start.jar"/>
-	<property name="classes.jar" location="${dir.dist}/${pmcms.name}_classes.jar"/>
+	<property name="launcher.jar" value="start.jar"/>
+	<property name="launcher_full.jar" location="${dir.dist}/${launcher.jar}"/>
+	<property name="classes.jar" value="${pmcms.name}_classes.jar"/>
+	<property name="classes_full.jar" location="${dir.dist}/${classes.jar}"/>
+	<property name="portable.zip" location="${dir.dist}/${pmcms.name}_${pmcms.version}_portable.zip"/>
 
 	<property name="swt-version" value="swt-4.2.1"/>
 	<property name="arch.win" value="win32-win32-x86"/>
@@ -38,6 +44,15 @@
 	<property name="tmp.zip.swt.win32" value="${dir.tmp}/${swt-version}-${arch.win}.zip"/>
 	<property name="tmp.zip.swt.osx" value="${dir.tmp}/${swt-version}-${arch.osx}.zip"/>
 
+	<echo>project infos:
+		name:              ${pmcms.name}
+		version:           ${pmcms.version}
+		base dir:          ${basedir}
+		project dir:       ${poormans_home}
+		installer dir:     ${project.dir}
+		class jar:         ${classes_full.jar}
+		launcher jar:      ${launcher_full.jar}
+	</echo>
 
 	<!-- compile the project -->
 	<target name="compile">		
@@ -48,7 +63,8 @@
 			<fileset dir="${pmcms.dir.src}" excludes="**/package-info.java"/>
 			<fileset dir="dev_lib_swt" includes="**/*.jar"/>
 		</path>
-		<javac destdir="${pmcms.dir.classes}" failonerror="true" classpathref="libs" srcdir="${pmcms.dir.src}" includeantruntime="false"/>
+		<javac destdir="${pmcms.dir.classes}" failonerror="true" classpathref="libs" srcdir="${pmcms.dir.src}" includeantruntime="false" 
+			source="${compile.version}" target="${compile.version}"/>
 		<copy todir="${pmcms.dir.classes}">
 			<fileset dir="${pmcms.dir.src}" includes="**/*.properties" />
 		</copy>
@@ -62,11 +78,58 @@
     	<antcall target="build.classes"/>
     	<antcall target="build.launcher"/>
     	<antcall target="build.installer"/>
+    	<antcall target="build.portable"/>
     </target>
 	
+	<!-- build the zip for portable -->
+    <target name="build.portable">
+    	<if>
+    		<available file="${portable.zip}"/>
+    		<then><delete file="${portable.zip}"/></then>
+    	</if>
+    	<zip destfile="${portable.zip}" level="9">
+    		<zipfileset dir="${pmcms.dir.lib}" prefix="${pmcms.dir.lib}"/>
+    		<zipfileset dir="${pmcms.dir.lib.swt}" prefix="${pmcms.dir.lib.swt}"/>
+    		<zipfileset dir="${pmcms.dir.defaultresources}" prefix="${pmcms.dir.defaultresources}"/>
+    		<zipfileset dir="${pmcms.dir.sites}" prefix="${pmcms.dir.sites}" excludes="**/${pmcms.dir.site.imagecache}/**"/>
+    		<zipfileset dir="${pmcms.dir.sourceeditor}" prefix="${pmcms.dir.sourceeditor}"/>
+    		<zipfileset dir="${pmcms.dir.filemanager}" prefix="${pmcms.dir.filemanager}"/>
+    		<zipfileset dir="${pmcms.dir.gfx}" prefix="${pmcms.dir.gfx}"/>
+    		<zipfileset dir="${pmcms.dir.help}" prefix="${pmcms.dir.help}"/>
+    		<zipfileset dir="." prefix="/">
+    			<include name="context-api-changes.txt"/>
+    			<include name="LICENSE_LGPL.txt"/>
+    			<include name="LICENSE_MPL.txt"/>
+    		</zipfileset>
+    		<zipfileset dir="${dir.dist}" prefix="/" includes="${launcher.jar}"/>
+    		<zipfileset dir="${izpack.dir}/packs" includes="pmcms_portable.properties" fullpath="/pmcms.properties" />
+    		<zipfileset dir="${dir.dist}" prefix="${pmcms.dir.lib}" includes="${classes.jar}"/>
+    	</zip>
+    </target>
+
+	
+    <target name="test" description="test" >
+    	<property name="test.file" location="/tmp/test.zip"/>
+    	<if>
+    		<available file="${test.file}"/>
+    		<then><delete file="${test.file}"/></then>
+    	</if>
+    	<property name="dir" location="${pmcms.dir.classes}/${pmcms.package.dir}"/>
+
+    	<jar destfile="${test.file}" level="9">
+    		<zipfileset dir="${dir}" includes="conf/common.properties" fullpath="/${pmcms.package.dir}conf/common.properties"/>
+    		<zipfileset dir="${dir}" includes="conf/BasicConfigurator.class" fullpath="/${pmcms.package.dir}conf/BasicConfigurator.class"/>
+    	</jar>
+    </target>
+
 	
 	<!-- build the launcher jar -->
     <target name="build.launcher">
+    	<if>
+    		<available file="${launcher_full.jar}"/>
+    		<then><delete file="${launcher_full.jar}"/></then>
+    	</if>
+    	<property name="dir" location="${pmcms.dir.classes}/${pmcms.package.dir}"/>
 		<path id="manifestPath">
 			<fileset dir="${pmcms.dir.lib}">
 				<include name="ant-*.jar"/>
@@ -81,18 +144,18 @@
     		<path refid="manifestPath"/>
     		<map from="${basedir}/" to=""/>
     	</pathconvert>
-    	<jar destfile="${launcher.jar}">
+    	<jar destfile="${launcher_full.jar}">
+    		<zipfileset dir="${dir}" includes="Constants.class" fullpath="${pmcms.package.dir}Constants.class"/>
+    		<zipfileset dir="${dir}" includes="conf/common.properties" fullpath="${pmcms.package.dir}conf/common.properties"/>
+    		<zipfileset dir="${dir}" includes="conf/BasicConfigurator.class" fullpath="${pmcms.package.dir}conf/BasicConfigurator.class"/>
+    		<zipfileset dir="${dir}" includes="server/Action.class" fullpath="${pmcms.package.dir}server/Action.class"/>
+    		<zipfileset dir="${dir}" includes="tool/CliParser.class" fullpath="${pmcms.package.dir}tool/CliParser.class"/>
+    		<zipfileset dir="${dir}" includes="tool/PropertiesTool.class" fullpath="${pmcms.package.dir}tool/PropertiesTool.class"/>
+    		<zipfileset dir="${dir}" includes="tool/XY.class" fullpath="${pmcms.package.dir}tool/XY.class"/>
     		<fileset dir="${pmcms.dir.classes}">
-			    <include name="de/thischwa/pmcms/tool/launcher/**/*class"/>
-			    <include name="de/thischwa/pmcms/tool/OS/**/*class"/>
-			    <include name="de/thischwa/pmcms/server/Action.class"/>
-			    <include name="de/thischwa/pmcms/Constants.class"/>
-    			<include name="de/thischwa/pmcms/tool/XY.class"/>
-    			<include name="de/thischwa/pmcms/tool/InternalAntTool*.class"/>
-    			<include name="de/thischwa/pmcms/tool/CliParser.class"/>
-    			<include name="de/thischwa/pmcms/configuration/BasicConfigurator.class"/>
-    			<include name="de/thischwa/pmcms/configuration/common.properties"/>
-    			<include name="de/thischwa/pmcms/tool/PropertiesTool.class"/>
+			    <include name="${pmcms.package.dir}/tool/launcher/**/*class"/>
+			    <include name="${pmcms.package.dir}/tool/OS/**/*class"/>
+    			<include name="${pmcms.package.dir}/tool/InternalAntTool*.class"/>
 			</fileset>
     		<manifest>
     			<attribute name="Main-Class" value="de.thischwa.pmcms.tool.launcher.Launcher"/>
@@ -105,14 +168,14 @@
 	
 	<!-- build the poormans classes jar -->
 	<target name="build.classes" description="Build the classes jar.">
-		<jar destfile="${classes.jar}">
+		<jar destfile="${classes_full.jar}">
 			<fileset dir="${pmcms.dir.classes}">
    				<include name="**/*.*"/>
-    			<exclude name="de/thischwa/pmcms/tool/launcher/**/*.class"/>
+    			<exclude name="${pmcms.package.dir}/tool/launcher/**/*.class"/>
 			</fileset>
 			<manifest>
 				<attribute name="Built-By" value="${manifest-built-by}"/>
-				<attribute name="Url" value="http://poormans.sourceforge.net"/>
+				<attribute name="Url" value="https://github.com/th-schwarz/pmcms"/>
 				<attribute name="Implementation-Title" value="Poor Man's CMS"/>
 				<attribute name="Implementation-Version" value="${pmcms.version}"/>
     			<attribute name="PreMain-Class" value="de.thischwa.pmcms.Starter"/>

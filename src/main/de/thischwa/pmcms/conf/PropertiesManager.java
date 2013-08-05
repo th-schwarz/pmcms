@@ -16,7 +16,7 @@
  * 
  * == END LICENSE ==
  ******************************************************************************/
-package de.thischwa.pmcms.configuration;
+package de.thischwa.pmcms.conf;
 
 import java.util.Properties;
 

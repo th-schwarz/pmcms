@@ -16,7 +16,7 @@
  * 
  * == END LICENSE ==
  ******************************************************************************/
-package de.thischwa.pmcms.configuration;
+package de.thischwa.pmcms.conf;
 
 import java.io.File;
 import java.io.IOException;
@@ -37,7 +37,7 @@ import de.thischwa.c5c.resource.PropertiesLoader;
 import de.thischwa.ckeditor.CKPropertiesLoader;
 import de.thischwa.jii.ImageType;
 import de.thischwa.pmcms.Constants;
-import de.thischwa.pmcms.configuration.resource.LabelHolder;
+import de.thischwa.pmcms.conf.resource.LabelHolder;
 import de.thischwa.pmcms.livecycle.C5IconResolverImpl;
 import de.thischwa.pmcms.livecycle.C5MessageResolverImpl;
 import de.thischwa.pmcms.livecycle.SiteHolder;
