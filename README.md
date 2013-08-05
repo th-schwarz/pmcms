@@ -25,7 +25,7 @@ pmcms is distributed under the [LGPL](http://www.gnu.org/licenses/lgpl-3.0.html)
   * merged the ImageLinkTool with the GalleryLinkTool
   * rewritten the handling of resource files
   * simplified the ImageTagTool
-  * updated to jetty 8.*
+  * updated to jetty 9.*
   * updated to slf4j 1.7.2
   * added C5Connector.Java 0.1
   * added CKEditor.Java 1.0

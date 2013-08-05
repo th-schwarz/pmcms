@@ -23,9 +23,8 @@ import java.io.File;
 import javax.servlet.MultipartConfigElement;
 import javax.servlet.Servlet;
 
-import org.eclipse.jetty.server.Connector;
 import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.server.nio.SelectChannelConnector;
+import org.eclipse.jetty.server.ServerConnector;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.springframework.beans.factory.annotation.Value;
@@ -67,12 +66,11 @@ public class JettyLauncher extends AInitializingTask implements IApplicationLive
 		try {
 			ClassLoader classLoader = ClassUtils.getDefaultClassLoader(); // spring class loader
 			server = new Server();
-			Connector connector = new SelectChannelConnector();
+			ServerConnector connector = new ServerConnector(server);
 			connector.setHost(host);
 			connector.setPort(Integer.parseInt(port));
-			connector.setMaxIdleTime(Integer.MAX_VALUE);
-			connector.setLowResourceMaxIdleTime(Integer.MAX_VALUE);
-			server.setConnectors(new Connector[] { connector });
+			connector.setIdleTimeout(Integer.MAX_VALUE);
+			server.addConnector(connector);
 
 			ServletContextHandler contextDataDir = new ServletContextHandler(server, "/", ServletContextHandler.NO_SECURITY);
 			contextDataDir.setClassLoader(classLoader);
