@@ -51,7 +51,7 @@ public class C5MessageResolverImpl extends FilemanagerMessageResolver {
 		File msgFolder = new File(Constants.APPLICATION_DIR, fileSystemPath.toString());
 		if(!msgFolder.exists())
 			throw new RuntimeException(String.format("C5 scripts folder couldn't be found: %s", msgFolder.getAbsolutePath()));
-		logger.debug(String.format("try to resolve lang-date from dir: %s", msgFolder.getAbsolutePath()));
+		logger.debug(String.format("try to resolve lang-data from dir: %s", msgFolder.getAbsolutePath()));
 		ObjectMapper mapper = new ObjectMapper();
 		try {
 			for(File file: msgFolder.listFiles(jsFilter)) {
