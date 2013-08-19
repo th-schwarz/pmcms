@@ -102,7 +102,7 @@ public class BasicConfigurator {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
-		logger.info("*** Basic configuration successful ended.");
+		logger.info("*** Basic configuration successful done.");
 	}
 
 	public File getDataDir() {

@@ -44,16 +44,31 @@
 	<property name="tmp.zip.swt.win32" value="${dir.tmp}/${swt-version}-${arch.win}.zip"/>
 	<property name="tmp.zip.swt.osx" value="${dir.tmp}/${swt-version}-${arch.osx}.zip"/>
 
-	<echo>project infos:
-		name:              ${pmcms.name}
-		version:           ${pmcms.version}
-		base dir:          ${basedir}
-		project dir:       ${poormans_home}
-		installer dir:     ${project.dir}
-		class jar:         ${classes_full.jar}
-		launcher jar:      ${launcher_full.jar}
-	</echo>
+	
+	<!-- build the installer -->
+    <target name="build" depends="compile" description="Build the installer and dependent jars.">
+    	<delete dir="${dir.dist}"/>
+    	<mkdir dir="${dir.dist}"/>
+    	<antcall target="info"/>
+    	<antcall target="build.classes"/>
+    	<antcall target="build.launcher"/>
+    	<antcall target="build.installer"/>
+    	<antcall target="build.portable"/>
+    </target>
+	
+	<!-- shows project infos -->
+    <target name="info" description="Shows general infos of the project.">
+    	<echo>project infos:</echo>
+    	<echo>  name:              ${pmcms.name}</echo>
+    	<echo>  version:           ${pmcms.version}</echo>
+    	<echo>  base dir:          ${basedir}</echo>
+    	<echo>  project dir:       ${poormans_home}</echo>
+    	<echo>  installer dir:     ${project.dir}</echo>
+    	<echo>  class jar:         ${classes_full.jar}</echo>
+    	<echo>  launcher jar:      ${launcher_full.jar}</echo>
+    </target>
 
+	
 	<!-- compile the project -->
 	<target name="compile">		
 		<delete dir="${pmcms.dir.classes}" />		
@@ -69,17 +84,6 @@
 			<fileset dir="${pmcms.dir.src}" includes="**/*.properties" />
 		</copy>
 	</target>
-	
-	
-	<!-- build the installer -->
-    <target name="build" depends="compile" description="Build the installer and dependent jars.">
-    	<delete dir="${dir.dist}"/>
-    	<mkdir dir="${dir.dist}"/>
-    	<antcall target="build.classes"/>
-    	<antcall target="build.launcher"/>
-    	<antcall target="build.installer"/>
-    	<antcall target="build.portable"/>
-    </target>
 	
 	<!-- build the zip for portable -->
     <target name="build.portable">
@@ -100,6 +104,7 @@
     			<include name="context-api-changes.txt"/>
     			<include name="LICENSE_LGPL.txt"/>
     			<include name="LICENSE_MPL.txt"/>
+    			<include name="ckeditor*.zip"/>
     		</zipfileset>
     		<zipfileset dir="${dir.dist}" prefix="/" includes="${launcher.jar}"/>
     		<zipfileset dir="${izpack.dir}/packs" includes="pmcms_portable.properties" fullpath="/pmcms.properties" />

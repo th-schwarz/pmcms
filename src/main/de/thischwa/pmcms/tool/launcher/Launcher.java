@@ -58,11 +58,20 @@ public class Launcher {
 			dataDir = Constants.APPLICATION_DIR;
 		else {
 			dataDir = (cliParser.hasOption("datadir")) 
-					? new File(cliParser.getOptionValue("datadir")) : new File(Constants.HOME_DIR, Constants.NAME);
+					? new File(cliParser.getOptionValue("datadir")) 
+					: new File(Constants.HOME_DIR, Constants.NAME);
+		}
+		if(!dataDir.exists()) {
+			System.out.println(String.format("'datadir' [%s] not found!", dataDir.getPath()));
+			System.exit(1);
 		}
 		
 		//users props
 		File propertiesFile = new File(dataDir, BasicConfigurator.PROPERTIES_NAME);
+		if(!propertiesFile.exists()) {
+			System.out.println(String.format("Properties file [%] not found!", propertiesFile.getPath()));
+			System.exit(1);
+		}
 		InputStream userIn = new BufferedInputStream(new FileInputStream(propertiesFile));
 		// the common props
 		InputStream commonIn = new BufferedInputStream(BasicConfigurator.class.getResourceAsStream("common.properties"));

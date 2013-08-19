@@ -24,11 +24,6 @@
 		<variable name="TargetPanel.dir.mac_osx" value="${ENV[HOME]}/bin/PoorMansCMS"/>
 	</variables>
 	
-	<dynamicvariables>
-		<variable name="jvm_arguments" value="" condition="!izpack.macinstall"/>
-		<variable name="jvm_arguments" value="-d32 -XstartOnFirstThread" condition="izpack.macinstall"/>
-	</dynamicvariables>
-	
 	<!-- gui prefs -->
 	<guiprefs width="640" height="480" resizable="no">  
 		<modifier key="useHeadingPanel" value="yes"/>

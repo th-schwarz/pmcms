@@ -73,6 +73,7 @@ public class Starter {
 			System.exit(2);				
 		}
 		
+		// check instance
 		boolean isLocked = InitializationManager.lock();
 		if (isLocked) {
 			MessageBox mb = new MessageBox(new Shell(), SWT.ICON_WARNING | SWT.CANCEL);
@@ -82,6 +83,7 @@ public class Starter {
 			System.exit(1);
 		}
 
+		// init and start the main window
 		boolean isInit = false;
 		try {
 			InitializationManager.start(configurator);
@@ -93,7 +95,7 @@ public class Starter {
 			}
 			isInit = true;
 			logger.debug("*** Try to init the main window ...");
-			MainWindow mainWindow = (MainWindow) InitializationManager.getBean(MainWindow.class);
+			MainWindow mainWindow = InitializationManager.getBean(MainWindow.class);
 			mainWindow.run();
 		} catch (Exception e) {
 			if (!isInit) {

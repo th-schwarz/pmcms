@@ -1,18 +1,18 @@
-<?xml version="1.0" encoding="UTF-8"?> 
-<java version="1.6.0_45" class="java.beans.XMLDecoder"> 
- <object id="Site0" class="de.thischwa.pmcms.model.domain.pojo.Site"> 
-  <void property="layoutTemplate"> 
-   <object class="de.thischwa.pmcms.model.domain.pojo.Template"> 
-    <void property="id"> 
-     <int>8</int> 
-    </void> 
-    <void property="name"> 
-     <string>layout.html</string> 
-    </void> 
-    <void property="parent"> 
-     <object idref="Site0"/> 
-    </void> 
-    <void property="text"> 
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="1.7.0_25" class="java.beans.XMLDecoder">
+ <object class="de.thischwa.pmcms.model.domain.pojo.Site" id="Site0">
+  <void property="layoutTemplate">
+   <object class="de.thischwa.pmcms.model.domain.pojo.Template">
+    <void property="id">
+     <int>8</int>
+    </void>
+    <void property="name">
+     <string>layout.html</string>
+    </void>
+    <void property="parent">
+     <object idref="Site0"/>
+    </void>
+    <void property="text">
      <string>#parse(&apos;user_menu.vm&apos;)
 #set( $st = $sitetool )
 #set( $title = $st.Site.Title )
@@ -56,23 +56,23 @@ $content
 &lt;/div&gt;
 &lt;/body&gt;
 &lt;/html&gt;
-</string> 
-    </void> 
-   </object> 
-  </void> 
-  <void property="macros"> 
-   <void method="add"> 
-    <object class="de.thischwa.pmcms.model.domain.pojo.Macro"> 
-     <void property="id"> 
-      <int>8</int> 
-     </void> 
-     <void property="name"> 
-      <string>user_menu.vm</string> 
-     </void> 
-     <void property="parent"> 
-      <object idref="Site0"/> 
-     </void> 
-     <void property="text"> 
+</string>
+    </void>
+   </object>
+  </void>
+  <void property="macros">
+   <void method="add">
+    <object class="de.thischwa.pmcms.model.domain.pojo.Macro">
+     <void property="id">
+      <int>8</int>
+     </void>
+     <void property="name">
+      <string>user_menu.vm</string>
+     </void>
+     <void property="parent">
+      <object idref="Site0"/>
+     </void>
+     <void property="text">
       <string>#macro(mainmenu)
 &lt;ul&gt;#if( $!sitetool.WelcomePage )
   #set( $welcomePage = $sitetool.WelcomePage )
@@ -132,22 +132,22 @@ $content
 &lt;/p&gt;
 &lt;/div&gt;
 #end
-#end</string> 
-     </void> 
-    </object> 
-   </void> 
-   <void method="add"> 
-    <object class="de.thischwa.pmcms.model.domain.pojo.Macro"> 
-     <void property="id"> 
-      <int>9</int> 
-     </void> 
-     <void property="name"> 
-      <string>utils.vm</string> 
-     </void> 
-     <void property="parent"> 
-      <object idref="Site0"/> 
-     </void> 
-     <void property="text"> 
+#end</string>
+     </void>
+    </object>
+   </void>
+   <void method="add">
+    <object class="de.thischwa.pmcms.model.domain.pojo.Macro">
+     <void property="id">
+      <int>9</int>
+     </void>
+     <void property="name">
+      <string>utils.vm</string>
+     </void>
+     <void property="parent">
+      <object idref="Site0"/>
+     </void>
+     <void property="text">
       <string>#macro(breadcrumbsadder $list $separator)
   #set ( $container = &apos;&apos; )
   #foreach( $item in $list )
@@ -160,24 +160,24 @@ $content
     #end
   #end
   $utils.escape(&quot;$container&quot;)
-#end</string> 
-     </void> 
-    </object> 
-   </void> 
-  </void> 
-  <void property="pages"> 
-   <void method="add"> 
-    <object id="Page0" class="de.thischwa.pmcms.model.domain.pojo.Page"> 
-     <void property="content"> 
-      <void method="add"> 
-       <object class="de.thischwa.pmcms.model.domain.pojo.Content"> 
-        <void property="name"> 
-         <string>field1</string> 
-        </void> 
-        <void property="parent"> 
-         <object idref="Page0"/> 
-        </void> 
-        <void property="value"> 
+#end</string>
+     </void>
+    </object>
+   </void>
+  </void>
+  <void property="pages">
+   <void method="add">
+    <object class="de.thischwa.pmcms.model.domain.pojo.Page" id="Page0">
+     <void property="content">
+      <void method="add">
+       <object class="de.thischwa.pmcms.model.domain.pojo.Content">
+        <void property="name">
+         <string>field1</string>
+        </void>
+        <void property="parent">
+         <object idref="Page0"/>
+        </void>
+        <void property="value">
          <string>
 &lt;h1&gt;This is the welcome page&amp;nbsp;...&lt;/h1&gt;
 
@@ -197,170 +197,171 @@ $content
 
 &lt;p class=&quot;remark&quot;&gt;Hint: If you add the link in the FCKeditor, it&amp;rsquo;s important to set the protocol type to &amp;rsquo;other&amp;rsquo;, because that indicates, that is an internal link!&lt;/p&gt;
 
-</string> 
-        </void> 
-       </object> 
-      </void> 
-     </void> 
-     <void property="id"> 
-      <int>10</int> 
-     </void> 
-     <void property="name"> 
-      <string>home</string> 
-     </void> 
-     <void property="parent"> 
-      <object idref="Site0"/> 
-     </void> 
-     <void property="template"> 
-      <object id="Template0" class="de.thischwa.pmcms.model.domain.pojo.Template"> 
-       <void property="id"> 
-        <int>6</int> 
-       </void> 
-       <void property="name"> 
-        <string>index.html</string> 
-       </void> 
-       <void property="parent"> 
-        <object idref="Site0"/> 
-       </void> 
-       <void property="text"> 
+</string>
+        </void>
+       </object>
+      </void>
+     </void>
+     <void property="id">
+      <int>10</int>
+     </void>
+     <void property="name">
+      <string>home</string>
+     </void>
+     <void property="parent">
+      <object idref="Site0"/>
+     </void>
+     <void property="template">
+      <object class="de.thischwa.pmcms.model.domain.pojo.Template" id="Template0">
+       <void property="id">
+        <int>6</int>
+       </void>
+       <void property="name">
+        <string>index.html</string>
+       </void>
+       <void property="parent">
+        <object idref="Site0"/>
+       </void>
+       <void property="text">
         <string>#parse(&apos;content.vm&apos;)
 #parse(&apos;user_menu.vm&apos;)
 
 &lt;div id=&quot;content&quot;&gt;
   #contentview(&quot;field1&quot; 605 650)
 #pagemenu()
-&lt;/div&gt;</string> 
-       </void> 
-       <void property="type"> 
-        <object id="TemplateType0" class="de.thischwa.pmcms.model.domain.pojo.TemplateType" method="valueOf"> 
-         <string>PAGE</string> 
-        </object> 
-       </void> 
-      </object> 
-     </void> 
-     <void property="title"> 
-      <string>Home</string> 
-     </void> 
-    </object> 
-   </void> 
-  </void> 
-  <void property="sublevels"> 
-   <void method="add"> 
-    <object id="Level0" class="de.thischwa.pmcms.model.domain.pojo.Level"> 
-     <void property="id"> 
-      <int>11</int> 
-     </void> 
-     <void property="name"> 
-      <string>lev1</string> 
-     </void> 
-     <void property="pages"> 
-      <void method="add"> 
-       <object id="Page1" class="de.thischwa.pmcms.model.domain.pojo.Page"> 
-        <void property="content"> 
-         <void method="add"> 
-          <object class="de.thischwa.pmcms.model.domain.pojo.Content"> 
-           <void property="name"> 
-            <string>field1</string> 
-           </void> 
-           <void property="parent"> 
-            <object idref="Page1"/> 
-           </void> 
-           <void property="value"> 
+&lt;/div&gt;</string>
+       </void>
+       <void property="type">
+        <object class="java.lang.Enum" id="TemplateType0" method="valueOf">
+         <class>de.thischwa.pmcms.model.domain.pojo.TemplateType</class>
+         <string>PAGE</string>
+        </object>
+       </void>
+      </object>
+     </void>
+     <void property="title">
+      <string>Home</string>
+     </void>
+    </object>
+   </void>
+  </void>
+  <void property="sublevels">
+   <void method="add">
+    <object class="de.thischwa.pmcms.model.domain.pojo.Level" id="Level0">
+     <void property="id">
+      <int>11</int>
+     </void>
+     <void property="name">
+      <string>lev1</string>
+     </void>
+     <void property="pages">
+      <void method="add">
+       <object class="de.thischwa.pmcms.model.domain.pojo.Page" id="Page1">
+        <void property="content">
+         <void method="add">
+          <object class="de.thischwa.pmcms.model.domain.pojo.Content">
+           <void property="name">
+            <string>field1</string>
+           </void>
+           <void property="parent">
+            <object idref="Page1"/>
+           </void>
+           <void property="value">
             <string>
 &lt;h1&gt;Just one level with one!&lt;/h1&gt;
 &lt;p&gt;This is the welcome page of this level!&lt;/p&gt;
 &lt;p class=&quot;remark&quot;&gt;Each level must have&amp;nbsp;at least&amp;nbsp;one page. The first page of a level is called &amp;rsquo;frontpage&amp;rsquo;.&lt;/p&gt;
-</string> 
-           </void> 
-          </object> 
-         </void> 
-        </void> 
-        <void property="id"> 
-         <int>12</int> 
-        </void> 
-        <void property="name"> 
-         <string>frontpage</string> 
-        </void> 
-        <void property="parent"> 
-         <object idref="Level0"/> 
-        </void> 
-        <void property="template"> 
-         <object idref="Template0"/> 
-        </void> 
-        <void property="title"> 
-         <string></string> 
-        </void> 
-       </object> 
-      </void> 
-     </void> 
-     <void property="parent"> 
-      <object idref="Site0"/> 
-     </void> 
-     <void property="title"> 
-      <string>Level with 1 page</string> 
-     </void> 
-    </object> 
-   </void> 
-   <void method="add"> 
-    <object id="Level1" class="de.thischwa.pmcms.model.domain.pojo.Level"> 
-     <void property="id"> 
-      <int>13</int> 
-     </void> 
-     <void property="name"> 
-      <string>lev2</string> 
-     </void> 
-     <void property="pages"> 
-      <void method="add"> 
-       <object id="Page2" class="de.thischwa.pmcms.model.domain.pojo.Page"> 
-        <void property="content"> 
-         <void method="add"> 
-          <object class="de.thischwa.pmcms.model.domain.pojo.Content"> 
-           <void property="name"> 
-            <string>field1</string> 
-           </void> 
-           <void property="parent"> 
-            <object idref="Page2"/> 
-           </void> 
-           <void property="value"> 
+</string>
+           </void>
+          </object>
+         </void>
+        </void>
+        <void property="id">
+         <int>12</int>
+        </void>
+        <void property="name">
+         <string>frontpage</string>
+        </void>
+        <void property="parent">
+         <object idref="Level0"/>
+        </void>
+        <void property="template">
+         <object idref="Template0"/>
+        </void>
+        <void property="title">
+         <string></string>
+        </void>
+       </object>
+      </void>
+     </void>
+     <void property="parent">
+      <object idref="Site0"/>
+     </void>
+     <void property="title">
+      <string>Level with 1 page</string>
+     </void>
+    </object>
+   </void>
+   <void method="add">
+    <object class="de.thischwa.pmcms.model.domain.pojo.Level" id="Level1">
+     <void property="id">
+      <int>13</int>
+     </void>
+     <void property="name">
+      <string>lev2</string>
+     </void>
+     <void property="pages">
+      <void method="add">
+       <object class="de.thischwa.pmcms.model.domain.pojo.Page" id="Page2">
+        <void property="content">
+         <void method="add">
+          <object class="de.thischwa.pmcms.model.domain.pojo.Content">
+           <void property="name">
+            <string>field1</string>
+           </void>
+           <void property="parent">
+            <object idref="Page2"/>
+           </void>
+           <void property="value">
             <string>
 &lt;h1&gt;Level with more than one page&lt;/h1&gt;
 &lt;h2&gt;Page 1&lt;br/&gt;
 &lt;/h2&gt;
 &lt;p&gt;Have a look at the end of this page. There is a menu to jump to the next/previous page.&lt;/p&gt;
-</string> 
-           </void> 
-          </object> 
-         </void> 
-        </void> 
-        <void property="id"> 
-         <int>14</int> 
-        </void> 
-        <void property="name"> 
-         <string>page1</string> 
-        </void> 
-        <void property="parent"> 
-         <object idref="Level1"/> 
-        </void> 
-        <void property="template"> 
-         <object idref="Template0"/> 
-        </void> 
-        <void property="title"> 
-         <string></string> 
-        </void> 
-       </object> 
-      </void> 
-      <void method="add"> 
-       <object id="Page3" class="de.thischwa.pmcms.model.domain.pojo.Page"> 
-        <void property="content"> 
-         <void method="add"> 
-          <object class="de.thischwa.pmcms.model.domain.pojo.Content"> 
-           <void property="name"> 
-            <string>field1</string> 
-           </void> 
-           <void property="parent"> 
-            <object idref="Page3"/> 
-           </void> 
-           <void property="value"> 
+</string>
+           </void>
+          </object>
+         </void>
+        </void>
+        <void property="id">
+         <int>14</int>
+        </void>
+        <void property="name">
+         <string>page1</string>
+        </void>
+        <void property="parent">
+         <object idref="Level1"/>
+        </void>
+        <void property="template">
+         <object idref="Template0"/>
+        </void>
+        <void property="title">
+         <string></string>
+        </void>
+       </object>
+      </void>
+      <void method="add">
+       <object class="de.thischwa.pmcms.model.domain.pojo.Page" id="Page3">
+        <void property="content">
+         <void method="add">
+          <object class="de.thischwa.pmcms.model.domain.pojo.Content">
+           <void property="name">
+            <string>field1</string>
+           </void>
+           <void property="parent">
+            <object idref="Page3"/>
+           </void>
+           <void property="value">
             <string>
 &lt;h1&gt;Level with more than one page&lt;/h1&gt;
 &lt;h2&gt;Page 2&lt;br/&gt;
@@ -368,97 +369,97 @@ $content
 &lt;p&gt;Have a look at the end of this page. There is a menu to jump to the next/previous page.&lt;br/&gt;
 &lt;/p&gt;
 
-</string> 
-           </void> 
-          </object> 
-         </void> 
-        </void> 
-        <void property="id"> 
-         <int>15</int> 
-        </void> 
-        <void property="name"> 
-         <string>page2</string> 
-        </void> 
-        <void property="parent"> 
-         <object idref="Level1"/> 
-        </void> 
-        <void property="template"> 
-         <object idref="Template0"/> 
-        </void> 
-        <void property="title"> 
-         <string></string> 
-        </void> 
-       </object> 
-      </void> 
-      <void method="add"> 
-       <object id="Page4" class="de.thischwa.pmcms.model.domain.pojo.Page"> 
-        <void property="content"> 
-         <void method="add"> 
-          <object class="de.thischwa.pmcms.model.domain.pojo.Content"> 
-           <void property="name"> 
-            <string>field1</string> 
-           </void> 
-           <void property="parent"> 
-            <object idref="Page4"/> 
-           </void> 
-           <void property="value"> 
+</string>
+           </void>
+          </object>
+         </void>
+        </void>
+        <void property="id">
+         <int>15</int>
+        </void>
+        <void property="name">
+         <string>page2</string>
+        </void>
+        <void property="parent">
+         <object idref="Level1"/>
+        </void>
+        <void property="template">
+         <object idref="Template0"/>
+        </void>
+        <void property="title">
+         <string></string>
+        </void>
+       </object>
+      </void>
+      <void method="add">
+       <object class="de.thischwa.pmcms.model.domain.pojo.Page" id="Page4">
+        <void property="content">
+         <void method="add">
+          <object class="de.thischwa.pmcms.model.domain.pojo.Content">
+           <void property="name">
+            <string>field1</string>
+           </void>
+           <void property="parent">
+            <object idref="Page4"/>
+           </void>
+           <void property="value">
             <string>
  
   &lt;h1&gt;Level with more than one page&lt;/h1&gt;  
   &lt;h2&gt;Page 3&lt;/h2&gt;  
   &lt;p&gt;Have a look at the end of this page. There is a menu to jump to the next/previous page.&lt;/p&gt; 
-</string> 
-           </void> 
-          </object> 
-         </void> 
-        </void> 
-        <void property="id"> 
-         <int>16</int> 
-        </void> 
-        <void property="name"> 
-         <string>page3</string> 
-        </void> 
-        <void property="parent"> 
-         <object idref="Level1"/> 
-        </void> 
-        <void property="template"> 
-         <object idref="Template0"/> 
-        </void> 
-        <void property="title"> 
-         <string></string> 
-        </void> 
-       </object> 
-      </void> 
-     </void> 
-     <void property="parent"> 
-      <object idref="Site0"/> 
-     </void> 
-     <void property="title"> 
-      <string>Level with pages</string> 
-     </void> 
-    </object> 
-   </void> 
-   <void method="add"> 
-    <object id="Level2" class="de.thischwa.pmcms.model.domain.pojo.Level"> 
-     <void property="id"> 
-      <int>17</int> 
-     </void> 
-     <void property="name"> 
-      <string>lev3</string> 
-     </void> 
-     <void property="pages"> 
-      <void method="add"> 
-       <object id="Page5" class="de.thischwa.pmcms.model.domain.pojo.Page"> 
-        <void property="content"> 
-         <void method="add"> 
-          <object class="de.thischwa.pmcms.model.domain.pojo.Content"> 
-           <void property="name"> 
-            <string>field1</string> 
-           </void> 
-           <void property="parent"> 
-            <object idref="Page5"/> 
-           </void> 
-           <void property="value"> 
+</string>
+           </void>
+          </object>
+         </void>
+        </void>
+        <void property="id">
+         <int>16</int>
+        </void>
+        <void property="name">
+         <string>page3</string>
+        </void>
+        <void property="parent">
+         <object idref="Level1"/>
+        </void>
+        <void property="template">
+         <object idref="Template0"/>
+        </void>
+        <void property="title">
+         <string></string>
+        </void>
+       </object>
+      </void>
+     </void>
+     <void property="parent">
+      <object idref="Site0"/>
+     </void>
+     <void property="title">
+      <string>Level with pages</string>
+     </void>
+    </object>
+   </void>
+   <void method="add">
+    <object class="de.thischwa.pmcms.model.domain.pojo.Level" id="Level2">
+     <void property="id">
+      <int>17</int>
+     </void>
+     <void property="name">
+      <string>lev3</string>
+     </void>
+     <void property="pages">
+      <void method="add">
+       <object class="de.thischwa.pmcms.model.domain.pojo.Page" id="Page5">
+        <void property="content">
+         <void method="add">
+          <object class="de.thischwa.pmcms.model.domain.pojo.Content">
+           <void property="name">
+            <string>field1</string>
+           </void>
+           <void property="parent">
+            <object idref="Page5"/>
+           </void>
+           <void property="value">
             <string>
  
   &lt;h1&gt;&amp;nbsp;Frontpage of a level containing sublevels.&lt;/h1&gt;  
@@ -466,54 +467,54 @@ $content
   &lt;p&gt;Each level must have a page!&lt;/p&gt;  
   &lt;br/&gt;  
   &lt;p&gt;That&amp;rsquo;s one rule you have to act on! This rule is valid even if the level contains sublevels.&lt;/p&gt; 
-</string> 
-           </void> 
-          </object> 
-         </void> 
-        </void> 
-        <void property="id"> 
-         <int>18</int> 
-        </void> 
-        <void property="name"> 
-         <string>frontpage</string> 
-        </void> 
-        <void property="parent"> 
-         <object idref="Level2"/> 
-        </void> 
-        <void property="template"> 
-         <object idref="Template0"/> 
-        </void> 
-        <void property="title"> 
-         <string></string> 
-        </void> 
-       </object> 
-      </void> 
-     </void> 
-     <void property="parent"> 
-      <object idref="Site0"/> 
-     </void> 
-     <void property="sublevels"> 
-      <void method="add"> 
-       <object id="Level3" class="de.thischwa.pmcms.model.domain.pojo.Level"> 
-        <void property="id"> 
-         <int>19</int> 
-        </void> 
-        <void property="name"> 
-         <string>sub1</string> 
-        </void> 
-        <void property="pages"> 
-         <void method="add"> 
-          <object id="Page6" class="de.thischwa.pmcms.model.domain.pojo.Page"> 
-           <void property="content"> 
-            <void method="add"> 
-             <object class="de.thischwa.pmcms.model.domain.pojo.Content"> 
-              <void property="name"> 
-               <string>field1</string> 
-              </void> 
-              <void property="parent"> 
-               <object idref="Page6"/> 
-              </void> 
-              <void property="value"> 
+</string>
+           </void>
+          </object>
+         </void>
+        </void>
+        <void property="id">
+         <int>18</int>
+        </void>
+        <void property="name">
+         <string>frontpage</string>
+        </void>
+        <void property="parent">
+         <object idref="Level2"/>
+        </void>
+        <void property="template">
+         <object idref="Template0"/>
+        </void>
+        <void property="title">
+         <string></string>
+        </void>
+       </object>
+      </void>
+     </void>
+     <void property="parent">
+      <object idref="Site0"/>
+     </void>
+     <void property="sublevels">
+      <void method="add">
+       <object class="de.thischwa.pmcms.model.domain.pojo.Level" id="Level3">
+        <void property="id">
+         <int>19</int>
+        </void>
+        <void property="name">
+         <string>sub1</string>
+        </void>
+        <void property="pages">
+         <void method="add">
+          <object class="de.thischwa.pmcms.model.domain.pojo.Page" id="Page6">
+           <void property="content">
+            <void method="add">
+             <object class="de.thischwa.pmcms.model.domain.pojo.Content">
+              <void property="name">
+               <string>field1</string>
+              </void>
+              <void property="parent">
+               <object idref="Page6"/>
+              </void>
+              <void property="value">
                <string>
 &lt;h1&gt;Frontpage of Sublevel 1&lt;/h1&gt;
 
@@ -523,32 +524,32 @@ $content
 
 &lt;p&gt;Pellentesque ornare, massa eu tristique volutpat, odio massa lobortis est, iaculis sollicitudin ante felis id lorem. Maecenas imperdiet lacus id eros. Donec nunc. Pellentesque blandit porttitor est. Donec feugiat massa et lectus. Mauris ac odio. Curabitur molestie ante nec pede. Nam scelerisque metus eu ligula. Sed eros magna, ullamcorper quis, molestie vel, congue vitae, massa. Curabitur mollis ullamcorper sapien. Donec volutpat porta purus. Maecenas interdum dapibus nisi. Nam ultrices. Etiam leo turpis, ullamcorper in, aliquet et, vulputate sed, tortor. Nam laoreet mauris ut velit. Quisque auctor accumsan elit. Suspendisse vitae nunc.&lt;/p&gt;
 
-</string> 
-              </void> 
-             </object> 
-            </void> 
-           </void> 
-           <void property="id"> 
-            <int>20</int> 
-           </void> 
-           <void property="name"> 
-            <string>frontpage</string> 
-           </void> 
-           <void property="parent"> 
-            <object idref="Level3"/> 
-           </void> 
-           <void property="template"> 
-            <object id="Template1" class="de.thischwa.pmcms.model.domain.pojo.Template"> 
-             <void property="id"> 
-              <int>7</int> 
-             </void> 
-             <void property="name"> 
-              <string>page with breadcrumbs</string> 
-             </void> 
-             <void property="parent"> 
-              <object idref="Site0"/> 
-             </void> 
-             <void property="text"> 
+</string>
+              </void>
+             </object>
+            </void>
+           </void>
+           <void property="id">
+            <int>20</int>
+           </void>
+           <void property="name">
+            <string>frontpage</string>
+           </void>
+           <void property="parent">
+            <object idref="Level3"/>
+           </void>
+           <void property="template">
+            <object class="de.thischwa.pmcms.model.domain.pojo.Template" id="Template1">
+             <void property="id">
+              <int>7</int>
+             </void>
+             <void property="name">
+              <string>page with breadcrumbs</string>
+             </void>
+             <void property="parent">
+              <object idref="Site0"/>
+             </void>
+             <void property="text">
               <string>#parse(&apos;content.vm&apos;)
 #parse(&apos;user_menu.vm&apos;)
 #parse(&apos;utils.vm&apos;)
@@ -559,122 +560,122 @@ $content
     &lt;/div&gt;
     #contentview(&quot;field1&quot; 605 520)
 #pagemenu()
-&lt;/div&gt;</string> 
-             </void> 
-             <void property="type"> 
-              <object idref="TemplateType0"/> 
-             </void> 
-            </object> 
-           </void> 
-           <void property="title"> 
-            <string></string> 
-           </void> 
-          </object> 
-         </void> 
-        </void> 
-        <void property="parent"> 
-         <object idref="Level2"/> 
-        </void> 
-        <void property="title"> 
-         <string>Sublevel 1</string> 
-        </void> 
-       </object> 
-      </void> 
-      <void method="add"> 
-       <object id="Level4" class="de.thischwa.pmcms.model.domain.pojo.Level"> 
-        <void property="id"> 
-         <int>21</int> 
-        </void> 
-        <void property="name"> 
-         <string>sub2</string> 
-        </void> 
-        <void property="pages"> 
-         <void method="add"> 
-          <object id="Page7" class="de.thischwa.pmcms.model.domain.pojo.Page"> 
-           <void property="content"> 
-            <void method="add"> 
-             <object class="de.thischwa.pmcms.model.domain.pojo.Content"> 
-              <void property="name"> 
-               <string>field1</string> 
-              </void> 
-              <void property="parent"> 
-               <object idref="Page7"/> 
-              </void> 
-              <void property="value"> 
+&lt;/div&gt;</string>
+             </void>
+             <void property="type">
+              <object idref="TemplateType0"/>
+             </void>
+            </object>
+           </void>
+           <void property="title">
+            <string></string>
+           </void>
+          </object>
+         </void>
+        </void>
+        <void property="parent">
+         <object idref="Level2"/>
+        </void>
+        <void property="title">
+         <string>Sublevel 1</string>
+        </void>
+       </object>
+      </void>
+      <void method="add">
+       <object class="de.thischwa.pmcms.model.domain.pojo.Level" id="Level4">
+        <void property="id">
+         <int>21</int>
+        </void>
+        <void property="name">
+         <string>sub2</string>
+        </void>
+        <void property="pages">
+         <void method="add">
+          <object class="de.thischwa.pmcms.model.domain.pojo.Page" id="Page7">
+           <void property="content">
+            <void method="add">
+             <object class="de.thischwa.pmcms.model.domain.pojo.Content">
+              <void property="name">
+               <string>field1</string>
+              </void>
+              <void property="parent">
+               <object idref="Page7"/>
+              </void>
+              <void property="value">
                <string>
  
   &lt;h1&gt;Frontpage of Sublevel 2&lt;/h1&gt;  
   &lt;p&gt;Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Vivamus massa neque, mattis et, interdum vel, tincidunt sed, risus. Suspendisse non ante eget nibh nonummy tempor. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Morbi dignissim felis in ipsum. Praesent sem. In ut risus at quam accumsan consectetuer. Nunc vulputate aliquet diam. Ut in sapien non sapien pretium elementum. Cras pulvinar ultrices eros. Aliquam erat volutpat. Morbi hendrerit malesuada lacus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Ut consequat, leo in malesuada congue, urna odio adipiscing ante, sit amet rhoncus enim orci et dui.&lt;/p&gt;  
   &lt;p&gt;Pellentesque ornare, massa eu tristique volutpat, odio massa lobortis est, iaculis sollicitudin ante felis id lorem. Maecenas imperdiet lacus id eros. Donec nunc. Pellentesque blandit porttitor est. Donec feugiat massa et lectus. Mauris ac odio. Curabitur molestie ante nec pede. Nam scelerisque metus eu ligula. Sed eros magna, ullamcorper quis, molestie vel, congue vitae, massa. Curabitur mollis ullamcorper sapien. Donec volutpat porta purus. Maecenas interdum dapibus nisi. Nam ultrices. Etiam leo turpis, ullamcorper in, aliquet et, vulputate sed, tortor. Nam laoreet mauris ut velit. Quisque auctor accumsan elit. Suspendisse vitae nunc.&lt;/p&gt; 
-</string> 
-              </void> 
-             </object> 
-            </void> 
-           </void> 
-           <void property="id"> 
-            <int>22</int> 
-           </void> 
-           <void property="name"> 
-            <string>frontpage</string> 
-           </void> 
-           <void property="parent"> 
-            <object idref="Level4"/> 
-           </void> 
-           <void property="template"> 
-            <object idref="Template1"/> 
-           </void> 
-           <void property="title"> 
-            <string></string> 
-           </void> 
-          </object> 
-         </void> 
-        </void> 
-        <void property="parent"> 
-         <object idref="Level2"/> 
-        </void> 
-        <void property="title"> 
-         <string>Sublevel 2</string> 
-        </void> 
-       </object> 
-      </void> 
-     </void> 
-     <void property="title"> 
-      <string>Level with levels</string> 
-     </void> 
-    </object> 
-   </void> 
-   <void method="add"> 
-    <object id="Level5" class="de.thischwa.pmcms.model.domain.pojo.Level"> 
-     <void property="id"> 
-      <int>23</int> 
-     </void> 
-     <void property="name"> 
-      <string>simple-gallery</string> 
-     </void> 
-     <void property="pages"> 
-      <void method="add"> 
-       <object id="Gallery0" class="de.thischwa.pmcms.model.domain.pojo.Gallery"> 
-        <void property="id"> 
-         <int>24</int> 
-        </void> 
-        <void property="imageMaxHeight"> 
-         <int>700</int> 
-        </void> 
-        <void property="imageMaxWidth"> 
-         <int>480</int> 
-        </void> 
-        <void property="imageTemplate"> 
-         <object id="Template2" class="de.thischwa.pmcms.model.domain.pojo.Template"> 
-          <void property="id"> 
-           <int>5</int> 
-          </void> 
-          <void property="name"> 
-           <string>image.html</string> 
-          </void> 
-          <void property="parent"> 
-           <object idref="Site0"/> 
-          </void> 
-          <void property="text"> 
+</string>
+              </void>
+             </object>
+            </void>
+           </void>
+           <void property="id">
+            <int>22</int>
+           </void>
+           <void property="name">
+            <string>frontpage</string>
+           </void>
+           <void property="parent">
+            <object idref="Level4"/>
+           </void>
+           <void property="template">
+            <object idref="Template1"/>
+           </void>
+           <void property="title">
+            <string></string>
+           </void>
+          </object>
+         </void>
+        </void>
+        <void property="parent">
+         <object idref="Level2"/>
+        </void>
+        <void property="title">
+         <string>Sublevel 2</string>
+        </void>
+       </object>
+      </void>
+     </void>
+     <void property="title">
+      <string>Level with levels</string>
+     </void>
+    </object>
+   </void>
+   <void method="add">
+    <object class="de.thischwa.pmcms.model.domain.pojo.Level" id="Level5">
+     <void property="id">
+      <int>23</int>
+     </void>
+     <void property="name">
+      <string>simple-gallery</string>
+     </void>
+     <void property="pages">
+      <void method="add">
+       <object class="de.thischwa.pmcms.model.domain.pojo.Gallery" id="Gallery0">
+        <void property="id">
+         <int>24</int>
+        </void>
+        <void property="imageMaxHeight">
+         <int>700</int>
+        </void>
+        <void property="imageMaxWidth">
+         <int>480</int>
+        </void>
+        <void property="imageTemplate">
+         <object class="de.thischwa.pmcms.model.domain.pojo.Template" id="Template2">
+          <void property="id">
+           <int>5</int>
+          </void>
+          <void property="name">
+           <string>image.html</string>
+          </void>
+          <void property="parent">
+           <object idref="Site0"/>
+          </void>
+          <void property="text">
            <string>#parse(&apos;user_menu.vm&apos;)
 
 &lt;div id=&quot;content&quot;&gt; #set( $gallery = $image.Gallery)##
@@ -685,73 +686,74 @@ $content
   &lt;/div&gt;
 #pagemenu()
 #imagemenu()
-&lt;/div&gt;</string> 
-          </void> 
-          <void property="type"> 
-           <object class="de.thischwa.pmcms.model.domain.pojo.TemplateType" method="valueOf"> 
-            <string>IMAGE</string> 
-           </object> 
-          </void> 
-         </object> 
-        </void> 
-        <void property="images"> 
-         <void method="add"> 
-          <object class="de.thischwa.pmcms.model.domain.pojo.Image"> 
-           <void property="description"> 
-            <string>Here you can adjust the basic properties of a gallery.</string> 
-           </void> 
-           <void property="fileName"> 
-            <string>gallery_properties.jpg</string> 
-           </void> 
-           <void property="id"> 
-            <int>25</int> 
-           </void> 
-           <void property="parent"> 
-            <object idref="Gallery0"/> 
-           </void> 
-           <void property="title"> 
-            <string>Gallery properties</string> 
-           </void> 
-          </object> 
-         </void> 
-         <void method="add"> 
-          <object class="de.thischwa.pmcms.model.domain.pojo.Image"> 
-           <void property="description"> 
-            <string>Here you can adjust the basic properties of an image.</string> 
-           </void> 
-           <void property="fileName"> 
-            <string>image_properties.jpg</string> 
-           </void> 
-           <void property="id"> 
-            <int>26</int> 
-           </void> 
-           <void property="parent"> 
-            <object idref="Gallery0"/> 
-           </void> 
-           <void property="title"> 
-            <string>Image properties</string> 
-           </void> 
-          </object> 
-         </void> 
-        </void> 
-        <void property="name"> 
-         <string>simple-gallery</string> 
-        </void> 
-        <void property="parent"> 
-         <object idref="Level5"/> 
-        </void> 
-        <void property="template"> 
-         <object id="Template3" class="de.thischwa.pmcms.model.domain.pojo.Template"> 
-          <void property="id"> 
-           <int>3</int> 
-          </void> 
-          <void property="name"> 
-           <string>gallery-simple.html</string> 
-          </void> 
-          <void property="parent"> 
-           <object idref="Site0"/> 
-          </void> 
-          <void property="text"> 
+&lt;/div&gt;</string>
+          </void>
+          <void property="type">
+           <object class="java.lang.Enum" method="valueOf">
+            <class>de.thischwa.pmcms.model.domain.pojo.TemplateType</class>
+            <string>IMAGE</string>
+           </object>
+          </void>
+         </object>
+        </void>
+        <void property="images">
+         <void method="add">
+          <object class="de.thischwa.pmcms.model.domain.pojo.Image">
+           <void property="description">
+            <string>Here you can adjust the basic properties of a gallery.</string>
+           </void>
+           <void property="fileName">
+            <string>gallery_properties.jpg</string>
+           </void>
+           <void property="id">
+            <int>25</int>
+           </void>
+           <void property="parent">
+            <object idref="Gallery0"/>
+           </void>
+           <void property="title">
+            <string>Gallery properties</string>
+           </void>
+          </object>
+         </void>
+         <void method="add">
+          <object class="de.thischwa.pmcms.model.domain.pojo.Image">
+           <void property="description">
+            <string>Here you can adjust the basic properties of an image.</string>
+           </void>
+           <void property="fileName">
+            <string>image_properties.jpg</string>
+           </void>
+           <void property="id">
+            <int>26</int>
+           </void>
+           <void property="parent">
+            <object idref="Gallery0"/>
+           </void>
+           <void property="title">
+            <string>Image properties</string>
+           </void>
+          </object>
+         </void>
+        </void>
+        <void property="name">
+         <string>simple-gallery</string>
+        </void>
+        <void property="parent">
+         <object idref="Level5"/>
+        </void>
+        <void property="template">
+         <object class="de.thischwa.pmcms.model.domain.pojo.Template" id="Template3">
+          <void property="id">
+           <int>3</int>
+          </void>
+          <void property="name">
+           <string>gallery-simple.html</string>
+          </void>
+          <void property="parent">
+           <object idref="Site0"/>
+          </void>
+          <void property="text">
            <string>#parse(&apos;user_menu.vm&apos;)
 
 &lt;div id=&quot;content&quot;&gt;
@@ -764,209 +766,210 @@ $content
   #end
   &lt;div id=&quot;download&quot;&gt;&lt;a href=&quot;$gallerylinktool.getLinkToZip($gallery, &apos;gallery_zips&apos;)&quot;&gt;Download the gallery &apos;$utils.escape($gallery.Title)&apos; as zip&lt;/a&gt;&lt;/div&gt;
 #pagemenu()
-&lt;/div&gt;</string> 
-          </void> 
-          <void property="type"> 
-           <object id="TemplateType1" class="de.thischwa.pmcms.model.domain.pojo.TemplateType" method="valueOf"> 
-            <string>GALLERY</string> 
-           </object> 
-          </void> 
-         </object> 
-        </void> 
-        <void property="thumbnailMaxHeight"> 
-         <int>100</int> 
-        </void> 
-        <void property="thumbnailMaxWidth"> 
-         <int>200</int> 
-        </void> 
-        <void property="title"> 
-         <string>Simple gallery example</string> 
-        </void> 
-       </object> 
-      </void> 
-     </void> 
-     <void property="parent"> 
-      <object idref="Site0"/> 
-     </void> 
-     <void property="title"> 
-      <string>Simple gallery</string> 
-     </void> 
-    </object> 
-   </void> 
-   <void method="add"> 
-    <object id="Level6" class="de.thischwa.pmcms.model.domain.pojo.Level"> 
-     <void property="id"> 
-      <int>27</int> 
-     </void> 
-     <void property="name"> 
-      <string>tbl-gallery</string> 
-     </void> 
-     <void property="pages"> 
-      <void method="add"> 
-       <object id="Gallery1" class="de.thischwa.pmcms.model.domain.pojo.Gallery"> 
-        <void property="content"> 
-         <void method="add"> 
-          <object class="de.thischwa.pmcms.model.domain.pojo.Content"> 
-           <void property="name"> 
-            <string>field1</string> 
-           </void> 
-           <void property="parent"> 
-            <object idref="Gallery1"/> 
-           </void> 
-           <void property="value"> 
+&lt;/div&gt;</string>
+          </void>
+          <void property="type">
+           <object class="java.lang.Enum" id="TemplateType1" method="valueOf">
+            <class>de.thischwa.pmcms.model.domain.pojo.TemplateType</class>
+            <string>GALLERY</string>
+           </object>
+          </void>
+         </object>
+        </void>
+        <void property="thumbnailMaxHeight">
+         <int>100</int>
+        </void>
+        <void property="thumbnailMaxWidth">
+         <int>200</int>
+        </void>
+        <void property="title">
+         <string>Simple gallery example</string>
+        </void>
+       </object>
+      </void>
+     </void>
+     <void property="parent">
+      <object idref="Site0"/>
+     </void>
+     <void property="title">
+      <string>Simple gallery</string>
+     </void>
+    </object>
+   </void>
+   <void method="add">
+    <object class="de.thischwa.pmcms.model.domain.pojo.Level" id="Level6">
+     <void property="id">
+      <int>27</int>
+     </void>
+     <void property="name">
+      <string>tbl-gallery</string>
+     </void>
+     <void property="pages">
+      <void method="add">
+       <object class="de.thischwa.pmcms.model.domain.pojo.Gallery" id="Gallery1">
+        <void property="content">
+         <void method="add">
+          <object class="de.thischwa.pmcms.model.domain.pojo.Content">
+           <void property="name">
+            <string>field1</string>
+           </void>
+           <void property="parent">
+            <object idref="Gallery1"/>
+           </void>
+           <void property="value">
             <string>
 &lt;p&gt;All images are taken from $linktagtool.setHref(&quot;http://co-photo.com&quot;).setTagValue(&quot;Conceptual Collections&quot;), a free stock photo gallery under creative commons license.&lt;/p&gt;
-</string> 
-           </void> 
-          </object> 
-         </void> 
-        </void> 
-        <void property="id"> 
-         <int>28</int> 
-        </void> 
-        <void property="imageMaxHeight"> 
-         <int>450</int> 
-        </void> 
-        <void property="imageMaxWidth"> 
-         <int>480</int> 
-        </void> 
-        <void property="imageTemplate"> 
-         <object idref="Template2"/> 
-        </void> 
-        <void property="images"> 
-         <void method="add"> 
-          <object class="de.thischwa.pmcms.model.domain.pojo.Image"> 
-           <void property="description"> 
-            <string>An image description.</string> 
-           </void> 
-           <void property="fileName"> 
-            <string>building1.jpg</string> 
-           </void> 
-           <void property="id"> 
-            <int>29</int> 
-           </void> 
-           <void property="parent"> 
-            <object idref="Gallery1"/> 
-           </void> 
-           <void property="title"> 
-            <string>Building 1</string> 
-           </void> 
-          </object> 
-         </void> 
-         <void method="add"> 
-          <object class="de.thischwa.pmcms.model.domain.pojo.Image"> 
-           <void property="description"> 
-            <string>An image description.</string> 
-           </void> 
-           <void property="fileName"> 
-            <string>building2.jpg</string> 
-           </void> 
-           <void property="id"> 
-            <int>30</int> 
-           </void> 
-           <void property="parent"> 
-            <object idref="Gallery1"/> 
-           </void> 
-           <void property="title"> 
-            <string>Building 2</string> 
-           </void> 
-          </object> 
-         </void> 
-         <void method="add"> 
-          <object class="de.thischwa.pmcms.model.domain.pojo.Image"> 
-           <void property="description"> 
-            <string>An image description.</string> 
-           </void> 
-           <void property="fileName"> 
-            <string>building3.jpg</string> 
-           </void> 
-           <void property="id"> 
-            <int>31</int> 
-           </void> 
-           <void property="parent"> 
-            <object idref="Gallery1"/> 
-           </void> 
-           <void property="title"> 
-            <string>building 3</string> 
-           </void> 
-          </object> 
-         </void> 
-         <void method="add"> 
-          <object class="de.thischwa.pmcms.model.domain.pojo.Image"> 
-           <void property="description"> 
-            <string>An image description.</string> 
-           </void> 
-           <void property="fileName"> 
-            <string>smoke_air_polution.jpg</string> 
-           </void> 
-           <void property="id"> 
-            <int>32</int> 
-           </void> 
-           <void property="parent"> 
-            <object idref="Gallery1"/> 
-           </void> 
-           <void property="title"> 
-            <string>Air polution</string> 
-           </void> 
-          </object> 
-         </void> 
-         <void method="add"> 
-          <object class="de.thischwa.pmcms.model.domain.pojo.Image"> 
-           <void property="description"> 
-            <string>An image description.</string> 
-           </void> 
-           <void property="fileName"> 
-            <string>skyline1.jpg</string> 
-           </void> 
-           <void property="id"> 
-            <int>33</int> 
-           </void> 
-           <void property="parent"> 
-            <object idref="Gallery1"/> 
-           </void> 
-           <void property="title"> 
-            <string>SkyLine 1</string> 
-           </void> 
-          </object> 
-         </void> 
-         <void method="add"> 
-          <object class="de.thischwa.pmcms.model.domain.pojo.Image"> 
-           <void property="description"> 
-            <string>An image description.</string> 
-           </void> 
-           <void property="fileName"> 
-            <string>skyline2.jpg</string> 
-           </void> 
-           <void property="id"> 
-            <int>34</int> 
-           </void> 
-           <void property="parent"> 
-            <object idref="Gallery1"/> 
-           </void> 
-           <void property="title"> 
-            <string>Skyline 2</string> 
-           </void> 
-          </object> 
-         </void> 
-        </void> 
-        <void property="name"> 
-         <string>table-gallery</string> 
-        </void> 
-        <void property="parent"> 
-         <object idref="Level6"/> 
-        </void> 
-        <void property="template"> 
-         <object id="Template4" class="de.thischwa.pmcms.model.domain.pojo.Template"> 
-          <void property="id"> 
-           <int>4</int> 
-          </void> 
-          <void property="name"> 
-           <string>gallery.html</string> 
-          </void> 
-          <void property="parent"> 
-           <object idref="Site0"/> 
-          </void> 
-          <void property="text"> 
+</string>
+           </void>
+          </object>
+         </void>
+        </void>
+        <void property="id">
+         <int>28</int>
+        </void>
+        <void property="imageMaxHeight">
+         <int>450</int>
+        </void>
+        <void property="imageMaxWidth">
+         <int>480</int>
+        </void>
+        <void property="imageTemplate">
+         <object idref="Template2"/>
+        </void>
+        <void property="images">
+         <void method="add">
+          <object class="de.thischwa.pmcms.model.domain.pojo.Image">
+           <void property="description">
+            <string>An image description.</string>
+           </void>
+           <void property="fileName">
+            <string>building1.jpg</string>
+           </void>
+           <void property="id">
+            <int>29</int>
+           </void>
+           <void property="parent">
+            <object idref="Gallery1"/>
+           </void>
+           <void property="title">
+            <string>Building 1</string>
+           </void>
+          </object>
+         </void>
+         <void method="add">
+          <object class="de.thischwa.pmcms.model.domain.pojo.Image">
+           <void property="description">
+            <string>An image description.</string>
+           </void>
+           <void property="fileName">
+            <string>building2.jpg</string>
+           </void>
+           <void property="id">
+            <int>30</int>
+           </void>
+           <void property="parent">
+            <object idref="Gallery1"/>
+           </void>
+           <void property="title">
+            <string>Building 2</string>
+           </void>
+          </object>
+         </void>
+         <void method="add">
+          <object class="de.thischwa.pmcms.model.domain.pojo.Image">
+           <void property="description">
+            <string>An image description.</string>
+           </void>
+           <void property="fileName">
+            <string>building3.jpg</string>
+           </void>
+           <void property="id">
+            <int>31</int>
+           </void>
+           <void property="parent">
+            <object idref="Gallery1"/>
+           </void>
+           <void property="title">
+            <string>building 3</string>
+           </void>
+          </object>
+         </void>
+         <void method="add">
+          <object class="de.thischwa.pmcms.model.domain.pojo.Image">
+           <void property="description">
+            <string>An image description.</string>
+           </void>
+           <void property="fileName">
+            <string>smoke_air_polution.jpg</string>
+           </void>
+           <void property="id">
+            <int>32</int>
+           </void>
+           <void property="parent">
+            <object idref="Gallery1"/>
+           </void>
+           <void property="title">
+            <string>Air polution</string>
+           </void>
+          </object>
+         </void>
+         <void method="add">
+          <object class="de.thischwa.pmcms.model.domain.pojo.Image">
+           <void property="description">
+            <string>An image description.</string>
+           </void>
+           <void property="fileName">
+            <string>skyline1.jpg</string>
+           </void>
+           <void property="id">
+            <int>33</int>
+           </void>
+           <void property="parent">
+            <object idref="Gallery1"/>
+           </void>
+           <void property="title">
+            <string>SkyLine 1</string>
+           </void>
+          </object>
+         </void>
+         <void method="add">
+          <object class="de.thischwa.pmcms.model.domain.pojo.Image">
+           <void property="description">
+            <string>An image description.</string>
+           </void>
+           <void property="fileName">
+            <string>skyline2.jpg</string>
+           </void>
+           <void property="id">
+            <int>34</int>
+           </void>
+           <void property="parent">
+            <object idref="Gallery1"/>
+           </void>
+           <void property="title">
+            <string>Skyline 2</string>
+           </void>
+          </object>
+         </void>
+        </void>
+        <void property="name">
+         <string>table-gallery</string>
+        </void>
+        <void property="parent">
+         <object idref="Level6"/>
+        </void>
+        <void property="template">
+         <object class="de.thischwa.pmcms.model.domain.pojo.Template" id="Template4">
+          <void property="id">
+           <int>4</int>
+          </void>
+          <void property="name">
+           <string>gallery.html</string>
+          </void>
+          <void property="parent">
+           <object idref="Site0"/>
+          </void>
+          <void property="text">
            <string>#parse(&apos;user_menu.vm&apos;)
 #parse(&apos;content.vm&apos;)
 &lt;div id=&quot;content&quot;&gt;
@@ -996,65 +999,65 @@ $content
 &lt;!-- END THUMBNAIL MATRIX --&gt;
 
   #pagemenu()
-&lt;/div&gt;</string> 
-          </void> 
-          <void property="type"> 
-           <object idref="TemplateType1"/> 
-          </void> 
-         </object> 
-        </void> 
-        <void property="thumbnailMaxHeight"> 
-         <int>120</int> 
-        </void> 
-        <void property="thumbnailMaxWidth"> 
-         <int>100</int> 
-        </void> 
-        <void property="title"> 
-         <string>Common table gallery</string> 
-        </void> 
-       </object> 
-      </void> 
-     </void> 
-     <void property="parent"> 
-      <object idref="Site0"/> 
-     </void> 
-     <void property="title"> 
-      <string>Table-Gallery</string> 
-     </void> 
-    </object> 
-   </void> 
-  </void> 
-  <void property="templates"> 
-   <void method="add"> 
-    <object idref="Template3"/> 
-   </void> 
-   <void method="add"> 
-    <object idref="Template4"/> 
-   </void> 
-   <void method="add"> 
-    <object idref="Template2"/> 
-   </void> 
-   <void method="add"> 
-    <object idref="Template0"/> 
-   </void> 
-   <void method="add"> 
-    <object idref="Template1"/> 
-   </void> 
-  </void> 
-  <void property="title"> 
-   <string>A very simple demo site!</string> 
-  </void> 
-  <void property="transferHost"> 
-   <string>127.0.0.1</string> 
-  </void> 
-  <void property="transferLoginUser"> 
-   <string>poormans</string> 
-  </void> 
-  <void property="transferStartDirectory"> 
-   <string>htdocs</string> 
-  </void> 
-  <void property="url"> 
-   <string>pmcms.demo.site</string> 
-  </void> 
- </object> 
-</java> 
+&lt;/div&gt;</string>
+          </void>
+          <void property="type">
+           <object idref="TemplateType1"/>
+          </void>
+         </object>
+        </void>
+        <void property="thumbnailMaxHeight">
+         <int>120</int>
+        </void>
+        <void property="thumbnailMaxWidth">
+         <int>100</int>
+        </void>
+        <void property="title">
+         <string>Common table gallery</string>
+        </void>
+       </object>
+      </void>
+     </void>
+     <void property="parent">
+      <object idref="Site0"/>
+     </void>
+     <void property="title">
+      <string>Table-Gallery</string>
+     </void>
+    </object>
+   </void>
+  </void>
+  <void property="templates">
+   <void method="add">
+    <object idref="Template3"/>
+   </void>
+   <void method="add">
+    <object idref="Template4"/>
+   </void>
+   <void method="add">
+    <object idref="Template2"/>
+   </void>
+   <void method="add">
+    <object idref="Template0"/>
+   </void>
+   <void method="add">
+    <object idref="Template1"/>
+   </void>
+  </void>
+  <void property="title">
+   <string>A very simple demo site!</string>
+  </void>
+  <void property="transferHost">
+   <string>127.0.0.1</string>
+  </void>
+  <void property="transferLoginUser">
+   <string>poormans</string>
+  </void>
+  <void property="transferStartDirectory">
+   <string>htdocs</string>
+  </void>
+  <void property="url">
+   <string>pmcms.demo.site</string>
+  </void>
+ </object>
+</java>

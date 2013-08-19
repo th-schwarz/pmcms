@@ -74,6 +74,7 @@ public class InternalAntTool {
 		String propLib = props.getProperty("pmcms.dir.lib");
 		String propLibSwt  = props.getProperty("pmcms.dir.lib.swt");
 		if(printDebug) {
+			project.log("Java: " + System.getProperty("java.version"));
 			project.log("OS: " + os);
 			project.log("Starter class: " + starterClass);
 			project.log("Lib-folder-property: " + propLib);
@@ -127,7 +128,7 @@ public class InternalAntTool {
 			if(printDebug)
 				project.log("Classpath: " + classPath);
 			
-			/** add some vm args dependent on the os */
+			// add some vm args dependent on the os 
 			switch (os) {
 				case MAC:
 					if(!jvmArgs.contains("-XstartOnFirstThread"))
@@ -145,6 +146,7 @@ public class InternalAntTool {
 					System.exit(3);
 					break;
 			}
+			
 			// add jvm args if exists
 			if(!jvmArgs.isEmpty()) {
 				// clean-up the jvm-args and ensure that each one starts with '-D' or '-X'
@@ -185,7 +187,6 @@ public class InternalAntTool {
 		else 
 			project.log("successful finished");
 		project.fireBuildFinished(caught);	
-		
 	}
 	
 	/**
