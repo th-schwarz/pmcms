@@ -4,17 +4,18 @@
 **/
 
 * {
-	font-family: Lucida Sans Unicode, Lucida Grande, sans-serif;
-	color: #333;
-	box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	-webkit-box-sizing: border-box;
-	-ms-box-sizing: border-box;
+    font-family: Lucida Sans Unicode, Lucida Grande, sans-serif;
+    color: #333;
+    box-sizing: content-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -ms-box-sizing: content-box;
 }
 
 body {
 	padding: 10px;
 	background-color:#F4F1ED;
+	overflow-x:hidden; /** prevent overflow if #uploader h1 path value is too long */
 }
 
 video, audio {
@@ -25,7 +26,6 @@ video, audio {
 	text-align: right;
 	height: auto;
 	min-height:30px;
-	max-height: 80px;
 	overflow: hidden;
 }
 
@@ -36,6 +36,7 @@ video, audio {
 	line-height:1.9em;
 	font-size: 0.8em;
 	text-shadow:1px 1px 0px #ffffff;
+	word-break: break-all;
 }
 
 #uploadresponse {
@@ -73,10 +74,16 @@ video, audio {
 
 #fileinfo {
 	text-align: center;
+	padding:0;
+	margin:0;
 }
 
 #fileinfo * {
 	font-size: 12px;
+}
+
+#preview {
+	width: 100%;
 }
 
 #preview > img {
@@ -167,14 +174,53 @@ button:focus {
 }
 
 /** Input file Replacement */
-#newfile {visibility:hidden;position:absolute;top:-50px}
-#alt-fileinput {display: inline;wrap:no-wrap;}
+#file-input-container {
+	display:inline-block;
+	margin:0;
+	position:relative;
+	top:0px;
+	width:221px;
+	height:32px;
+	overflow: hidden;
+}
+
+/** IE10 hack */
+_::-ms-reveal, #file-input-container {
+	overflow:auto;
+}
+
+/** Firefox hack */
+@-moz-document url-prefix() {
+	#file-input-container  {
+		top:11px;
+		width:255px;
+	}
+}
+
+/** Opera hack */
+x:-o-prefocus, #file-input-container {top:16px;width:205px;}
+
+#newfile {
+	position: absolute;
+	top:0;
+	right:0;
+	height:32px;
+	opacity:0;  filter: alpha(opacity=0);
+	cursor: pointer;
+	border:1px solid blue;
+}
+
+#alt-fileinput {
+	display: inline;
+	wrap: no-wrap;
+}
+
 #filepath {
 	background-color: #F4F1ED;
-	border:1px solid #dcdcdc;
-	margin:0;
-	padding:0.1em 0.3em;
-	line-height:1.7em;
+	border: 1px solid #dcdcdc;
+	margin: 0;
+	padding: 0.1em 0.3em;
+	line-height: 1.7em;
 	-webkit-border-top-left-radius: 6px;
 	-webkit-border-bottom-left-radius: 6px;
 	-moz-border-radius-topleft: 6px;
@@ -182,6 +228,7 @@ button:focus {
 	border-top-left-radius: 6px;
 	border-bottom-left-radius: 6px;
 }
+
 @-moz-document url-prefix() {
 	#filepath {
 		padding:0.2em 0.3em;
@@ -207,6 +254,39 @@ button#browse span {
 	text-shadow: none;
 }
 /** Input file Replacement - end */
+
+#q {
+	background-color: #F2F2F2;
+	border: 1px solid #dcdcdc;
+	margin: 0.5em 0 0;
+	padding: 0.1em 0.3em;
+	line-height: 1.7em;
+	width: 200px;
+	
+}
+
+#search span.q-inactive {
+	color: #a1a1a1;
+	font-style: italic;
+	font-size: 0.85em;
+	position: relative;
+	left: -200px;
+}
+
+#search a.q-reset {
+	display: inline-table;
+	width: 20px;
+	height: 20px;
+	background: url(../images/reset.png) no-repeat center center;
+	position: relative;
+	opacity:0.5;
+	left: -30px;
+	top: 5px;
+	z-index: 24;
+}
+
+/** Opera hack */
+x:-o-prefocus, #search a.q-reset {top:-14px;}
 
 #contents.grid {
 	padding: 25px;
@@ -383,6 +463,12 @@ div.jqi button {
 	float: right;
 }
 div#jqistates {padding:1em;}
+
+div.jqimessage p {
+ padding:0.3em;
+ color:#555;
+}
+
 div.jqifade{
 	background-color: #000000;
 }

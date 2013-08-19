@@ -4,7 +4,7 @@ Filemanager
 Installation and Setup
 ----------------------
 
-(1) Check out a copy of the FileManager from the repository using Git :
+**(1)** Check out a copy of the FileManager from the repository using Git :
 
 git clone http://github.com/simogeo/Filemanager.git
 
@@ -12,15 +12,19 @@ or download the archive from Github : https://github.com/simogeo/Filemanager/arc
 
 You can place the FileManager anywhere within your web serving root directory.
 
-(2) Make a copy of the default configuration file ("filemanager.config.js.default" located in the scripts directory), removing the '.default' from the end of the filename, and edit the options according to the comments in the file.
+**(2)** Make a copy of the default configuration file ("filemanager.config.js.default" located in the scripts directory), removing the '.default' from the end of the filename, and edit the options according to the following wiki page : https://github.com/simogeo/Filemanager/wiki/Filemanager-configuration-file
+   Having a look on configuration cases study may also be helpful to you : https://github.com/simogeo/Filemanager/wiki/Specify-user-folder%2C-configuration-cases
 
-(3) Find the default configuration file for the connector you chose in Step 2 above, and follow the same procedure to configure the connector. For instance, the default configuration file for the PHP connector is located here:
+**(3)** Find the default configuration file for the connector you chose in Step 2 above, and follow the same procedure to configure the connector. For instance, the default configuration file for the PHP connector is located here:
 		[Path to FileManager]/connectors/php/filemanager.config.php
 		
-    Currently, PHP, ASHX, ASP, CFM, lasso, PL and JSP connectors are available for Filemanager, but we are waiting for you contributions
+**Since many changes have been done recently, only PHP connector is now available**
+		
+To use other connectors, please download v0.8 version from https://github.com/simogeo/Filemanager/archive/v0.8.zip
+(PHP, ASHX, ASP, CFM, lasso, PL and JSP connectors are available)
     
 
-(4a) If you are integrating the FileManager with FCKEditor, open your fckconfig.js file and find the lines which specify what file browser to use for images, links, etc. Look toward the bottom of the file. You will need to change lines such as this:
+**(4a)** If you are integrating the FileManager with FCKEditor, open your fckconfig.js file and find the lines which specify what file browser to use for images, links, etc. Look toward the bottom of the file. You will need to change lines such as this:
 
 FCKConfig.ImageBrowser = false ;
 FCKConfig.ImageBrowserURL = FCKConfig.BasePath + 'filemanager/browser/default/browser.html?Type=Image&Connector=../../connectors/' + _FileBrowserLanguage + '/connector.' + _FileBrowserExtension ;
@@ -30,18 +34,20 @@ FCKConfig.ImageBrowserURL = FCKConfig.BasePath + 'filemanager/browser/default/br
 FCKConfig.ImageBrowser = true ;
 FCKConfig.ImageBrowserURL = '[Path to Filemanager]/index.html' ;
 
-(4b) If you are integrating the FileManager with CKEditor 3.x or higher, simply set the URL when you configure your instance, like so:
+**(4b)** If you are integrating the FileManager with CKEditor 3.x or higher, simply set the URL when you configure your instance, like so:
 
 CKEDITOR.replace('instancename', {
 	filebrowserBrowseUrl: '[Path to Filemanager]/index.html',
 	...other configuration options...
 });
 
-(4c) If you are integrating the FileManager with TinyMCE (>= 3.0), you should:
+**(4c)** If you are integrating the FileManager with TinyMCE (>= 3.0), you should:
 
 Create a Javascript callback function that will open the FileManager index.html base page (see URL below for examples)
 Add a line like: "file_browser_callback : 'name_of_callback_function'" in the tinyMCE.init command
-See http://www.tinymce.com/wiki.php/How-to_implement_a_custom_file_browser for more details.
+See http://www.tinymce.com/wiki.php/TinyMCE3x:How-to_implement_a_custom_file_browser for more details.
+
+See also the dedicated wiki page, with TinyMCE 4 sample : https://github.com/simogeo/Filemanager/wiki/How-to-use-the-Filemanager-with-tinyMCE--3-or-4-%3F
 
 
 API
@@ -54,9 +60,10 @@ You can create a connector for your server side language of choice by following 
 
 	[path to FileManager]/connectors/[language extension]/filemanager.[language extension]
 
-FileManager currently includes connectors for PHP, JSP, lasso, ASP, ASHX, PL and CFM in the following locations:
+FileManager currently includes connectors for PHP, MVC, JSP, lasso, ASP, ASHX, PL and CFM in the following locations:
 
 	PHP: .../connectors/php/filemanager.php
+	ASP.NET MVC Framework .../connectors/mvc/FilemanagerController.cs
 	JSP: .../connectors/jsp/filemanager.jsp
 	lasso: .../connectors/lasso/filemanager.lasso
 	ASP: .../connectors/asp/filemanager.asp
@@ -98,7 +105,8 @@ Example Response:
 		"Preview": "/UserFiles/Image/logo.png",
 		"Properties": {
 			"Date Created": null, 
-			"Date Modified": "02/09/2007 14:01:06", 
+			"Date Modified": "02/09/2007 14:01:06",
+			"filemtime": 1360237058,
 			"Height": 14,
 			"Width": 14,
 			"Size": 384 
@@ -155,7 +163,8 @@ Example Response:
 			"Preview": "/UserFiles/Image/logo.png",
 			"Properties": {
 				"Date Created": null, 
-				"Date Modified": "02/09/2007 14:01:06", 
+				"Date Modified": "02/09/2007 14:01:06",
+				"filemtime": 1360237058,
 				"Height": 14,
 				"Width": 14,
 				"Size": 384 
@@ -170,7 +179,8 @@ Example Response:
 			"Preview": "/UserFiles/Image/icon.png",
 			"Properties": {
 				"Date Created": null, 
-				"Date Modified": "02/09/2007 14:01:06", 
+				"Date Modified": "02/09/2007 14:01:06",
+				"filemtime": 1360237058,
 				"Height": 14,
 				"Width": 14,
 				"Size": 384 
@@ -185,7 +195,8 @@ Example Response:
 			"Preview":"images\/fileicons\/_Open.png",
 			"Properties": {
 				"Date Created":null,
-				"Date Modified":null,
+				"Date Modified": "02/09/2007 14:01:06",
+				"filemtime": 1360237058,
 				"Height":null,
 				"Width":null,
 				"Size":null
@@ -274,3 +285,17 @@ The download method serves the requested file to the user. We currently use a MI
 Example Request:
 
 	[path to connector]?mode=download&path=/UserFiles/new%20logo.png
+
+	
+MIT LICENSE
+---
+
+Copyright (c) 2011-2013 Jason Huck, Simon Georget
+http://opensource.org/licenses/MIT
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ 
