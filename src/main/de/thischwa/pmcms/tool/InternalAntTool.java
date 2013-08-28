@@ -77,8 +77,8 @@ public class InternalAntTool {
 			project.log("Java: " + System.getProperty("java.version"));
 			project.log("OS: " + os);
 			project.log("Starter class: " + starterClass);
-			project.log("Lib-folder-property: " + propLib);
-			project.log("Lib-swt-folder-property: " + propLibSwt);
+			project.log("Lib-folder: " + propLib);
+			project.log("Lib-swt-folder: " + propLibSwt);
 		}
 		int retVal = -1;
 		try {
