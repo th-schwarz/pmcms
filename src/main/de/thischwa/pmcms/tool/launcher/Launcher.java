@@ -23,6 +23,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Properties;
 
 import de.thischwa.pmcms.Constants;
@@ -54,7 +57,7 @@ public class Launcher {
 		}
 		
 		File dataDir;
-		if(cliParser.hasOption("portable")) 
+		if(cliParser.hasOption("portable") && !cliParser.hasOption("datadir")) 
 			dataDir = Constants.APPLICATION_DIR;
 		else {
 			dataDir = (cliParser.hasOption("datadir")) 
@@ -69,13 +72,20 @@ public class Launcher {
 		//users props
 		File propertiesFile = new File(dataDir, BasicConfigurator.PROPERTIES_NAME);
 		if(!propertiesFile.exists()) {
-			System.out.println(String.format("Properties file [%] not found!", propertiesFile.getPath()));
+			System.out.println(String.format("Properties file [%s] not found!", propertiesFile.getPath()));
 			System.exit(1);
 		}
 		InputStream userIn = new BufferedInputStream(new FileInputStream(propertiesFile));
 		// the common props
 		InputStream commonIn = new BufferedInputStream(BasicConfigurator.class.getResourceAsStream("common.properties"));
 		Properties props = PropertiesTool.loadProperties(commonIn, userIn);
-		InternalAntTool.start(dataDir, props, "de.thischwa.pmcms.Starter", cliParser.hasOption("debug"), args);
+		
+		// clean up the arguments (option datadir must be removed)
+		List<String> arguments = new ArrayList<>(Arrays.asList(args));
+		if(cliParser.hasOption("datadir")) {
+			arguments.remove("-datadir");
+			arguments.remove(cliParser.getOptionValue("datadir"));
+		}
+		InternalAntTool.start(dataDir, props, "de.thischwa.pmcms.Starter", cliParser.hasOption("debug"), arguments.toArray(new String[0]));
 	}
 }
