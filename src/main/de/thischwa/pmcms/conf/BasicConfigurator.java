@@ -116,15 +116,15 @@ public class BasicConfigurator {
 	private void loadProperties() {
 		props = new Properties();
 		try {
-			// the common props
-			InputStream commonIn = new BufferedInputStream(BasicConfigurator.class.getResourceAsStream("common.properties"));
+			// the default props
+			InputStream defaultIn = new BufferedInputStream(BasicConfigurator.class.getResourceAsStream("default.properties"));
 
 			// the user's props
 			File propsFile = new File(dataDir, PROPERTIES_NAME);
 			InputStream usersIn = new BufferedInputStream(new FileInputStream(propsFile));
 
 			// load the props
-			props = PropertiesTool.loadProperties(commonIn, usersIn);
+			props = PropertiesTool.loadProperties(defaultIn, usersIn);
 
 			// replace the data path
 			for (Object key : props.keySet()) {
