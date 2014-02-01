@@ -12,7 +12,7 @@ pmcms is distributed under the [LGPL](http://www.gnu.org/licenses/lgpl-3.0.html)
 
 ## Changes 
 
-* 3.0.0-SNAPSHOT   
+* 3.0.0-SNAPSHOT 
   * changed to commons-codec for encoding/decoding passwords
   * updated to ckeditor 4.*
   * updated to swt 4.2.1
@@ -27,7 +27,7 @@ pmcms is distributed under the [LGPL](http://www.gnu.org/licenses/lgpl-3.0.html)
   * simplified the ImageTagTool
   * updated to jetty 9.*
   * updated to slf4j 1.7.2
-  * added C5Connector.Java 0.1
+  * added C5Connector.Java 0.3
   * added CKEditor.Java 1.0
   * updated to ant 1.9.2
   * change the loading behavior of the swt-jars (64bit jars are respected)
