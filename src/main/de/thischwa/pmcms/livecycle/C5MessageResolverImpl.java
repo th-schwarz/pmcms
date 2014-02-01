@@ -46,8 +46,8 @@ public class C5MessageResolverImpl extends FilemanagerMessageResolver {
 
 	@Override
 	public void setServletContext(ServletContext servletContext) throws RuntimeException {
-		Path fileSystemPath = new Path(PropertiesLoader.getFilemangerPath());
-		fileSystemPath.addFolder(scriptPath);
+		Path fileSystemPath = new Path(PropertiesLoader.getFilemanagerPath());
+		fileSystemPath.addFolder(langPath);
 		File msgFolder = new File(Constants.APPLICATION_DIR, fileSystemPath.toString());
 		if(!msgFolder.exists())
 			throw new RuntimeException(String.format("C5 scripts folder couldn't be found: %s", msgFolder.getAbsolutePath()));

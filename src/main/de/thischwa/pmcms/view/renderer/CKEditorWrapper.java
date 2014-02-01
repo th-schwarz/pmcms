@@ -71,7 +71,9 @@ public class CKEditorWrapper {
 			editor.removeProperty("toolbar");
 		editor.setProperty("customConfig", urlCustomConfig);
 		editor.setProperty("contentsCss", urlDefaultCss); 
+		editor.setProperty("baseHref", pm.getProperty("baseurl"));
 		editor.setProperty("filebrowserBrowseUrl", pm.getProperty("pmcms.filemanager.url"));
+		// TODO set height and width of the filebrowser
 		editor.setValue(value);
 		return editor.toString();
 	}

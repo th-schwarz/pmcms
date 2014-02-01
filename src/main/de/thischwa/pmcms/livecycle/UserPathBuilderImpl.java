@@ -21,7 +21,7 @@ package de.thischwa.pmcms.livecycle;
 import javax.servlet.ServletContext;
 
 import de.thischwa.c5c.requestcycle.Context;
-import de.thischwa.c5c.requestcycle.UserPathBuilder;
+import de.thischwa.c5c.requestcycle.BackendPathBuilder;
 import de.thischwa.pmcms.conf.InitializationManager;
 import de.thischwa.pmcms.conf.PropertiesManager;
 import de.thischwa.pmcms.model.domain.PoPathInfo;
@@ -31,19 +31,17 @@ import de.thischwa.pmcms.tool.PathTool;
 /**
  * Implementation of the C5Connector's UserBathBuilder to build the correct user path for different {@link Site}s.
  */
-public class UserPathBuilderImpl implements UserPathBuilder {
+public class UserPathBuilderImpl implements BackendPathBuilder {
 
 	@Override
-	public String getServerPath(String urlPath, Context ctx, ServletContext servletContext) {
+	public String getBackendPath(String urlPath, Context ctx, ServletContext servletContext) {
 		Site site = getSite();
 		if(site == null)
 			return null;
 		PropertiesManager pm =  InitializationManager.getBean(PropertiesManager.class);
-		String filesPath = pm.getProperty("pmcms.filemanager.userfiles");
-		String cleanedPath = urlPath.substring(filesPath.length()+1);
 		String resourceFolder = pm.getSiteProperty("pmcms.site.dir.resources.other");
-		String path = String.format("%s/%s/%s", PathTool.getURLFromFile(PoPathInfo.getSiteDirectory(site).getPath(), false),
-				resourceFolder, cleanedPath);
+		String path = String.format("%s/%s%s", PathTool.getURLFromFile(PoPathInfo.getSiteDirectory(site).getPath(), false),
+				resourceFolder, urlPath);
 		
 		return path;
 	}	

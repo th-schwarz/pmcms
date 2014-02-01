@@ -18,9 +18,7 @@
  ******************************************************************************/
 package de.thischwa.pmcms.livecycle;
 
-import java.io.File;
-
-import javax.servlet.ServletContext;
+import java.nio.file.Paths;
 
 import de.thischwa.c5c.requestcycle.impl.FilemanagerIconResolver;
 import de.thischwa.c5c.resource.PropertiesLoader;
@@ -34,13 +32,12 @@ import de.thischwa.pmcms.Constants;
  * That's necessary because the working directory of the server is the data directory. 
  */
 public class C5IconResolverImpl extends FilemanagerIconResolver {
-
+	
 	@Override
-	public void setServletContext(ServletContext servletContext) throws RuntimeException {
-		Path fileSystemPath = new Path(PropertiesLoader.getFilemangerPath());
+	protected void collectIcons(String iconPath, java.nio.file.Path iconFolder, Path urlPath) {
+		java.nio.file.Path iconFSPath = Paths.get(Constants.APPLICATION_DIR.getAbsolutePath(), iconPath);
+		Path fileSystemPath = new Path(PropertiesLoader.getFilemanagerPath());
 		fileSystemPath.addFolder(iconPath);
-		
-		File iconFolder = new File(Constants.APPLICATION_DIR, fileSystemPath.toString());
-		collectIcons(iconFolder, fileSystemPath);
+		super.collectIcons(iconPath, iconFSPath, urlPath);
 	}
 }

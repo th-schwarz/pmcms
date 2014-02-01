@@ -47,6 +47,8 @@ public class PropertiesManager {
 	}
 	
 	public String getSiteProperty(final String key) {
+		if(!siteProps.containsKey(key))
+			return defaultSiteProps.getProperty(key);
 		return siteProps.getProperty(key);
 	}
 	

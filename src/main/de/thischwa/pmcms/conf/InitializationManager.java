@@ -32,7 +32,6 @@ import org.springframework.beans.BeansException;
 import org.springframework.context.support.AbstractApplicationContext;
 
 import de.thischwa.c5c.impl.LocalConnector;
-import de.thischwa.c5c.requestcycle.impl.EnabledUserAction;
 import de.thischwa.c5c.resource.PropertiesLoader;
 import de.thischwa.ckeditor.CKPropertiesLoader;
 import de.thischwa.jii.ImageType;
@@ -40,6 +39,7 @@ import de.thischwa.pmcms.Constants;
 import de.thischwa.pmcms.conf.resource.LabelHolder;
 import de.thischwa.pmcms.livecycle.C5IconResolverImpl;
 import de.thischwa.pmcms.livecycle.C5MessageResolverImpl;
+import de.thischwa.pmcms.livecycle.FilemanagerConfigBuilderImpl;
 import de.thischwa.pmcms.livecycle.SiteHolder;
 import de.thischwa.pmcms.livecycle.UserPathBuilderImpl;
 import de.thischwa.pmcms.model.domain.pojo.Site;
@@ -168,15 +168,15 @@ public class InitializationManager {
 		imageRenderingEnabled = getBean(ImageTool.class).isRenderingAvailable();
 
 		// preparing C5Connector.Java
+		PropertiesLoader.setProperty("connector.impl", LocalConnector.class.getName());
+		PropertiesLoader.setProperty("connector.filemanagerConfigImpl", FilemanagerConfigBuilderImpl.class.getName());
 		PropertiesLoader.setProperty("connector.iconResolverImpl", C5IconResolverImpl.class.getName());
 		PropertiesLoader.setProperty("connector.messageResolverImpl", C5MessageResolverImpl.class.getName());
-		PropertiesLoader.setProperty("connector.impl", LocalConnector.class.getName());
-		PropertiesLoader.setProperty("connector.userActionImpl", EnabledUserAction.class.getName());
 		PropertiesLoader.setProperty("connector.userPathBuilderImpl", UserPathBuilderImpl.class.getName());
 		PropertiesLoader.setProperty("connector.resourceType.image.extensions.allowed", imageExts);
 		String capabilities = (isAdmin) ? "select,delete,rename" : "select";
 		PropertiesLoader.setProperty("connector.capabilities", capabilities);
-		
+	
 		// preparing CKEditor.Java
 		CKPropertiesLoader.setProperty("ckeditor.height", "450px");
 		CKPropertiesLoader.setProperty("ckeditor.width", "100%");

@@ -41,7 +41,7 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 
-import de.thischwa.c5c.resource.Extension;
+import de.thischwa.c5c.UserObjectProxy;
 import de.thischwa.pmcms.gui.dialog.DialogManager;
 import de.thischwa.pmcms.model.domain.pojo.Site;
 
@@ -312,7 +312,7 @@ public class UnusedImageComp extends Composite {
 			else {
 				File file = (File)srcList.getElementAt(selected);
 				String ext = FilenameUtils.getExtension(file.getName());
-				if(StringUtils.isBlank(ext) || !Extension.IMAGE.isAllowedExtension(ext)) {
+				if(StringUtils.isBlank(ext) || !UserObjectProxy.getFilemanagerConfig().getImages().getExtensions().contains(ext)) {
 					previewCanvas.preview();
 				} else {
 					previewCanvas.preview(file);
