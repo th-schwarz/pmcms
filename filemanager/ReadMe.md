@@ -34,20 +34,26 @@ To use other connectors, please download v0.8 version from https://github.com/si
 
 **(4a)** If you are integrating the FileManager with FCKEditor, open your fckconfig.js file and find the lines which specify what file browser to use for images, links, etc. Look toward the bottom of the file. You will need to change lines such as this:
 
+```javascript
 FCKConfig.ImageBrowser = false ;
 FCKConfig.ImageBrowserURL = FCKConfig.BasePath + 'filemanager/browser/default/browser.html?Type=Image&Connector=../../connectors/' + _FileBrowserLanguage + '/connector.' + _FileBrowserExtension ;
+```
 
 ...to this:
 
+```javascript
 FCKConfig.ImageBrowser = true ;
 FCKConfig.ImageBrowserURL = '[Path to Filemanager]/index.html' ;
+```
 
 **(4b)** If you are integrating the FileManager with CKEditor 3.x or higher, simply set the URL when you configure your instance, like so:
 
+```javascript
 CKEDITOR.replace('instancename', {
 	filebrowserBrowseUrl: '[Path to Filemanager]/index.html',
 	...other configuration options...
 });
+```
 
 **(4c)** If you are integrating the FileManager with TinyMCE (>= 3.0), you should:
 
@@ -56,6 +62,12 @@ Add a line like: "file_browser_callback : 'name_of_callback_function'" in the ti
 See http://www.tinymce.com/wiki.php/TinyMCE3x:How-to_implement_a_custom_file_browser for more details.
 
 See also the dedicated wiki page, with TinyMCE 4 sample : https://github.com/simogeo/Filemanager/wiki/How-to-use-the-Filemanager-with-tinyMCE--3-or-4-%3F
+
+**jQuery dependency and compatibility**
+
+We try to keep updating jQuery core library regularly.
+If, for any reason, you can't use the embedded jQuery version just now that the Filemanager will probably work with a jQuery version >= 1.6.
+You'll have to use the [jQuery.migrate() plugin](https://github.com/jquery/jquery-migrate) to use it with jQuery version 1.9+.
 
 
 API
@@ -227,14 +239,50 @@ Example Request:
 
 Example Response:
 
-{
-	"Error": "No error",
-	"Code": 0,
-	"Old Path": "/a_folder_renamed/thisisareallylongincrediblylongfilenamefortesting.txt",
-	"Old Name": "thisisareallylongincrediblylongfilenamefortesting.txt",
-	"New Path": "/a_folder_renamed/a_renamed_file", 
-	"New Name": "a_renamed_file"
-}
+    {
+        "Error": "No error",
+        "Code": 0,
+        "Old Path": "/a_folder_renamed/thisisareallylongincrediblylongfilenamefortesting.txt",
+        "Old Name": "thisisareallylongincrediblylongfilenamefortesting.txt",
+        "New Path": "/a_folder_renamed/a_renamed_file",
+        "New Name": "a_renamed_file"
+    }
+
+move
+------
+The move method move "old" file or directory to specified "new" directory. It is possible to specify absolute path from fileRoot dir or relative path from "old" item. "root" value is mandatory to secure that relative paths don't get above fileRoot.
+
+Example Request: Move file
+	
+	[path to connector]?mode=move&old=/uploads/images/original/Image/logo.png&new=/moved/&root=/uploads/images/
+
+Example Response:
+
+    {
+        "Error": "No error",
+        "Code": 0,
+        "Old Path": "/uploads/images/original/Image/",
+        "Old Name": "logo.png",
+        "New Path": "/uploads/images/moved/",
+        "New Name": "logo.png"
+    }
+
+Example Request: Move directory to not existing directory (will be created)
+	
+	[path to connector]?mode=move&old=/uploads/images/original/Image&new=../new_dir/&root=/uploads/images/
+
+Example Response:
+
+    {
+        "Error": "No error",
+        "Code": 0,
+        "Old Path": "/uploads/images/original/",
+        "Old Name": "Image",
+        "New Path": "/uploads/new_dir/",
+        "New Name": "Image"
+    }
+
+
 
 
 delete

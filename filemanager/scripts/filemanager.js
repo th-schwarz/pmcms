@@ -43,7 +43,9 @@ var config = (function () {
 // Sets paths to connectors based on language selection.
 var fileConnector = config.options.fileConnector || 'connectors/' + config.options.lang + '/filemanager.' + config.options.lang;
 
-var capabilities = new Array('select', 'download', 'rename', 'delete');
+// Read capabilities from config files if exists
+// else apply default settings
+var capabilities = config.options.capabilities || new Array('select', 'download', 'rename', 'move', 'delete');
 
 // Get localized messages from file 
 // through culture var or from URL
@@ -143,7 +145,7 @@ function file_exists (url) {
 
 // preg_replace
 // Code from : http://xuxu.fr/2006/05/20/preg-replace-javascript/
-var preg_replace = function(array_pattern, array_pattern_replace, str)  {
+var preg_replace = function(array_pattern, array_pattern_replace, str) {
 	var new_str = String (str);
 		for (i=0; i<array_pattern.length; i++) {
 			var reg_exp= RegExp(array_pattern[i], "g");
@@ -199,7 +201,7 @@ var nameFormat = function(input) {
 };
 
 //Converts bytes to kb, mb, or gb as needed for display.
-var formatBytes = function(bytes){
+var formatBytes = function(bytes) {
 	var n = parseFloat(bytes);
 	var d = parseFloat(1024);
 	var c = 0;
@@ -226,7 +228,7 @@ var handleError = function(errMsg) {
 };
 
 // Test if Data structure has the 'cap' capability
-// 'cap' is one of 'select', 'rename', 'delete', 'download'
+// 'cap' is one of 'select', 'rename', 'delete', 'download', move
 function has_capability(data, cap) {
 	if (data['File Type'] == 'dir' && cap == 'download') return false;
 	if (typeof(data['Capabilities']) == "undefined") return true;
@@ -333,7 +335,7 @@ var display_icons = function(timer) {
 // Sets the folder status, upload, and new folder functions 
 // to the path specified. Called on initial page load and 
 // whenever a new directory is selected.
-var setUploader = function(path){
+var setUploader = function(path) {
 	$('#currentpath').val(path);
 	$('#uploader h1').text(lg.current_folder + displayPath(path)).attr('title', displayPath(path, false));
 
@@ -375,7 +377,7 @@ var setUploader = function(path){
 
 // Binds specific actions to the toolbar in detail views.
 // Called when detail views are loaded.
-var bindToolbar = function(data){
+var bindToolbar = function(data) {
 	
 	// this little bit is purely cosmetic
 	$( "#fileinfo button" ).each(function( index ) {
@@ -399,6 +401,15 @@ var bindToolbar = function(data){
 	} else {
 		$('#fileinfo').find('button#rename').click(function(){
 			var newName = renameItem(data);
+			if(newName.length) $('#fileinfo > h1').text(newName);
+		}).show();
+	}
+
+	if (!has_capability(data, 'move')) {
+		$('#fileinfo').find('button#move').hide();
+	} else {
+		$('#fileinfo').find('button#move').click(function(){
+			var newName = moveItem(data);
 			if(newName.length) $('#fileinfo > h1').text(newName);
 		}).show();
 	}
@@ -465,7 +476,7 @@ var createFileTree = function() {
 // button in detail views or choosing the "Select"
 // contextual menu option in list views. 
 // NOTE: closes the window when finished.
-var selectItem = function(data){
+var selectItem = function(data) {
 	if(config.options.relPath != false ) {
 		var url = relPath + data['Path'].replace(fileRoot,""); 
 	} else {
@@ -527,7 +538,7 @@ var selectItem = function(data){
 // Called by clicking the "Rename" button in detail views
 // or choosing the "Rename" contextual menu option in 
 // list views.
-var renameItem = function(data){
+var renameItem = function(data) {
 	var finalName = '';
 	var msg = lg.new_filename + ' : <input id="rname" name="rname" type="text" value="' + getFilename(data['Filename']) + '" />';
 
@@ -600,10 +611,64 @@ var renameItem = function(data){
 	return finalName;
 };
 
+// Move the current item to specified dir and returns the new name.
+// Called by clicking the "Move" button in detail views
+// or choosing the "Move" contextual menu option in
+// list views.
+var moveItem = function(data) {
+	var finalName = '';
+	var msg = lg.move + ' : <input id="rname" name="rname" type="text" value="" />';
+
+	var doMove = function(v, m){
+		if(v != 1) return false;
+		rname = m.children('#rname').val();
+
+		if(rname != ''){
+			var givenName = rname;
+			var oldPath = data['Path'];
+			var connectString = fileConnector + '?mode=move&old=' + encodeURIComponent(data['Path']) + '&new=' + encodeURIComponent(givenName) + '&root=' + encodeURIComponent(fileRoot);
+
+			$.ajax({
+				type: 'GET',
+				url: connectString,
+				dataType: 'json',
+				async: false,
+				success: function(result){
+                    if(result['Code'] == 0){
+                        var newPath = result['New Path'];
+                        var newName = result['New Name'];
+                        
+                        // we set fullexpandedFolder value to automatically open file in 
+                        // filetree when calling createFileTree() function
+                        fullexpandedFolder = fileRoot + newPath;
+                        createFileTree();
+                        getFolderInfo(newPath); // update list in main window
+
+						if(config.options.showConfirmation) $.prompt(lg.successful_moved);
+					} else {
+						$.prompt(result['Error']);
+					}
+
+					finalName = newPath + newName;
+				}
+			});
+		}
+	};
+	var btns = {};
+	btns[lg.move] = true;
+	btns[lg.cancel] = false;
+	$.prompt(msg, {
+		callback: doMove,
+		buttons: btns
+	});
+
+	return finalName;
+};
+
 // Prompts for confirmation, then deletes the current item.
 // Called by clicking the "Delete" button in detail views
 // or choosing the "Delete contextual menu item in list views.
-var deleteItem = function(data){
+var deleteItem = function(data) {
 	var isDeleted = false;
 	var msg = lg.confirmation_delete;
 	
@@ -654,7 +719,7 @@ var deleteItem = function(data){
 
 // Adds a new node as the first item beneath the specified
 // parent node. Called after a successful file upload.
-var addNode = function(path, name){
+var addNode = function(path, name) {
 	var ext = getExtension(name);
 	var thisNode = $('#filetree').find('a[rel="' + path + '"]');
 	var parentNode = thisNode.parent();
@@ -684,13 +749,19 @@ var updateNode = function(oldPath, newPath, newName){
 	var thisNode = $('#filetree').find('a[rel="' + oldPath + '"]');
 	var parentNode = thisNode.parent().parent().prev('a');
 	thisNode.attr('rel', newPath).text(newName);
-	parentNode.click().click();
-
+	
+	// we work directly on root folder
+	// TODO optimize by binding only the renamed element
+	if(parentNode.length == 0) {
+		createFileTree();
+	} else {
+		parentNode.click().click();
+	}
 };
 
 // Removes the specified node. Called after a successful 
 // delete operation.
-var removeNode = function(path){
+var removeNode = function(path) {
     $('#filetree')
         .find('a[rel="' + path + '"]')
         .parent()
@@ -722,7 +793,7 @@ var removeNode = function(path){
 // Adds a new folder as the first item beneath the
 // specified parent node. Called after a new folder is
 // successfully created.
-var addFolder = function(parent, name){
+var addFolder = function(parent, name) {
 	var newNode = '<li class="directory collapsed"><a rel="' + parent + name + '/" href="#">' + name + '</a><ul class="jqueryFileTree" style="display: block;"></ul></li>';
 	var parentNode = $('#filetree').find('a[rel="' + parent + '"]');
 	if(parent != fileRoot){
@@ -754,7 +825,7 @@ var addFolder = function(parent, name){
 
 // Decides whether to retrieve file or folder info based on
 // the path provided.
-var getDetailView = function(path){
+var getDetailView = function(path) {
 	if(path.lastIndexOf('/') == path.length - 1){
 		getFolderInfo(path);
 		$('#filetree').find('a[rel="' + path + '"]').click();
@@ -772,6 +843,7 @@ function getContextMenuOptions(elem) {
 		if (!elem.hasClass('cap_select')) $('.select', newOptions).remove();
 		if (!elem.hasClass('cap_download')) $('.download', newOptions).remove();
 		if (!elem.hasClass('cap_rename')) $('.rename', newOptions).remove();
+		if (!elem.hasClass('cap_move')) $('.move', newOptions).remove();
 		if (!elem.hasClass('cap_delete')) $('.delete', newOptions).remove();
 		$('#itemOptions').after(newOptions);
 	}
@@ -779,7 +851,7 @@ function getContextMenuOptions(elem) {
 }
 
 // Binds contextual menus to items in list and grid views.
-var setMenus = function(action, path){
+var setMenus = function(action, path) {
 	var d = new Date(); // to prevent IE cache issues
 	$.getJSON(fileConnector + '?mode=getinfo&path=' + path + '&time=' + d.getMilliseconds(), function(data){
 		if($('#fileinfo').data('view') == 'grid'){
@@ -800,7 +872,11 @@ var setMenus = function(action, path){
 			case 'rename':
 				var newName = renameItem(data);
 				break;
-				
+
+			case 'move':
+				var newName = moveItem(data);
+				break;
+
 			case 'delete':
 				deleteItem(data);
 				break;
@@ -813,7 +889,7 @@ var setMenus = function(action, path){
 // detail views. Binds the toolbar for that detail view to
 // enable specific actions. Called whenever an item is
 // clicked in the file tree or list views.
-var getFileInfo = function(file){
+var getFileInfo = function(file) {
 	// Update location for status, upload, & new folder functions.
 	var currentpath = file.substr(0, file.lastIndexOf('/') + 1);
 	setUploader(currentpath);
@@ -821,10 +897,11 @@ var getFileInfo = function(file){
 	// Include the template.
 	var template = '<div id="preview"><img /><h1></h1><dl></dl></div>';
 	template += '<form id="toolbar">';
-	if(window.opener || window.tinyMCEPopup || $.urlParam('field_name')) template += '<button id="select" name="select" type="button" value="Select">' + lg.select + '</button>';
+	if($.inArray('select', capabilities)  != -1 && (window.opener || window.tinyMCEPopup || $.urlParam('field_name'))) template += '<button id="select" name="select" type="button" value="Select">' + lg.select + '</button>';
 	template += '<button id="download" name="download" type="button" value="Download">' + lg.download + '</button>';
-	if(config.options.browseOnly != true) template += '<button id="rename" name="rename" type="button" value="Rename">' + lg.rename + '</button>';
-	if(config.options.browseOnly != true) template += '<button id="delete" name="delete" type="button" value="Delete">' + lg.del + '</button>';
+	if($.inArray('rename', capabilities)  != -1 && config.options.browseOnly != true) template += '<button id="rename" name="rename" type="button" value="Rename">' + lg.rename + '</button>';
+	if($.inArray('move', capabilities)  != -1 && config.options.browseOnly != true) template += '<button id="move" name="move" type="button" value="Move">' + lg.move + '</button>';
+	if($.inArray('delete', capabilities)  != -1 && config.options.browseOnly != true) template += '<button id="delete" name="delete" type="button" value="Delete">' + lg.del + '</button>';
 	template += '<button id="parentfolder">' + lg.parentfolder + '</button>';
 	template += '</form>';
 	
@@ -864,7 +941,7 @@ var getFileInfo = function(file){
 // creates a list view. Binds contextual menu options.
 // TODO: consider stylesheet switching to switch between grid
 // and list views with sorting options.
-var getFolderInfo = function(path){
+var getFolderInfo = function(path) {
 	// Update location for status, upload, & new folder functions.
 	setUploader(path);
 
@@ -960,7 +1037,7 @@ var getFolderInfo = function(path){
 		
 		// Bind click events to create detail views and add
 		// contextual menu options.
-		if($('#fileinfo').data('view') == 'grid'){
+		if($('#fileinfo').data('view') == 'grid') {
 			$('#fileinfo').find('#contents li').click(function(){
 				var path = $(this).find('img').attr('alt');
 				getDetailView(path);
@@ -1008,7 +1085,7 @@ var getFolderInfo = function(path){
 
 // Retrieve data (file/folder listing) for jqueryFileTree and pass the data back
 // to the callback function in jqueryFileTree
-var populateFileTree = function(path, callback){
+var populateFileTree = function(path, callback) {
 	var d = new Date(); // to prevent IE cache issues
 	var url = fileConnector + '?path=' + encodeURIComponent(path) + '&mode=getfolder&showThumbs=' + config.options.showThumbs + '&time=' + d.getMilliseconds();
 	if ($.urlParam('type')) url += '&type=' + $.urlParam('type');
@@ -1101,6 +1178,7 @@ $(function(){
 		$('#itemOptions a[href$="#select"]').append(lg.select);
 		$('#itemOptions a[href$="#download"]').append(lg.download);
 		$('#itemOptions a[href$="#rename"]').append(lg.rename);
+		$('#itemOptions a[href$="#move"]').append(lg.move);
 		$('#itemOptions a[href$="#delete"]').append(lg.del);
 	}
 	
@@ -1125,7 +1203,7 @@ $(function(){
 	$('#fileinfo').data('view', config.options.defaultViewMode);
 	setViewButtonsFor(config.options.defaultViewMode);
 	
-	$('#home').click(function(){
+	$('#home').click(function() {
 		var currentViewMode = $('#fileinfo').data('view');
 		$('#fileinfo').data('view', currentViewMode);
 		$('#filetree>ul>li.expanded>a').trigger('click');
@@ -1133,13 +1211,13 @@ $(function(){
 	});
 
 	// Set buttons to switch between grid and list views.
-	$('#grid').click(function(){
+	$('#grid').click(function() {
 		setViewButtonsFor('grid');
 		$('#fileinfo').data('view', 'grid');
 		getFolderInfo($('#currentpath').val());
 	});
 	
-	$('#list').click(function(){
+	$('#list').click(function() {
 		setViewButtonsFor('list');
 		$('#fileinfo').data('view', 'list');
 		getFolderInfo($('#currentpath').val());
@@ -1229,6 +1307,7 @@ $(function(){
 		$('#newfolder').remove();
 		$('#toolbar').remove('#rename');
 		$('.contextMenu .rename').remove();
+		$('.contextMenu .move').remove();
 		$('.contextMenu .delete').remove();
 	}
         
