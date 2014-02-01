@@ -11,7 +11,7 @@ public class TestUniCode {
 	@Test
 	public void test() {
 		String aeStr16 = "\u00E4";
-		String aeStr = "Š";
+		String aeStr = "Ã¤";
 		
 		assertEquals(normalize(aeStr16), normalize(aeStr));
 	}

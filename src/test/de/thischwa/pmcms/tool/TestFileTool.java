@@ -14,13 +14,13 @@ public class TestFileTool {
 	@Test
 	public void testNormalizeFileName_01() {
 		String expected = "ae_oe_ue_ss";
-		assertEquals(expected, FileTool.normalizeFileName("ä_ö_ü_ß"));
+		assertEquals(expected, FileTool.normalizeFileName("√§_√∂_√º_√ü"));
 	}
 
 	@Test
 	public void testNormalizedFileName_02() {
 		String expected = "loeffel_1.jpg";
-		File file = new File("/tmp/löffel 1.jpg");
+		File file = new File("/tmp/l√∂ffel 1.jpg");
 		String baseName = file.getName();
 		String actual = FileTool.normalizeFileName(baseName);
 		assertEquals(expected, actual);
