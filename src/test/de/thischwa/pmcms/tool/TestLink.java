@@ -1,13 +1,11 @@
 package de.thischwa.pmcms.tool;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.net.URLEncoder;
 
 import org.junit.AfterClass;
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
 
 import de.thischwa.pmcms.Constants;
@@ -15,15 +13,14 @@ import de.thischwa.pmcms.conf.BasicConfigurator;
 import de.thischwa.pmcms.conf.InitializationManager;
 import de.thischwa.pmcms.model.domain.pojo.Macro;
 import de.thischwa.pmcms.server.Action;
-import de.thischwa.pmcms.tool.Link;
 
 public class TestLink {
 	
 	private static BasicConfigurator config;
 	private static Link link;
 
-	@BeforeClass
-	public static void init() {
+	@Before
+	public void init() {
 		config = new BasicConfigurator(Constants.APPLICATION_DIR);
 		InitializationManager.start(config, false);
 		link = InitializationManager.getBean(Link.class);

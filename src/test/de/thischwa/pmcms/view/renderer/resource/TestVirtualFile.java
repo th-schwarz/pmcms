@@ -43,7 +43,7 @@ public class TestVirtualFile {
 	}
 
 	@Test
-	public void testCommon() {
+	public void testContentFile() {
 		VirtualFile vf = new VirtualFile(site, false);
 		vf.consructFromTagFromView("/site/file/test.zip");
 		File actual = vf.getBaseFile();
@@ -52,7 +52,7 @@ public class TestVirtualFile {
 	}
 
 	@Test
-	public void testCommonWithSubDir() {
+	public void testContentFileWithSubDir() {
 		VirtualFile vf = new VirtualFile(site, false);
 		vf.consructFromTagFromView("/site/file/sub/test.zip");
 		File actual = vf.getBaseFile();
@@ -150,7 +150,7 @@ public class TestVirtualFile {
 	public void testLayoutExportTagTag() {
 		VirtualFile vf = new VirtualFile(site, true);
 		vf.consructFromTagFromView("/site/layout/test.zip");
-		Level level = (Level) siteHolder.get(20);
+		Level level = (Level) siteHolder.get(21);
 		String actual = vf.getTagSrcForExport(level);
 		assertEquals("../../layout/test.zip", actual);
 	}
@@ -159,7 +159,7 @@ public class TestVirtualFile {
 	public void testLayoutExportTagSubFolder() {
 		VirtualFile vf = new VirtualFile(site, true);
 		vf.consructFromTagFromView("/site/layout/sub/test.zip");
-		Level level = (Level) siteHolder.get(20);
+		Level level = (Level) siteHolder.get(21);
 		String actual = vf.getTagSrcForExport(level);
 		assertEquals("../../layout/sub/test.zip", actual);
 	}

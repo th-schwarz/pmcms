@@ -48,50 +48,31 @@ public class TestVirtualImage {
 	}
 	
 	@Test
-	public void testCommon() {
+	public void testContentBase() {
 		VirtualImage vi = new VirtualImage(site, false, false);
-		vi.consructFromTagFromView("/site/image/test.png");
+		vi.consructFromTagFromView("/site/file/test.png");
 		File actual = vi.getBaseFile();
-		File expected = new File(PoPathInfo.getSiteDirectory(site), "image/test.png");
-		assertEquals(expected, actual);
+		File expected = new File(PoPathInfo.getSiteDirectory(site), "file/test.png");
+		assertEquals(expected.toString(), actual.toString());
 	}
 
 	@Test
-	public void testLayout() {
+	public void testContentExportFile() {
+		VirtualImage vi = new VirtualImage(site, false, false);
+		vi.consructFromTagFromView("/site/file/test.png");
+		vi.setDimension(100, 200);
+		File actual = vi.getExportFile();
+		File expected = new File(PoPathInfo.getSiteExportDirectory(site), "file/test_100x200.png");
+		assertEquals(expected.toString(), actual.toString());
+	}
+	
+	@Test
+	public void testLayoutBaseFile() {
 		VirtualImage vi = new VirtualImage(site, true, false);
 		vi.consructFromTagFromView("/site/layout/test.png");
 		File actual = vi.getBaseFile();
 		File expected = new File(PoPathInfo.getSiteDirectory(site), "layout/test.png");
-		assertEquals(expected, actual);
-	}
-
-	@Test
-	public void testGallery() {
-		VirtualImage vi = new VirtualImage(site, false, true);
-		vi.consructFromTagFromView("/site/gallery/name/test.png");
-		File actual = vi.getBaseFile();
-		File expected = new File(PoPathInfo.getSiteDirectory(site), "gallery/name/test.png");
-		assertEquals(expected, actual);
-	}
-
-	@Test
-	public void testCommonExportFile() {
-		VirtualImage vi = new VirtualImage(site, false, false);
-		vi.consructFromTagFromView("/site/image/test.png");
-		vi.setDimension(100, 200);
-		File actual = vi.getExportFile();
-		File expected = new File(PoPathInfo.getSiteDirectory(site), "cache/image/test_100x200.png");
-		assertEquals(expected, actual);
-	}
-
-	@Test
-	public void testGalleryExportFile() {
-		VirtualImage vi = new VirtualImage(site, false, true);
-		vi.consructFromTagFromView("/site/gallery/name/test.png");
-		vi.setDimension(100, 200);
-		File actual = vi.getExportFile();
-		File expected = new File(PoPathInfo.getSiteDirectory(site), "cache/gallery/name/test_100x200.png");
-		assertEquals(expected, actual);
+		assertEquals(expected.toString(), actual.toString());
 	}
 
 	@Test
@@ -100,26 +81,46 @@ public class TestVirtualImage {
 		vi.consructFromTagFromView("/site/layout/test.png");
 		vi.setDimension(100, 200);
 		File actual = vi.getExportFile();
-		File expected = new File(PoPathInfo.getSiteDirectory(site), "cache/layout/test_100x200.png");
-		assertEquals(expected, actual);
+		File expected = new File(PoPathInfo.getSiteExportDirectory(site), "layout/test.png");
+		assertEquals(expected.toString(), actual.toString());
 	}
-	
+
 	@Test
 	public void testLayoutCacheTag() {
 		VirtualImage vi = new VirtualImage(site, true, false);
 		vi.consructFromTagFromView("/site/cache/layout/test_100x200.png");
 		File actual = vi.getBaseFile();
 		File expected = new File(PoPathInfo.getSiteDirectory(site), "layout/test.png");
-		assertEquals(expected, actual);
+		assertEquals(expected.toString(), actual.toString());
 	}
+	
+	@Test
+	public void testGallery() {
+		VirtualImage vi = new VirtualImage(site, false, true);
+		vi.consructFromTagFromView("/site/gallery/name/test.png");
+		File actual = vi.getBaseFile();
+		File expected = new File(PoPathInfo.getSiteDirectory(site), "gallery/name/test.png");
+		assertEquals(expected.toString(), actual.toString());
+	}
+
+	@Test
+	public void testGalleryExportFile() {
+		VirtualImage vi = new VirtualImage(site, false, true);
+		vi.consructFromTagFromView("/site/gallery/name/test.png");
+		vi.setDimension(100, 200);
+		File actual = vi.getExportFile();
+		File expected = new File(PoPathInfo.getSiteExportDirectory(site), "gallery/name/test_100x200.png");
+		assertEquals(expected.toString(), actual.toString());
+	}
+
 	
 	@Test
 	public void testCommonCacheTag() {
 		VirtualImage vi = new VirtualImage(site, false, false);
-		vi.consructFromTagFromView("/site/cache/image/test_100x200.png");
+		vi.consructFromTagFromView("/site/cache/file/test_100x200.png");
 		File actual = vi.getBaseFile();
-		File expected = new File(PoPathInfo.getSiteDirectory(site), "image/test.png");
-		assertEquals(expected, actual);
+		File expected = new File(PoPathInfo.getSiteDirectory(site), "file/test.png");
+		assertEquals(expected.toString(), actual.toString());
 	}
 	
 	@Test
@@ -128,6 +129,6 @@ public class TestVirtualImage {
 		vi.consructFromTagFromView("/site/cache/gallery/name/test_100x200.png");
 		File actual = vi.getBaseFile();
 		File expected = new File(PoPathInfo.getSiteDirectory(site), "gallery/name/test.png");
-		assertEquals(expected, actual);
+		assertEquals(expected.toString(), actual.toString());
 	}
 }

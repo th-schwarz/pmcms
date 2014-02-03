@@ -119,7 +119,7 @@ public class ListenerUploadSite implements SelectionListener {
 		RenderData renderData = InitializationManager.getBean(RenderData.class);
 		Collection<File> unusedImages = renderData.getFilesToCopy();
 		if (CollectionUtils.isNotEmpty(unusedImages)) {
-			DialogManager.startDialogUnusedImages(shell, site, unusedImages);
+			DialogManager.startDialogUnusedImages(shell, site, unusedImages, InitializationManager.getAllowedImageExtensions());
 		}
 		renderData.clear();
 	}

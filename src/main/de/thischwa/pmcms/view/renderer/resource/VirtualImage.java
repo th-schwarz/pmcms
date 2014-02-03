@@ -29,6 +29,7 @@ import de.thischwa.pmcms.conf.InitializationManager;
 import de.thischwa.pmcms.exception.FatalException;
 import de.thischwa.pmcms.model.domain.PoPathInfo;
 import de.thischwa.pmcms.model.domain.pojo.Image;
+import de.thischwa.pmcms.model.domain.pojo.Level;
 import de.thischwa.pmcms.model.domain.pojo.Site;
 import de.thischwa.pmcms.tool.Utils;
 import de.thischwa.pmcms.tool.file.FileTool;
@@ -114,13 +115,14 @@ public class VirtualImage extends VirtualFile implements IVirtualImage {
 		if (forLayout) {
 			File resourceDirectory = new File(PoPathInfo.getSiteDirectory(site), resourceFolder);
 			String filePath = baseFile.getAbsolutePath().substring(resourceDirectory.getAbsolutePath().length()+1).replace(File.separatorChar, '/');
+			filePath = Dimension.expandPath(filePath, imageDimension);
 			File exportFile = new File(new File(PoPathInfo.getSiteExportDirectory(site), resourceFolder), filePath);
 			return exportFile;
 		}
 		
-		String cacheFileName = getCacheFilename();
-		File cacheFile = new File(PoPathInfo.getSiteDirectory(site), cacheFileName);
-		return cacheFile;
+		String cacheFileName = getCacheFilename().substring(pm.getProperty("pmcms.dir.site.imagecache").length() + 1);
+		File exportFile = new File(PoPathInfo.getSiteExportDirectory(site), cacheFileName);
+		return exportFile;
 	}
 
 	/**
@@ -132,12 +134,17 @@ public class VirtualImage extends VirtualFile implements IVirtualImage {
 
 		File resourceDirectory = PoPathInfo.getSiteDirectory(site);
 		String filePath = baseFile.getAbsolutePath().substring(resourceDirectory.getAbsolutePath().length()+1).replace(File.separatorChar, '/');
-		String ext = FileTool.getExtension(filePath);
-		String pathWithoutExt = filePath.substring(0, filePath.length() - ext.length() - 1);
+		filePath = Dimension.expandPath(filePath, imageDimension);
 		String cacheFolder = pm.getProperty("pmcms.dir.site.imagecache");
-		filePath = Utils.join(cacheFolder, "/", pathWithoutExt, "_", imageDimension.toString(), ".", ext);
-
+		filePath = Utils.join(cacheFolder, "/", filePath);
 		return filePath;
+	}
+	
+	@Override
+	public String getTagSrcForExport(Level level) {
+		String src = super.getTagSrcForExport(level);
+		src = Dimension.expandPath(src, imageDimension);
+		return src;
 	}
 	
 	@Override

@@ -13,6 +13,7 @@ import de.thischwa.pmcms.livecycle.PojoHelper;
 import de.thischwa.pmcms.livecycle.SiteHolder;
 import de.thischwa.pmcms.model.domain.pojo.Site;
 import de.thischwa.pmcms.model.tool.SitePersister;
+import de.thischwa.pmcms.view.ViewMode;
 
 public class TestImageTagTool {
 
@@ -48,14 +49,26 @@ public class TestImageTagTool {
 	}
 
 	@Test
+	public void testExportLayout() {
+		ImageTagTool itt = InitializationManager.getBean(ImageTagTool.class);
+		itt.setPojoHelper(pojoHelper);
+		itt.setSrc("test.png");
+		itt.setWidth(150);
+		itt.setHeight(100);
+		itt.setViewMode(ViewMode.EXPORT);
+		String actual = itt.contructTag();
+		assertEquals("<img height=\"100\" width=\"150\" src=\"/site/layout/test_150x100.png\" />", actual);
+	}
+
+	@Test
 	public void testUsedFromEditor() {
 		ImageTagTool itt = InitializationManager.getBean(ImageTagTool.class);
 		itt.setPojoHelper(pojoHelper);
 		itt.usedFromEditor();
-		itt.setSrc("/site/image/test.png");
+		itt.setSrc("/site/file/test.png");
 		itt.setWidth(150);
 		itt.setHeight(100);
 		String actual = itt.contructTag();
-		assertEquals("<img height=\"100\" width=\"150\" src=\"/site/image/test.png\" />", actual);
+		assertEquals("<img height=\"100\" width=\"150\" src=\"/site/file/test.png\" />", actual);
 	}
 }

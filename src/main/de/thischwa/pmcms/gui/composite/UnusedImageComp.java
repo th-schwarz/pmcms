@@ -41,7 +41,6 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 
-import de.thischwa.c5c.UserObjectProxy;
 import de.thischwa.pmcms.gui.dialog.DialogManager;
 import de.thischwa.pmcms.model.domain.pojo.Site;
 
@@ -65,15 +64,17 @@ public class UnusedImageComp extends Composite {
 	private ListViewer delFileList = null;
 	private boolean listsInUse = false;
 	private Collection<File> unusedFiles;
+	private Collection<String> allowedExtensions;
 
 	/**
 	 * @param unusedFiles Files which weren't used in the last rendering. If the dialog was canceled these collection is empty, otherwise
 	 * 		it contains the files, which has to delete.
 	 */
-	public UnusedImageComp(Composite parent, int style, final Site site, Collection<File> unusedFiles) {
+	public UnusedImageComp(Composite parent, int style, final Site site, Collection<File> unusedFiles, Collection<String> allowedExtensions) {
 		super(parent, style);
 		initialize();
 		this.unusedFiles = unusedFiles;
+		this.allowedExtensions = allowedExtensions;
 		
 		// sort the unused files
 		List<File> sortedUnsedFiles = new ArrayList<File>(unusedFiles);
@@ -140,8 +141,7 @@ public class UnusedImageComp extends Composite {
 		listComp.setLayout(compGridLayout);
 		Label unusedFileListLbl = new Label(listComp, SWT.NONE);
 		unusedFileListLbl.setText("Unused files:");
-		@SuppressWarnings("unused")
-		Label filler1 = new Label(listComp, SWT.NONE);
+		new Label(listComp, SWT.NONE);
 		Label delFileListLbl = new Label(listComp, SWT.NONE);
 		delFileListLbl.setText("Files to delete:");
 		unusedFileList = new ListViewer(listComp, SWT.V_SCROLL | SWT.MULTI);
@@ -287,6 +287,7 @@ public class UnusedImageComp extends Composite {
 			this.srcList = srcList;
 			this.destList = destList;
 		}
+		
 		@Override
 		public void doubleClick(DoubleClickEvent evt) {
 			if (!listsInUse)
@@ -312,7 +313,7 @@ public class UnusedImageComp extends Composite {
 			else {
 				File file = (File)srcList.getElementAt(selected);
 				String ext = FilenameUtils.getExtension(file.getName());
-				if(StringUtils.isBlank(ext) || !UserObjectProxy.getFilemanagerConfig().getImages().getExtensions().contains(ext)) {
+				if(StringUtils.isBlank(ext) || !allowedExtensions.contains(ext)) {
 					previewCanvas.preview();
 				} else {
 					previewCanvas.preview(file);

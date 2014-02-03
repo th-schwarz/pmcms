@@ -89,7 +89,7 @@ public class DialogManager {
 	 * @param usedCkResources
 	 *            Unused images of the last export.
 	 */
-	public static void startDialogUnusedImages(final Shell parentShell, final Site site, Collection<File> usedCkResources) {
+	public static void startDialogUnusedImages(final Shell parentShell, final Site site, Collection<File> usedCkResources, final Collection<String> allowedExtensions) {
 		File galleryDir = PoPathInfo.getSiteResourceGalleryDirectory(site);
 		File imageDir = PoPathInfo.getSiteResourceImageDirectory(site);
 		File otherDir = PoPathInfo.getSiteResourceOtherDirectory(site);
@@ -110,7 +110,7 @@ public class DialogManager {
 		shell.setImages(new Image[] { ImageHolder.SHELL_ICON_SMALL, ImageHolder.SHELL_ICON_BIG });
 		shell.setLayout(new GridLayout());
 
-		new UnusedImageComp(shell, SWT.NONE, site, unusedCkResources);
+		new UnusedImageComp(shell, SWT.NONE, site, unusedCkResources, allowedExtensions);
 
 		shell.pack();
 		shell.open();

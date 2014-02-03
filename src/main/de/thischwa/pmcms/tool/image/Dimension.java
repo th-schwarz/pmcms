@@ -22,10 +22,11 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
 import org.apache.commons.lang.StringUtils;
 
+import de.thischwa.pmcms.tool.Utils;
 import de.thischwa.pmcms.tool.XY;
+import de.thischwa.pmcms.tool.file.FileTool;
 
 /**
  * Helper to handle and calculate the dimension of an image.
@@ -87,6 +88,13 @@ public class Dimension extends XY {
 		if (!(obj instanceof Dimension))
 			return false;
 		return super.equals(obj);
+	}
+
+	public static String expandPath(String filePath, Dimension imageDimension) {
+		String ext = FileTool.getExtension(filePath);
+		String pathWithoutExt = filePath.substring(0, filePath.length() - ext.length() - 1);
+		filePath = Utils.join(pathWithoutExt, "_", imageDimension.toString(), ".", ext);
+		return filePath;
 	}
 
 	/**

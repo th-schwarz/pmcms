@@ -131,7 +131,7 @@ public class ImageTagTool extends GenericXhtmlTagTool implements IContextObjectC
 		fitToSize = true;
 		String folder = forGallery ? pm.getSiteProperty("pmcms.site.dir.resources.gallery") : pm.getSiteProperty("pmcms.site.dir.resources.other");
 		String link = String.format("/%s/%s/%s/%s", Constants.LINK_IDENTICATOR_SITE_RESOURCE, folder, image.getGallery().getName(), image.getFileName());
-		setSrcForGallery(link);
+		setSrcForImage(link);
 		Gallery gallery = image.getGallery();
 		int width = isThumbnail ? gallery.getThumbnailMaxWidth() : gallery.getImageMaxWidth();
 		int height = isThumbnail ? gallery.getThumbnailMaxHeight() : gallery.getImageMaxHeight();
@@ -139,7 +139,7 @@ public class ImageTagTool extends GenericXhtmlTagTool implements IContextObjectC
 		setHeight(height);
 	}
 
-	private ImageTagTool setSrcForGallery(final String src) {
+	private ImageTagTool setSrcForImage(final String src) {
 		return putAttribute("src", PathTool.encodePath(src));
 	}
 	
@@ -209,21 +209,20 @@ public class ImageTagTool extends GenericXhtmlTagTool implements IContextObjectC
 			try {
 				File srcFile = imageFile.getCacheFile();
 				File dstFile = imageFile.getExportFile();
-				if(!dstFile.exists())
+				if(!dstFile.exists()) {
 					FileTool.copyFile(srcFile, dstFile);
-				if(isUsedFromEditor())
-					renderData.addFile(imageFile.getBaseFile());
-				else
-					renderData.addFile(imageFile);
+					logger.debug(String.format("successful copied %s -> %s", srcFile.getPath(), dstFile.getPath()));
+				}
+				renderData.addFile(imageFile);
 			} catch (IOException e) {
 				String msg = String.format("Error while copying cashed file [%s] to the export dir: %s", imageFile.getCacheFile().getPath(), e.getMessage());
 				logger.error(msg, e);
 				throw new FatalException(msg, e);
 			}
-			this.setSrcForGallery(imageFile.getTagSrcForExport(this.pojoHelper.getLevel()));
+			this.setSrcForImage(imageFile.getTagSrcForExport(this.pojoHelper.getLevel()));
 			logger.debug("ImageTagTool: build src-link for: ".concat(imageFile.getBaseFile().getAbsolutePath()));
 		} else {
-			this.setSrcForGallery(imageFile.getTagSrcForPreview());
+			this.setSrcForImage(imageFile.getTagSrcForPreview());
 		}
 		Dimension viDim = imageFile.getDimension();
 		this.setWidth(String.valueOf(viDim.x));
@@ -237,8 +236,8 @@ public class ImageTagTool extends GenericXhtmlTagTool implements IContextObjectC
 		forLayout = false;
 		
 		if(tmpPathOnly)
-			return super.getAttr("src");
+			return getAttr("src");
 		else
-			return super.contructTag();
+			return contructTag();
 	}
 }
