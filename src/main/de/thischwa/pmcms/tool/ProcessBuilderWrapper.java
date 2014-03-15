@@ -52,7 +52,9 @@ public class ProcessBuilderWrapper {
 		StreamBoozer seError = new StreamBoozer(process.getErrorStream(), new PrintWriter(errors, true));
 		seInfo.start();
 		seError.start();
-		status = process.waitFor();		
+		status = process.waitFor();	
+		seInfo.join();
+		seError.join();	
 	}
 
 	public ProcessBuilderWrapper(List<String> command) throws Exception {
