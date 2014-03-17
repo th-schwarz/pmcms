@@ -34,6 +34,7 @@ import de.thischwa.pmcms.conf.InitializationManager;
 import de.thischwa.pmcms.conf.resource.LabelHolder;
 import de.thischwa.pmcms.exception.FatalException;
 import de.thischwa.pmcms.gui.IProgressViewer;
+import de.thischwa.pmcms.livecycle.SiteHolder;
 import de.thischwa.pmcms.model.domain.pojo.Site;
 import de.thischwa.pmcms.tool.Utils;
 import de.thischwa.pmcms.tool.compression.Zip;
@@ -47,6 +48,7 @@ import de.thischwa.pmcms.tool.compression.ZipInfo;
 public class ImportBackup implements IProgressViewer {
 	private static Logger logger = Logger.getLogger(ImportBackup.class);
 	private IProgressMonitor monitor = null;
+	private SiteHolder siteHolder = InitializationManager.getBean(SiteHolder.class);
 	private File zipFile = null;
 	private Site site = null;
 
@@ -59,6 +61,7 @@ public class ImportBackup implements IProgressViewer {
 	@Override
 	public void run() {
 		logger.info("Try to import site from file: " + zipFile.getName());
+		siteHolder.clear();
 		ZipInfo zipInfo;
 		try {
 			zipInfo = Zip.getEntryInfo(zipFile);
@@ -79,7 +82,7 @@ public class ImportBackup implements IProgressViewer {
 			if(StringUtils.isBlank(version)) {
 				backupParser = new BackupParser_old(root);
 			} else if(version.equals(IBackupParser.DBXML_1) || version.equals(IBackupParser.DBXML_2)) {
-				backupParser = new BackupParser_1(root);
+				backupParser = new BackupParser_1(root, version);
 			} else {
 				throw new RuntimeException(String.format("No backup parser found for version %s.", version));
 			}

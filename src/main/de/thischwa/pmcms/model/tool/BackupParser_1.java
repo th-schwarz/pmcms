@@ -28,9 +28,7 @@ import org.dom4j.Element;
 import org.dom4j.Node;
 import org.eclipse.core.runtime.IProgressMonitor;
 
-import de.thischwa.pmcms.conf.InitializationManager;
 import de.thischwa.pmcms.conf.resource.LabelHolder;
-import de.thischwa.pmcms.livecycle.SiteHolder;
 import de.thischwa.pmcms.model.domain.pojo.Content;
 import de.thischwa.pmcms.model.domain.pojo.Gallery;
 import de.thischwa.pmcms.model.domain.pojo.Image;
@@ -42,21 +40,22 @@ import de.thischwa.pmcms.model.domain.pojo.Template;
 import de.thischwa.pmcms.model.domain.pojo.TemplateType;
 
 /**
- * Backup parser for db.xml without a version number (={@link IBackupParser#DBXML_1}, since 2.4.2).
+ * Backup parser for db.xml with a version number (={@link IBackupParser#DBXML_1}, since 2.4.2).
  *
  * @author Thilo Schwarz
  */
 public class BackupParser_1 implements IBackupParser {
 	private static Logger logger = Logger.getLogger(BackupParser_1.class);
-	private SiteHolder siteHolder = InitializationManager.getBean(SiteHolder.class);
 	private IProgressMonitor monitor = null;
 	private Map<Integer, Template> templateCache = new HashMap<Integer, Template>(); 
 	private Site site;
 	private Element root;
+	private String version;
 	
-	public BackupParser_1(final Element root) {
+	public BackupParser_1(final Element root, String version) {
 		logger.info("BackupParser_1 entered.");
 		this.root = root;
+		this.version = version;
 	}
 
 	@Override
@@ -67,7 +66,6 @@ public class BackupParser_1 implements IBackupParser {
 	@Override
 	public void run() throws Exception {
 		int pageCount = 0;
-		siteHolder.clear();
 		
 		// counting elements
 		pageCount += root.selectNodes("//page", ".").size();
@@ -90,7 +88,7 @@ public class BackupParser_1 implements IBackupParser {
 		for (Node node : macros) {
 			Macro macro = new Macro();
 			macro.setName(node.selectSingleNode("name").getText());
-			macro.setText(node.selectSingleNode("text").getText());
+			macro.setText(contentFixes(node.selectSingleNode("text").getText()));
 			macro.setParent(site);
 			site.add(macro);
 		}
@@ -102,7 +100,7 @@ public class BackupParser_1 implements IBackupParser {
 			template.setId(Integer.parseInt(((Element)node).attributeValue("id")));
 			template.setType(TemplateType.getType(((Element) node).attributeValue("type")));
 			template.setName(node.selectSingleNode("name").getText());
-			template.setText(node.selectSingleNode("text").getText());
+			template.setText(contentFixes(node.selectSingleNode("text").getText()));
 			template.setParent(site);
 			if(template.isLayoutTemplate())
 				site.setLayoutTemplate(template);
@@ -213,7 +211,7 @@ public class BackupParser_1 implements IBackupParser {
 			Content content = new Content();
 			content.setName(contentElement.attributeValue("name"));
 			if (contentElement.selectSingleNode("value") != null)
-				content.setValue(contentElement.selectSingleNode("value").getText());
+				content.setValue(contentFixes(contentElement.selectSingleNode("value").getText()));
 			content.setParent(page);
 			page.add(content);
 		}
@@ -227,5 +225,13 @@ public class BackupParser_1 implements IBackupParser {
 	private void incProgressValue() {
 		if (monitor != null)
 			monitor.worked(1);
+	}
+	
+	private String contentFixes(String content) {
+		String txt = content;
+		if(version.equals(IBackupParser.DBXML_1)) {
+			txt = content.replace(".setAttribute(", ".putAttribute(");
+		}
+		return txt;
 	}
 }

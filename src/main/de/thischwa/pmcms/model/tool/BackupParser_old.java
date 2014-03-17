@@ -28,9 +28,7 @@ import org.dom4j.Element;
 import org.dom4j.Node;
 import org.eclipse.core.runtime.IProgressMonitor;
 
-import de.thischwa.pmcms.conf.InitializationManager;
 import de.thischwa.pmcms.conf.resource.LabelHolder;
-import de.thischwa.pmcms.livecycle.SiteHolder;
 import de.thischwa.pmcms.model.domain.pojo.Content;
 import de.thischwa.pmcms.model.domain.pojo.Gallery;
 import de.thischwa.pmcms.model.domain.pojo.Image;
@@ -48,7 +46,6 @@ import de.thischwa.pmcms.model.domain.pojo.TemplateType;
  */
 public class BackupParser_old implements IBackupParser {
 	private static Logger logger = Logger.getLogger(BackupParser_old.class);
-	private SiteHolder siteHolder = InitializationManager.getBean(SiteHolder.class);
 	private IProgressMonitor monitor = null;
 	private Map<String, Template> templateCache = new HashMap<String, Template>(); 
 	private Site site;
@@ -67,7 +64,6 @@ public class BackupParser_old implements IBackupParser {
 	@Override
 	public void run() throws Exception {
 		int pageCount = 0;
-		siteHolder.clear();
 		
 		// counting elements
 		pageCount += root.selectNodes("//page", ".").size();
