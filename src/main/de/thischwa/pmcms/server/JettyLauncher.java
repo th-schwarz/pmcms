@@ -102,8 +102,8 @@ public class JettyLauncher extends AInitializingTask implements IApplicationLive
 			contextDataDir.addServlet(holderConnector, "/filemanager/scripts/filemanager.config.js");
 			
 			ServletHolder holderCodeMirror = new ServletHolder(ZipProxyServlet.class);
-			holderCodeMirror.setInitParameter("file", "sourceeditor/CodeMirror-2013-02-09.zip");
-			holderCodeMirror.setInitParameter("zipPathToSkip", "CodeMirror-master");
+			holderCodeMirror.setInitParameter("file", "sourceeditor/codemirror-3.22.zip");
+			holderCodeMirror.setInitParameter("zipPathToSkip", "codemirror-3.22");
 			contextDataDir.addServlet(holderCodeMirror, "/codemirror/*");
 
 			ServletHolder holderSiteResource = new ServletHolder(SiteResourceServlet.class);
@@ -111,7 +111,7 @@ public class JettyLauncher extends AInitializingTask implements IApplicationLive
 			contextDataDir.addServlet(holderSiteResource, String.format("/%s/*", Constants.LINK_IDENTICATOR_SITE_RESOURCE));
 
 			ServletHolder holderCKEditor = new ServletHolder(ZipProxyServlet.class);
-			holderCKEditor.setInitParameter("file", "ckeditor_4.2.1_full.zip");
+			holderCKEditor.setInitParameter("file", "ckeditor_4.3.3_full.zip");
 			holderCKEditor.setInitParameter("zipPathToSkip", "ckeditor");
 			contextDataDir.addServlet(holderCKEditor, "/ckeditor/*");
 			
