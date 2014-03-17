@@ -175,7 +175,7 @@ public class VelocityRenderer {
 		contextObjects.put("sr", siteResource);
 		contextObjects.put("utils", new Utils());
 		contextObjects.put("contexttool", new ContextTool());
-		if(siteResource.getId() != 0) {
+		if(siteResource.getId() != APoormansObject.UNSET_VALUE) {
 			String link = String.format("%s?id=%d", Constants.LINK_IDENTICATOR_SAVE, siteResource.getId());
 			contextObjects.put("link", link);
 		}
