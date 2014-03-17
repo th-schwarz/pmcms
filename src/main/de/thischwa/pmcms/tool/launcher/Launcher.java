@@ -77,7 +77,7 @@ public class Launcher {
 		}
 		InputStream userIn = new BufferedInputStream(new FileInputStream(propertiesFile));
 		// the common props
-		InputStream commonIn = new BufferedInputStream(BasicConfigurator.class.getResourceAsStream("common.properties"));
+		InputStream commonIn = new BufferedInputStream(BasicConfigurator.class.getResourceAsStream("default.properties"));
 		Properties props = PropertiesTool.loadProperties(commonIn, userIn);
 		
 		// clean up the arguments (option datadir must be removed)

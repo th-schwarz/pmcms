@@ -17,7 +17,7 @@
 	<property name="poormans_home" value="${basedir}"/>
 	
 	<property file="${project.dir}/installer.properties"/>
-	<property file="${pmcms.dir.src}/${pmcms.package.dir}/conf/common.properties" />
+	<property file="${pmcms.dir.src}/${pmcms.package.dir}/conf/default.properties" />
 
 	<property name="dir.dist" location="${project.dir}/dist"/>
 	<property name="izpack.dir" location="${project.dir}/IzPack"/>
@@ -151,7 +151,7 @@
     	</pathconvert>
     	<jar destfile="${launcher_full.jar}">
     		<zipfileset dir="${dir}" includes="Constants.class" fullpath="${pmcms.package.dir}Constants.class"/>
-    		<zipfileset dir="${dir}" includes="conf/common.properties" fullpath="${pmcms.package.dir}conf/common.properties"/>
+    		<zipfileset dir="${dir}" includes="conf/default.properties" fullpath="${pmcms.package.dir}conf/default.properties"/>
     		<zipfileset dir="${dir}" includes="conf/BasicConfigurator.class" fullpath="${pmcms.package.dir}conf/BasicConfigurator.class"/>
     		<zipfileset dir="${dir}" includes="server/Action.class" fullpath="${pmcms.package.dir}server/Action.class"/>
     		<zipfileset dir="${dir}" includes="tool/CliParser.class" fullpath="${pmcms.package.dir}tool/CliParser.class"/>
