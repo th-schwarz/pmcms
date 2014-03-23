@@ -64,7 +64,7 @@ $content
    <void method="add">
     <object class="de.thischwa.pmcms.model.domain.pojo.Macro">
      <void property="id">
-      <int>8</int>
+      <int>0</int>
      </void>
      <void property="name">
       <string>user_menu.vm</string>
@@ -139,7 +139,7 @@ $content
    <void method="add">
     <object class="de.thischwa.pmcms.model.domain.pojo.Macro">
      <void property="id">
-      <int>9</int>
+      <int>1</int>
      </void>
      <void property="name">
       <string>utils.vm</string>
@@ -203,7 +203,7 @@ $content
       </void>
      </void>
      <void property="id">
-      <int>10</int>
+      <int>9</int>
      </void>
      <void property="name">
       <string>home</string>
@@ -249,7 +249,7 @@ $content
    <void method="add">
     <object class="de.thischwa.pmcms.model.domain.pojo.Level" id="Level0">
      <void property="id">
-      <int>11</int>
+      <int>10</int>
      </void>
      <void property="name">
       <string>lev1</string>
@@ -277,7 +277,7 @@ $content
          </void>
         </void>
         <void property="id">
-         <int>12</int>
+         <int>11</int>
         </void>
         <void property="name">
          <string>frontpage</string>
@@ -305,7 +305,7 @@ $content
    <void method="add">
     <object class="de.thischwa.pmcms.model.domain.pojo.Level" id="Level1">
      <void property="id">
-      <int>13</int>
+      <int>12</int>
      </void>
      <void property="name">
       <string>lev2</string>
@@ -334,7 +334,7 @@ $content
          </void>
         </void>
         <void property="id">
-         <int>14</int>
+         <int>13</int>
         </void>
         <void property="name">
          <string>page1</string>
@@ -375,7 +375,7 @@ $content
          </void>
         </void>
         <void property="id">
-         <int>15</int>
+         <int>14</int>
         </void>
         <void property="name">
          <string>page2</string>
@@ -414,7 +414,7 @@ $content
          </void>
         </void>
         <void property="id">
-         <int>16</int>
+         <int>15</int>
         </void>
         <void property="name">
          <string>page3</string>
@@ -442,7 +442,7 @@ $content
    <void method="add">
     <object class="de.thischwa.pmcms.model.domain.pojo.Level" id="Level2">
      <void property="id">
-      <int>17</int>
+      <int>16</int>
      </void>
      <void property="name">
       <string>lev3</string>
@@ -473,7 +473,7 @@ $content
          </void>
         </void>
         <void property="id">
-         <int>18</int>
+         <int>17</int>
         </void>
         <void property="name">
          <string>frontpage</string>
@@ -497,7 +497,7 @@ $content
       <void method="add">
        <object class="de.thischwa.pmcms.model.domain.pojo.Level" id="Level3">
         <void property="id">
-         <int>19</int>
+         <int>18</int>
         </void>
         <void property="name">
          <string>sub1</string>
@@ -530,7 +530,7 @@ $content
             </void>
            </void>
            <void property="id">
-            <int>20</int>
+            <int>19</int>
            </void>
            <void property="name">
             <string>frontpage</string>
@@ -584,7 +584,7 @@ $content
       <void method="add">
        <object class="de.thischwa.pmcms.model.domain.pojo.Level" id="Level4">
         <void property="id">
-         <int>21</int>
+         <int>20</int>
         </void>
         <void property="name">
          <string>sub2</string>
@@ -613,7 +613,7 @@ $content
             </void>
            </void>
            <void property="id">
-            <int>22</int>
+            <int>21</int>
            </void>
            <void property="name">
             <string>frontpage</string>
@@ -647,7 +647,7 @@ $content
    <void method="add">
     <object class="de.thischwa.pmcms.model.domain.pojo.Level" id="Level5">
      <void property="id">
-      <int>23</int>
+      <int>22</int>
      </void>
      <void property="name">
       <string>simple-gallery</string>
@@ -656,7 +656,7 @@ $content
       <void method="add">
        <object class="de.thischwa.pmcms.model.domain.pojo.Gallery" id="Gallery0">
         <void property="id">
-         <int>24</int>
+         <int>23</int>
         </void>
         <void property="imageMaxHeight">
          <int>700</int>
@@ -706,7 +706,7 @@ $content
             <string>gallery_properties.jpg</string>
            </void>
            <void property="id">
-            <int>25</int>
+            <int>24</int>
            </void>
            <void property="parent">
             <object idref="Gallery0"/>
@@ -725,7 +725,7 @@ $content
             <string>image_properties.jpg</string>
            </void>
            <void property="id">
-            <int>26</int>
+            <int>25</int>
            </void>
            <void property="parent">
             <object idref="Gallery0"/>
@@ -799,7 +799,7 @@ $content
    <void method="add">
     <object class="de.thischwa.pmcms.model.domain.pojo.Level" id="Level6">
      <void property="id">
-      <int>27</int>
+      <int>26</int>
      </void>
      <void property="name">
       <string>tbl-gallery</string>
@@ -825,7 +825,7 @@ $content
          </void>
         </void>
         <void property="id">
-         <int>28</int>
+         <int>27</int>
         </void>
         <void property="imageMaxHeight">
          <int>450</int>
@@ -846,7 +846,7 @@ $content
             <string>building1.jpg</string>
            </void>
            <void property="id">
-            <int>29</int>
+            <int>28</int>
            </void>
            <void property="parent">
             <object idref="Gallery1"/>
@@ -865,7 +865,7 @@ $content
             <string>building2.jpg</string>
            </void>
            <void property="id">
-            <int>30</int>
+            <int>29</int>
            </void>
            <void property="parent">
             <object idref="Gallery1"/>
@@ -884,7 +884,7 @@ $content
             <string>building3.jpg</string>
            </void>
            <void property="id">
-            <int>31</int>
+            <int>30</int>
            </void>
            <void property="parent">
             <object idref="Gallery1"/>
@@ -903,7 +903,7 @@ $content
             <string>smoke_air_polution.jpg</string>
            </void>
            <void property="id">
-            <int>32</int>
+            <int>31</int>
            </void>
            <void property="parent">
             <object idref="Gallery1"/>
@@ -922,7 +922,7 @@ $content
             <string>skyline1.jpg</string>
            </void>
            <void property="id">
-            <int>33</int>
+            <int>32</int>
            </void>
            <void property="parent">
             <object idref="Gallery1"/>
@@ -941,7 +941,7 @@ $content
             <string>skyline2.jpg</string>
            </void>
            <void property="id">
-            <int>34</int>
+            <int>33</int>
            </void>
            <void property="parent">
             <object idref="Gallery1"/>
