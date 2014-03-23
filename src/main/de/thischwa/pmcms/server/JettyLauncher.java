@@ -110,9 +110,12 @@ public class JettyLauncher extends AInitializingTask implements IApplicationLive
 			holderSiteResource.setInitParameter("basePath", new File(dataDir, sitesDir).getAbsolutePath());
 			contextDataDir.addServlet(holderSiteResource, String.format("/%s/*", Constants.LINK_IDENTICATOR_SITE_RESOURCE));
 
-			ServletHolder holderCKEditor = new ServletHolder(ZipProxyServlet.class);
-			holderCKEditor.setInitParameter("file", "ckeditor_4.3.3_full.zip");
-			holderCKEditor.setInitParameter("zipPathToSkip", "ckeditor");
+//			ServletHolder holderCKEditor = new ServletHolder(ZipProxyServlet.class);
+//			holderCKEditor.setInitParameter("file", "ckeditor_4.3.3_full.zip");
+//			holderCKEditor.setInitParameter("zipPathToSkip", "ckeditor");
+//			contextDataDir.addServlet(holderCKEditor, "/ckeditor/*");
+			ServletHolder holderCKEditor = new ServletHolder(ResourceServlet.class);
+			holderCKEditor.setInitParameter("basePath", "ckeditor");
 			contextDataDir.addServlet(holderCKEditor, "/ckeditor/*");
 			
 			ServletHolder holderTest = new ServletHolder(TestServlet.class);
