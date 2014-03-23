@@ -20,11 +20,9 @@ package de.thischwa.pmcms.tool.image;
 
 import java.io.File;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import de.thischwa.pmcms.Constants;
@@ -44,11 +42,8 @@ public class ImageTool {
 	@Autowired
 	private ImageInfo imageInfo;
 
-	@Autowired
-	private ImageManipulationImageMagick imageManipulation;
-
-	@Value("${rendering.available}")
-	private boolean isRenderingAvailable;
+	@Autowired()
+	private AImageManipulation imageManipulation;
 
 	public void createCashedImage(final VirtualImage imageFile) {
 		File cachedFile = imageFile.getCacheFile();
@@ -62,15 +57,7 @@ public class ImageTool {
 		if (!cachedFile.getParentFile().exists())
 			cachedFile.getParentFile().mkdirs();
 		try {
-			if (!isRenderingAvailable) {
-				logger.warn("Properties for imagemagick aren't set, so I can't render images!");
-				if (!cachedFile.exists()) {
-					FileUtils.copyFile(srcFile, cachedFile);
-					logger.debug("File successfull copied.");
-				}
-			} else {
-				imageManipulation.resizeImage(srcFile, cachedFile, imageFile.getDimension());
-			}
+			imageManipulation.resizeImage(srcFile, cachedFile, imageFile.getDimension());
 		} catch (Exception e) {
 			throw new FatalException("Error while resizing image!", e);
 		}
@@ -87,7 +74,7 @@ public class ImageTool {
 		try {
 			if (destImageFile.exists())
 				destImageFile.delete();
-			imageManipulation.resize(srcImageFile, destImageFile, previewDimension, false);
+			imageManipulation.resize(srcImageFile, destImageFile, previewDimension);
 		} catch (Exception e) {
 			throw new FatalException("Error while resizing image!", e);
 		}
@@ -96,10 +83,6 @@ public class ImageTool {
 
 	public Dimension getDimension(final File imageFile) {
 		return imageInfo.getDimension(imageFile);
-	}
-	
-	public boolean isRenderingAvailable() {
-		return isRenderingAvailable;
 	}
 
 	// just for dev

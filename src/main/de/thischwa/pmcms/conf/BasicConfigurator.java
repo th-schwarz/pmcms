@@ -24,7 +24,6 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.Properties;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
@@ -71,11 +70,6 @@ public class BasicConfigurator {
 		loadProperties();
 		
 		// build special props
-		boolean renderingAvailable = StringUtils.isNotEmpty(props.getProperty("imagemagick.convert.command"))
-				&& StringUtils.isNotEmpty(props.getProperty("imagemagick.convert.parameters"))
-				&& StringUtils.isNotEmpty(props.getProperty("imagemagick.resolution.export"))
-				&& new File(props.getProperty("imagemagick.convert.command")).exists();
-		props.setProperty("rendering.available", renderingAvailable ? "true" : "false");
 		String baseUrl = String.format("http://%s:%s/", props.get("pmcms.jetty.host"), props.get("pmcms.jetty.port"));
 		props.setProperty("baseurl", baseUrl);
 		props.setProperty("data.dir", dataDir.getAbsolutePath());

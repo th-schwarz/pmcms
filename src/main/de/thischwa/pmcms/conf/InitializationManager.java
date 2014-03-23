@@ -48,7 +48,6 @@ import de.thischwa.pmcms.model.tool.SitePersister;
 import de.thischwa.pmcms.tool.InternalAntTool;
 import de.thischwa.pmcms.tool.Locker;
 import de.thischwa.pmcms.tool.image.ImageInfo;
-import de.thischwa.pmcms.tool.image.ImageTool;
 
 /**
  * Main object, doing the basic initialization and provides access to the basic configuration data. <br>
@@ -88,8 +87,6 @@ public class InitializationManager {
 	private static PropertiesManager pm = null;
 
 	private static SiteHolder siteHolder;
-
-	private static boolean imageRenderingEnabled;
 
 	private static boolean enableTasksStart = true;
 
@@ -165,8 +162,7 @@ public class InitializationManager {
 			allowedImageExtensions.addAll(Arrays.asList(type.getExtensions()));
 		}
 		String imageExts = StringUtils.join(allowedImageExtensions, '|');
-		imageRenderingEnabled = getBean(ImageTool.class).isRenderingAvailable();
-
+		
 		// preparing C5Connector.Java
 		PropertiesLoader.setProperty("connector.impl", LocalConnector.class.getName());
 		PropertiesLoader.setProperty("connector.filemanagerConfigImpl", FilemanagerConfigBuilderImpl.class.getName());
@@ -196,10 +192,6 @@ public class InitializationManager {
 				}
 			}
 		}
-
-		// check, if rendering is possible
-		if (!isImageRenderingEnabled())
-			logger.warn("Requirements for image rendering aren't fulfilled! Images won't be recalc!");
 	}
 
 	/**
@@ -315,9 +307,5 @@ public class InitializationManager {
 
 	public static File getSitesDir() {
 		return new File(getDataDir(), pm.getProperty("pmcms.dir.sites"));
-	}
-
-	public static boolean isImageRenderingEnabled() {
-		return imageRenderingEnabled;
 	}
 }

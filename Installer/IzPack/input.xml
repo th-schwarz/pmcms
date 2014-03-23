@@ -15,17 +15,6 @@
 		<field type="text" variable="jetty_port">
 			<spec id="panelprop.jetty_port.label" set="8080" size="15"/>
 		</field>
-		<field type="search" variable="imagemagick_command">
-			<spec id="panelprob.imagemagick_command.label" size="15" type="file" result="file"/>
-		</field>
-		<!-- field type="rule" variable="imagemagick_dpi">
-			<spec id="panelprob.imagemagick_dpi.label" layout="N:3:3" set="0:75"/>
-			<validator class="com.izforge.izpack.panels.userinput.validator.NotEmptyValidator"
-				txt="The dpi number is mandatory!" />
-		</field-->
-		<field type="text" variable="imagemagick_dpi">
-			<spec id="panelprob.imagemagick_dpi.label" size="15" set="75"/>
-		</field>
 		<field type="search" variable="backup_dir">
 			<spec id="panelprob.backupdir.label" size="15" type="directory" result="directory"/>
 			<validator class="com.izforge.izpack.panels.userinput.validator.NotEmptyValidator"
@@ -33,7 +22,7 @@
 		</field>
 		
 		<field type="text" variable="jvm_arguments">
-			<spec id="panelprob.jvmarguments.label" size="15" set="${jvm_arguments}"/>
+			<spec id="panelprob.jvmarguments.label" size="15"/>
 		</field>
 	</panel>
 </izpack:userinput>

@@ -51,7 +51,7 @@ public abstract class AImageManipulation {
 			siteHolder.addJustRendering(destImageFile);
 		
 		try {
-			resize(srcImageFile, destImageFile, dimension, useJustRenderedCheck);
+			resize(srcImageFile, destImageFile, dimension);
 		}  catch (Exception e) {
 			logger.error(String.format("Error while trying to resize [].", srcImageFile.getPath()));
 			throw new ReadException(e);
@@ -62,5 +62,5 @@ public abstract class AImageManipulation {
 		
 	}
 	
-	protected abstract void resize(final File srcImageFile, final File destImageFile, final Dimension dimension, boolean useJustRenderedCheck) throws Exception;
+	protected abstract void resize(final File srcImageFile, final File destImageFile, final Dimension dimension) throws Exception;
 }

@@ -87,12 +87,6 @@ public class Starter {
 		boolean isInit = false;
 		try {
 			InitializationManager.start(configurator);
-			if (!InitializationManager.isImageRenderingEnabled()) {
-				MessageBox mb = new MessageBox(new Shell(), SWT.ICON_WARNING | SWT.OK);
-				mb.setText(LabelHolder.get("popup.warning")); //$NON-NLS-1$
-				mb.setMessage("Requirements for image rendering aren't fulfilled! Images won't be recalc!");
-				mb.open();
-			}
 			isInit = true;
 			logger.debug("*** Try to init the main window ...");
 			MainWindow mainWindow = InitializationManager.getBean(MainWindow.class);
