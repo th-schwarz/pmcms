@@ -13,6 +13,7 @@ pmcms is distributed under the [LGPL](http://www.gnu.org/licenses/lgpl-3.0.html)
 ## Changes 
 
 * 3.0.0-SNAPSHOT 
+  * replaced the ImageMagick-resizing with imgscalr-lib 
   * fixed error with double IDs after import a backup
   * changed to commons-codec for encoding/decoding passwords
   * updated ckeditor to 4.*
