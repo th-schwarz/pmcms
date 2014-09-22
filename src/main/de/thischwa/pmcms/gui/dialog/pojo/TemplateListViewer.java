@@ -21,7 +21,6 @@ package de.thischwa.pmcms.gui.dialog.pojo;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
