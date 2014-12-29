@@ -31,10 +31,10 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.BeansException;
 import org.springframework.context.support.AbstractApplicationContext;
 
-import de.thischwa.c5c.impl.LocalConnector;
-import de.thischwa.c5c.resource.PropertiesLoader;
+import codes.thischwa.c5c.impl.LocalConnector;
+import codes.thischwa.c5c.PropertiesLoader;
 import de.thischwa.ckeditor.CKPropertiesLoader;
-import de.thischwa.jii.ImageType;
+import codes.thischwa.jii.ImageType;
 import de.thischwa.pmcms.Constants;
 import de.thischwa.pmcms.conf.resource.LabelHolder;
 import de.thischwa.pmcms.livecycle.C5IconResolverImpl;

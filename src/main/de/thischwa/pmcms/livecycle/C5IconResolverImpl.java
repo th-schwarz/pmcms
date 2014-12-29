@@ -20,9 +20,9 @@ package de.thischwa.pmcms.livecycle;
 
 import java.nio.file.Paths;
 
-import de.thischwa.c5c.requestcycle.impl.FilemanagerIconResolver;
-import de.thischwa.c5c.resource.PropertiesLoader;
-import de.thischwa.c5c.util.Path;
+import codes.thischwa.c5c.requestcycle.impl.FilemanagerIconResolver;
+import codes.thischwa.c5c.PropertiesLoader;
+import codes.thischwa.c5c.util.Path;
 import de.thischwa.pmcms.Constants;
 
 /**

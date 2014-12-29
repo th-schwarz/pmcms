@@ -20,11 +20,10 @@ package de.thischwa.pmcms.tool.image;
 
 import java.io.File;
 
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import de.thischwa.jii.exception.ReadException;
+import codes.thischwa.jii.exception.ReadException;
 import de.thischwa.pmcms.livecycle.SiteHolder;
 
 /**

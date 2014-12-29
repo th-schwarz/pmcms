@@ -20,7 +20,6 @@ package de.thischwa.pmcms.tool.connection.ftp;
 
 import java.io.IOException;
 
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPReply;

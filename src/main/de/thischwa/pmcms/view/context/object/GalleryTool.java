@@ -21,7 +21,6 @@ package de.thischwa.pmcms.view.context.object;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.config.BeanDefinition;

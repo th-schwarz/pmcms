@@ -29,10 +29,10 @@ import org.apache.log4j.Logger;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import de.thischwa.c5c.FilemanagerMessageResolver;
-import de.thischwa.c5c.exception.FilemanagerException.Key;
-import de.thischwa.c5c.resource.PropertiesLoader;
-import de.thischwa.c5c.util.Path;
+import codes.thischwa.c5c.impl.FilemanagerMessageResolver;
+import codes.thischwa.c5c.exception.FilemanagerException.Key;
+import codes.thischwa.c5c.PropertiesLoader;
+import codes.thischwa.c5c.util.Path;
 import de.thischwa.pmcms.Constants;
 
 /**

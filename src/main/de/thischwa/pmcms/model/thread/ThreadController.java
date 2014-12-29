@@ -21,7 +21,6 @@ package de.thischwa.pmcms.model.thread;
 import java.util.List;
 import java.util.Vector;
 
-
 import org.apache.log4j.Logger;
 import org.eclipse.swt.widgets.Display;
 

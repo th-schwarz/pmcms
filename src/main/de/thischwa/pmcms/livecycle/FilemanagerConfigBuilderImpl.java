@@ -7,7 +7,7 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
-import de.thischwa.c5c.requestcycle.impl.GlobalFilemanagerConfig;
+import codes.thischwa.c5c.requestcycle.impl.GlobalFilemanagerConfig;
 import de.thischwa.pmcms.Constants;
 import de.thischwa.pmcms.conf.InitializationManager;
 import de.thischwa.pmcms.conf.PropertiesManager;

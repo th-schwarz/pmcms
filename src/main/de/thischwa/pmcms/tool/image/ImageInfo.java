@@ -20,13 +20,12 @@ package de.thischwa.pmcms.tool.image;
 
 import java.io.File;
 
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import de.thischwa.jii.IDimensionProvider;
-import de.thischwa.jii.ImageType;
+import codes.thischwa.jii.IDimensionProvider;
+import codes.thischwa.jii.ImageType;
 import de.thischwa.pmcms.exception.FatalException;
 
 /**

@@ -22,6 +22,7 @@ import java.io.File;
 
 import javax.servlet.MultipartConfigElement;
 import javax.servlet.Servlet;
+import javax.servlet.ServletContext;
 
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.ServerConnector;
@@ -31,7 +32,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ClassUtils;
 
-import de.thischwa.c5c.ConnectorServlet;
+import codes.thischwa.c5c.ConnectorServlet;
 import de.thischwa.pmcms.Constants;
 import de.thischwa.pmcms.conf.AInitializingTask;
 import de.thischwa.pmcms.conf.IApplicationLiveCycleListener;
@@ -75,6 +76,7 @@ public class JettyLauncher extends AInitializingTask implements IApplicationLive
 			ServletContextHandler contextDataDir = new ServletContextHandler(server, "/", ServletContextHandler.NO_SECURITY);
 			contextDataDir.setClassLoader(classLoader);
 			contextDataDir.setResourceBase(dataDir.getAbsolutePath());
+			contextDataDir.setAttribute(ServletContext.TEMPDIR, new File(System.getProperty("java.io.tmpdir")));
 
 			ServletHolder holderDefaults = new ServletHolder(ResourceServlet.class);
 			holderDefaults.setInitParameter("basePath", "defaults");

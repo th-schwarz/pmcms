@@ -21,7 +21,6 @@ package de.thischwa.pmcms.tool;
 import java.io.File;
 import java.io.IOException;
 
-
 import com.twmacinta.util.MD5;
 
 import de.thischwa.pmcms.exception.FatalException;

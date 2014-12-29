@@ -20,8 +20,8 @@ package de.thischwa.pmcms.livecycle;
 
 import javax.servlet.ServletContext;
 
-import de.thischwa.c5c.requestcycle.Context;
-import de.thischwa.c5c.requestcycle.BackendPathBuilder;
+import codes.thischwa.c5c.requestcycle.BackendPathBuilder;
+import codes.thischwa.c5c.requestcycle.Context;
 import de.thischwa.pmcms.conf.InitializationManager;
 import de.thischwa.pmcms.conf.PropertiesManager;
 import de.thischwa.pmcms.model.domain.PoPathInfo;

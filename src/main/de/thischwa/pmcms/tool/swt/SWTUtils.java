@@ -20,7 +20,6 @@ package de.thischwa.pmcms.tool.swt;
 
 import java.net.URL;
 
-
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.swt.graphics.Font;
