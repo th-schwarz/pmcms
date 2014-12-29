@@ -8,7 +8,7 @@ pmcms is distributed under the [LGPL](http://www.gnu.org/licenses/lgpl-3.0.html)
 * Personal and educational use of pmcms.
 * Integrating pmcms in commercial software while at the same time satisfying the terms of the Open Source license.
 
-**Hint:** pmcmns is a further development of the [good old Poor Man's CMS](http://poormans.sourceforge.net/).
+**Hint:** pmcms is a further development of the [good old Poor Man's CMS](http://poormans.sourceforge.net/).
 
 ## Changes 
 
