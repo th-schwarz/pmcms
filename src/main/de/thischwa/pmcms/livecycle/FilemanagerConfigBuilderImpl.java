@@ -27,7 +27,7 @@ public class FilemanagerConfigBuilderImpl extends GlobalFilemanagerConfig {
 		extensions.addAll(Arrays.asList(allowedDocs));
 		config.getSecurity().setAllowedExtensions(new HashSet<>(extensions));
 		config.getOptions().setFileRoot("/");
-		String relPath = String.format("%s/%s/", Constants.LINK_IDENTICATOR_SITE_RESOURCE, pm.getProperty("pmcms.site.dir.resources.other"));
+		String relPath = String.format("/%s/%s/", Constants.LINK_IDENTICATOR_SITE_RESOURCE, pm.getProperty("pmcms.site.dir.resources.other"));
 		config.getOptions().setRelPath(relPath);
 		config.setComment("Built by pmcms.");
 		
