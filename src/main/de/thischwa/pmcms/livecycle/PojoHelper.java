@@ -49,25 +49,6 @@ public class PojoHelper {
 	private Image image = null;
 	private ASiteResource siteResource = null;
 
-	public void deletepo(final APoormansObject<?> po) {
-		if (InstanceUtil.isSite(po))
-			deleteSite();
-		else if (InstanceUtil.isJustLevel(po))
-			deleteLevel();
-		else if (InstanceUtil.isPage(po))
-			deletePage();
-		else if (InstanceUtil.isGallery(po))
-			deleteGallery();
-		else if (InstanceUtil.isImage(po))
-			deleteImage();
-		else if (InstanceUtil.isSiteResource(po))
-			deleteSiteResource();
-		else {
-			logger.warn("Unknown object.");
-			return;
-		}
-	}
-
 	public void putpo(final APoormansObject<?> po) {
 		if (po == null)
 			throw new IllegalArgumentException("Can't work with object is null!");
