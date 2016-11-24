@@ -81,7 +81,7 @@ public class Launcher {
 		Properties props = PropertiesTool.loadProperties(commonIn, userIn);
 		
 		// clean up the arguments (option datadir must be removed)
-		List<String> arguments = new ArrayList<>(Arrays.asList(args));
+		List<String> arguments = new ArrayList<String>(Arrays.asList(args));
 		if(cliParser.hasOption("datadir")) {
 			arguments.remove("-datadir");
 			arguments.remove(cliParser.getOptionValue("datadir"));

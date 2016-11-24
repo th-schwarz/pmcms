@@ -23,9 +23,9 @@ public class FilemanagerConfigBuilderImpl extends GlobalFilemanagerConfig {
 		PropertiesManager pm = InitializationManager.getBean(PropertiesManager.class);
 		String[] allowedDocs = StringUtils.split(pm.getProperty("pmcms.filemanager.alloweddocs"), '|');
 		List<String> extensions = InitializationManager.getAllowedImageExtensions();
-		config.getImages().setExtensions(new HashSet<>(extensions));
+		config.getImages().setExtensions(new HashSet<String>(extensions));
 		extensions.addAll(Arrays.asList(allowedDocs));
-		config.getSecurity().setAllowedExtensions(new HashSet<>(extensions));
+		config.getSecurity().setAllowedExtensions(new HashSet<String>(extensions));
 		config.getOptions().setFileRoot("/");
 		String relPath = String.format("/%s/%s/", Constants.LINK_IDENTICATOR_SITE_RESOURCE, pm.getProperty("pmcms.site.dir.resources.other"));
 		config.getOptions().setRelPath(relPath);

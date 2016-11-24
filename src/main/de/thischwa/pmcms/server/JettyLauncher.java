@@ -120,7 +120,9 @@ public class JettyLauncher extends AInitializingTask implements IApplicationLive
 			holderCKEditor.setInitParameter("basePath", "ckeditor");
 			contextDataDir.addServlet(holderCKEditor, "/ckeditor/*");
 			
-			ServletHolder holderTest = new ServletHolder(TestServlet.class);
+			//ServletHolder holderTest = new ServletHolder(TestServlet.class);
+			ServletHolder holderTest = new ServletHolder(ResourceServlet.class);
+			holderTest.setInitParameter("basePath", Constants.APPLICATION_DIR.getAbsolutePath() + "/webgui");
 			contextDataDir.addServlet(holderTest, "/webgui/*");
 
 			ServletHolder holderResourceWebgui = new ServletHolder(ResourceServlet.class);

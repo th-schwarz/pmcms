@@ -81,7 +81,7 @@ public class VelocityRenderer {
 	 * @param contextObjects
 	 *            Contains the context objects. It could be null or empty too.
 	 */
-	public void renderString(Writer writer, final String stringToRender, final Map<String, Object> contextObjects) {
+	private void renderString(Writer writer, final String stringToRender, final Map<String, Object> contextObjects) {
 		if (StringUtils.isBlank(stringToRender))
 			return;
 

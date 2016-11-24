@@ -30,7 +30,8 @@ public class TestServlet extends AServlet {
 
 	@Override
 	protected void doRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		ServletUtils.writeFile(resp, new File("webgui/example.xml"));
+		//ServletUtils.writeFile(resp, new File("webgui/example.xml"));
+		ServletUtils.writeFile(resp, new File("webgui/index.html"));
 		resp.getOutputStream().flush();
 	}
 
