@@ -106,7 +106,7 @@ public class SiteLinkTool implements IContextObjectNeedPojoHelper, IContextObjec
 	}
 
 	/**
-	 * Set the link to style-sheet (named 'format.css') of the site.<br/>
+	 * Set the link to style-sheet (named 'format.css') of the site.<p>
 	 * Just a wrapper to {@link #getResource(String)}.
 	 * 
 	 * @return SiteLinkTool

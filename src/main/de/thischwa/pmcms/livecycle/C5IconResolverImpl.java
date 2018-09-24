@@ -26,7 +26,7 @@ import codes.thischwa.c5c.util.Path;
 import de.thischwa.pmcms.Constants;
 
 /**
- * It resolves the icons of the filemanager.<br/>
+ * It resolves the icons of the filemanager.<p>
  * 
  * The path of the filemanager will be redirected to the directory of the application.
  * That's necessary because the working directory of the server is the data directory. 
