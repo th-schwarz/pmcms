@@ -18,10 +18,10 @@ pmcms is distributed under the [LGPL](http://www.gnu.org/licenses/lgpl-3.0.html)
   * fixed error with double IDs after import a backup
   * changed to commons-codec for encoding/decoding passwords
   * updated ckeditor to 4.*
-  * updated swt to 4.3
+  * updated swt to 4.8
   * updated basic eclipse libs
   * new swt jar loading behavior
-  * updated spring to 3.2.1
+  * updated spring to 4.3.9
   * new property handling. there is now a strict difference between common, user and site properties
   * updated CodeMirror to 3.*
   * new handling of images of a gallery, they are now separated from the other file resources
