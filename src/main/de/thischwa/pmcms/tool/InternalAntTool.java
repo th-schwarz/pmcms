@@ -99,24 +99,18 @@ public class InternalAntTool {
 			libFileSet.setIncludes("**/*jar,**/*properties");
 			
 			/** build the requested swt-jar */
-			boolean enable64bit = Boolean.parseBoolean(props.getProperty("pmcms.64bit"));
-			String swt64bitAddOn = (enable64bit) ? "_64" : "";
-			if(printDebug)
-				project.log(String.format("Requested swt-arch: %sbit", (enable64bit) ? "64" : "32"));
-			
 			String swtFolderRaw;
 			switch (os) {
 			case MAC:
-				swtFolderRaw = "cocoa-macosx%s";
+				swtFolderRaw = "cocoa-macosx-x86_64";
 				break;
 			case LINUX:
-				swtFolderRaw = "gtk-linux-x86%s";
+				swtFolderRaw = "gtk-linux-x86_64";
 				break;
 			default:
-				swtFolderRaw = "win32-win32-x86%s";
+				swtFolderRaw = "win32-win32-x86_64";
 			}
-			swtFolderRaw = String.format("%s/%s", propLibSwt, swtFolderRaw);
-			String swtFolder = String.format(swtFolderRaw, swt64bitAddOn);
+			String swtFolder = String.format("%s/%s", propLibSwt, swtFolderRaw);
 			File swtDir = new File(Constants.APPLICATION_DIR, swtFolder);
 			if(printDebug)
 				project.log(String.format("Swt-directory: %s", swtDir.getPath()));
