@@ -78,9 +78,9 @@
 			<fileset dir="lib" includes="**" targetdir="$INSTALL_PATH/lib"/>
 				
 			<fileset dir="defaults/sites" includes="**" targetdir="$INSTALL_PATH/defaults/sites"/>
-			<fileset dir="" includes="ckeditor*.zip" targetdir="$INSTALL_PATH"/>
+<!-- 			<fileset dir="" includes="ckeditor*.zip" targetdir="$INSTALL_PATH"/> -->
+			<fileset dir="ckeditor" includes="**" targetdir="$INSTALL_PATH/ckeditor"/>
 			<fileset dir="sourceeditor" includes="**" targetdir="$INSTALL_PATH/sourceeditor"/>
-			<fileset dir="filemanager" includes="**" targetdir="$INSTALL_PATH/filemanager"/>
 			<fileset dir="help" includes="**" targetdir="$INSTALL_PATH/help"/>
 			<fileset dir="gfx" includes="**" targetdir="$INSTALL_PATH/gfx"/>      		
 		</pack>
