@@ -18,7 +18,7 @@
  ******************************************************************************/
 package de.thischwa.pmcms.view.context.object.tagtool;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
@@ -27,7 +27,7 @@ import org.apache.commons.lang.StringUtils;
  * Helper to construct a common xhtml-tag.
  */
 public class GenericXhtmlTagTool {
-	protected Map<String, String> attributes = new HashMap<String, String>();
+	protected Map<String, String> attributes = new LinkedHashMap<String, String>();
 	private String name = null;
 	private String value = null;
 	

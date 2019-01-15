@@ -20,6 +20,7 @@ package de.thischwa.pmcms.view.renderer;
 
 import java.io.File;
 import java.io.StringWriter;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -131,6 +132,7 @@ public class VelocityUtils {
 			List<Node> imgs = dom.selectNodes("//img", ".");
 			for (Node node : imgs) {
 				Element element = (Element) node;
+				normalizeLink(element);
 				if (element.attributeValue("src").startsWith("/")) // only internal links have to replaced with a velocity macro
 					replacements.put(node.asXML(), generateVelocityImageToolCall(site, element.attributeIterator()));
 			}
@@ -139,6 +141,7 @@ public class VelocityUtils {
 			List<Node> links = dom.selectNodes("//a", ".");
 			for (Node node : links) {
 				Element element = (Element) node;
+				normalizeLink(element);
 				if (element.attributeValue("href").startsWith("/")) // only internal links have to replaced with a velocity macro
 					replacements.put(element.asXML(), generateVelocityLinkToolCall(site, element));
 			}
@@ -229,4 +232,17 @@ public class VelocityUtils {
 		return veloMacro.toString();
 	}
 
+	private static void normalizeLink(Element element) {
+		String baseUrl = System.getProperty("baseurl");
+		if(StringUtils.isEmpty(baseUrl)) 
+			throw new IllegalArgumentException("System property 'baseurl' is missing.");
+		for(String attr: Arrays.asList("href", "src")) {
+			String link = element.attributeValue(attr) ;
+			if(link != null && link.startsWith(baseUrl)) {
+				link = link.substring(baseUrl.length() - 1);
+				element.addAttribute(attr, link);
+				return;
+			}
+		}
+	}
 }

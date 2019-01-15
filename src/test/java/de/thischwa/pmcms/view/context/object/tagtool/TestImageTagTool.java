@@ -41,9 +41,9 @@ public class TestImageTagTool {
 	public void testLayout() {
 		ImageTagTool itt = InitializationManager.getBean(ImageTagTool.class);
 		itt.setPojoHelper(pojoHelper);
-		itt.setSrc("test.png");
-		itt.setWidth(150);
 		itt.setHeight(100);
+		itt.setWidth(150);
+		itt.setSrc("test.png");
 		String actual = itt.contructTag();
 		assertEquals("<img height=\"100\" width=\"150\" src=\"/site/layout/test.png\" />", actual);
 	}
@@ -52,9 +52,9 @@ public class TestImageTagTool {
 	public void testExportLayout() {
 		ImageTagTool itt = InitializationManager.getBean(ImageTagTool.class);
 		itt.setPojoHelper(pojoHelper);
-		itt.setSrc("test.png");
-		itt.setWidth(150);
 		itt.setHeight(100);
+		itt.setWidth(150);
+		itt.setSrc("test.png");
 		itt.setViewMode(ViewMode.EXPORT);
 		String actual = itt.contructTag();
 		assertEquals("<img height=\"100\" width=\"150\" src=\"/site/layout/test_150x100.png\" />", actual);
@@ -65,9 +65,9 @@ public class TestImageTagTool {
 		ImageTagTool itt = InitializationManager.getBean(ImageTagTool.class);
 		itt.setPojoHelper(pojoHelper);
 		itt.usedFromEditor();
-		itt.setSrc("/site/file/test.png");
-		itt.setWidth(150);
 		itt.setHeight(100);
+		itt.setWidth(150);
+		itt.setSrc("/site/file/test.png");
 		String actual = itt.contructTag();
 		assertEquals("<img height=\"100\" width=\"150\" src=\"/site/file/test.png\" />", actual);
 	}

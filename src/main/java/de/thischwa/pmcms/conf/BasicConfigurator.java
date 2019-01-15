@@ -74,6 +74,7 @@ public class BasicConfigurator {
 		props.setProperty("baseurl", baseUrl);
 		props.setProperty("data.dir", dataDir.getAbsolutePath());
 		System.setProperty("content.types.user.table", new File(Constants.APPLICATION_DIR, "lib/content-types.properties").getAbsolutePath());
+		System.setProperty("baseurl", baseUrl);  // just need it in VelocityUtils
 		
 		// init log4j
 		LogManager.resetConfiguration();
