@@ -113,6 +113,7 @@ public class VirtualImage extends VirtualFile implements IVirtualImage {
 	@Override
 	public File getExportFile() {
 		if (forLayout) {
+			// if the image is for the layout, we expand the file with the dimension
 			File resourceDirectory = new File(PoPathInfo.getSiteDirectory(site), resourceFolder);
 			String filePath = baseFile.getAbsolutePath().substring(resourceDirectory.getAbsolutePath().length()+1).replace(File.separatorChar, '/');
 			filePath = Dimension.expandPath(filePath, imageDimension);

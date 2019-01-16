@@ -175,6 +175,17 @@ public class ImageTagTool extends GenericXhtmlTagTool implements IContextObjectC
 		forLayout = false;
 		return this;
 	}
+	
+	@Override
+	protected String contructTag() {
+		if (forLayout && isExportView) {
+			String srcString = getAttr("src");
+			Dimension dim = Dimension.getDimensionFromAttr(attributes);
+			srcString = Dimension.expandPath(srcString, dim);
+			putAttribute("src", PathTool.encodePath(srcString));
+		}
+		return super.contructTag();
+	}
 
 	/**
 	 * Construct the img-tag and tricker the image rendering.
@@ -200,6 +211,8 @@ public class ImageTagTool extends GenericXhtmlTagTool implements IContextObjectC
 		if (fitToSize) {
 			Dimension realDimension = imageTool.getDimension(imageFile.getBaseFile());
 			imageFile.setDimension(realDimension.getScaledToFixSize(width, height));
+			setWidth(realDimension.x);
+			setHeight(realDimension.y);
 		} else
 			imageFile.setDimension(width, height);
 		imageTool.createCashedImage(imageFile);

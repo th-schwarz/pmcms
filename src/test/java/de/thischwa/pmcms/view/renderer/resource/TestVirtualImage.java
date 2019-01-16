@@ -81,7 +81,7 @@ public class TestVirtualImage {
 		vi.consructFromTagFromView("/site/layout/test.png");
 		vi.setDimension(100, 200);
 		File actual = vi.getExportFile();
-		File expected = new File(PoPathInfo.getSiteExportDirectory(site), "layout/test.png");
+		File expected = new File(PoPathInfo.getSiteExportDirectory(site), "layout/test_100x200.png");
 		assertEquals(expected.toString(), actual.toString());
 	}
 
