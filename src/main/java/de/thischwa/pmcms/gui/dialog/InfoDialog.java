@@ -70,7 +70,7 @@ public class InfoDialog extends SimpleDialog {
 			add3rdPartyTool(ToolVersionInfo.getJII());
 			add3rdPartyTool(ToolVersionInfo.getSwt());
 			
-			addProperty("OS arch", System.getProperty("os.arch"));
+			addProperty("OS", String.format("%s %s (%s)", System.getProperty("os.name"), System.getProperty("os.version"), System.getProperty("os.arch")));
 			addProperty("Directory", Constants.APPLICATION_DIR.getAbsolutePath());
 			addProperty("Data Directory", InitializationManager.getDataDir().getAbsolutePath());
 			addProperty("Temp Directory", Constants.TEMP_DIR.getAbsolutePath());
