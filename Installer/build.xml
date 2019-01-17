@@ -35,7 +35,7 @@
 	<property name="classes_full.jar" location="${dir.dist}/${classes.jar}" />
 	<property name="portable.zip" location="${dir.dist}/${pmcms.name}_${pmcms.version}_portable.zip" />
 
-	<property name="swt-version" value="swt-4.8" />
+	<property name="swt-version" value="swt-4.9" />
 	<property name="arch.win" value="win32-win32-x86_64" />
 	<property name="arch.linux" value="gtk-linux-x86_64" />
 	<property name="arch.osx" value="cocoa-macosx-x86_64" />
