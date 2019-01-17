@@ -112,7 +112,7 @@ public class BasicConfigurator {
 		props = new Properties();
 		try {
 			// the default props
-			InputStream defaultIn = new BufferedInputStream(BasicConfigurator.class.getResourceAsStream("/default.properties"));
+			InputStream defaultIn = new BufferedInputStream(BasicConfigurator.class.getResourceAsStream("default.properties"));
 
 			// the user's props
 			File propsFile = new File(dataDir, PROPERTIES_NAME);
