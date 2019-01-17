@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
-import de.thischwa.ckeditor.CKEditor;
+import codes.thischwa.ckeditor.CKEditor;
 import de.thischwa.pmcms.Constants;
 import de.thischwa.pmcms.conf.InitializationManager;
 import de.thischwa.pmcms.conf.PropertiesManager;
