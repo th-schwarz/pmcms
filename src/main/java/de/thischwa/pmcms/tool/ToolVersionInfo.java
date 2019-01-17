@@ -54,11 +54,11 @@ public class ToolVersionInfo {
 	}
 	
 	public static Map<TYPE, String> getCKEditor()  {
-		return getInfoFromMetaPom("de.thischwa.ckeditor", "ckeditor-java");
+		return getInfoFromMetaPom("codes.thischwa.ckeditor", "ckeditor-java");
 	}
 
 	public static Map<TYPE, String> getC5Connector()  {
-		return getInfoFromMetaPom("de.thischwa.c5c", "c5connector-java");
+		return getInfoFromMetaPom("codes.thischwa.c5c", "c5connector-java");
 	}
 	
 	public static Map<TYPE, String> getVelocity() {
@@ -66,7 +66,7 @@ public class ToolVersionInfo {
 	}
 	
 	public static Map<TYPE, String> getJII() {
-		return getInfoFromMetaPom("de.thischwa.jii", "java-image-info");
+		return getInfoFromMetaPom("codes.thischwa.jii", "java-image-info");
 	}
 	
 	public static Map<TYPE, String> getSwt() {

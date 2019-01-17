@@ -77,7 +77,6 @@ public class InfoDialog extends SimpleDialog {
 			addProperty("Backup Directory", pm.getProperty("pmcms.dir.backup"));
 			addProperty("Host", pm.getProperty("pmcms.jetty.host"));
 			addProperty("Port", pm.getProperty("pmcms.jetty.port"));
-			addProperty("ImageMagick", StringUtils.defaultString(pm.getProperty("imagemagick.convert.command"), "not set"));
 			addProperty("Browser", BrowserManager.getBrowserType());
 		}
 
@@ -112,7 +111,7 @@ public class InfoDialog extends SimpleDialog {
 			Label labelHeaderSubTitle = new Label(compositeHeader, SWT.CENTER);
 			labelHeaderSubTitle.setText("A very basic CMS running as a swt application and generating static html pages.");
 			Label labelHeaderText = new Label(compositeHeader, SWT.NONE);
-			labelHeaderText.setText("Concept and implementation by Thilo Schwarz (poormanscms@gmail.com).\n" +
+			labelHeaderText.setText("Concept and implementation by Thilo Schwarz (osp@thischwa.codes).\n" +
 					"Copyright by Thilo Schwarz");
 		}
 
