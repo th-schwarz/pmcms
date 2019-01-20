@@ -84,20 +84,21 @@ public class ListenerUploadSite implements SelectionListener {
 		
 		// transfer
 		try {
-			DESCryptor cryptor = new DESCryptor(pm.getProperty("pmcms.crypt.key"));
-			String plainPwd = cryptor.decrypt(site.getTransferLoginPassword());
-			IConnection transfer = ConnectionFactory.getFtp(site.getTransferHost(), site.getTransferLoginUser(), 
-					plainPwd, site.getTransferStartDirectory());
+//			DESCryptor cryptor = new DESCryptor(pm.getProperty("pmcms.crypt.key"));
+//			String plainPwd = cryptor.decrypt(site.getTransferLoginPassword());
+//			IConnection transfer = ConnectionFactory.getFtp(site.getTransferHost(), site.getTransferLoginUser(), 
+//					plainPwd, site.getTransferStartDirectory());
+			IConnection transfer = ConnectionFactory.get(site.getProperty("serveruri"));
 			String checkumsFileBasename = pm.getProperty("pmcms.filename.checksums");
 			DialogManager.startProgressDialog(shell, new Upload(site, transfer, checkumsFileBasename));
 			MessageBox mb = new MessageBox(shell, SWT.ICON_INFORMATION | SWT.OK);
 			mb.setText(LabelHolder.get("popup.info")); //$NON-NLS-1$
 			mb.setMessage(LabelHolder.get("task.transfer.ok"));  //$NON-NLS-1$
 			mb.open();
-		} catch (ConnectionException cone) {
+		} catch (ConnectionException ce) {
 			MessageBox msg = new MessageBox(shell, SWT.ICON_ERROR | SWT.OK);
 			msg.setText(LabelHolder.get("popup.error")); //$NON-NLS-1$
-			msg.setMessage("While trying to establish the transfer connection: " + cone.getMessage());
+			msg.setMessage("While trying to establish the transfer connection: " + ce.getMessage());
 			msg.open();
 			return;
 		} catch (ProgressException e) {

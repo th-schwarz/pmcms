@@ -67,9 +67,6 @@ public class DialogFieldsPageComp extends Composite implements IDialogFieldsVali
 		gridDataLabel.widthHint = 100;
 		gridDataLabel.verticalAlignment = GridData.CENTER;
 		gridDataLabel.horizontalAlignment = GridData.END;
-		GridData gridDataText = new GridData();
-		gridDataText.heightHint = -1;
-		gridDataText.widthHint = 150;
 		GridLayout gridLayoutMy = new GridLayout();
 		gridLayoutMy.numColumns = 2;
 		gridLayoutMy.marginWidth = 25;

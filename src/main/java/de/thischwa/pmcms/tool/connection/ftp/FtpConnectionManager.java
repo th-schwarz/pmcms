@@ -61,7 +61,7 @@ public class FtpConnectionManager implements IConnectionManager {
 
 	public FtpConnectionManager(final String host, int port, final String loginName, final String loginPassword, final String remoteStartDir) {
 	    this.host = host;
-	    this.port = port;
+	    this.port = (port == -1) ? DEFAULT_PORT : port;
 	    this.loginName = loginName;
 	    this.loginPassword = loginPassword;
 	    this.remoteStartDir = remoteStartDir;

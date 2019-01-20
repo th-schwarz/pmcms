@@ -35,6 +35,7 @@ import de.thischwa.pmcms.tool.DESCryptor;
 import de.thischwa.pmcms.tool.connection.ConnectionAuthentificationException;
 import de.thischwa.pmcms.tool.connection.ConnectionException;
 import de.thischwa.pmcms.tool.connection.ConnectionFactory;
+import de.thischwa.pmcms.tool.connection.IConnection;
 
 /**
  * Listener that triggers a site transfer without triggering an export.
@@ -56,13 +57,12 @@ public class ListenerUploadSiteWithoutExport implements SelectionListener {
 		final Shell shell = event.display.getActiveShell();
 		PropertiesManager pm = InitializationManager.getBean(PropertiesManager.class);
 		String checkumsFileBasename = pm.getProperty("pmcms.filename.checksums");
-
-		DESCryptor cryptor = new DESCryptor(pm.getProperty("pmcms.crypt.key"));
-		String plainPwd = cryptor.decrypt(site.getTransferLoginPassword());
-		Upload transferer = new Upload(site, ConnectionFactory.getFtp(site.getTransferHost(), site.getTransferLoginUser(), plainPwd,
-				site.getTransferStartDirectory()), checkumsFileBasename);
+//		DESCryptor cryptor = new DESCryptor(pm.getProperty("pmcms.crypt.key"));
+//		String plainPwd = cryptor.decrypt(site.getTransferLoginPassword());
+		IConnection transfer = ConnectionFactory.get(site.getProperty("serveruri"));
+		Upload upload = new Upload(site, transfer, checkumsFileBasename);
 		try {
-			DialogManager.startProgressDialog(shell, transferer);
+			DialogManager.startProgressDialog(shell, upload);
 			MessageBox mb = new MessageBox(shell, SWT.ICON_INFORMATION | SWT.OK);
 			mb.setText(LabelHolder.get("popup.info")); //$NON-NLS-1$
 			mb.setMessage("Site [" + site.getDecorationString() + "] uploaded successfull.");

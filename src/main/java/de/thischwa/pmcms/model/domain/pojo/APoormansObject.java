@@ -18,7 +18,8 @@
  ******************************************************************************/
 package de.thischwa.pmcms.model.domain.pojo;
 
-
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * The base object of all persist-able objects.
@@ -31,6 +32,8 @@ public abstract class APoormansObject<P> {
 	private int id = UNSET_VALUE;
 	
 	private P parent;
+	
+	private Map<String, String> properties;
 	
 	public int getId() {
 		return id;
@@ -51,6 +54,24 @@ public abstract class APoormansObject<P> {
 	 */
 	public void setParent(P directParent) {
 		this.parent = directParent;
+	}
+	
+	public Map<String, String> getProperties() {
+		return properties;
+	}
+	
+	public void setProperties(Map<String, String> properties) {
+		this.properties = properties;
+	}
+	
+	public void addProperty(String key, String value) {
+		if(properties == null)
+			properties = new  HashMap<>();
+		properties.put(key, value);
+	}
+	
+	public String getProperty(String key) {
+		return (properties == null) ? null : properties.get(key);
 	}
 	
 	/**

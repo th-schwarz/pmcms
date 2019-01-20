@@ -18,7 +18,6 @@
  ******************************************************************************/
 package de.thischwa.pmcms.gui.dialog.pojo;
 
-
 import org.apache.commons.lang.StringUtils;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
@@ -27,12 +26,9 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
-import de.thischwa.pmcms.conf.InitializationManager;
-import de.thischwa.pmcms.conf.PropertiesManager;
 import de.thischwa.pmcms.conf.resource.LabelHolder;
 import de.thischwa.pmcms.model.domain.PoStructurTools;
 import de.thischwa.pmcms.model.domain.pojo.Site;
-import de.thischwa.pmcms.tool.DESCryptor;
 
 /**
  * Composite is part of {@link DialogCreator} and contains input fields and their validation method for {@link Site}.
@@ -42,22 +38,17 @@ import de.thischwa.pmcms.tool.DESCryptor;
 public class DialogFieldsSiteComp extends Composite implements IDialogFieldsValidator {
 	private Text textUrl = null;
 	private Text textTitle = null;
-	private Text textHost = null;
-	private Text textLoginUser = null;
-	private Text textLoginPassword = null;
-	private Text textStartDirectory = null;
+	private Text textServerUri = null;
 	private Site site = null;
 	private String oldSiteUrl = null;
 	private DialogCreator dialogCreator = null;
 	private Label label = null;
-	private DESCryptor cryptor;
 
 	public DialogFieldsSiteComp(Composite parent, int style, Site site) {
 		super(parent, style);
 		dialogCreator = (DialogCreator) parent;
 		this.site = site;
 		oldSiteUrl = site.getUrl();
-		cryptor = new DESCryptor(InitializationManager.getBean(PropertiesManager.class).getProperty("pmcms.crypt.key"));
 		initialize();
 	}
 
@@ -89,60 +80,30 @@ public class DialogFieldsSiteComp extends Composite implements IDialogFieldsVali
 		textUrl.setTextLimit(256);
 		textUrl.setLayoutData(gridDataText);
 		textUrl.setText(StringUtils.defaultString(site.getUrl()));
-		Label label2 = new Label(this, SWT.RIGHT);
-		label2.setText(LabelHolder.get("dialog.pojo.site.fields.title")); //$NON-NLS-1$
-		label2.setLayoutData(gridDataLabel);
-		textTitle = new Text(this, SWT.BORDER);
-		textTitle.setTextLimit(256);
-		textTitle.setLayoutData(gridDataText);
-		textTitle.setText(StringUtils.defaultString(site.getTitle()));
 
 		label = new Label(this, SWT.NONE);
-		label.setText(LabelHolder.get("dialog.pojo.site.fields.ftp.host")); //$NON-NLS-1$
+		label.setText("*  ".concat(LabelHolder.get("dialog.pojo.site.fields.uri"))); //$NON-NLS-1$
 		label.setLayoutData(gridDataLabel);
-		textHost = new Text(this, SWT.BORDER);
-		textHost.setTextLimit(256);
-		textHost.setLayoutData(gridDataText);
-		textHost.setText(StringUtils.defaultString(site.getTransferHost()));
-		label = new Label(this, SWT.NONE);
-		label.setText(LabelHolder.get("dialog.pojo.site.fields.ftp.user")); //$NON-NLS-1$
-		label.setLayoutData(gridDataLabel);
-		textLoginUser = new Text(this, SWT.BORDER);
-		textLoginUser.setTextLimit(256);
-		textLoginUser.setLayoutData(gridDataText);
-		textLoginUser.setText(StringUtils.defaultString(site.getTransferLoginUser()));
-		label = new Label(this, SWT.NONE);
-		label.setText(LabelHolder.get("dialog.pojo.site.fields.ftp.password")); //$NON-NLS-1$
-		label.setLayoutData(gridDataLabel);
-		textLoginPassword = new Text(this, SWT.BORDER);
-		textLoginPassword.setTextLimit(256);
-		textLoginPassword.setLayoutData(gridDataText);
-		String plainPwd = cryptor.decrypt(site.getTransferLoginPassword());
-		textLoginPassword.setText(StringUtils.defaultString(plainPwd));
-
-		label = new Label(this, SWT.NONE);
-		label.setText(LabelHolder.get("dialog.pojo.site.fields.ftp.startdir")); //$NON-NLS-1$
-		label.setLayoutData(gridDataLabel);
-		textStartDirectory = new Text(this, SWT.BORDER);
-		textStartDirectory.setTextLimit(256);
-		textStartDirectory.setLayoutData(gridDataText);
-		textStartDirectory.setText(StringUtils.defaultString(site.getTransferStartDirectory()));
+		textServerUri = new Text(this, SWT.BORDER);
+		textServerUri.setTextLimit(256);
+		textServerUri.setLayoutData(gridDataText);
+		textServerUri.setText(StringUtils.defaultString(site.getProperty(Site.PROPKEY_SERVERURI)));
 	}
 
 	@Override
 	public boolean isValid() {
 		String url = StringUtils.deleteWhitespace(StringUtils.lowerCase(textUrl.getText()));
-		if (!checkUrl(url)) {
+		if(!checkUrl(url)) {
 			dialogCreator.setErrorMessage(LabelHolder.get("dialog.pojo.site.error.url")); //$NON-NLS-1$
 			return false;
 		}
 		site.setUrl(url);
-		if (StringUtils.isNotEmpty(textTitle.getText()))
+		if(StringUtils.isNotEmpty(textTitle.getText()))
 			site.setTitle(textTitle.getText());
-		site.setTransferHost(textHost.getText());
-		site.setTransferLoginUser(textLoginUser.getText());
-		site.setTransferLoginPassword(cryptor.encrypt(textLoginPassword.getText()));
-		site.setTransferStartDirectory(textStartDirectory.getText());
+
+		// TODO verify the server-uri
+		if(StringUtils.isNotEmpty(textServerUri.getText()))
+			site.addProperty(Site.PROPKEY_SERVERURI, textServerUri.getText());
 		return true;
 	}
 
@@ -151,8 +112,8 @@ public class DialogFieldsSiteComp extends Composite implements IDialogFieldsVali
 			return false;
 		if(StringUtils.equals(url, oldSiteUrl))
 			return true;
-		for (String siteUrl : PoStructurTools.getAllSites()) {
-			if (siteUrl.equalsIgnoreCase(url))
+		for(String siteUrl : PoStructurTools.getAllSites()) {
+			if(siteUrl.equalsIgnoreCase(url))
 				return false;
 		}
 		return true;

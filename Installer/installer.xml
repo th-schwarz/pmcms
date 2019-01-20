@@ -9,12 +9,12 @@
 		<appversion>@{pmcms.version}</appversion>
 		<appsubpath>PoorMansCMS</appsubpath>
 		<authors>
-			<author name="Thilo Schwarz" email="poormanscms@gmail.com"/>
+			<author name="Thilo Schwarz" email="osp@thischwa.codes"/>
 		</authors>
 		<url>https://github.com/th-schwarz/pmcms</url>   
-		<javaversion>1.6</javaversion>    
+		<javaversion>1.8</javaversion>    
 		<requiresjdk>no</requiresjdk>
-    	<run-privileged condition="izpack.windowsinstall.vista|izpack.windowsinstall.7|izpack.windowsinstall.8"/>
+    	<run-privileged condition="izpack.windowsinstall.8|izpack.windowsinstall.10"/>
 	</info>
 	
 	<!-- some variables -->
@@ -78,7 +78,6 @@
 			<fileset dir="lib" includes="**" targetdir="$INSTALL_PATH/lib"/>
 				
 			<fileset dir="defaults/sites" includes="**" targetdir="$INSTALL_PATH/defaults/sites"/>
-<!-- 			<fileset dir="" includes="ckeditor*.zip" targetdir="$INSTALL_PATH"/> -->
 			<fileset dir="ckeditor" includes="**" targetdir="$INSTALL_PATH/ckeditor"/>
 			<fileset dir="sourceeditor" includes="**" targetdir="$INSTALL_PATH/sourceeditor"/>
 			<fileset dir="help" includes="**" targetdir="$INSTALL_PATH/help"/>
@@ -87,15 +86,15 @@
 			
 		<pack id="SWT" name="SWT files" required="yes">
 			<description>The SWT files</description>
-			<fileset dir="lib_swt" includes="gtk-linux-x86/swt*.jar" targetdir="$INSTALL_PATH/lib_swt">
+			<singlefile src="lib/swt/swt-gtk-linux-x86_64.jar" target="$INSTALL_PATH/lib_swt/swt.jar">
 				<os name="unix"/>
-			</fileset>
-			<fileset dir="lib_swt" includes="win32-win32-x86*/swt.jar" targetdir="$INSTALL_PATH/lib_swt">
-				<os family="windows"/>
-			</fileset>
-			<fileset dir="lib_swt" includes="cocoa-macosx*/swt.jar" targetdir="$INSTALL_PATH/lib_swt" >
+			</singlefile>
+			<singlefile src="lib/swt/swt-cocoa-macosx-x86_64.jar" target="$INSTALL_PATH/lib_swt/swt.jar">
 				<os family="mac"/>
-			</fileset>
+			</singlefile>
+			<singlefile src="lib/swt/swt-win32-win32-x86_64.jar" target="$INSTALL_PATH/lib_swt/swt.jar">
+				<os family="windows"/>
+			</singlefile>
 		</pack>
 	 </packs>
 </izpack:installation>

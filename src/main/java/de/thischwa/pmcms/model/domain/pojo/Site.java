@@ -30,6 +30,8 @@ import de.thischwa.pmcms.model.InstanceUtil;
  * Base object for the site.
  */
 public class Site extends Level {
+	public static final String PROPKEY_SERVERURI = "serveruri";
+	
 	private String url;
 	private List<Template> templates = new ArrayList<Template>();
 	private List<Macro> macros = new ArrayList<Macro>();

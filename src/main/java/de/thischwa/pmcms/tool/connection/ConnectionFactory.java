@@ -18,6 +18,11 @@
  ******************************************************************************/
 package de.thischwa.pmcms.tool.connection;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+
+import org.apache.commons.lang.StringUtils;
+
 import de.thischwa.pmcms.tool.connection.ftp.FtpConnectionManager;
 import de.thischwa.pmcms.tool.connection.ftp.FtpTransfer;
 
@@ -28,11 +33,37 @@ import de.thischwa.pmcms.tool.connection.ftp.FtpTransfer;
  */
 public class ConnectionFactory {
 
-	public static IConnection getFtp(final String host, int port, final String loginName, final String loginPassword, final String remoteStartDir) {
-		return new FtpTransfer(new FtpConnectionManager(host, port, loginName, loginPassword, remoteStartDir));
-	}
+//	public static IConnection getFtp(final String host, int port, final String loginName, final String loginPassword, final String remoteStartDir) {
+//		return new FtpTransfer(new FtpConnectionManager(host, port, loginName, loginPassword, remoteStartDir));
+//	}
+//
+//	public static IConnection getFtp(final String host, final String loginName, final String loginPassword, final String remoteStartDir) {
+//		return getFtp(host, FtpConnectionManager.DEFAULT_PORT, loginName, loginPassword, remoteStartDir);
+//	}
+	
+	public static IConnection get(String uriStr) {
+		URI uri;
+		try {
+			uri = new URI(uriStr);
+		} catch (URISyntaxException e) {
+			throw new ConnectionException(e);
+		}
+		
+		// TODO VALIDATION
+		String scheme = uri.getScheme().toLowerCase();
+		String host = uri.getHost();
+		int port = uri.getPort();
+		String[] auth = StringUtils.split(uri.getUserInfo(), ':');
+		String loginName = auth[0];
+		String loginPassword = auth[1];
+		String baseDir = uri.getPath();
+		
+		switch(scheme) {
+			case "ftp":
+				return new FtpTransfer(new FtpConnectionManager(host, port, loginName, loginPassword, baseDir));
 
-	public static IConnection getFtp(final String host, final String loginName, final String loginPassword, final String remoteStartDir) {
-		return getFtp(host, FtpConnectionManager.DEFAULT_PORT, loginName, loginPassword, remoteStartDir);
+			default:
+				throw new ConnectionException("Unsupported schema: " + scheme);
+		}
 	}
 }

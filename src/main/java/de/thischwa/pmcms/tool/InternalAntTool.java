@@ -99,19 +99,8 @@ public class InternalAntTool {
 			libFileSet.setIncludes("**/*jar,**/*properties");
 			
 			/** build the requested swt-jar */
-			String swtFolderRaw;
-			switch (os) {
-			case MAC:
-				swtFolderRaw = "cocoa-macosx-x86_64";
-				break;
-			case LINUX:
-				swtFolderRaw = "gtk-linux-x86_64";
-				break;
-			default:
-				swtFolderRaw = "win32-win32-x86_64";
-			}
-			String swtFolder = String.format("%s/%s", propLibSwt, swtFolderRaw);
-			File swtDir = new File(Constants.APPLICATION_DIR, swtFolder);
+			String swtFolder = String.format("%s/swt.jar", propLibSwt);
+			File swtDir = new File(Constants.APPLICATION_DIR, propLibSwt);
 			if(printDebug)
 				project.log(String.format("Swt-directory: %s", swtDir.getPath()));
 			FileSet swtFileSet = new FileSet();
@@ -133,7 +122,7 @@ public class InternalAntTool {
 					jvmArgs.add(arg);
 					break;
 				case LINUX:
-					// no special properties required, setting be done by jvm args 
+					// no special properties required, settings shouid  be done by jvm args 
 					break;
 				default:
 					project.log("Error: Unknown OS: " + OSDetector.getOSString());

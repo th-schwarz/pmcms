@@ -53,7 +53,7 @@
 		<antcall target="build.classes" />
 		<antcall target="build.launcher" />
 		<antcall target="build.installer" />
-		<antcall target="build.portable" />
+		<!-- antcall target="build.portable" / -->
 	</target>
 
 	<!-- shows project infos -->
@@ -83,7 +83,7 @@
 		</copy>
 	</target>
 
-	<!-- build the zip for portable -->
+	<!-- build the zip for portable
 	<target name="build.portable">
 		<if>
 			<available file="${portable.zip}" />
@@ -109,7 +109,7 @@
 			<zipfileset dir="${izpack.dir}/packs" includes="pmcms_portable.properties" fullpath="/pmcms.properties" />
 			<zipfileset dir="${dir.dist}" prefix="${pmcms.dir.lib}" includes="${classes.jar}" />
 		</zip>
-	</target>
+	</target> -->
 
 	<!-- build the launcher jar -->
 	<target name="build.launcher">
