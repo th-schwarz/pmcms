@@ -81,6 +81,14 @@ public class DialogFieldsSiteComp extends Composite implements IDialogFieldsVali
 		textUrl.setLayoutData(gridDataText);
 		textUrl.setText(StringUtils.defaultString(site.getUrl()));
 
+		Label label2 = new Label(this, SWT.RIGHT);
+		label2.setText(LabelHolder.get("dialog.pojo.site.fields.title")); //$NON-NLS-1$
+		label2.setLayoutData(gridDataLabel);
+		textTitle = new Text(this, SWT.BORDER);
+		textTitle.setTextLimit(256);
+		textTitle.setLayoutData(gridDataText);
+		textTitle.setText(StringUtils.defaultString(site.getTitle()));
+
 		label = new Label(this, SWT.NONE);
 		label.setText("*  ".concat(LabelHolder.get("dialog.pojo.site.fields.uri"))); //$NON-NLS-1$
 		label.setLayoutData(gridDataLabel);

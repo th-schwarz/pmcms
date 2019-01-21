@@ -249,7 +249,7 @@ $content&#13;
    <object class="java.util.HashMap">
     <void method="put">
      <string>serveruri</string>
-     <string>ftp://u148584-sub1:KwXn6HwuBwSNcDiJ@u148584.your-storagebox.de</string>
+     <string>ftp://user:password@127.0.0.1</string>
     </void>
    </object>
   </void>
