@@ -18,7 +18,7 @@
  ******************************************************************************/
 package de.thischwa.pmcms.tool.connection;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Simple string tool to construct paths like a/b/c.

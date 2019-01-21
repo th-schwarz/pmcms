@@ -20,7 +20,7 @@ package de.thischwa.pmcms.gui.listener;
 
 import java.io.File;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
@@ -94,19 +94,6 @@ public class ListenerImportSite implements SelectionListener {
 				} else {
 					treeViewManager.fillAndExpands(site);
 					browserManager.showHelp();
-				}
-				
-				// check if login password is encrypted
-				try {
-					DESCryptor cryptor = new DESCryptor(pm.getProperty("pmcms.crypt.key"));
-					cryptor.decrypt(site.getTransferLoginPassword());
-				} catch (DESCryptor.CryptorException e) {
-					logger.warn("A non encrypted password found, delete it!");
-					site.setTransferLoginPassword(null);
-					MessageBox mb = new MessageBox(shell, SWT.ICON_WARNING | SWT.OK);
-					mb.setText(LabelHolder.get("popup.warning")); //$NON-NLS-1$
-					mb.setMessage(LabelHolder.get("task.import.error.nocryptedpwd")); //$NON-NLS-1$
-					mb.open();
 				}
 				
 				WorkspaceToolBarManager.actionAfterSiteRenamed(site);

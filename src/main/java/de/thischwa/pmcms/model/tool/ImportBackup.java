@@ -22,7 +22,6 @@ import java.io.File;
 import java.io.IOException;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.dom4j.Document;
 import org.dom4j.Element;
@@ -79,9 +78,7 @@ public class ImportBackup implements IProgressViewer {
 			Element root = document.getRootElement();
 			IBackupParser backupParser;
 			String version = root.attributeValue("version");
-			if(StringUtils.isBlank(version)) {
-				backupParser = new BackupParser_old(root);
-			} else if(version.equals(IBackupParser.DBXML_1) || version.equals(IBackupParser.DBXML_2)) {
+			if(version.equals(IBackupParser.DBXML_1) || version.equals(IBackupParser.DBXML_2)) {
 				backupParser = new BackupParser_1(root, version);
 			} else {
 				throw new RuntimeException(String.format("No backup parser found for version %s.", version));

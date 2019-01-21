@@ -20,7 +20,7 @@ package de.thischwa.pmcms.model.tool;
 
 import java.util.Comparator;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * {@link Comparator} to sort deeper paths to the begin of the list. Useful get the correct order for deletion. 

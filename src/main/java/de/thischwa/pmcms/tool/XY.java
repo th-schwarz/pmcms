@@ -20,7 +20,7 @@ package de.thischwa.pmcms.tool;
 
 import java.awt.Point;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Helper for managing xy-coordinates.

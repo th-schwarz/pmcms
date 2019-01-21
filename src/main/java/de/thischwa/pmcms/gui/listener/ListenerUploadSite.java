@@ -37,7 +37,6 @@ import de.thischwa.pmcms.livecycle.SiteHolder;
 import de.thischwa.pmcms.model.domain.PoInfo;
 import de.thischwa.pmcms.model.domain.pojo.Site;
 import de.thischwa.pmcms.model.tool.Upload;
-import de.thischwa.pmcms.tool.DESCryptor;
 import de.thischwa.pmcms.tool.connection.ConnectionAuthentificationException;
 import de.thischwa.pmcms.tool.connection.ConnectionException;
 import de.thischwa.pmcms.tool.connection.ConnectionFactory;

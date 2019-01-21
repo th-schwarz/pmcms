@@ -249,7 +249,7 @@ $content&#13;
    <object class="java.util.HashMap">
     <void method="put">
      <string>serveruri</string>
-     <string>ftp://user:password@127.0.0.1</string>
+     <string>ftp://user:password@127.0.0.1/subdir</string>
     </void>
    </object>
   </void>
@@ -1054,18 +1054,6 @@ $content&#13;
   </void>
   <void property="title">
    <string>A very simple demo site!</string>
-  </void>
-  <void property="transferHost">
-   <string>u148584.your-storagebox.de</string>
-  </void>
-  <void property="transferLoginPassword">
-   <string>Ldd8Qvma491PmKYAfijdS0aSbRPDvOIL</string>
-  </void>
-  <void property="transferLoginUser">
-   <string>u148584-sub1</string>
-  </void>
-  <void property="transferStartDirectory">
-   <string></string>
   </void>
   <void property="url">
    <string>pmcms.demo.site</string>

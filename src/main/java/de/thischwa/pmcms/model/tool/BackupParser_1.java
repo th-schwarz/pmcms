@@ -22,7 +22,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.dom4j.Element;
 import org.dom4j.Node;
@@ -63,6 +63,7 @@ public class BackupParser_1 implements IBackupParser {
 		this.monitor = monitor;
 	}
 
+	// TODO respect object properties
 	@Override
 	public void run() throws Exception {
 		int pageCount = 0;
@@ -74,14 +75,9 @@ public class BackupParser_1 implements IBackupParser {
 		if (monitor != null)
 			monitor.beginTask(LabelHolder.get("task.site.backup.read.monitor").concat(String.valueOf(pageCount)), pageCount);
 
-		Element transfer = (Element) root.selectSingleNode("transfer");
 		site = new Site();
 		site.setUrl(root.attributeValue("url"));
 		site.setTitle(root.selectSingleNode("title").getText());
-		site.setTransferHost(transfer.attributeValue("host"));
-		site.setTransferLoginUser(transfer.attributeValue("user"));
-		site.setTransferLoginPassword(transfer.attributeValue("password"));
-		site.setTransferStartDirectory(transfer.attributeValue("startdir"));
 
 		@SuppressWarnings("unchecked")
 		List<Node> macros = root.selectNodes("macro");

@@ -22,7 +22,7 @@ import java.io.File;
 import java.util.Comparator;
 
 import org.apache.commons.io.FilenameUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Comparator for generating a traverseable file list e.g. to reduce change directory commands while copying. 

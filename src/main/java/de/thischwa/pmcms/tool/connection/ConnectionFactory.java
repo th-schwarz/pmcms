@@ -20,8 +20,10 @@ package de.thischwa.pmcms.tool.connection;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Arrays;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
 
 import de.thischwa.pmcms.tool.connection.ftp.FtpConnectionManager;
 import de.thischwa.pmcms.tool.connection.ftp.FtpTransfer;
@@ -32,19 +34,13 @@ import de.thischwa.pmcms.tool.connection.ftp.FtpTransfer;
  * @author Thilo Schwarz
  */
 public class ConnectionFactory {
+	private static Logger logger = Logger.getLogger(ConnectionFactory.class);
 
-//	public static IConnection getFtp(final String host, int port, final String loginName, final String loginPassword, final String remoteStartDir) {
-//		return new FtpTransfer(new FtpConnectionManager(host, port, loginName, loginPassword, remoteStartDir));
-//	}
-//
-//	public static IConnection getFtp(final String host, final String loginName, final String loginPassword, final String remoteStartDir) {
-//		return getFtp(host, FtpConnectionManager.DEFAULT_PORT, loginName, loginPassword, remoteStartDir);
-//	}
 	
-	public static IConnection get(String uriStr) {
+	public static IConnection get(String serverUri) {
 		URI uri;
 		try {
-			uri = new URI(uriStr);
+			uri = new URI(serverUri);
 		} catch (URISyntaxException e) {
 			throw new ConnectionException(e);
 		}
@@ -65,5 +61,20 @@ public class ConnectionFactory {
 			default:
 				throw new ConnectionException("Unsupported schema: " + scheme);
 		}
+	}
+	
+	public static boolean isValid(String serverUri) {
+		URI uri;
+		try {
+			uri = new URI(serverUri);
+		} catch (URISyntaxException e) {
+			logger.error("Error while building an URI.", e);
+			return false;
+		}
+		
+		String scheme = uri.getScheme().toLowerCase();
+		String host = uri.getHost();
+		
+		return StringUtils.isNoneBlank(scheme, host, uri.getUserInfo()) && Arrays.asList("ftp").contains(scheme);
 	}
 }

@@ -20,7 +20,7 @@ package de.thischwa.pmcms.gui.listener;
 
 import java.io.File;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;

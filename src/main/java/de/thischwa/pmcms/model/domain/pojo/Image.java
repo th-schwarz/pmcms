@@ -20,8 +20,8 @@ package de.thischwa.pmcms.model.domain.pojo;
 
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import de.thischwa.pmcms.conf.InitializationManager;
 import de.thischwa.pmcms.model.IOrderable;

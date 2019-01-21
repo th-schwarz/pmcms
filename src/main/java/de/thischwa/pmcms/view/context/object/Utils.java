@@ -23,8 +23,8 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang.StringEscapeUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringEscapeUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
 import de.thischwa.pmcms.view.context.IContextObjectCommon;
@@ -64,7 +64,7 @@ public class Utils implements IContextObjectCommon {
 	 * @return Html escaped 'string', or '', if string is empty.
 	 */
 	public static String escape(final String string) {
-		return StringUtils.defaultString(StringEscapeUtils.escapeHtml(string));
+		return StringUtils.defaultString(StringEscapeUtils.escapeHtml3(string));
 	}
 
 	public static String skipBeginningString(final String string, final String stringToSkip) {

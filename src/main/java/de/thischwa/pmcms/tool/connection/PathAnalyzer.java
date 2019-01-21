@@ -18,7 +18,7 @@
  ******************************************************************************/
 package de.thischwa.pmcms.tool.connection;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * String utility to split the target path into name and directory. Beginning slash will be ignored!

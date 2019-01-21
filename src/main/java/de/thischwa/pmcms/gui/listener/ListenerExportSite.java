@@ -22,7 +22,7 @@ import java.io.File;
 import java.util.Collection;
 
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang.time.StopWatch;
+import org.apache.commons.lang3.time.StopWatch;
 import org.apache.log4j.Logger;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;

@@ -25,7 +25,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.tools.ant.DefaultLogger;
 import org.apache.tools.ant.DemuxOutputStream;
 import org.apache.tools.ant.Project;

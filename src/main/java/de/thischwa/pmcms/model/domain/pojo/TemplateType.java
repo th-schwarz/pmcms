@@ -19,7 +19,7 @@
 package de.thischwa.pmcms.model.domain.pojo;
 
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import de.thischwa.pmcms.model.IRenderable;
 

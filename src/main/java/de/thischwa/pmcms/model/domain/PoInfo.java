@@ -27,7 +27,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import de.thischwa.pmcms.conf.resource.LabelHolder;
 import de.thischwa.pmcms.exception.FatalException;
@@ -245,9 +245,7 @@ public class PoInfo {
 	}
 	
 	public static boolean hasFileTranferInfo(final Site site) {
-		return (StringUtils.isNotBlank(site.getTransferHost()) 
-				&& StringUtils.isNotBlank(site.getTransferLoginUser()) 
-				&& StringUtils.isNotBlank(site.getTransferLoginPassword()));
+		return StringUtils.isNotBlank(site.getProperty(Site.PROPKEY_SERVERURI));
 	}
 	
 	public static boolean isWelcomePage(final Page page) {

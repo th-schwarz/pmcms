@@ -18,9 +18,7 @@
  ******************************************************************************/
 package de.thischwa.pmcms.model.domain.pojo;
 
-import org.apache.commons.lang.StringUtils;
-
-
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Base object for the templates of a {@link Site}.

@@ -22,7 +22,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import de.thischwa.pmcms.tool.Utils;
 import de.thischwa.pmcms.tool.XY;

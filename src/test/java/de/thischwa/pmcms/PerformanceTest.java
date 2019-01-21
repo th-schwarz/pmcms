@@ -1,10 +1,9 @@
 package de.thischwa.pmcms;
 
 
-import org.apache.commons.lang.time.StopWatch;
+import org.apache.commons.lang3.time.StopWatch;
 import org.apache.log4j.Logger;
 
-import de.thischwa.pmcms.Constants;
 import de.thischwa.pmcms.conf.BasicConfigurator;
 import de.thischwa.pmcms.conf.InitializationManager;
 import de.thischwa.pmcms.livecycle.SiteHolder;

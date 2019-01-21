@@ -33,7 +33,7 @@ import java.util.Map;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
@@ -79,6 +79,7 @@ public class WriteBackup implements IProgressViewer {
 		pageCount = PoInfo.collectRenderables(site).size();
 	}
 
+	// TODO respect object properties
 	@Override
 	public void run() {
 		logger.debug("Try to backup [" + site.getUrl() + "].");
@@ -102,13 +103,7 @@ public class WriteBackup implements IProgressViewer {
 				.addAttribute("version", IBackupParser.DBXML_2)
 				.addAttribute("url", site.getUrl());
 		siteEl.addElement("title").addCDATA(site.getTitle());
-		
-		Element elementTransfer = siteEl.addElement("transfer");
-		elementTransfer.addAttribute("host", site.getTransferHost())
-				.addAttribute("user", site.getTransferLoginUser())
-				.addAttribute("password", site.getTransferLoginPassword())
-				.addAttribute("startdir", site.getTransferStartDirectory());
-		
+				
 		for (Macro macro : site.getMacros()) {
 			Element marcoEl = siteEl.addElement("macro");
 			marcoEl.addElement("name").addCDATA(macro.getName());

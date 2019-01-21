@@ -31,7 +31,6 @@ import de.thischwa.pmcms.exception.ProgressException;
 import de.thischwa.pmcms.gui.dialog.DialogManager;
 import de.thischwa.pmcms.model.domain.pojo.Site;
 import de.thischwa.pmcms.model.tool.Upload;
-import de.thischwa.pmcms.tool.DESCryptor;
 import de.thischwa.pmcms.tool.connection.ConnectionAuthentificationException;
 import de.thischwa.pmcms.tool.connection.ConnectionException;
 import de.thischwa.pmcms.tool.connection.ConnectionFactory;

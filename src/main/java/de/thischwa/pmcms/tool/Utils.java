@@ -18,8 +18,7 @@
  ******************************************************************************/
 package de.thischwa.pmcms.tool;
 
-import org.apache.commons.lang.StringUtils;
-
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Collection of static helper methods I didn't find a nicer place.

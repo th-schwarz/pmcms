@@ -22,7 +22,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.EqualsBuilder;
 
 import de.thischwa.pmcms.model.domain.pojo.APoormansObject;
 import de.thischwa.pmcms.model.domain.pojo.ASiteResource;

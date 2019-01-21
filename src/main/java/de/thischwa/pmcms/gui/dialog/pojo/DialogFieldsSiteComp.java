@@ -18,7 +18,7 @@
  ******************************************************************************/
 package de.thischwa.pmcms.gui.dialog.pojo;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -29,6 +29,7 @@ import org.eclipse.swt.widgets.Text;
 import de.thischwa.pmcms.conf.resource.LabelHolder;
 import de.thischwa.pmcms.model.domain.PoStructurTools;
 import de.thischwa.pmcms.model.domain.pojo.Site;
+import de.thischwa.pmcms.tool.connection.ConnectionFactory;
 
 /**
  * Composite is part of {@link DialogCreator} and contains input fields and their validation method for {@link Site}.
@@ -58,7 +59,7 @@ public class DialogFieldsSiteComp extends Composite implements IDialogFieldsVali
 		gridDataLabel.verticalAlignment = GridData.CENTER;
 		GridData gridDataText = new GridData();
 		gridDataText.heightHint = -1;
-		gridDataText.widthHint = 150;
+		gridDataText.widthHint = 300;
 		GridLayout gridLayoutMy = new GridLayout();
 		gridLayoutMy.numColumns = 2;
 		gridLayoutMy.marginWidth = 25;
@@ -100,6 +101,11 @@ public class DialogFieldsSiteComp extends Composite implements IDialogFieldsVali
 
 	@Override
 	public boolean isValid() {
+		String serverUri = textServerUri.getText();
+		if(!ConnectionFactory.isValid(serverUri)) {
+			dialogCreator.setErrorMessage(LabelHolder.get("dialog.pojo.site.error.serveruri")); //$NON-NLS-1$
+			return false;			
+		}
 		String url = StringUtils.deleteWhitespace(StringUtils.lowerCase(textUrl.getText()));
 		if(!checkUrl(url)) {
 			dialogCreator.setErrorMessage(LabelHolder.get("dialog.pojo.site.error.url")); //$NON-NLS-1$

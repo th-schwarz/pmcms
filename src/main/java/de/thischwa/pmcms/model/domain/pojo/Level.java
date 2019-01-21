@@ -21,7 +21,7 @@ package de.thischwa.pmcms.model.domain.pojo;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import de.thischwa.pmcms.conf.InitializationManager;
 import de.thischwa.pmcms.model.IOrderable;

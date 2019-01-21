@@ -21,7 +21,7 @@ package de.thischwa.pmcms.view.context.object.tagtool;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Helper to construct a common xhtml-tag.

@@ -21,7 +21,7 @@ package de.thischwa.pmcms.model.domain.pojo;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import de.thischwa.pmcms.model.InstanceUtil;
 
@@ -36,13 +36,7 @@ public class Site extends Level {
 	private List<Template> templates = new ArrayList<Template>();
 	private List<Macro> macros = new ArrayList<Macro>();
 	private Template layoutTemplate;
-
-	/** TODO move connection parameters to the object properties */
-	private String transferHost;
-	private String transferLoginUser;
-	private String transferLoginPassword;
-	private String transferStartDirectory;
-
+	
 	@Override
 	public String getDecorationString() {
 		String deco = StringUtils.defaultIfEmpty(title, name);
@@ -98,38 +92,6 @@ public class Site extends Level {
 			macros.remove(res);
 		else
 			throw new IllegalArgumentException("unknown site resource type");
-	}
-
-	public String getTransferHost() {
-		return transferHost;
-	}
-
-	public void setTransferHost(String transferHost) {
-		this.transferHost = transferHost;
-	}
-
-	public String getTransferLoginUser() {
-		return transferLoginUser;
-	}
-
-	public void setTransferLoginUser(String transferLoginUser) {
-		this.transferLoginUser = transferLoginUser;
-	}
-
-	public String getTransferLoginPassword() {
-		return transferLoginPassword;
-	}
-	
-	public void setTransferLoginPassword(String transferLoginPassword) {
-		this.transferLoginPassword = transferLoginPassword;
-	}
-
-	public String getTransferStartDirectory() {
-		return transferStartDirectory;
-	}
-
-	public void setTransferStartDirectory(String transferStartDirectory) {
-		this.transferStartDirectory = transferStartDirectory;
 	}
 
 	@Override

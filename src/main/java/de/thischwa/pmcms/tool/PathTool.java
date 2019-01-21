@@ -25,7 +25,7 @@ import java.net.URISyntaxException;
 import java.net.URLDecoder;
 
 import org.apache.commons.io.FilenameUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import de.thischwa.pmcms.conf.InitializationManager;
 import de.thischwa.pmcms.conf.PropertiesManager;

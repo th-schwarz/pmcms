@@ -25,7 +25,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.velocity.app.Velocity;
 import org.dom4j.DocumentFactory;
 import org.eclipse.swt.SWT;
