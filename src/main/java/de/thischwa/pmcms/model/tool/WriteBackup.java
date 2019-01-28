@@ -50,6 +50,7 @@ import de.thischwa.pmcms.gui.IProgressViewer;
 import de.thischwa.pmcms.model.InstanceUtil;
 import de.thischwa.pmcms.model.domain.PoInfo;
 import de.thischwa.pmcms.model.domain.PoPathInfo;
+import de.thischwa.pmcms.model.domain.pojo.APoormansObject;
 import de.thischwa.pmcms.model.domain.pojo.Content;
 import de.thischwa.pmcms.model.domain.pojo.Gallery;
 import de.thischwa.pmcms.model.domain.pojo.Image;
@@ -79,7 +80,6 @@ public class WriteBackup implements IProgressViewer {
 		pageCount = PoInfo.collectRenderables(site).size();
 	}
 
-	// TODO respect object properties
 	@Override
 	public void run() {
 		logger.debug("Try to backup [" + site.getUrl() + "].");
@@ -103,21 +103,23 @@ public class WriteBackup implements IProgressViewer {
 				.addAttribute("version", IBackupParser.DBXML_2)
 				.addAttribute("url", site.getUrl());
 		siteEl.addElement("title").addCDATA(site.getTitle());
+		processObject(siteEl, site);
 				
 		for (Macro macro : site.getMacros()) {
 			Element marcoEl = siteEl.addElement("macro");
 			marcoEl.addElement("name").addCDATA(macro.getName());
 			marcoEl.addElement("text").addCDATA(macro.getText());
+			processObject(marcoEl, macro);
 		}
 		
 		if(site.getLayoutTemplate() != null) {
 			Template template = site.getLayoutTemplate();
 			Element templateEl = siteEl.addElement("template");
-			init(templateEl, template);
+			processTemplate(templateEl, template);
 		}
 		for (Template template : site.getTemplates()) {
 			Element templateEl = siteEl.addElement("template");
-			init(templateEl, template);
+			processTemplate(templateEl, template);
 		}
 
 		if (!CollectionUtils.isEmpty(site.getPages()))
@@ -171,11 +173,24 @@ public class WriteBackup implements IProgressViewer {
 		logger.info("Site backuped successfull to [".concat(backupZip.getAbsolutePath()).concat("]!"));
 	}
 	
-	private void init(Element templateEl, Template template) {
+	private void processObject(Element poEl, APoormansObject<?> po) {
+		if(po.getProperties() != null) {
+			Element propertiesEl = poEl.addElement("properties");
+			for(String key : po.getProperties().keySet()) {
+				String val = po.getProperty(key);
+				if(StringUtils.isBlank(val))
+					return;
+				propertiesEl.addElement("property").addAttribute("key", key).addCDATA(val);
+			}
+		}
+	}
+	
+	private void processTemplate(Element templateEl, Template template) {
 		templateEl.addAttribute("id", String.valueOf(template.getId())); // id of a template must be stored because a page needs its reference!
 		templateEl.addAttribute("type", (template.getType() != null) ? template.getType().toString().toLowerCase() : null);
 		templateEl.addElement("name").addCDATA(template.getName());
 		templateEl.addElement("text").addCDATA(template.getText());
+		processObject(templateEl, template);
 	}
 
 	/**
@@ -187,6 +202,7 @@ public class WriteBackup implements IProgressViewer {
 	private void addLevelToElement(Element parentElement, final Level level) {
 		Element containerElement = parentElement.addElement("level").addAttribute("name", level.getName());
 		containerElement.addElement("title").addCDATA(level.getTitle());
+		processObject(containerElement, level);
 
 		for (Page page : level.getPages())
 			addPageToElement(containerElement, page);
@@ -230,6 +246,7 @@ public class WriteBackup implements IProgressViewer {
 					incProgressValue();
 				}
 		}
+		processObject(pageElement, page);
 	}
 	
 	@Override

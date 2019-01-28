@@ -28,7 +28,5 @@ interface IBackupParser extends IProgressViewer {
 	
 	public Site getSite();
 	
-	public final String DBXML_1 = "1"; // version > 2.4.2
-
 	public final String DBXML_2 = "2"; // version > 3 no structural info changes, linktool changes
 }

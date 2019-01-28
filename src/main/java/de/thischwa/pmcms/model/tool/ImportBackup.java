@@ -78,7 +78,7 @@ public class ImportBackup implements IProgressViewer {
 			Element root = document.getRootElement();
 			IBackupParser backupParser;
 			String version = root.attributeValue("version");
-			if(version.equals(IBackupParser.DBXML_1) || version.equals(IBackupParser.DBXML_2)) {
+			if(version.equals(IBackupParser.DBXML_2)) {
 				backupParser = new BackupParser_1(root, version);
 			} else {
 				throw new RuntimeException(String.format("No backup parser found for version %s.", version));

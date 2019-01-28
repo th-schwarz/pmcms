@@ -29,6 +29,7 @@ import org.dom4j.Node;
 import org.eclipse.core.runtime.IProgressMonitor;
 
 import de.thischwa.pmcms.conf.resource.LabelHolder;
+import de.thischwa.pmcms.model.domain.pojo.APoormansObject;
 import de.thischwa.pmcms.model.domain.pojo.Content;
 import de.thischwa.pmcms.model.domain.pojo.Gallery;
 import de.thischwa.pmcms.model.domain.pojo.Image;
@@ -40,7 +41,7 @@ import de.thischwa.pmcms.model.domain.pojo.Template;
 import de.thischwa.pmcms.model.domain.pojo.TemplateType;
 
 /**
- * Backup parser for db.xml with a version number (={@link IBackupParser#DBXML_1}, since 2.4.2).
+ * Backup parser for db.xml with a version number (={@link IBackupParser#DBXML_2}, since 3.0.0).
  *
  * @author Thilo Schwarz
  */
@@ -63,7 +64,6 @@ public class BackupParser_1 implements IBackupParser {
 		this.monitor = monitor;
 	}
 
-	// TODO respect object properties
 	@Override
 	public void run() throws Exception {
 		int pageCount = 0;
@@ -78,6 +78,7 @@ public class BackupParser_1 implements IBackupParser {
 		site = new Site();
 		site.setUrl(root.attributeValue("url"));
 		site.setTitle(root.selectSingleNode("title").getText());
+		importObject(site, root);
 
 		@SuppressWarnings("unchecked")
 		List<Node> macros = root.selectNodes("macro");
@@ -86,7 +87,7 @@ public class BackupParser_1 implements IBackupParser {
 			macro.setName(node.selectSingleNode("name").getText());
 			macro.setText(contentFixes(node.selectSingleNode("text").getText()));
 			macro.setParent(site);
-			site.add(macro);
+			site.add(macro);			
 		}
 
 		@SuppressWarnings("unchecked")
@@ -104,6 +105,7 @@ public class BackupParser_1 implements IBackupParser {
 				site.add(template);
 				templateCache.put(template.getId(), template);
 			}
+			importObject(template, node);
 		}
 
 		Element welcomePage = (Element) root.selectSingleNode("page");
@@ -121,6 +123,17 @@ public class BackupParser_1 implements IBackupParser {
 			importLevel(site, node);
 		}
 	}
+	
+	private void importObject(APoormansObject<?> po, Node objNode) {
+		Node propertiesNode = objNode.selectSingleNode("properties");
+		if(propertiesNode == null)
+			return;
+		@SuppressWarnings("unchecked")
+		List<Node> nodes = propertiesNode.selectNodes("property");
+		for(Node node : nodes) {
+			po.addProperty(((Element)node).attributeValue("key"), node.getText());
+		}
+	}
 
 	private void importLevel(Level parentLevel, Node levelNode) {
 		Element levelElement = (Element) levelNode;
@@ -129,6 +142,7 @@ public class BackupParser_1 implements IBackupParser {
 		level.setTitle(levelElement.selectSingleNode("title").getText());
 		level.setParent(parentLevel);
 		parentLevel.add(level);
+		importObject(level, levelElement);
 
 		@SuppressWarnings("unchecked")
 		List<Node> pages = levelNode.selectNodes("page|gallery");
@@ -162,6 +176,7 @@ public class BackupParser_1 implements IBackupParser {
 		gallery.setImageTemplate(imageTemplate);
 		gallery.setImageMaxWidth(Integer.parseInt(galleryElement.attributeValue("imageMaxWidth")));
 		gallery.setImageMaxHeight(Integer.parseInt(galleryElement.attributeValue("imageMaxHeight")));
+		importObject(gallery, galleryNode);
 		incProgressValue();
 		
 		@SuppressWarnings("unchecked")
@@ -178,6 +193,7 @@ public class BackupParser_1 implements IBackupParser {
 			image.setFileName(imageElement.attributeValue("fileName"));
 			image.setParent(gallery);
 			gallery.add(image);
+			importObject(image, imageNode);
 			incProgressValue();
 		}
 	}
@@ -193,7 +209,7 @@ public class BackupParser_1 implements IBackupParser {
 		page.setTemplate(template);
 		if (pageElement.selectSingleNode("title") != null)
 			page.setTitle(pageElement.selectSingleNode("title").getText());
-
+		importObject(page, pageNode);
 		incProgressValue();
 
 		@SuppressWarnings("unchecked")
@@ -225,9 +241,7 @@ public class BackupParser_1 implements IBackupParser {
 	
 	private String contentFixes(String content) {
 		String txt = content;
-		if(version.equals(IBackupParser.DBXML_1)) {
-			txt = content.replace(".setAttribute(", ".putAttribute(");
-		}
+		// right place to respect different versions
 		return txt;
 	}
 }
