@@ -21,6 +21,12 @@ public class FilemanagerConfigBuilderImpl extends GlobalFilemanagerLibConfig {
 	@Override
 	protected void postLoadConfigFileHook() {
 		PropertiesManager pm = InitializationManager.getBean(PropertiesManager.class);
+		String uloadLimit = pm.getSiteProperty("pmcms.filemanager.upload.limit");
+		if(StringUtils.isNumeric(uloadLimit)) {
+			userConfig.getUpload().setFileSizeLimit(Integer.parseUnsignedInt(uloadLimit));
+		} else  {
+			userConfig.getUpload().setFileSizeLimit(); // auto			
+		}
 		String[] allowedDocs = StringUtils.split(pm.getProperty("pmcms.filemanager.alloweddocs"), '|');
 		List<String> extensions = InitializationManager.getAllowedImageExtensions();
 		userConfig.getImages().setExtensions(new HashSet<String>(extensions));
@@ -30,9 +36,6 @@ public class FilemanagerConfigBuilderImpl extends GlobalFilemanagerLibConfig {
 		userConfig.getOptions().setFileRoot(relPath);
 		userConfig.getOptions().setServerRoot(true);
 		userConfig.setComment("Built by pmcms.");
-		
-		userConfig.getUpload().setFileSizeLimit(1);
-
 		logger.debug("pmcms related configuration done.");
 	}
 }

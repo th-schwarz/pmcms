@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -47,6 +48,7 @@ import de.thischwa.pmcms.model.thread.ThreadController;
 import de.thischwa.pmcms.model.tool.SitePersister;
 import de.thischwa.pmcms.tool.InternalAntTool;
 import de.thischwa.pmcms.tool.Locker;
+import de.thischwa.pmcms.tool.PropertiesTool;
 import de.thischwa.pmcms.tool.image.ImageInfo;
 
 /**
@@ -164,6 +166,13 @@ public class InitializationManager {
 		String imageExts = StringUtils.join(allowedImageExtensions, '|');
 		
 		// preparing C5Connector.Java
+		Properties connectorProps = PropertiesTool.getProperties(pm.getAllProperties(), "connector");
+		if(!connectorProps.isEmpty()) {
+			for(Object keyObj : connectorProps.keySet()) {
+				String key = (String) keyObj;
+				PropertiesLoader.setProperty(key, connectorProps.getProperty(key));
+			}
+		}
 		PropertiesLoader.setProperty("connector.impl", LocalConnector.class.getName());
 		PropertiesLoader.setProperty("connector.filemanagerConfigImpl", FilemanagerConfigBuilderImpl.class.getName());
 		PropertiesLoader.setProperty("connector.iconResolverImpl", FilemanagerIconLibResolver.class.getName());
