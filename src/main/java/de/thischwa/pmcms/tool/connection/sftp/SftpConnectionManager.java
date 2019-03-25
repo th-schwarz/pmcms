@@ -14,6 +14,12 @@ import de.thischwa.pmcms.tool.connection.ConnectionRunningException;
 import de.thischwa.pmcms.tool.connection.IConnectionManager;
 import de.thischwa.pmcms.tool.connection.ftp.FtpConnectionManager;
 
+/**
+ * {@link IConnectionManager} implementation for sftp. <br>
+ * The underlying class is the {@link ChannelSftp} from <code>JSch</code>.
+ * 
+ * @author Thilo Schwarz
+ */
 public class SftpConnectionManager implements IConnectionManager {
 	private static Logger logger = Logger.getLogger(FtpConnectionManager.class);
 
