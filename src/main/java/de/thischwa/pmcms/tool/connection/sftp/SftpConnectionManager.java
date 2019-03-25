@@ -30,81 +30,86 @@ public class SftpConnectionManager implements IConnectionManager {
 	private String loginPassword;
 	private String remoteStartDir;
 
-	/** Root dir of the	server, ends with '/'. */ 
+	private Session session;
+
+	/** Root dir of the server, ends with '/'. */
 	private String serverRootDir;
 
-    /** Default SFTP port. */
+	/** Default SFTP port. */
 	public final static int DEFAULT_PORT = 22;
-	
-	public SftpConnectionManager(final String host, int port, final String loginName, final String loginPassword, final String remoteStartDir) {
-	    this.host = host;
-	    this.port = (port == -1) ? DEFAULT_PORT : port;
-	    this.loginName = loginName;
-	    this.loginPassword = loginPassword;
-	    this.remoteStartDir = remoteStartDir;
-    }
 
-    @Override
+	public SftpConnectionManager(final String host, int port, final String loginName, final String loginPassword,
+			final String remoteStartDir) {
+		this.host = host;
+		this.port = (port == -1) ? DEFAULT_PORT : port;
+		this.loginName = loginName;
+		this.loginPassword = loginPassword;
+		this.remoteStartDir = remoteStartDir;
+	}
+
+	@Override
 	public void start() {
-    	try {
-    		JSch.setConfig("StrictHostKeyChecking", "no");
-    		
-    		// 1. create a session
-    		Session session = new JSch().getSession(loginName, host, port);
-    		session.setPassword(loginPassword);
-    		
-    		// 2. open the connection
-    		session.connect();
-    		
-    		// 3. build and connect the client
-    		Channel channel = session.openChannel("sftp");
+		try {
+			JSch.setConfig("StrictHostKeyChecking", "no");
+
+			// 1. create a session
+			session = new JSch().getSession(loginName, host, port);
+			session.setPassword(loginPassword);
+
+			// 2. open the connection
+			session.connect();
+
+			// 3. build and connect the client
+			Channel channel = session.openChannel("sftp");
 			channel.connect();
-			sftpClient = new SftpClient((ChannelSftp) channel); 
+			sftpClient = new SftpClient((ChannelSftp) channel);
 			logger.debug("[SFTP] Connected to " + host + ":" + port);
 			logger.debug("[SFTP] Server version is " + session.getServerVersion());
-    			
-    		// 4. change to the remote start directory
-    		if (StringUtils.isNotBlank(remoteStartDir)) {
-    			sftpClient.client.cd(remoteStartDir);
-    			logger.debug("[SFTP] Start directory set: " + sftpClient.client.pwd());
-    		}
-    		
-    		// 5. save the root dir
+
+			// 4. change to the remote start directory
+			if(StringUtils.isNotBlank(remoteStartDir)) {
+				sftpClient.client.cd(remoteStartDir);
+				logger.debug("[SFTP] Start directory set: " + sftpClient.client.pwd());
+			}
+
+			// 5. save the root dir
 			serverRootDir = sftpClient.client.pwd();
-			if (!serverRootDir.endsWith("/"))
+			if(!serverRootDir.endsWith("/"))
 				serverRootDir = serverRootDir.concat("/");
-			
-	        logger.debug("[SFTP] Login procedere completely successfull!");
-        } catch (SftpException | JSchException e) {
-        	close();
-        	throw new ConnectionRunningException("While login procedere: " + e.getMessage(), e);
-        }
-    }
 
+			logger.debug("[SFTP] Login procedere completely successfull!");
+		} catch (SftpException | JSchException e) {
+			close();
+			throw new ConnectionRunningException("While login procedere: " + e.getMessage(), e);
+		}
+	}
 
-    @Override
+	@Override
 	public void close() {
-    	if (sftpClient != null) {
-    		// 1. try to logout
-    		try {sftpClient.client.exit();} catch (Exception e) {}    		
-    		sftpClient = null;
-    	}
-    	logger.debug("[SFTP] Connection closed.");
-    }
+		if(sftpClient != null) {
+			// 1. try to logout
+			try {
+				sftpClient.client.disconnect();
+			} catch (Exception e) {
+			}
+			sftpClient = null;
+		}
+		logger.debug("[SFTP] Connection closed.");
+	}
 
-    @Override
+	@Override
 	public boolean isConnected() {
-	    return sftpClient != null && sftpClient.client.isConnected();
-    }
+		return sftpClient != null && sftpClient.client.isConnected();
+	}
 
-    @Override
+	@Override
 	public Object getUnderlyingObject() {
-	    return sftpClient;
-    }
+		return sftpClient;
+	}
 
-    @Override
+	@Override
 	public String getRootDir() {
-	    return serverRootDir;
-    }
+		return serverRootDir;
+	}
 
 }
