@@ -27,6 +27,8 @@ import org.apache.log4j.Logger;
 
 import de.thischwa.pmcms.tool.connection.ftp.FtpConnectionManager;
 import de.thischwa.pmcms.tool.connection.ftp.FtpTransfer;
+import de.thischwa.pmcms.tool.connection.sftp.SftpConnectionManager;
+import de.thischwa.pmcms.tool.connection.sftp.SftpTransfer;
 
 /**
  * Factory to initialize the connection objects and its corresponding transfer objects.
@@ -57,6 +59,8 @@ public class ConnectionFactory {
 		switch(scheme) {
 			case "ftp":
 				return new FtpTransfer(new FtpConnectionManager(host, port, loginName, loginPassword, baseDir));
+			case "sftp":
+				return new SftpTransfer(new SftpConnectionManager(host, port, loginName, loginPassword, baseDir));
 
 			default:
 				throw new ConnectionException("Unsupported schema: " + scheme);
@@ -75,6 +79,6 @@ public class ConnectionFactory {
 		String scheme = uri.getScheme().toLowerCase();
 		String host = uri.getHost();
 		
-		return StringUtils.isNoneBlank(scheme, host, uri.getUserInfo()) && Arrays.asList("ftp").contains(scheme);
+		return StringUtils.isNoneBlank(scheme, host, uri.getUserInfo()) && Arrays.asList("ftp", "sftp").contains(scheme);
 	}
 }

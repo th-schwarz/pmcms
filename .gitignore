@@ -13,3 +13,5 @@
 /javadoc
 /TODO
 /lib_swt/
+**/*-sources.jar
+**/*-javadoc.jar
