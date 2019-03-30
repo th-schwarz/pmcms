@@ -21,7 +21,7 @@ public class FilemanagerConfigBuilderImpl extends GlobalFilemanagerLibConfig {
 	@Override
 	protected void postLoadConfigFileHook() {
 		PropertiesManager pm = InitializationManager.getBean(PropertiesManager.class);
-		String uloadLimit = pm.getSiteProperty("pmcms.filemanager.upload.limit");
+		String uloadLimit = pm.getProperty("pmcms.filemanager.upload.limit");
 		if(StringUtils.isNumeric(uloadLimit)) {
 			userConfig.getUpload().setFileSizeLimit(Integer.parseUnsignedInt(uloadLimit));
 		} else  {
