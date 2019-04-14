@@ -61,7 +61,7 @@ public abstract class AbstractTransfer implements IConnection {
 	
 	/* Initializes the IProgressMonitor. <br> 
 	 * Have to be overwritten form the extended class! But don't forget to call super!!!
-	 * @see de.thischwa.pmcms.tool.connection.IUpload#upload(de.thischwa.pmcms.tool.connection.UploadTree)
+	 * @see de.thischwa.pmcms.tool.connection.IConnection#upload(de.thischwa.pmcms.tool.connection.UploadTree)
 	 */
 	@Override
 	public void upload(final UploadTree targetTree) throws ConnectionRunningException {

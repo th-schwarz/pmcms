@@ -8,6 +8,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 
+import com.jcraft.jsch.ChannelSftp;
 import com.jcraft.jsch.SftpATTRS;
 import com.jcraft.jsch.SftpException;
 
@@ -22,6 +23,10 @@ import de.thischwa.pmcms.tool.connection.UploadObject;
 import de.thischwa.pmcms.tool.connection.UploadTree;
 import de.thischwa.pmcms.tool.connection.UploadTreeNode;
 
+/**
+ * {@link AbstractTransfer} implementation for sftp. <br>
+ * The underlying class is {@link SftpClient}, a wrapper for {@link ChannelSftp}.
+ */
 public class SftpTransfer extends AbstractTransfer {
 	private static Logger logger = Logger.getLogger(SftpTransfer.class);
 
