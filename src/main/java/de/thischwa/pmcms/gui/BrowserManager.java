@@ -82,9 +82,6 @@ public class BrowserManager {
 	
 	private Shell parentShell;
 	
-	@Value("${pmcms.xulrunner}")
-	private String xulRunnerProp;
-	
 	@Value("${baseurl}")
 	private String baseUrl;
 	
