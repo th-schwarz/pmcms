@@ -19,6 +19,7 @@
 package de.thischwa.pmcms.tool;
 
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.security.Key;
 
 import javax.crypto.Cipher;
@@ -27,7 +28,8 @@ import javax.crypto.spec.SecretKeySpec;
 import org.apache.commons.codec.binary.Base64;
 
 /**
- * Simple utility object to encrypt and decrypt text using the DES algorithm. Encoding is UTF8.
+ * Simple utility object to encrypt and decrypt text using the DES algorithm.
+ * Encoding is UTF8.
  * 
  * @author Thilo Schwarz
  */
@@ -36,7 +38,7 @@ public class DESCryptor {
 	private String algorithm = "DES";
 
 	private String secretKeyPlain;
-	
+
 	private Key key;
 
 	public DESCryptor(String secretKeyPlain) {
@@ -44,15 +46,15 @@ public class DESCryptor {
 	}
 
 	public String encrypt(String plainTxt) throws CryptorException {
-		if(plainTxt == null || plainTxt.trim().length() == 0)
+		if (plainTxt == null || plainTxt.trim().length() == 0)
 			return null;
-		if(key == null)
+		if (key == null)
 			key = buildKey();
 		try {
 			byte[] cleartext = plainTxt.getBytes(encoding);
 			Cipher cipher = Cipher.getInstance(algorithm); // cipher is not thread safe
 			cipher.init(Cipher.ENCRYPT_MODE, key);
-			String encrypedPwd = Base64.encodeBase64String(cipher.doFinal(cleartext));
+			String encrypedPwd = new String(Base64.encodeBase64(cipher.doFinal(cleartext)), StandardCharsets.UTF_8);
 			return encrypedPwd;
 		} catch (Exception e) {
 			throw new CryptorException(e);
@@ -60,12 +62,12 @@ public class DESCryptor {
 	}
 
 	public String decrypt(String encryptedTxt) throws CryptorException {
-		if(encryptedTxt == null || encryptedTxt.trim().length() == 0)
+		if (encryptedTxt == null || encryptedTxt.trim().length() == 0)
 			return null;
-		if(key == null)
+		if (key == null)
 			key = buildKey();
 		try {
-			byte[] encrypedPwdBytes = Base64.decodeBase64(encryptedTxt);
+			byte[] encrypedPwdBytes = Base64.decodeBase64(encryptedTxt.getBytes(StandardCharsets.UTF_8));
 			Cipher cipher = Cipher.getInstance(algorithm); // cipher is not thread safe
 			cipher.init(Cipher.DECRYPT_MODE, key);
 			byte[] plainTextPwdBytes = cipher.doFinal(encrypedPwdBytes);
@@ -82,7 +84,7 @@ public class DESCryptor {
 			throw new CryptorException(e);
 		}
 	}
-	
+
 	public class CryptorException extends RuntimeException {
 		private static final long serialVersionUID = 1L;
 

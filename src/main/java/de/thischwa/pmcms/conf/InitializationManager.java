@@ -158,7 +158,7 @@ public class InitializationManager {
 		}
 
 		// preparing the image extensions
-		allowedImageExtensions = new ArrayList<String>();
+		allowedImageExtensions = new ArrayList<>();
 		ImageInfo ii = getBean(ImageInfo.class);
 		for(ImageType type : ii.getSupportedImageTypes()) {
 			allowedImageExtensions.addAll(Arrays.asList(type.getExtensions()));

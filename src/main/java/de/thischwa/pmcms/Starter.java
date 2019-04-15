@@ -91,7 +91,7 @@ public class Starter {
 			logger.debug("*** Try to init the main window ...");
 			MainWindow mainWindow = InitializationManager.getBean(MainWindow.class);
 			mainWindow.run();
-		} catch (Exception e) {
+		} catch (Throwable e) {
 			if (!isInit) {
 				System.out.println("Error while initialization: " + e.getMessage());
 				e.printStackTrace();

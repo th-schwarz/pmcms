@@ -154,7 +154,7 @@ public class FtpConnectionManager implements IConnectionManager {
 		
 		// throw exceptions depending on the replyCode, if is not positiv
 		if (!FTPReply.isPositiveCompletion(replyCode)) {
-			if (replyCode == FTPReply.CODE_503 || replyCode == FTPReply.NEED_PASSWORD || replyCode == FTPReply.NOT_LOGGED_IN)
+			if (replyCode == FTPReply.BAD_COMMAND_SEQUENCE || replyCode == FTPReply.NEED_PASSWORD || replyCode == FTPReply.NOT_LOGGED_IN)
 				throw new ConnectionAuthentificationException(ftpClient.getReplyString());
 			else
 				throw new ConnectionRunningException(ftpClient.getReplyString());

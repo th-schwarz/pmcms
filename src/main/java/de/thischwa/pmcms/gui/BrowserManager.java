@@ -18,7 +18,6 @@
  ******************************************************************************/
 package de.thischwa.pmcms.gui;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -80,7 +79,6 @@ public class BrowserManager {
 	
 	@Autowired private SiteHolder siteHolder;
 
-	private boolean isXulRunnerEnabled;
 	
 	private Shell parentShell;
 	
@@ -92,7 +90,6 @@ public class BrowserManager {
 	
 	public void init(final Composite parent) {
 		logger.debug("Entered init!");
-		this.isXulRunnerEnabled = (xulRunnerProp != null && Boolean.parseBoolean(xulRunnerProp));
 		mainBrowser = getBrowser(parent);
 		parentShell = parent.getShell();
 		initializeBrowser(parentShell, parent.getDisplay(), mainBrowser);
@@ -281,25 +278,12 @@ public class BrowserManager {
 	}
 
 	/**
-	 * Simple factory method to initialize the browser with respect of the property 'pmcms.xulrunner'. If this property is
-	 * <code>true</code> a mozilla browser will be initialized. (Depending on the existence of the directory 'xulrunner' inside the 
-	 * application directory, the required system property is set.) Otherwise the swt standard browser of the underlying OS.
-	 * 
+	 * Simple factory method to initialize the browser
 	 * @param parent Parent component of the browser.
 	 * @return Initialized browser.
 	 */
 	private Browser getBrowser(final Composite parent) {
-		Browser browser;
-		if (isXulRunnerEnabled) {
-			logger.info("XULRUNNER property is set, trying to get a mozilla browser!");
-			File xulDir = new File(Constants.APPLICATION_DIR, "xulrunner");
-			if (xulDir.exists()) {
-				logger.info("Found local XULRUNNER. Set required system property.");
-				System.setProperty("org.eclipse.swt.browser.XULRunnerPath", xulDir.getAbsolutePath());
-			}
-			browser = new Browser(parent, SWT.MOZILLA);
-		} else
-			browser = new Browser(parent, SWT.NONE);
+		Browser browser = new Browser(parent, SWT.NONE);
 		browserType = browser.getBrowserType();
 		logger.info("Constructed browser: " + browserType);
 		return browser;

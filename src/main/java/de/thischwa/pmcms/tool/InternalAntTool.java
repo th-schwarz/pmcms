@@ -164,7 +164,7 @@ public class InternalAntTool {
 			caught = e;
 		}
 		if(caught != null)
-			project.log("Error while starting poormans: " + caught.getMessage(), caught, Project.MSG_ERR);
+			project.log("Error while starting poormans: " + caught.getMessage(), Project.MSG_ERR);
 		else if(retVal != 0 && caught == null)
 			project.log("finished with code: " + retVal);
 		else 
@@ -194,7 +194,7 @@ public class InternalAntTool {
 			caught = e;
 		}
 		if(caught != null)
-			project.log("Error while cleanung up: " + caught.getMessage(), caught, Project.MSG_ERR);
+			project.log("Error while cleanung up: " + caught.getMessage(), Project.MSG_ERR);
 		else 
 			project.log("successful finished");
 		project.fireBuildFinished(caught);
@@ -219,15 +219,6 @@ public class InternalAntTool {
 		project.fireBuildStarted();
 		return project;
 	}
-
-	/*
-	private static Environment.Variable buildVar(final String key, final String val) {
-		Environment.Variable var = new Environment.Variable();
-		var.setKey(key);
-		var.setValue(val);
-		return var;
-	}
-	*/
 	
 	private static void deleteDir(Project project, File dir) {
 		Delete deleteTask = new Delete();
