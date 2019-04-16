@@ -189,7 +189,6 @@
 			<version>${jetty.version}</version>
 		</dependency>
 
-
 		<dependency>
 			<groupId>ant-contrib</groupId>
 			<artifactId>ant-contrib</artifactId>
@@ -201,7 +200,35 @@
 			<artifactId>spring-context-support</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
-
+		
+		<dependency>
+			<groupId>org.eclipe</groupId>
+			<artifactId>comands</artifactId>
+			<version>3.9.100.v20180404-1234</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/org.eclipse.core.commands_3.9.100.v20180404-1234.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipe</groupId>
+			<artifactId>common</artifactId>
+			<version>3.10.0.v20180412-1130</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/org.eclipse.equinox.common_3.10.0.v20180412-1130.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipe</groupId>
+			<artifactId>jface</artifactId>
+			<version>3.14.0.v20180423-0714</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/org.eclipse.jface_3.14.0.v20180423-0714.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipe</groupId>
+			<artifactId>osgi</artifactId>
+			<version>3.13.0.v20180409-1500</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/org.eclipse.osgi_3.13.0.v20180409-1500.jar</systemPath>
+		</dependency>
 
 		<!-- junit testing -->
 		<dependency>
