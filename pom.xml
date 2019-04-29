@@ -203,28 +203,35 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.eclipe</groupId>
+			<groupId>org.eclipse</groupId>
+			<artifactId>swt</artifactId>
+			<version>4.919</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/swt/swt-cocoa-macosx-x86_64.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse</groupId>
 			<artifactId>comands</artifactId>
 			<version>3.9.100.v20180404-1234</version>
 			<scope>system</scope>
 			<systemPath>${basedir}/lib/org.eclipse.core.commands_3.9.100.v20180404-1234.jar</systemPath>
 		</dependency>
 		<dependency>
-			<groupId>org.eclipe</groupId>
+			<groupId>org.eclipse</groupId>
 			<artifactId>common</artifactId>
 			<version>3.10.0.v20180412-1130</version>
 			<scope>system</scope>
 			<systemPath>${basedir}/lib/org.eclipse.equinox.common_3.10.0.v20180412-1130.jar</systemPath>
 		</dependency>
 		<dependency>
-			<groupId>org.eclipe</groupId>
+			<groupId>org.eclipse</groupId>
 			<artifactId>jface</artifactId>
 			<version>3.14.0.v20180423-0714</version>
 			<scope>system</scope>
 			<systemPath>${basedir}/lib/org.eclipse.jface_3.14.0.v20180423-0714.jar</systemPath>
 		</dependency>
 		<dependency>
-			<groupId>org.eclipe</groupId>
+			<groupId>org.eclipse</groupId>
 			<artifactId>osgi</artifactId>
 			<version>3.13.0.v20180409-1500</version>
 			<scope>system</scope>
@@ -248,6 +255,29 @@
 
 	<build>
 		<plugins>
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.8</version>
+				<executions>
+					<execution>
+						<id>build</id>
+						<phase>package</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<target>
+								<property name="compile_classpath"
+									refid="maven.compile.classpath" />
+								<ant antfile="${basedir}/Installer/build.xml">
+									<target name="build"/>
+								</ant>
+							</target>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>2.5.1</version>
