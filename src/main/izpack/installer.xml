@@ -42,9 +42,9 @@
 	
 	<!-- some resources -->
 	<resources>
-		<res id="HTMLInfoPanel.info" src="Installer/IzPack/info.html"/>  
-		<res id="userInputSpec.xml" src="Installer/IzPack/input.xml" type="xml" parse="yes"/>
-		<res id="userInputLang.xml_eng" src="Installer/IzPack/inputLang_eng.xml"/>
+		<res id="HTMLInfoPanel.info" src="src/main/izpack/info.html"/>  
+		<res id="userInputSpec.xml" src="src/main/izpack/input.xml" type="xml" parse="yes"/>
+		<res id="userInputLang.xml_eng" src="src/main/izpack/inputLang_eng.xml"/>
 		<res id="Heading.image" src="gfx/icon_32x32.gif"/>
 	</resources>
 	
@@ -63,19 +63,19 @@
 	<packs>
 		<pack id="Core" name="Core files" required="yes">
 			<description>The core files</description>
-			<file src="Installer/dist/start.jar" targetdir="$INSTALL_PATH"/>
+			<file src="dist/start.jar" targetdir="$INSTALL_PATH"/>
 			<file src="defaults/redirector.html" targetdir="$INSTALL_PATH/defaults"/>
 			<file src="defaults/content.vm" targetdir="$INSTALL_PATH/defaults"/>
 			<file src="defaults/dummy.jpg" targetdir="$INSTALL_PATH/defaults"/>
 			<file src="defaults/editor-button.css" targetdir="$INSTALL_PATH/defaults"/>
 			
 			<file src="context-api-changes.txt" targetdir="$USER_HOME/PoorMansCMS"/>
-			<file src="Installer/IzPack/packs/pmcms.properties" targetdir="$USER_HOME/PoorMansCMS"/>
+			<file src="src/main/izpack/packs/pmcms.properties" targetdir="$USER_HOME/PoorMansCMS"/>
 			<fileset dir="sites" includes="**" targetdir="$USER_HOME/PoorMansCMS/sites"/>
 			<parsable targetfile="$USER_HOME/PoorMansCMS/pmcms.properties" type="javaprop"/>
 				
-			<file src="Installer/dist/poormans_classes.jar" targetdir="$INSTALL_PATH/lib"/>
-			<fileset dir="lib" includes="**" targetdir="$INSTALL_PATH/lib"/>
+			<file src="dist/poormans_classes.jar" targetdir="$INSTALL_PATH/lib"/>
+			<fileset dir="target/installer_lib" includes="**" excludes="swt-*.*" targetdir="$INSTALL_PATH/lib"/>
 				
 			<fileset dir="defaults/sites" includes="**" targetdir="$INSTALL_PATH/defaults/sites"/>
 			<fileset dir="ckeditor" includes="**" targetdir="$INSTALL_PATH/ckeditor"/>

@@ -8,20 +8,20 @@
      ====================================================================== -->
 
 
-<project name="PoorMansCMS-Installer" basedir="../" default="build">
+<project name="PoorMansCMS-Installer" basedir="../../../" default="build">
 
 	<taskdef resource="net/sf/antcontrib/antlib.xml" />
 
 	<!-- properties -->
-	<property name="project.dir" value="${basedir}/Installer" />
+	<property name="project.dir" value="${basedir}/src/main/izpack" />
 	<property name="poormans_home" value="${basedir}" />
 
 	<property file="${project.dir}/installer.properties" />
 	<property file="${pmcms.dir.resources}/${pmcms.package.dir}/conf/default.properties" />
 
-	<property name="dir.dist" location="${project.dir}/dist" />
+	<property name="dir.dist" location="${basedir}/dist" />
 	<property name="izpack.dir" location="${project.dir}/IzPack" />
-	<property name="izpack.dir.swt" value="${izpack.dir}/packs/swt" />
+	<property name="izpack.dir.swt" value="${pmcms.dir.lib}/swt" />
 
 	<property name="manifest-built-by" value="build.xml:${pmcms.name}_${pmcms.version}" />
 	<property name="compile.version" value="1.8" />
@@ -46,7 +46,7 @@
 
 
 	<!-- build the installer -->
-	<target name="build" depends="compile" description="Build the installer and dependent jars.">
+	<target name="build" description="Build the installer and dependent jars.">
 		<delete dir="${dir.dist}" />
 		<mkdir dir="${dir.dist}" />
 		<antcall target="info" />
@@ -69,48 +69,6 @@
 	</target>
 
 
-	<!-- compile the project -->
-	<target name="compile">
-		<delete dir="${pmcms.dir.classes}" />
-		<mkdir dir="${pmcms.dir.classes}" />
-		<path id="libs">
-			<fileset dir="${pmcms.dir.lib}" includes="**/*.jar" />
-			<fileset dir="${pmcms.dir.src}" excludes="**/package-info.java" />
-		</path>
-		<javac destdir="${pmcms.dir.classes}" failonerror="true" classpathref="libs" srcdir="${pmcms.dir.src}" includeantruntime="false" source="${compile.version}" target="${compile.version}" />
-		<copy todir="${pmcms.dir.classes}">
-			<fileset dir="${pmcms.dir.resources}" includes="**/*.properties" />
-		</copy>
-	</target>
-
-	<!-- build the zip for portable
-	<target name="build.portable">
-		<if>
-			<available file="${portable.zip}" />
-			<then>
-				<delete file="${portable.zip}" />
-			</then>
-		</if>
-		<zip destfile="${portable.zip}" level="9">
-			<zipfileset dir="${pmcms.dir.lib}" prefix="${pmcms.dir.lib}" />
-			<zipfileset dir="${pmcms.dir.lib.swt}" prefix="${pmcms.dir.lib.swt}" />
-			<zipfileset dir="${pmcms.dir.defaultresources}" prefix="${pmcms.dir.defaultresources}" />
-			<zipfileset dir="${pmcms.dir.sites}" prefix="${pmcms.dir.sites}" excludes="**/${pmcms.dir.site.imagecache}/**" />
-			<zipfileset dir="${pmcms.dir.sourceeditor}" prefix="${pmcms.dir.sourceeditor}" />
-			<zipfileset dir="${pmcms.dir.gfx}" prefix="${pmcms.dir.gfx}" />
-			<zipfileset dir="${pmcms.dir.help}" prefix="${pmcms.dir.help}" />
-			<zipfileset dir="." prefix="/">
-				<include name="context-api-changes.txt" />
-				<include name="LICENSE_LGPL.txt" />
-				<include name="LICENSE_MPL.txt" />
-				<include name="ckeditor*.zip" />
-			</zipfileset>
-			<zipfileset dir="${dir.dist}" prefix="/" includes="${launcher.jar}" />
-			<zipfileset dir="${izpack.dir}/packs" includes="pmcms_portable.properties" fullpath="/pmcms.properties" />
-			<zipfileset dir="${dir.dist}" prefix="${pmcms.dir.lib}" includes="${classes.jar}" />
-		</zip>
-	</target> -->
-
 	<!-- build the launcher jar -->
 	<target name="build.launcher">
 		<if>
@@ -121,7 +79,7 @@
 		</if>
 		<property name="dir" location="${pmcms.dir.classes}/${pmcms.package.dir}" />
 		<path id="manifestPath">
-			<fileset dir="${pmcms.dir.lib}">
+			<fileset dir="${pmcms.dir.deps}">
 				<include name="ant-*.jar" />
 				<include name="commons-logging-*.jar" />
 				<include name="commons-lang*.jar" />
@@ -132,7 +90,7 @@
 		</path>
 		<pathconvert property="fixedPath" pathsep=" ">
 			<path refid="manifestPath" />
-			<map from="${basedir}/" to="" />
+			<map from="${basedir}/${pmcms.dir.deps}" to="lib" />
 		</pathconvert>
 		<jar destfile="${launcher_full.jar}">
 			<zipfileset dir="${dir}" includes="conf/default.properties" fullpath="${pmcms.package.dir}conf/default.properties" />
