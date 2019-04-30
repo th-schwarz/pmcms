@@ -71,6 +71,7 @@
 
 	<!-- build the launcher jar -->
 	<target name="build.launcher">
+		<taskdef resource="net/sf/antcontrib/antcontrib.properties" />
 		<if>
 			<available file="${launcher_full.jar}" />
 			<then>
@@ -140,7 +141,7 @@
 		<taskdef name="izpack" classname="com.izforge.izpack.ant.IzPackTask" classpathref="izpackpath" />
 
 		<izpack output="${dir.dist}/${pmcms.name}_${pmcms.version}.jar" 
-			input="installer.xml" installerType="standard" 
+			input="${project.dir}/installer.xml" installerType="standard" 
 			basedir="${basedir}" izPackDir="${izpack_home}/" inheritall="true" />
 	</target>
 
