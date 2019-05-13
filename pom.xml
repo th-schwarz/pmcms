@@ -218,7 +218,7 @@
 			<artifactId>swt</artifactId>
 			<version>4.919</version>
 			<scope>system</scope>
-			<systemPath>${basedir}/lib/swt/swt-cocoa-macosx-x86_64.jar</systemPath>
+			<systemPath>${basedir}/lib_swt/swt-cocoa-macosx-x86_64.jar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse</groupId>

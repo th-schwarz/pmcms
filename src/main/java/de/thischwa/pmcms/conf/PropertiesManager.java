@@ -30,32 +30,30 @@ public class PropertiesManager {
 	private Properties props;
 	private Properties defaultSiteProps;
 	private Properties siteProps;
-	
+
 	public void setProperties(final Properties props) {
 		defaultSiteProps = PropertiesTool.getProperties(props, "pmcms.site");
 		siteProps = new Properties(defaultSiteProps);
 		this.props = props;
 	}
-	
+
 	public void setSiteProperties(final Properties siteProps) {
 		this.siteProps = new Properties(defaultSiteProps);
 		this.siteProps.putAll(siteProps);
 	}
-	
+
 	public String getProperty(final String key) {
 		return props.getProperty(key);
 	}
-	
+
 	public String getSiteProperty(final String key) {
-		if(!siteProps.containsKey(key))
-			return defaultSiteProps.getProperty(key);
-		return siteProps.getProperty(key);
+		return (siteProps.containsKey(key)) ? siteProps.getProperty(key) : defaultSiteProps.getProperty(key);
 	}
-	
+
 	public Properties getVelocityProperties() {
 		return PropertiesTool.getProperties(props, "velocity", true);
 	}
-	
+
 	Properties getAllProperties() {
 		return props;
 	}

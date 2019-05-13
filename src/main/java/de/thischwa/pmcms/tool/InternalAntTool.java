@@ -51,18 +51,22 @@ import de.thischwa.pmcms.tool.OS.OSDetector;
 public class InternalAntTool {
 
 	/**
-	 * Starts poormans with respect of the current OS. Dependent on that, special JVM settings and environment variables
-	 * are set.
+	 * Starts poormans with respect of the current OS. Dependent on that, special JVM settings and environment variables are set.
 	 * 
-	 * @param dataDir Data directory to use for.
-	 * @param props Properties to use for.
+	 * @param dataDir
+	 *            Data directory to use for.
+	 * @param props
+	 *            Properties to use for.
 	 * @param starterClass
-	 * @param printDebug if true additional logging informations will be print out at stdio.
-	 * @param additionalArgs Additional poormans commandline arguments. Can be <tt>null</tt> or empty.
+	 * @param printDebug
+	 *            if true additional logging informations will be print out at stdio.
+	 * @param additionalArgs
+	 *            Additional poormans commandline arguments. Can be <tt>null</tt> or empty.
 	 */
-	public static void start(final File dataDir, final Properties props, final String starterClass, boolean printDebug, final String[] additionalArgs) {
+	public static void start(final File dataDir, final Properties props, final String starterClass, boolean printDebug,
+			final String[] additionalArgs) {
 		OSDetector.Type os = OSDetector.getType(); // Throws a RuntimeException, if os isn't supported!
-		Project project = buildProject();	
+		Project project = buildProject();
 		List<String> jvmArgs = new ArrayList<String>();
 		if(props.getProperty("jvm.arguments") != null) {
 			String args = props.getProperty("jvm.arguments");
@@ -72,7 +76,7 @@ public class InternalAntTool {
 		}
 		Throwable caught = null;
 		String propLib = props.getProperty("pmcms.dir.lib");
-		String propLibSwt  = props.getProperty("pmcms.dir.lib.swt");
+		String propLibSwt = props.getProperty("pmcms.dir.lib.swt");
 		if(printDebug) {
 			project.log("Java: " + System.getProperty("java.version"));
 			project.log("OS: " + os);
@@ -90,51 +94,62 @@ public class InternalAntTool {
 			javaTask.setFork(true);
 			javaTask.setFailonerror(true);
 			javaTask.setClassname(starterClass);
-			
+
 			/** build the class path */
 			Path classPath = new Path(project);
 			javaTask.setClasspath(classPath);
 			FileSet libFileSet = new FileSet();
 			libFileSet.setDir(new File(Constants.APPLICATION_DIR, propLib));
 			libFileSet.setIncludes("**/*jar,**/*properties");
-			
+
 			/** build the requested swt-jar */
-			String swtFolder = String.format("%s/swt.jar", propLibSwt);
+			String archName;
+			switch(os) {
+				case MAC:
+					archName = "cocoa-macosx-x86_64";
+					break;
+				case LINUX:
+					archName = "gtk-linux-x86_64";
+					break;
+				default:
+					archName = "win32-win32-x86_64";
+			}
+			String fileName = String.format("swt-%s.jar", archName);
 			File swtDir = new File(Constants.APPLICATION_DIR, propLibSwt);
 			if(printDebug)
 				project.log(String.format("Swt-directory: %s", swtDir.getPath()));
 			FileSet swtFileSet = new FileSet();
 			swtFileSet.setDir(swtDir);
-			swtFileSet.setIncludes("*jar");
+			swtFileSet.setIncludes(fileName);
 			classPath.addFileset(swtFileSet);
 			classPath.addFileset(libFileSet);
 			if(printDebug)
 				project.log("Classpath: " + classPath);
-			
-			// add some vm args dependent on the os 
-			switch (os) {
+
+			// add some vm args dependent on the os
+			switch(os) {
 				case MAC:
 					if(!jvmArgs.contains("-XstartOnFirstThread"))
 						jvmArgs.add("-XstartOnFirstThread");
 					break;
 				case WIN:
-					String arg = String.format("-Djava.library.path=%s", swtFolder);
+					String arg = String.format("-Djava.library.path=%s", new File(swtDir, fileName).getPath());
 					jvmArgs.add(arg);
 					break;
 				case LINUX:
-					// no special properties required, settings shouid  be done by jvm args 
+					// no special properties required, settings shouid be done by jvm args
 					break;
 				default:
 					project.log("Error: Unknown OS: " + OSDetector.getOSString());
 					System.exit(3);
 					break;
 			}
-			
+
 			// add jvm args if exists
 			if(!jvmArgs.isEmpty()) {
 				// clean-up the jvm-args and ensure that each one starts with '-D' or '-X'
 				List<String> tmpArgs = new ArrayList<String>();
-				for (String arg : jvmArgs) {
+				for(String arg : jvmArgs) {
 					if(arg.startsWith("-D") || arg.startsWith("-d") || arg.startsWith("-X") || arg.startsWith("-x"))
 						tmpArgs.add(arg);
 				}
@@ -147,7 +162,7 @@ public class InternalAntTool {
 				if(printDebug)
 					project.log("JVM args: " + jvmArgsLine);
 			}
-			
+
 			// add some program args if exists
 			String strArgs = String.format("-datadir \"%s\"", dataDir);
 			if(additionalArgs != null && additionalArgs.length > 0)
@@ -156,7 +171,7 @@ public class InternalAntTool {
 			taskArgs.setLine(strArgs);
 			if(printDebug)
 				project.log("Program-args: " + strArgs);
-			
+
 			// call the java task
 			javaTask.init();
 			retVal = javaTask.executeJava();
@@ -167,27 +182,29 @@ public class InternalAntTool {
 			project.log("Error while starting poormans: " + caught.getMessage(), Project.MSG_ERR);
 		else if(retVal != 0 && caught == null)
 			project.log("finished with code: " + retVal);
-		else 
+		else
 			project.log("successful finished");
-		project.fireBuildFinished(caught);	
+		project.fireBuildFinished(caught);
 	}
-	
+
 	/**
-	 * Task to clean up all the generated data and setting. The database will be rebuild. 
+	 * Task to clean up all the generated data and setting. The database will be rebuild.
 	 * 
-	 * @param dataDir Data directory to use for.
-	 * @param props Properties to use for.
+	 * @param dataDir
+	 *            Data directory to use for.
+	 * @param props
+	 *            Properties to use for.
 	 */
 	public static void cleanup(final File dataDir, final Properties props) {
 		Project project = buildProject();
 		Throwable caught = null;
-		try {			
+		try {
 			File sitesDir = new File(dataDir, props.getProperty("pmcms.dir.sites"));
-			
+
 			// delete the files
 			deleteFile(project, new File(dataDir, ".settings.properties"));
 			deleteDir(project, sitesDir);
-			
+
 			// make the required directories
 			mkdir(project, new File(dataDir, "sites"));
 		} catch (Exception e) {
@@ -195,11 +212,11 @@ public class InternalAntTool {
 		}
 		if(caught != null)
 			project.log("Error while cleanung up: " + caught.getMessage(), Project.MSG_ERR);
-		else 
+		else
 			project.log("successful finished");
 		project.fireBuildFinished(caught);
 	}
-	
+
 	/**
 	 * Initializes an ant project. The base directory is the current working directory.
 	 * 
@@ -219,7 +236,7 @@ public class InternalAntTool {
 		project.fireBuildStarted();
 		return project;
 	}
-	
+
 	private static void deleteDir(Project project, File dir) {
 		Delete deleteTask = new Delete();
 		deleteTask.setProject(project);
@@ -227,7 +244,7 @@ public class InternalAntTool {
 		deleteTask.setDir(dir);
 		deleteTask.execute();
 	}
-	
+
 	private static void deleteFile(Project project, File file) {
 		Delete deleteTask = new Delete();
 		deleteTask.setProject(project);
@@ -235,9 +252,9 @@ public class InternalAntTool {
 		deleteTask.setFile(file);
 		deleteTask.execute();
 	}
-	
+
 	private static void mkdir(Project project, File dir) {
-		Mkdir mkdir = new  Mkdir();
+		Mkdir mkdir = new Mkdir();
 		mkdir.setProject(project);
 		mkdir.setTaskName("mkdir");
 		mkdir.setDir(dir);

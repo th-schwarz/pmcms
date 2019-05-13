@@ -4,15 +4,13 @@
 /poormans.properties
 /xulrunner
 /log
-/dev_lib_swt
-/bin
 /.settings
 **/*.DS_Store
 /gitignore
 /pmcms.properties
 /javadoc
 /TODO
-/lib_swt/
 **/*-sources.jar
 **/*-javadoc.jar
 /target/
+/dist/
