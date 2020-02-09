@@ -47,15 +47,16 @@ public class SftpTransfer extends AbstractTransfer {
 		if(chDirAbsolute(pathAnalyzer.getDir())) {
 			InputStream serverIn = null;
 			try {
+				String downloadTarget = serverRootDir + targetPath;
 				// 1. check, if Target exits on the server
-				if(sftpClient.exists(pathAnalyzer.getName())) {
+				if(!sftpClient.exists(downloadTarget)) {
 					logger.debug("[SFTP] '" + targetPath + "' doesn't exists or is a directory, - can't get it!");
 					return false;
 				}
 
 				// 2. retrieve the file
 				try {
-					sftpClient.client.get(targetPath, out);
+					sftpClient.client.get(downloadTarget, out);
 				} catch (SftpException e) {
 					throw new ConnectionRunningException("Error while download [" + targetPath + "]!");
 				}
