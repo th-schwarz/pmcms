@@ -56,7 +56,7 @@ public class SftpTransfer extends AbstractTransfer {
 
 				// 2. retrieve the file
 				try {
-					sftpClient.client.get(downloadTarget, out);
+					sftpClient.client.get(pathAnalyzer.getName(), out);
 				} catch (SftpException e) {
 					throw new ConnectionRunningException("Error while download [" + targetPath + "]!");
 				}
@@ -190,7 +190,7 @@ public class SftpTransfer extends AbstractTransfer {
 		boolean ok = sftpClient.cd(absoluteDir);
 		if(ok)
 			logger.debug("[SFTP] successfull chdir to: " + absoluteDir);
-		return true;
+		return ok;
 	}
 
 	/**
