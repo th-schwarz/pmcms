@@ -2,7 +2,6 @@
 /.project
 /.settings.properties
 /poormans.properties
-/xulrunner
 /log
 /.settings
 **/*.DS_Store

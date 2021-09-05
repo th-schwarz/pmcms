@@ -41,17 +41,6 @@
 		<jetty.version>9.4.16.v20190411</jetty.version>
 	</properties>
 
-	<repositories>
-		<repository>
-			<id>thischwa-repo</id>
-			<url>http://maven-repo.thischwa.codes</url>
-		</repository>
-		<repository>
-			<id>spring-plugin-repo</id>
-			<url>http://repo.spring.io/plugins-release/</url>
-		</repository>
-	</repositories>
-
 	<distributionManagement>
 		<repository>
 			<id>thischwa.repo</id>
@@ -154,7 +143,7 @@
 			<version>3.6</version>
 		</dependency>
 		<dependency>
-			<groupId>com.twmacinta</groupId>
+			<groupId>com.joyent.util</groupId>
 			<artifactId>fast-md5</artifactId>
 			<version>2.7.1</version>
 		</dependency>
@@ -247,6 +236,27 @@
 			<version>3.15.0.v20190830-1434</version>
 			<scope>system</scope>
 			<systemPath>${basedir}/lib/org.eclipse.osgi_3.15.0.v20190830-1434.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>codes.thischwa.jii</groupId>
+			<artifactId>java-image-info</artifactId>
+			<version>1.1.0</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/java-image-info-1.1.0.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>codes.thischwa.c5c</groupId>
+			<artifactId>c5connector-java</artifactId>
+			<version>0.12</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/c5connector-java-0.12.jar</systemPath>
+		</dependency>
+		<dependency>
+			<artifactId>ckeditor-java</artifactId>
+			<groupId>codes.thischwa.ckeditor</groupId>
+			<version>1.0.1</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/ckeditor-java-1.0.1.jar</systemPath>
 		</dependency>
 
 		<!-- junit testing -->
