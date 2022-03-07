@@ -1,6 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>codes.thischwa</groupId>
 	<artifactId>pmcms</artifactId>
@@ -30,15 +29,16 @@
 	</scm>
 
 	<properties>
-		<java.version>1.8</java.version>
+		<java.version>11</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<project.reporting.inputEncoding>UTF-8</project.reporting.inputEncoding>
 		<github.global.server>github</github.global.server>
-		<jii.version>1.1.0</jii.version>
+		<jii.version>1.2.0</jii.version>
 		<jackson.version>2.5.4</jackson.version>
 		<spring.version>4.3.23.RELEASE</spring.version>
 		<jetty.version>9.4.16.v20190411</jetty.version>
+		<dir.lib>${project.basedir}/lib/</dir.lib>
 	</properties>
 
 	<distributionManagement>
@@ -173,6 +173,7 @@
 			<artifactId>c5connector-java</artifactId>
 			<version>0.12</version>
 		</dependency>
+		
 		<dependency>
 			<groupId>org.eclipse.jetty</groupId>
 			<artifactId>jetty-server</artifactId>
@@ -205,58 +206,59 @@
 		<dependency>
 			<groupId>org.eclipse</groupId>
 			<artifactId>swt</artifactId>
-			<version>4.919</version>
+			<version>22</version>
 			<scope>system</scope>
-			<systemPath>${basedir}/lib_swt/swt-cocoa-macosx-x86_64.jar</systemPath>
+			<systemPath>${project.basedir}/lib_swt/swt-cocoa-macosx-x86_64.jar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse</groupId>
 			<artifactId>comands</artifactId>
 			<version>3.9.500.v20190805-1157</version>
 			<scope>system</scope>
-			<systemPath>${basedir}/lib/org.eclipse.core.commands_3.9.500.v20190805-1157.jar</systemPath>
+			<systemPath>${dir.lib}/org.eclipse.core.commands_3.9.500.v20190805-1157.jar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse</groupId>
 			<artifactId>common</artifactId>
-			<version>3.10.500.v20190815-1535</version>
+			<version>3.15.100.v20211021-1418</version>
 			<scope>system</scope>
-			<systemPath>${basedir}/lib/org.eclipse.equinox.common_3.10.500.v20190815-1535.jar</systemPath>
+			<systemPath>${dir.lib}/org.eclipse.equinox.common_3.15.100.v20211021-1418.jar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse</groupId>
 			<artifactId>jface</artifactId>
-			<version>3.17.0.v20190820-1444</version>
+			<version>3.24.0.v20211110-1517</version>
 			<scope>system</scope>
-			<systemPath>${basedir}/lib/org.eclipse.jface_3.17.0.v20190820-1444.jar</systemPath>
+			<systemPath>${dir.lib}/org.eclipse.jface_3.24.0.v20211110-1517.jar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse</groupId>
 			<artifactId>osgi</artifactId>
-			<version>3.15.0.v20190830-1434</version>
+			<version>3.17.100.v20211104-1730</version>
 			<scope>system</scope>
-			<systemPath>${basedir}/lib/org.eclipse.osgi_3.15.0.v20190830-1434.jar</systemPath>
+			<systemPath>${dir.lib}/org.eclipse.osgi_3.17.100.v20211104-1730.jar</systemPath>
 		</dependency>
+
 		<dependency>
 			<groupId>codes.thischwa.jii</groupId>
 			<artifactId>java-image-info</artifactId>
-			<version>1.1.0</version>
+			<version>${jii.version}</version>
 			<scope>system</scope>
-			<systemPath>${basedir}/lib/java-image-info-1.1.0.jar</systemPath>
+			<systemPath>${dir.lib}/java-image-info-1.1.0.jar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>codes.thischwa.c5c</groupId>
 			<artifactId>c5connector-java</artifactId>
 			<version>0.12</version>
 			<scope>system</scope>
-			<systemPath>${basedir}/lib/c5connector-java-0.12.jar</systemPath>
+			<systemPath>${dir.lib}/c5connector-java-0.12.jar</systemPath>
 		</dependency>
 		<dependency>
 			<artifactId>ckeditor-java</artifactId>
 			<groupId>codes.thischwa.ckeditor</groupId>
 			<version>1.0.1</version>
 			<scope>system</scope>
-			<systemPath>${basedir}/lib/ckeditor-java-1.0.1.jar</systemPath>
+			<systemPath>${dir.lib}/ckeditor-java-1.0.1.jar</systemPath>
 		</dependency>
 
 		<!-- junit testing -->
