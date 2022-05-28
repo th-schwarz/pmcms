@@ -48,7 +48,7 @@ public class BasicConfigurator {
 	public static final String PROPERTIES_NAME = "pmcms.properties";
 	private File dataDir;
 	private AbstractApplicationContext context;
-	private Properties props;
+	private Properties baseProps;
 
 	public BasicConfigurator() {
 		init();
@@ -69,16 +69,16 @@ public class BasicConfigurator {
 		// load and merge the properties 
 		loadProperties();
 		
-		// build special props
-		String baseUrl = String.format("http://%s:%s/", props.get("pmcms.jetty.host"), props.get("pmcms.jetty.port"));
-		props.setProperty("baseurl", baseUrl);
-		props.setProperty("data.dir", dataDir.getAbsolutePath());
+		// build special baseProps
+		String baseUrl = String.format("http://%s:%s/", baseProps.get("pmcms.jetty.host"), baseProps.get("pmcms.jetty.port"));
+		baseProps.setProperty("baseurl", baseUrl);
+		baseProps.setProperty("data.dir", dataDir.getAbsolutePath());
 		System.setProperty("content.types.user.table", new File(Constants.APPLICATION_DIR, "lib/content-types.properties").getAbsolutePath());
 		System.setProperty("baseurl", baseUrl);  // just need it in VelocityUtils
 		
 		// init log4j
 		LogManager.resetConfiguration();
-		PropertyConfigurator.configure(PropertiesTool.getProperties(props, "log4j"));
+		PropertyConfigurator.configure(PropertiesTool.getProperties(baseProps, "log4j"));
 		Logger logger = Logger.getLogger(BasicConfigurator.class);
 		logger.info("*** log4j initialized!");
 
@@ -87,13 +87,13 @@ public class BasicConfigurator {
 			AnnotationConfigApplicationContext ctx =  new AnnotationConfigApplicationContext();
 			ctx.scan("de.thischwa.pmcms");
 			PropertySourcesPlaceholderConfigurer config = new PropertySourcesPlaceholderConfigurer();
-			config.setProperties(props);
+			config.setProperties(baseProps);
 			config.postProcessBeanFactory(ctx.getDefaultListableBeanFactory());
 			ctx.refresh();
 			context = ctx;
 			logger.info("*** Spring initialized!");
 			PropertiesManager pm = context.getBean(PropertiesManager.class);
-			pm.setProperties(props);
+			pm.setBaseProperties(baseProps);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
@@ -109,28 +109,28 @@ public class BasicConfigurator {
 	}
 
 	private void loadProperties() {
-		props = new Properties();
+		baseProps = new Properties();
 		try {
-			// the default props
+			// the default baseProps
 			InputStream defaultIn = new BufferedInputStream(BasicConfigurator.class.getResourceAsStream("default.properties"));
 
-			// the user's props
+			// the user's baseProps
 			File propsFile = new File(dataDir, PROPERTIES_NAME);
 			InputStream usersIn = new BufferedInputStream(new FileInputStream(propsFile));
 
-			// load the props
-			props = PropertiesTool.loadProperties(defaultIn, usersIn);
+			// load the baseProps
+			baseProps = PropertiesTool.loadProperties(defaultIn, usersIn);
 
 			// replace the data path
-			for (Object key : props.keySet()) {
-				String val = (String) props.get(key);
+			for (Object key : baseProps.keySet()) {
+				String val = (String) baseProps.get(key);
 				if (val.contains("${datapath}")) {
 					val = val.replace("${datapath}", dataDir.getAbsolutePath());
-					props.setProperty((String) key, val.replace(File.separator, "/"));
+					baseProps.setProperty((String) key, val.replace(File.separator, "/"));
 				} 
 			}
 		} catch (Exception e) {
-			props.clear();
+			baseProps.clear();
 			throw new RuntimeException("Can't read common.properties or pmcms.properties!", e);
 		}
 	}

@@ -99,7 +99,7 @@ public class ExportRenderer implements IProgressViewer {
 	@Autowired private PropertiesManager pm;
 
 	@Value("${pmcms.export.maxthreadspercore}")
-	private int maxThreadsPerCount;
+	private int maxThreadsPerCore;
 	
 	@Value("${pmcms.filename.checksums}")
 	private String checksumFilename;
@@ -133,7 +133,7 @@ public class ExportRenderer implements IProgressViewer {
 		// collect renderable / validation		
 		renderableObjects = PoInfo.collectRenderables(site, messages);
 
-		exportController = new ExportThreadPoolController(maxThreadsPerCount);
+		exportController = new ExportThreadPoolController(maxThreadsPerCore);
 		
 		logger.info("Site successfully exported.");
 	}
@@ -145,7 +145,7 @@ public class ExportRenderer implements IProgressViewer {
 	 */
 	@Override
 	public void run() {
-		logger.debug("Entered run.");
+		logger.debug("Process export with html-extension: " + poExtension);
 		File siteDir = PoPathInfo.getSiteDirectory(this.site);
 		if (monitor != null)
 			monitor.beginTask(String.format("%s: %d", LabelHolder.get("task.export.monitor"), this.renderableObjects.size()), 

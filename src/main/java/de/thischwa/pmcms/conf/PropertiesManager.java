@@ -27,14 +27,14 @@ import de.thischwa.pmcms.tool.PropertiesTool;
 @Component
 public class PropertiesManager {
 
-	private Properties props;
+	private Properties baseProps;
 	private Properties defaultSiteProps;
 	private Properties siteProps;
 
-	public void setProperties(final Properties props) {
-		defaultSiteProps = PropertiesTool.getProperties(props, "pmcms.site");
+	public void setBaseProperties(final Properties baseProps) {
+		defaultSiteProps = PropertiesTool.getProperties(baseProps, "pmcms.site");
 		siteProps = new Properties(defaultSiteProps);
-		this.props = props;
+		this.baseProps = baseProps;
 	}
 
 	public void setSiteProperties(final Properties siteProps) {
@@ -43,7 +43,7 @@ public class PropertiesManager {
 	}
 
 	public String getProperty(final String key) {
-		return props.getProperty(key);
+		return baseProps.getProperty(key);
 	}
 
 	public String getSiteProperty(final String key) {
@@ -51,10 +51,10 @@ public class PropertiesManager {
 	}
 
 	public Properties getVelocityProperties() {
-		return PropertiesTool.getProperties(props, "velocity", true);
+		return PropertiesTool.getProperties(baseProps, "velocity", true);
 	}
 
 	Properties getAllProperties() {
-		return props;
+		return baseProps;
 	}
 }
