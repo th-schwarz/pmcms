@@ -18,13 +18,14 @@ import org.springframework.core.io.ByteArrayResource;
 
 public class TestSpringInit {
 
+	private static String tempDir = System.getProperty("java.io.tmpdir");
 	private static File propsFile;
 	private static Properties props;
 	
 	@BeforeClass
 	public static void init() throws Exception {
 		BasicConfigurator.configure(); 
-		propsFile = new File("/tmp/test.properties");
+		propsFile = new File(tempDir, "test.properties");
 		if(propsFile.exists())
 			propsFile.delete();
 				
