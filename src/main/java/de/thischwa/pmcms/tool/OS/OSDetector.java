@@ -51,7 +51,7 @@ public class OSDetector {
 			return Type.LINUX;
 		if (osName.startsWith("Windows"))
 			return Type.WIN;
-		if (osName.startsWith("Mac") && osVersion.startsWith("10.")) // don't run with Mac OS classic
+		if (osName.startsWith("Mac"))
 			return Type.MAC;
 		throw new RuntimeException("Your OS isn't support by poormans: " + osName + " " + osVersion);
 	}
