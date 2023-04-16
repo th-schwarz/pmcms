@@ -30,6 +30,7 @@ import de.thischwa.pmcms.conf.resource.LabelHolder;
 import de.thischwa.pmcms.model.domain.PoStructurTools;
 import de.thischwa.pmcms.model.domain.pojo.Site;
 import de.thischwa.pmcms.tool.connection.ConnectionFactory;
+import org.eclipse.swt.widgets.Button;
 
 /**
  * Composite is part of {@link DialogCreator} and contains input fields and their validation method for {@link Site}.
@@ -54,12 +55,6 @@ public class DialogFieldsSiteComp extends Composite implements IDialogFieldsVali
 	}
 
 	private void initialize() {
-		GridData gridDataLabel = new GridData();
-		gridDataLabel.horizontalAlignment = GridData.END;
-		gridDataLabel.verticalAlignment = GridData.CENTER;
-		GridData gridDataText = new GridData();
-		gridDataText.heightHint = -1;
-		gridDataText.widthHint = 300;
 		GridLayout gridLayoutMy = new GridLayout();
 		gridLayoutMy.numColumns = 2;
 		gridLayoutMy.marginWidth = 25;
@@ -76,27 +71,45 @@ public class DialogFieldsSiteComp extends Composite implements IDialogFieldsVali
 		this.setLayout(gridLayoutMy);
 		Label label1 = new Label(this, SWT.RIGHT);
 		label1.setText("*  ".concat(LabelHolder.get("dialog.pojo.site.fields.url"))); //$NON-NLS-1$
-		label1.setLayoutData(gridDataLabel);
+		label1.setLayoutData(getGridForLabel());
 		textUrl = new Text(this, SWT.BORDER);
 		textUrl.setTextLimit(256);
-		textUrl.setLayoutData(gridDataText);
+		textUrl.setLayoutData(getGridLayoutForText());
 		textUrl.setText(StringUtils.defaultString(site.getUrl()));
 
 		Label label2 = new Label(this, SWT.RIGHT);
 		label2.setText(LabelHolder.get("dialog.pojo.site.fields.title")); //$NON-NLS-1$
-		label2.setLayoutData(gridDataLabel);
+		label2.setLayoutData(getGridForLabel());
 		textTitle = new Text(this, SWT.BORDER);
 		textTitle.setTextLimit(256);
-		textTitle.setLayoutData(gridDataText);
+		textTitle.setLayoutData(getGridLayoutForText());
 		textTitle.setText(StringUtils.defaultString(site.getTitle()));
 
 		label = new Label(this, SWT.NONE);
 		label.setText("*  ".concat(LabelHolder.get("dialog.pojo.site.fields.uri"))); //$NON-NLS-1$
-		label.setLayoutData(gridDataLabel);
+		label.setLayoutData(getGridForLabel());
 		textServerUri = new Text(this, SWT.BORDER);
 		textServerUri.setTextLimit(256);
-		textServerUri.setLayoutData(gridDataText);
+		textServerUri.setLayoutData(getGridLayoutForText());
 		textServerUri.setText(StringUtils.defaultString(site.getProperty(Site.PROPKEY_SERVERURI)));
+		
+		Button btnCheckUri = new Button(this, SWT.NONE);
+		btnCheckUri.setText("check Url");
+		new Label(this, SWT.NONE);
+	}
+
+	private static GridData getGridLayoutForText() {
+		GridData gridDataText = new GridData();
+		gridDataText.heightHint = -1;
+		gridDataText.widthHint = 300;
+		return gridDataText;
+	}
+
+	private static GridData getGridForLabel() {
+		GridData gridDataLabel = new GridData();
+		gridDataLabel.horizontalAlignment = GridData.END;
+		gridDataLabel.verticalAlignment = GridData.CENTER;
+		return gridDataLabel;
 	}
 
 	@Override
@@ -104,7 +117,7 @@ public class DialogFieldsSiteComp extends Composite implements IDialogFieldsVali
 		String serverUri = textServerUri.getText();
 		if(!ConnectionFactory.isValid(serverUri)) {
 			dialogCreator.setErrorMessage(LabelHolder.get("dialog.pojo.site.error.serveruri")); //$NON-NLS-1$
-			return false;			
+			return false;
 		}
 		String url = StringUtils.deleteWhitespace(StringUtils.lowerCase(textUrl.getText()));
 		if(!checkUrl(url)) {

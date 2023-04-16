@@ -32,8 +32,8 @@ import org.eclipse.swt.widgets.Composite;
  * @author Thilo Schwarz
  */
 public class DialogFooterComp extends Composite {
-	private Button buttonOk;
-	private Button buttonCancel;
+	private Button btnOk;
+	private Button btnCancel;
 	private DialogCreator dialogCreator;
 	
 	
@@ -57,10 +57,10 @@ public class DialogFooterComp extends Composite {
 		gridDataMy.verticalAlignment = org.eclipse.swt.layout.GridData.END;
 		this.setLayoutData(gridDataMy);
 		this.setLayout(gridLayoutMy);
-		buttonOk = new Button(this, SWT.NONE);
-		buttonOk.setText("ok");
-		buttonOk.setLayoutData(gridDataOk);
-		buttonOk.addSelectionListener(new SelectionListener() { 
+		btnOk = new Button(this, SWT.NONE);
+		btnOk.setText("ok");
+		btnOk.setLayoutData(gridDataOk);
+		btnOk.addSelectionListener(new SelectionListener() { 
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				if (dialogCreator.getCompositeFields().isValid()) {
@@ -71,10 +71,10 @@ public class DialogFooterComp extends Composite {
 			public void widgetDefaultSelected(SelectionEvent e) {
 			}
 		});
-		buttonCancel = new Button(this, SWT.NONE);
-		buttonCancel.setText("cancel");
-		buttonCancel.setLayoutData(gridDataCancel);
-		buttonCancel.addSelectionListener(new SelectionListener() { 
+		btnCancel = new Button(this, SWT.NONE);
+		btnCancel.setText("cancel");
+		btnCancel.setLayoutData(gridDataCancel);
+		btnCancel.addSelectionListener(new SelectionListener() { 
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				dialogCreator.setCancel(true);

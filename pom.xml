@@ -41,12 +41,12 @@
 		<dir.lib>${project.basedir}/lib/</dir.lib>
 	</properties>
 
-	<distributionManagement>
+	<!--<distributionManagement>
 		<repository>
 			<id>thischwa.repo</id>
 			<url>${repo-url}</url>
 		</repository>
-	</distributionManagement>
+	</distributionManagement>-->
 
 	<dependencies>
 		<dependency>
@@ -204,39 +204,19 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.eclipse</groupId>
-			<artifactId>swt</artifactId>
-			<version>22</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/lib_swt/swt-cocoa-macosx-x86_64.jar</systemPath>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>4.0.1</version>
 		</dependency>
 		<dependency>
-			<groupId>org.eclipse</groupId>
-			<artifactId>comands</artifactId>
-			<version>3.9.500.v20190805-1157</version>
-			<scope>system</scope>
-			<systemPath>${dir.lib}/org.eclipse.core.commands_3.9.500.v20190805-1157.jar</systemPath>
+			<groupId>org.eclipse.platform</groupId>
+			<artifactId>org.eclipse.jface</artifactId>
+			<version>3.29.0</version>
 		</dependency>
 		<dependency>
-			<groupId>org.eclipse</groupId>
-			<artifactId>common</artifactId>
-			<version>3.15.100.v20211021-1418</version>
-			<scope>system</scope>
-			<systemPath>${dir.lib}/org.eclipse.equinox.common_3.15.100.v20211021-1418.jar</systemPath>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse</groupId>
-			<artifactId>jface</artifactId>
-			<version>3.24.0.v20211110-1517</version>
-			<scope>system</scope>
-			<systemPath>${dir.lib}/org.eclipse.jface_3.24.0.v20211110-1517.jar</systemPath>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse</groupId>
-			<artifactId>osgi</artifactId>
-			<version>3.17.100.v20211104-1730</version>
-			<scope>system</scope>
-			<systemPath>${dir.lib}/org.eclipse.osgi_3.17.100.v20211104-1730.jar</systemPath>
+			<groupId>org.eclipse.platform</groupId>
+			<artifactId>org.eclipse.swt.cocoa.macosx.aarch64</artifactId>
+			<version>3.123.0</version>
 		</dependency>
 
 		<dependency>
