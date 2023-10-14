@@ -37,12 +37,15 @@ import org.springframework.core.SpringVersion;
  * @author Thilo Schwarz
  */
 public class ToolVersionInfo {
-	public static enum TYPE {
+	public enum TYPE {
 		title, version
 	}
 
 	public static Map<TYPE, String> getJava() {
-		return generateInfo(Object.class);
+		Map<TYPE, String> info = new HashMap<>(2);
+		info.put(TYPE.title, "Java");
+		info.put(TYPE.version, Runtime.version().toString());
+		return info;
 	}
 
 	public static Map<TYPE, String> getSpring() {
@@ -70,14 +73,14 @@ public class ToolVersionInfo {
 	}
 	
 	public static Map<TYPE, String> getSwt() {
-		Map<TYPE, String> info = new HashMap<TYPE, String>(2);
+		Map<TYPE, String> info = new HashMap<>(2);
 		info.put(TYPE.title, "SWT-" + SWT.getPlatform());
 		info.put(TYPE.version, String.valueOf(SWT.getVersion()));
 		return info;
 	}
 	
 	private static Map<TYPE, String> generateInfo(final Class<?> cls) {
-		Map<TYPE, String> info = new HashMap<TYPE, String>(2);
+		Map<TYPE, String> info = new HashMap<>(2);
 		info.put(TYPE.title, StringUtils.defaultIfEmpty(cls.getPackage().getImplementationTitle(), "Unknown"));
 		String version = StringUtils.defaultIfEmpty(cls.getPackage().getImplementationVersion(), cls.getPackage().getSpecificationVersion());
 		info.put(TYPE.version, StringUtils.defaultIfEmpty(version, "n/n"));
@@ -86,7 +89,7 @@ public class ToolVersionInfo {
 
 	private static Map<TYPE, String> getInfoFromMetaPom(final String groupId, final String artifactId) {
 		String pomPath = String.format("META-INF/maven/%s/%s/pom.properties", groupId, artifactId);
-		Map<TYPE, String> info = new HashMap<TYPE, String>(2);
+		Map<TYPE, String> info = new HashMap<>(2);
 		info.put(TYPE.title, "unknown");
 		info.put(TYPE.version, "n/n");
 
