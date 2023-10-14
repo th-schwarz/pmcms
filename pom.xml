@@ -29,7 +29,7 @@
 	</scm>
 
 	<properties>
-		<java.version>11</java.version>
+		<java.version>17</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<project.reporting.inputEncoding>UTF-8</project.reporting.inputEncoding>
@@ -40,13 +40,6 @@
 		<jetty.version>9.4.16.v20190411</jetty.version>
 		<dir.lib>${project.basedir}/lib/</dir.lib>
 	</properties>
-
-	<!--<distributionManagement>
-		<repository>
-			<id>thischwa.repo</id>
-			<url>${repo-url}</url>
-		</repository>
-	</distributionManagement>-->
 
 	<dependencies>
 		<dependency>
@@ -317,7 +310,7 @@
 
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.5.1</version>
+				<version>3.11.0</version>
 				<configuration>
 					<source>${java.version}</source>
 					<target>${java.version}</target>
